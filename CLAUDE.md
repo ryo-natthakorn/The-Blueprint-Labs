@@ -64,6 +64,11 @@ conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
   browsers cap concurrent WebGL contexts around 16 and the page will
   crash or stutter well before that. This limit applies to the Hub grid
   only, not to how sophisticated any individual site is allowed to be.
+- Reference all site-local assets (CSS, JS, images) via root-absolute
+  paths scoped to the site's own folder (e.g.
+  /sites/01-aurora-audio/style.css), never bare relative filenames —
+  these routes are served without a trailing slash, which breaks
+  relative-path resolution.
 
 ## Performance
 - **Hub (Phase 1/3):** Lighthouse 90+, FCP under ~2s — this is the entry
