@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VECTOR DRIFT — Night Signal Games</title>
+<meta name="description" content="Night Signal Games presents VECTOR DRIFT — the studio's site is the demo. Steer, dodge the pylons, harvest shards.">
+<meta name="theme-color" content="#0d0116">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/15-vector-drift/style.css">
+</head>
+<body>
+
+<canvas id="game" aria-label="Vector Drift — a playable neon lane-dodging game. Use arrow keys or drag to steer." role="img"></canvas>
+<div class="crt" aria-hidden="true"></div>
+
+<header class="studio">
+  <span class="studio-name">NIGHT SIGNAL</span>
+  <span class="studio-sub">games — demo cabinet 01</span>
+</header>
+
+<div class="hud" aria-hidden="true">
+  <div class="hud-item"><span class="hud-key">SCORE</span><span class="hud-val" id="score">0</span></div>
+  <div class="hud-item"><span class="hud-key">BEST</span><span class="hud-val" id="best">0</span></div>
+  <div class="hud-item"><span class="hud-key">SPEED</span><span class="hud-val" id="speed">—</span></div>
+</div>
+
+<div class="overlay" id="overlay">
+  <p class="ov-kicker" id="ov-kicker">NIGHT SIGNAL GAMES PRESENTS</p>
+  <h1 class="ov-title">VECTOR<br>DRIFT</h1>
+  <p class="ov-line" id="ov-line">steer with ← → or drag · harvest the shards · the pylons do not move for you</p>
+  <button class="ov-start" id="start">INSERT COIN</button>
+</div>
+
+<footer class="cab-foot">
+  <button class="mute" id="mute" aria-pressed="false" aria-label="Toggle sound">SND OFF</button>
+  <span>Night Signal is a fictional studio — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/15-vector-drift/script.js"></script>
+</body>
+</html>

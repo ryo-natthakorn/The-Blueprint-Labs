@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOLTAIC — Electric Motorcycles</title>
+<meta name="description" content="Voltaic — an electric motorcycle in a dark showroom, built from raw geometry. Orbit it, paint it, put it in Sport and watch it breathe.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter+Tight:wght@200;300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/19-voltaic-moto/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="showroom" aria-label="An electric motorcycle on a rotating showroom plinth. Drag to orbit, choose a paint, choose a ride mode." role="img"></canvas>
+
+<header class="marque">
+  <span class="marque-name">VOLTAIC</span>
+  <span class="marque-sub">electric motorcycles — model SIGMA</span>
+</header>
+
+<aside class="spec" aria-live="polite">
+  <div class="spec-row"><span class="spec-key">RANGE</span><span class="spec-val" id="s-range">280 km</span></div>
+  <div class="spec-row"><span class="spec-key">TORQUE</span><span class="spec-val" id="s-torque">140 Nm</span></div>
+  <div class="spec-row"><span class="spec-key">0–100</span><span class="spec-val" id="s-accel">3.4 s</span></div>
+  <div class="spec-row"><span class="spec-key">MODE</span><span class="spec-val" id="s-mode">STREET</span></div>
+</aside>
+
+<div class="config">
+  <div class="paints" role="group" aria-label="Paint">
+    <button class="paint" data-paint="volt" style="--p:#c8f549" aria-pressed="true" aria-label="Volt green paint"></button>
+    <button class="paint" data-paint="graphite" style="--p:#3d4148" aria-pressed="false" aria-label="Graphite paint"></button>
+    <button class="paint" data-paint="glacier" style="--p:#d7e4ec" aria-pressed="false" aria-label="Glacier white paint"></button>
+    <button class="paint" data-paint="signal" style="--p:#e04a2f" aria-pressed="false" aria-label="Signal orange paint"></button>
+  </div>
+  <div class="modes" role="group" aria-label="Ride mode">
+    <button class="mode" data-mode="street" aria-pressed="true">STREET</button>
+    <button class="mode" data-mode="sport" aria-pressed="false">SPORT</button>
+    <button class="mode" data-mode="rain" aria-pressed="false">RAIN</button>
+  </div>
+</div>
+
+<footer class="plate">
+  <span>Voltaic is a fictional marque — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/19-voltaic-moto/script.js"></script>
+</body>
+</html>

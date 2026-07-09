@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HALFTONE — Independent Record Label</title>
+<meta name="description" content="Halftone Records — the catalogue is a working turntable. Cue a record, drop the needle, drag the platter to bend the speed.">
+<meta name="theme-color" content="#171310">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/20-halftone-records/style.css">
+</head>
+<body>
+
+<canvas id="deck" aria-label="A turntable. The selected record spins while a generative loop plays; drag the platter to bend the speed." role="img"></canvas>
+
+<header class="label-head">
+  <span class="label-name">HALFTONE</span>
+  <span class="label-sub">independent records — est. somewhere warm</span>
+</header>
+
+<nav class="crate" aria-label="Catalogue">
+  <button class="sleeve" data-rec="0" aria-pressed="true">
+    <span class="sleeve-cat">HT-001</span>
+    <span class="sleeve-title">Dust Loops, Vol. 2</span>
+    <span class="sleeve-artist">Cassette Ghost</span>
+  </button>
+  <button class="sleeve" data-rec="1" aria-pressed="false">
+    <span class="sleeve-cat">HT-002</span>
+    <span class="sleeve-title">Night Bus</span>
+    <span class="sleeve-artist">Mira Wells</span>
+  </button>
+  <button class="sleeve" data-rec="2" aria-pressed="false">
+    <span class="sleeve-cat">HT-003</span>
+    <span class="sleeve-title">Paper Moon</span>
+    <span class="sleeve-artist">The Interval</span>
+  </button>
+  <button class="sleeve" data-rec="3" aria-pressed="false">
+    <span class="sleeve-cat">HT-004</span>
+    <span class="sleeve-title">Static Bloom</span>
+    <span class="sleeve-artist">Foyer</span>
+  </button>
+</nav>
+
+<div class="transport">
+  <button class="needle-btn" id="play">DROP&nbsp;THE&nbsp;NEEDLE</button>
+  <div class="rpm" role="group" aria-label="Speed">
+    <button class="rpm-btn" data-rpm="33" aria-pressed="true">33⅓</button>
+    <button class="rpm-btn" data-rpm="45" aria-pressed="false">45</button>
+  </div>
+  <p class="transport-hint" id="hint">generative — no two plays identical · drag the platter to bend it</p>
+</div>
+
+<footer class="runout">
+  <span>Halftone is a fictional label — a Blueprint Labs capability study. All audio is synthesized live, royalty-free by birth.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/20-halftone-records/script.js"></script>
+</body>
+</html>

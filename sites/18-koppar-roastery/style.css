@@ -1,0 +1,193 @@
+:root {
+  --cream: #f6f0e4;
+  --roast: #2f2019;
+  --roast-dim: rgba(47, 32, 25, 0.55);
+  --copper: #b0653a;
+  --hair: rgba(47, 32, 25, 0.16);
+  --serif: "DM Serif Display", serif;
+  --sans: "DM Sans", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--roast);
+  font-family: var(--sans);
+}
+
+#roaster {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.shopmark {
+  position: fixed;
+  top: clamp(1.6rem, 4.5vh, 2.8rem);
+  left: clamp(1.6rem, 4.5vw, 3.2rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+.shop-name {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 0.3em;
+}
+.shop-sub {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--roast-dim);
+}
+
+/* ---- cupping card ---- */
+.cupping {
+  position: fixed;
+  top: 50%;
+  right: clamp(1.6rem, 4.5vw, 3.4rem);
+  transform: translateY(-58%);
+  z-index: 10;
+  width: clamp(11rem, 22vw, 15rem);
+  pointer-events: none;
+}
+.cup-roast {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+  line-height: 1.05;
+  border-bottom: 2px solid var(--roast);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+.cup-temp {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  color: var(--copper);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.8rem;
+}
+.cup-notes {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+.cup-notes li {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--hair);
+  border-radius: 99px;
+  padding: 0.22rem 0.65rem;
+  background: rgba(255, 255, 255, 0.4);
+}
+.cup-advice {
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--roast-dim);
+  line-height: 1.5;
+}
+
+/* ---- bench controls ---- */
+.bench {
+  position: fixed;
+  bottom: clamp(6.2rem, 15vh, 9rem);
+  left: clamp(1.6rem, 4.5vw, 3.4rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.heat {
+  font: inherit;
+  font-weight: 600;
+  font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+  letter-spacing: 0.26em;
+  color: var(--cream);
+  background: var(--roast);
+  border: none;
+  border-radius: 99px;
+  padding: 1.05rem 2.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.heat:hover { background: var(--copper); }
+.heat.on {
+  background: var(--copper);
+  transform: scale(0.97);
+  box-shadow: 0 0 0 6px rgba(176, 101, 58, 0.25);
+}
+.heat:focus-visible { outline: 3px solid var(--copper); outline-offset: 3px; }
+.batch {
+  font: inherit;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--roast-dim);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hair);
+  padding: 0.35rem 0.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.batch:hover { color: var(--roast); border-color: var(--roast); }
+.batch:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+.bench-hint {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--roast-dim);
+}
+.bench-hint kbd {
+  font-family: inherit;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.counterline {
+  position: fixed;
+  bottom: 0.6rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--roast-dim);
+}
+.counterline a { color: var(--copper); text-decoration: none; }
+.counterline a:hover { text-decoration: underline; }
+.counterline a:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+@media (max-width: 820px) {
+  .cupping {
+    top: auto;
+    bottom: 12.5rem;
+    right: 1.2rem;
+    transform: none;
+    width: 10rem;
+  }
+  .cup-temp { font-size: 1.7rem; margin-bottom: 0.4rem; }
+  .cup-notes { display: none; }
+  .cup-advice { font-size: 0.8rem; }
+  .bench { bottom: 4.6rem; }
+  .bench-hint { display: none; }
+  .counterline span { display: none; }
+}

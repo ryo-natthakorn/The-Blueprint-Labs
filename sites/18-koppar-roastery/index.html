@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOPPAR — Micro Roastery</title>
+<meta name="description" content="Koppar — a micro roastery where you roast the batch yourself. Hold the heat, watch the curve, listen for first crack, try not to make charcoal.">
+<meta name="theme-color" content="#f6f0e4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/18-koppar-roastery/style.css">
+</head>
+<body>
+
+<canvas id="roaster" aria-label="A rotating coffee roasting drum full of beans that darken as you apply heat. A live roast curve draws underneath." role="img"></canvas>
+
+<header class="shopmark">
+  <span class="shop-name">KOPPAR</span>
+  <span class="shop-sub">micro roastery — batch nº 217</span>
+</header>
+
+<aside class="cupping" aria-live="polite">
+  <p class="cup-roast" id="cup-roast">GREEN</p>
+  <p class="cup-temp"><span id="cup-temp">21</span>°C</p>
+  <ul class="cup-notes" id="cup-notes">
+    <li>grass</li><li>hay</li><li>raw pea</li>
+  </ul>
+  <p class="cup-advice" id="cup-advice">unroasted. hold the heat.</p>
+</aside>
+
+<div class="bench">
+  <button class="heat" id="heat">HOLD&nbsp;FOR&nbsp;HEAT</button>
+  <button class="batch" id="batch">NEW BATCH</button>
+  <p class="bench-hint">or hold <kbd>space</kbd> — release to coast</p>
+</div>
+
+<footer class="counterline">
+  <span>Koppar is a fictional roastery — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/18-koppar-roastery/script.js"></script>
+</body>
+</html>

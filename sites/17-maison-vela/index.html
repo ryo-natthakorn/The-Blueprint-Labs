@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON VELA — Couture in One Length of Silk</title>
+<meta name="description" content="Maison Vela — a couture house shown as a single length of simulated silk. Drag your hand through it; choose the season's dye.">
+<meta name="theme-color" content="#101012">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/17-maison-vela/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="atelier" aria-label="A length of silk hanging in a dark atelier, moving in a simulated breeze. Drag across it to stir the fabric." role="img"></canvas>
+
+<header class="house">
+  <span class="house-name">MAISON&nbsp;VELA</span>
+  <span class="house-sub">couture · atelier nº 7</span>
+</header>
+
+<div class="manifesto">
+  <p>A collection is not forty looks.<br>
+  It is one decision about how cloth<br>
+  should behave, made forty times.</p>
+</div>
+
+<nav class="dyes" aria-label="The season's dyes">
+  <button class="dye" data-dye="ivory" aria-pressed="true"><span class="dye-chip" style="--dye:#e8e2d5"></span>Ivoire</button>
+  <button class="dye" data-dye="oxblood" aria-pressed="false"><span class="dye-chip" style="--dye:#5e1f24"></span>Sang-de-bœuf</button>
+  <button class="dye" data-dye="ink" aria-pressed="false"><span class="dye-chip" style="--dye:#1d2430"></span>Encre</button>
+  <button class="dye" data-dye="sage" aria-pressed="false"><span class="dye-chip" style="--dye:#8a9781"></span>Sauge</button>
+</nav>
+
+<p class="breath" id="breath">the silk answers the hand — drag through it</p>
+
+<footer class="hem">
+  <span>Maison Vela is a fictional house — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/17-maison-vela/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIGATURE — Variable Type Foundry</title>
+<meta name="description" content="LIGATURE — an independent type foundry. One variable specimen, every axis live under your cursor.">
+<meta name="theme-color" content="#111114">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/12-ligature-foundry/style.css">
+</head>
+<body>
+
+<main class="press" id="press">
+
+  <header class="masthead">
+    <span class="mast-name">LIGATURE</span>
+    <span class="mast-sub">independent type foundry — specimen nº 04</span>
+  </header>
+
+  <div class="axis-hud" aria-hidden="true">
+    <div class="axis"><span class="axis-tag">wght</span><span class="axis-val" id="v-wght">400</span><span class="axis-bar"><span id="b-wght"></span></span></div>
+    <div class="axis"><span class="axis-tag">opsz</span><span class="axis-val" id="v-opsz">72</span><span class="axis-bar"><span id="b-opsz"></span></span></div>
+    <div class="axis"><span class="axis-tag">SOFT</span><span class="axis-val" id="v-soft">0</span><span class="axis-bar"><span id="b-soft"></span></span></div>
+    <div class="axis"><span class="axis-tag">WONK</span><span class="axis-val" id="v-wonk">0</span><span class="axis-bar"><span id="b-wonk"></span></span></div>
+  </div>
+
+  <section class="stage" aria-label="Interactive type specimen. Move your pointer to change weight and optical size. Click or press Enter for the next word. Scroll to soften the terminals.">
+    <button class="specimen" id="specimen" aria-live="polite">Marmalade</button>
+    <p class="stage-hint" id="hint">move — weight &amp; optical size · scroll — softness · click — next word · W — wonk</p>
+  </section>
+
+  <div class="wave" id="wave" aria-hidden="true"></div>
+
+  <footer class="colophon">
+    <span>Ligature is a fictional foundry — a Blueprint Labs capability study.</span>
+    <span class="col-sep">·</span>
+    <span>Four live variable axes, bent in real time in your browser.</span>
+    <span class="col-sep">·</span>
+    <a href="/">← The Blueprint Labs</a>
+  </footer>
+
+</main>
+
+<script type="module" src="/sites/12-ligature-foundry/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BATHYAL — Deep Ocean Research Institute</title>
+<meta name="description" content="BATHYAL — a deep ocean research institute. Scroll from the surface to 6,000 metres: the light dies, the animals start to glow.">
+<meta name="theme-color" content="#02121e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/13-bathyal-institute/style.css">
+</head>
+<body>
+
+<canvas id="ocean" aria-hidden="true"></canvas>
+
+<header class="brand">
+  <span class="brand-name">BATHYAL</span>
+  <span class="brand-sub">deep ocean research institute</span>
+</header>
+
+<aside class="hud" aria-hidden="true">
+  <div class="hud-row"><span class="hud-key">DEPTH</span><span class="hud-val" id="hud-depth">0 m</span></div>
+  <div class="hud-row"><span class="hud-key">PRESSURE</span><span class="hud-val" id="hud-press">1 atm</span></div>
+  <div class="hud-row"><span class="hud-key">TEMP</span><span class="hud-val" id="hud-temp">21.0 °C</span></div>
+  <div class="hud-row"><span class="hud-key">SUNLIGHT</span><span class="hud-val" id="hud-light">100%</span></div>
+  <div class="hud-gauge"><span id="hud-bar"></span></div>
+</aside>
+
+<p class="start-cue" id="start-cue">scroll to descend<span class="cue-arrow">↓</span></p>
+
+<!-- The scroll track. Each station is real, readable content pinned to a depth. -->
+<main id="track">
+  <section class="station" data-depth="0">
+    <h1>The ocean is a building<br>six kilometres tall.</h1>
+    <p>Bathyal operates crewed and autonomous descents through every floor
+    of it. This page is one continuous dive — scroll, and mind the pressure.</p>
+  </section>
+
+  <section class="station" data-depth="150">
+    <h2>−150 m · Epipelagic</h2>
+    <p>The last of the weather. Baitfish shoal where the light still
+    reaches; everything below here runs on what sinks.</p>
+  </section>
+
+  <section class="station" data-depth="700">
+    <h2>−700 m · Mesopelagic</h2>
+    <p>The twilight zone. Our acoustic arrays log the largest animal
+    migration on Earth here, nightly, in the dark.</p>
+  </section>
+
+  <section class="station" data-depth="1600">
+    <h2>−1,600 m · Bathypelagic</h2>
+    <p>No sunlight has ever reached this water. Four out of five animals
+    at this depth make their own — move your pointer, and so will you.</p>
+  </section>
+
+  <section class="station" data-depth="3000">
+    <h2>−3,000 m · Abyssal plain approach</h2>
+    <p>Pressure: three hundred atmospheres. Our vehicles are titanium
+    spheres pretending to be indifferent.</p>
+  </section>
+
+  <section class="station" data-depth="4500">
+    <h2>−4,500 m · Something large</h2>
+    <p>The cameras catch a silhouette perhaps once a season.
+    We name them; they ignore us.</p>
+  </section>
+
+  <section class="station station-floor" data-depth="6000">
+    <h2>−6,000 m · Station VI</h2>
+    <p>A hydrothermal vent field and the institute's deepest lab.
+    Chemosynthesis, tube worms, water at 380 °C that cannot boil.
+    This is the ground floor of the planet.</p>
+    <p class="floor-note">Bathyal is a fictional institute — a Blueprint Labs
+    capability study. <a href="/">← The Blueprint Labs</a></p>
+  </section>
+</main>
+
+<script type="module" src="/sites/13-bathyal-institute/script.js"></script>
+</body>
+</html>

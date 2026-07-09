@@ -1,0 +1,184 @@
+:root {
+  --paper: #111114;
+  --paper-2: #17171b;
+  --ink: #f2ede4;
+  --ink-dim: rgba(242, 237, 228, 0.4);
+  --acid: #d9ff44;
+  --rule: rgba(242, 237, 228, 0.14);
+  --serif: "Fraunces", serif;
+  --grot: "Space Grotesk", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--grot);
+}
+
+.press {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  position: relative;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, var(--paper-2), transparent),
+    var(--paper);
+}
+
+/* ---- masthead ---- */
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.4rem clamp(1.4rem, 4vw, 3.2rem) 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.mast-name {
+  font-family: var(--serif);
+  font-variation-settings: "wght" 600, "opsz" 40, "SOFT" 0, "WONK" 1;
+  letter-spacing: 0.34em;
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+}
+.mast-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* ---- axis HUD ---- */
+.axis-hud {
+  position: absolute;
+  top: clamp(5rem, 12vh, 7rem);
+  right: clamp(1.4rem, 4vw, 3.2rem);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  pointer-events: none;
+}
+.axis {
+  display: grid;
+  grid-template-columns: 3.2em 3.4em 7rem;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.72rem;
+}
+.axis-tag {
+  letter-spacing: 0.18em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+.axis-val {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--acid);
+}
+.axis-bar {
+  position: relative;
+  height: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+.axis-bar span {
+  position: absolute;
+  inset: 0;
+  background: var(--acid);
+  transform-origin: left;
+  transform: scaleX(0.4);
+}
+
+/* ---- stage ---- */
+.stage {
+  display: grid;
+  place-items: center;
+  position: relative;
+  min-height: 0;
+}
+.specimen {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 14.5vw, 14rem);
+  line-height: 0.95;
+  color: var(--ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0.3em;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-variation-settings: "wght" 400, "opsz" 72, "SOFT" 0, "WONK" 0;
+  transition: color 0.4s ease;
+}
+.specimen::selection { background: var(--acid); color: var(--paper); }
+.specimen:focus-visible { outline: 2px solid var(--acid); outline-offset: 8px; }
+.specimen.swap { animation: swap 0.5s ease; }
+@keyframes swap {
+  0% { opacity: 1; filter: blur(0); }
+  45% { opacity: 0; filter: blur(6px); transform: translateY(0.06em); }
+  55% { opacity: 0; }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+.stage-hint {
+  position: absolute;
+  bottom: clamp(0.8rem, 3vh, 1.8rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  white-space: nowrap;
+  transition: opacity 1s ease;
+}
+
+/* ---- glyph wave ---- */
+.wave {
+  display: flex;
+  justify-content: center;
+  gap: 0.1em;
+  padding: 0.9rem 0 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: var(--ink-dim);
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+.wave span {
+  display: inline-block;
+  font-variation-settings: "wght" 300, "opsz" 30, "SOFT" 0, "WONK" 0;
+}
+
+/* ---- colophon ---- */
+.colophon {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem 0.9rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+}
+.colophon a { color: var(--acid); text-decoration: none; }
+.colophon a:hover { text-decoration: underline; }
+.colophon a:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+.col-sep { opacity: 0.5; }
+
+@media (max-width: 720px) {
+  .axis-hud { display: none; }
+  .stage-hint { display: none; }
+  .colophon .col-sep, .colophon span:nth-child(3) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specimen.swap { animation: none; }
+}

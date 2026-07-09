@@ -22,3 +22,14 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 - [08-glacier-water] Glacier — Premium Water / raymarched, refraction, serene — built by Fable 5
 - [09-noctua-observatory] Noctua Observatory — Public Observatory / celestial, explorable map, storytelling — built by Fable 5
 - [10-ember-bakery] Ember — Artisan Bakery / firelit, editorial, living light — built by Fable 5
+- [11-vertex-architecture] Vertex — Architecture Studio / blueprint, line-drawn 3D, drafting — built by Fable 5
+- [12-ligature-foundry] LIGATURE — Type Foundry / kinetic type, variable font, editorial — built by Fable 5
+- [13-bathyal-institute] BATHYAL — Ocean Research / scroll-driven, bioluminescent, narrative — built by Fable 5
+- [14-suminaga-teahouse] SUMINAGA — Tea House / suminagashi, generative, light zen — built by Fable 5
+- [15-vector-drift] VECTOR DRIFT — Game Studio / synthwave, playable, CRT — built by Fable 5
+- [16-orrery-capital] ORRERY — Quantitative Finance / GPU particles, celestial, data-luxe — built by Fable 5
+- [17-maison-vela] MAISON VELA — Haute Couture / cloth simulation, atmospheric, luxury minimal — built by Fable 5
+- [18-koppar-roastery] KOPPAR — Coffee Roastery / interactive appliance, warm light, data-drawn — built by Fable 5
+- [19-voltaic-moto] VOLTAIC — Electric Motorcycles / showroom 3D, configurator, dark product — built by Fable 5
+- [20-halftone-records] HALFTONE — Record Label / retro print, playable instrument, generative audio — built by Fable 5
+- [21-petrichor-atmos] PETRICHOR — Weather Intelligence / procedural sky, shader, instrument panel — built by Fable 5

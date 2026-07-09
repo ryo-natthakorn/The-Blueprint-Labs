@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORRERY — Quantitative Asset Management</title>
+<meta name="description" content="Orrery Capital — a quantitative fund that models markets like celestial mechanics. 40,000 instruments in orbit; drag the sky, raise the volatility.">
+<meta name="theme-color" content="#050810">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/16-orrery-capital/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="sky" aria-label="An orrery of forty thousand orbiting particles representing market instruments. Drag to rotate; the volatility dial disturbs the orbits." role="img"></canvas>
+
+<header class="wordmark">
+  <span class="wm-name">ORRERY</span>
+  <span class="wm-sub">quantitative asset management</span>
+</header>
+
+<div class="thesis">
+  <h1>Markets are not chaos.<br><em>They are mechanics<br>observed too closely.</em></h1>
+</div>
+
+<aside class="metrics" aria-hidden="true">
+  <div class="metric"><span class="m-key">INSTRUMENTS IN ORBIT</span><span class="m-val" id="m-count">40,000</span></div>
+  <div class="metric"><span class="m-key">REGIME</span><span class="m-val" id="m-regime">EQUILIBRIUM</span></div>
+  <div class="metric"><span class="m-key">REALIZED VOL</span><span class="m-val" id="m-vol">11.2%</span></div>
+</aside>
+
+<div class="dial-wrap">
+  <label class="dial-label" for="vol">VOLATILITY</label>
+  <input type="range" id="vol" min="0" max="100" value="16" aria-label="Volatility — disturbs the orbits">
+  <button class="regime-btn" id="regime">SHIFT REGIME</button>
+</div>
+
+<div class="tape" aria-hidden="true"><div class="tape-inner" id="tape"></div></div>
+
+<footer class="disclaimer">
+  <span>Orrery is a fictional fund — a Blueprint Labs capability study. Nothing here is advice; nothing here is even real.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/16-orrery-capital/script.js"></script>
+</body>
+</html>

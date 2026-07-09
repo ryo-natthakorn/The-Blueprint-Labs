@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUMINAGA — Tea House &amp; Ink Atelier</title>
+<meta name="description" content="Suminaga — a tea house where the menu is marbled, not printed. Drop ink on water, comb it with your cursor, choose your tea.">
+<meta name="theme-color" content="#f2ecdf">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/14-suminaga-teahouse/style.css">
+</head>
+<body>
+
+<canvas id="water" aria-label="A basin of still water. Click to drop ink; drag to comb it into marbled patterns." role="img"></canvas>
+
+<header class="mon">
+  <span class="mon-kanji" aria-hidden="true">墨流</span>
+  <div class="mon-latin">
+    <span class="mon-name">SUMINAGA</span>
+    <span class="mon-sub">tea house &amp; ink atelier</span>
+  </div>
+</header>
+
+<nav class="teas" aria-label="Choose a tea — it becomes your ink">
+  <button class="tea" data-color="#26262b" data-pale="#8e8e96" aria-pressed="true">
+    <span class="tea-dot" style="--c:#26262b"></span>
+    <span class="tea-name">Sumi Hōji</span>
+    <span class="tea-note">roasted, inkwood, smoke</span>
+  </button>
+  <button class="tea" data-color="#4a6b52" data-pale="#a7bfab" aria-pressed="false">
+    <span class="tea-dot" style="--c:#4a6b52"></span>
+    <span class="tea-name">Matcha Kiri</span>
+    <span class="tea-note">stone-milled, spring mist</span>
+  </button>
+  <button class="tea" data-color="#8a4a3b" data-pale="#c69a8e" aria-pressed="false">
+    <span class="tea-dot" style="--c:#8a4a3b"></span>
+    <span class="tea-name">Aka Kōcha</span>
+    <span class="tea-note">amber, dried plum, kiln</span>
+  </button>
+  <button class="tea" data-color="#3b5468" data-pale="#9db2c2" aria-pressed="false">
+    <span class="tea-dot" style="--c:#3b5468"></span>
+    <span class="tea-name">Yoru Gyokuro</span>
+    <span class="tea-note">shaded, sea stone, night</span>
+  </button>
+</nav>
+
+<p class="whisper" id="whisper">touch the water — ink first, then the comb</p>
+
+<div class="rites">
+  <button class="rite" id="clear">still the water</button>
+</div>
+
+<footer class="floor-line">
+  <span>Suminaga is a fictional tea house — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/14-suminaga-teahouse/script.js"></script>
+</body>
+</html>

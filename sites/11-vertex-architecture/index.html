@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertex — Architecture, Sheet by Sheet</title>
+<meta name="description" content="Vertex — an architecture studio. Three unbuilt projects draw themselves as living blueprints on one drawing sheet.">
+<meta name="theme-color" content="#0a1b30">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/11-vertex-architecture/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="sheet-border" aria-hidden="true"></div>
+
+  <canvas id="drawing" aria-label="A wireframe building drawing itself line by line on a blueprint sheet. Drag to orbit." role="img"></canvas>
+
+  <header class="studio">
+    <span class="studio-mark" aria-hidden="true">▲</span>
+    <span class="studio-name">VERTEX</span>
+    <span class="studio-sub">architecture &amp; structures</span>
+  </header>
+
+  <nav class="drawings" aria-label="Select a project drawing">
+    <button class="dwg" data-design="0" aria-pressed="true">
+      <span class="dwg-no">DWG-01</span>
+      <span class="dwg-name">Meridian Tower</span>
+    </button>
+    <button class="dwg" data-design="1" aria-pressed="false">
+      <span class="dwg-no">DWG-02</span>
+      <span class="dwg-name">Courtyard Pavilion</span>
+    </button>
+    <button class="dwg" data-design="2" aria-pressed="false">
+      <span class="dwg-no">DWG-03</span>
+      <span class="dwg-name">The Circle Archive</span>
+    </button>
+  </nav>
+
+  <aside class="annotations" aria-live="polite">
+    <p class="anno" id="anno-height"><span class="anno-key">HEIGHT</span><span class="anno-val">—</span></p>
+    <p class="anno" id="anno-floors"><span class="anno-key">FLOORS</span><span class="anno-val">—</span></p>
+    <p class="anno" id="anno-area"><span class="anno-key">GFA</span><span class="anno-val">—</span></p>
+    <p class="anno" id="anno-status"><span class="anno-key">STATUS</span><span class="anno-val">—</span></p>
+  </aside>
+
+  <p class="site-note" aria-hidden="true" id="site-note">"the client asked for a landmark.<br>we asked the site first."</p>
+
+  <div class="titleblock" aria-hidden="true">
+    <div class="tb-row"><span class="tb-key">PROJECT</span><span class="tb-val" id="tb-project">MERIDIAN TOWER</span></div>
+    <div class="tb-row"><span class="tb-key">SHEET</span><span class="tb-val" id="tb-sheet">A-101 · MASSING</span></div>
+    <div class="tb-row"><span class="tb-key">SCALE</span><span class="tb-val">1 : 500 @ A1</span></div>
+    <div class="tb-row"><span class="tb-key">DRAWN</span><span class="tb-val">VX / studio</span></div>
+    <div class="tb-row tb-stamp"><span>NOT FOR CONSTRUCTION</span></div>
+  </div>
+
+  <footer class="baseline">
+    <span>Vertex is a fictional studio — a Blueprint Labs capability study.</span>
+    <a href="../../">← The Blueprint Labs</a>
+  </footer>
+</div>
+
+<script type="module" src="/sites/11-vertex-architecture/script.js"></script>
+</body>
+</html>

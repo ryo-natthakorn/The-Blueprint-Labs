@@ -1,0 +1,157 @@
+:root {
+  --atelier: #101012;
+  --bone: #e8e2d5;
+  --bone-dim: rgba(232, 226, 213, 0.45);
+  --hair: rgba(232, 226, 213, 0.14);
+  --serif: "Cormorant Garamond", serif;
+  --sans: "Jost", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--atelier);
+  color: var(--bone);
+  font-family: var(--sans);
+}
+
+#atelier {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.house {
+  position: fixed;
+  top: clamp(1.8rem, 5vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+.house-name {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  letter-spacing: 0.55em;
+  padding-left: 0.55em; /* optically recenter tracked type */
+}
+.house-sub {
+  font-weight: 200;
+  font-size: 0.6rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.manifesto {
+  position: fixed;
+  left: clamp(1.8rem, 5vw, 4rem);
+  bottom: clamp(6.5rem, 16vh, 10rem);
+  z-index: 10;
+  pointer-events: none;
+}
+.manifesto p {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1rem, 2.1vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.dyes {
+  position: fixed;
+  right: clamp(1.8rem, 5vw, 4rem);
+  bottom: clamp(6.5rem, 16vh, 10rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+}
+.dye {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font: inherit;
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: var(--bone-dim);
+  background: none;
+  border: none;
+  padding: 0.3rem 0.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+.dye:hover { color: var(--bone); letter-spacing: 0.24em; }
+.dye:focus-visible { outline: 1px solid var(--bone); outline-offset: 4px; }
+.dye[aria-pressed="true"] { color: var(--bone); }
+.dye[aria-pressed="true"] .dye-chip { outline: 1px solid var(--bone); outline-offset: 3px; }
+.dye-chip {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--dye);
+  border: 1px solid rgba(232, 226, 213, 0.25);
+}
+
+.breath {
+  position: fixed;
+  bottom: clamp(2.6rem, 7vh, 4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-weight: 200;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  pointer-events: none;
+  transition: opacity 1.6s ease;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.hem {
+  position: fixed;
+  bottom: 0.6rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  font-weight: 300;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: rgba(232, 226, 213, 0.35);
+}
+.hem a { color: var(--bone-dim); text-decoration: none; }
+.hem a:hover { color: var(--bone); }
+.hem a:focus-visible { outline: 1px solid var(--bone); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .manifesto { display: none; }
+  .dyes {
+    flex-direction: row;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 5rem;
+    gap: 1rem;
+  }
+  .dye { font-size: 0; gap: 0; }        /* chips only */
+  .dye .dye-chip { width: 1.15rem; height: 1.15rem; }
+  .breath { bottom: 2.4rem; }
+  .hem span { display: none; }
+}

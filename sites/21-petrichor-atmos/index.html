@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PETRICHOR — Atmospheric Intelligence</title>
+<meta name="description" content="Petrichor — atmospheric intelligence. One procedural sky: scrub the hour, raise a storm, wait for the lightning.">
+<meta name="theme-color" content="#0e131c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700&family=Manrope:wght@200;300;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/21-petrichor-atmos/style.css">
+</head>
+<body>
+
+<canvas id="sky" aria-label="A procedural sky of drifting clouds. Controls scrub the time of day and raise a storm." role="img"></canvas>
+
+<header class="obs">
+  <span class="obs-name">PETRICHOR</span>
+  <span class="obs-sub">atmospheric intelligence</span>
+</header>
+
+<div class="reading" aria-live="polite">
+  <p class="reading-cond" id="cond">FAIR</p>
+  <div class="reading-grid">
+    <div class="rd"><span class="rd-key">LOCAL</span><span class="rd-val" id="rd-time">14:00</span></div>
+    <div class="rd"><span class="rd-key">TEMP</span><span class="rd-val" id="rd-temp">19°</span></div>
+    <div class="rd"><span class="rd-key">WIND</span><span class="rd-val" id="rd-wind">9 kt</span></div>
+    <div class="rd"><span class="rd-key">CEILING</span><span class="rd-val" id="rd-ceil">high</span></div>
+  </div>
+</div>
+
+<div class="console">
+  <div class="ctl">
+    <label for="hour">HOUR <span id="hour-out">14:00</span></label>
+    <input type="range" id="hour" min="0" max="24" step="0.1" value="14" aria-label="Time of day">
+  </div>
+  <div class="ctl">
+    <label for="storm">STORM <span id="storm-out">calm</span></label>
+    <input type="range" id="storm" min="0" max="100" value="12" aria-label="Storm intensity">
+  </div>
+</div>
+
+<footer class="baseline">
+  <span>Petrichor is a fictional service — a Blueprint Labs capability study. The sky is a fragment shader.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/21-petrichor-atmos/script.js"></script>
+</body>
+</html>

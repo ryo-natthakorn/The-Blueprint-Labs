@@ -1,0 +1,237 @@
+:root {
+  --blueprint: #0a1b30;
+  --blueprint-deep: #071426;
+  --line: #7fd4ff;
+  --line-dim: rgba(127, 212, 255, 0.4);
+  --chalk: #dceefc;
+  --font-tech: "Archivo", sans-serif;
+  --font-hand: "Caveat", cursive;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--blueprint-deep);
+  color: var(--chalk);
+  font-family: var(--font-tech);
+}
+
+.sheet {
+  position: relative;
+  height: 100%;
+  background:
+    /* fine grid */
+    linear-gradient(rgba(127, 212, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 212, 255, 0.055) 1px, transparent 1px),
+    /* coarse grid */
+    linear-gradient(rgba(127, 212, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 212, 255, 0.09) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 40%, #0d2440, var(--blueprint) 60%);
+  background-color: var(--blueprint);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px, 100% 100%;
+}
+
+.sheet-border {
+  position: absolute;
+  inset: clamp(10px, 1.8vw, 22px);
+  border: 1.5px solid var(--line-dim);
+  pointer-events: none;
+  z-index: 8;
+}
+.sheet-border::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 0.5px solid rgba(127, 212, 255, 0.22);
+}
+
+#drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  z-index: 2;
+  touch-action: none;
+}
+#drawing:active { cursor: grabbing; }
+
+.studio {
+  position: absolute;
+  top: clamp(2rem, 4.5vh, 3.4rem);
+  left: clamp(2.2rem, 5vw, 4rem);
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  pointer-events: none;
+}
+.studio-mark { color: var(--line); font-size: 1.1rem; }
+.studio-name {
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+  letter-spacing: 0.42em;
+}
+.studio-sub {
+  font-weight: 300;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--line-dim);
+}
+
+.drawings {
+  position: absolute;
+  top: clamp(6rem, 13vh, 8.5rem);
+  left: clamp(2.2rem, 5vw, 4rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.dwg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12rem;
+  font: inherit;
+  text-align: left;
+  color: var(--chalk);
+  background: rgba(10, 27, 48, 0.65);
+  border: 1px solid var(--line-dim);
+  padding: 0.6rem 1rem;
+  min-width: 12.5rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+.dwg:hover { transform: translateX(4px); border-color: var(--line); }
+.dwg:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+.dwg[aria-pressed="true"] {
+  border-color: var(--line);
+  background: rgba(127, 212, 255, 0.1);
+  box-shadow: inset 3px 0 0 var(--line);
+}
+.dwg-no {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--line);
+}
+.dwg-name {
+  font-weight: 500;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+}
+
+.annotations {
+  position: absolute;
+  right: clamp(2.2rem, 5vw, 4rem);
+  top: clamp(6rem, 13vh, 8.5rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.anno {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+  min-width: 11rem;
+  font-size: 0.78rem;
+  border-bottom: 1px dashed rgba(127, 212, 255, 0.3);
+  padding-bottom: 0.3rem;
+}
+.anno-key {
+  font-size: 0.6rem;
+  letter-spacing: 0.26em;
+  color: var(--line-dim);
+  align-self: center;
+}
+.anno-val {
+  font-weight: 500;
+  color: var(--chalk);
+  font-variant-numeric: tabular-nums;
+}
+
+.site-note {
+  position: absolute;
+  left: clamp(2.2rem, 5vw, 4rem);
+  bottom: clamp(5.5rem, 13vh, 8rem);
+  z-index: 10;
+  font-family: var(--font-hand);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.35;
+  color: var(--line);
+  transform: rotate(-2.2deg);
+  pointer-events: none;
+}
+
+.titleblock {
+  position: absolute;
+  right: clamp(1.6rem, 3.5vw, 3rem);
+  bottom: clamp(2.6rem, 6vh, 3.6rem);
+  z-index: 10;
+  border: 1px solid var(--line-dim);
+  background: rgba(7, 20, 38, 0.8);
+  min-width: 15rem;
+}
+.tb-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: 0.38rem 0.8rem;
+  border-bottom: 1px solid rgba(127, 212, 255, 0.18);
+  font-size: 0.68rem;
+}
+.tb-row:last-child { border-bottom: none; }
+.tb-key {
+  letter-spacing: 0.24em;
+  font-size: 0.56rem;
+  color: var(--line-dim);
+  align-self: center;
+}
+.tb-val { font-weight: 500; letter-spacing: 0.05em; }
+.tb-stamp {
+  justify-content: center;
+  color: #ff8f7a;
+  letter-spacing: 0.3em;
+  font-size: 0.58rem;
+  font-weight: 600;
+  border-top: 1px dashed rgba(255, 143, 122, 0.5);
+}
+
+.baseline {
+  position: absolute;
+  bottom: 0.55rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: rgba(220, 238, 252, 0.45);
+  z-index: 10;
+}
+.baseline a { color: var(--line); text-decoration: none; }
+.baseline a:hover { text-decoration: underline; }
+.baseline a:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+
+@media (max-width: 880px) {
+  .annotations { display: none; }
+  .site-note { display: none; }
+  .drawings {
+    flex-direction: row;
+    top: auto;
+    bottom: clamp(6.5rem, 15vh, 9rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    overflow-x: auto;
+  }
+  .dwg { min-width: 0; padding: 0.5rem 0.8rem; }
+  .titleblock { display: none; }
+}
