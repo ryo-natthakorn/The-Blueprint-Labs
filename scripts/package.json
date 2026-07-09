@@ -1,0 +1,14 @@
+{
+  "name": "blueprint-labs-scripts",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dev tooling for The Blueprint Labs monorepo. Not part of the deployed static site.",
+  "type": "commonjs",
+  "scripts": {
+    "screenshot": "node screenshot.js",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  }
+}

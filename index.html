@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Blueprint Labs — Premium Web Design Portfolio</title>
+<meta name="description" content="The Blueprint Labs — a showcase of code-driven visual design across business verticals and aesthetic styles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="logo">The Blueprint Labs</a>
+    <p class="tagline">Code-driven visual design, one concept per site.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="controls" aria-label="Filter and sort projects">
+    <div class="control-group">
+      <label for="filter-vertical">Vertical</label>
+      <select id="filter-vertical">
+        <option value="">All verticals</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="filter-style">Style</label>
+      <select id="filter-style">
+        <option value="">All styles</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="sort-by">Sort by</label>
+      <select id="sort-by">
+        <option value="default">Default</option>
+        <option value="title-asc">Title A–Z</option>
+        <option value="title-desc">Title Z–A</option>
+        <option value="vertical">Vertical</option>
+      </select>
+    </div>
+
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+  </section>
+
+  <section class="grid" id="project-grid" aria-label="Project cards">
+    <!-- cards rendered by script.js -->
+  </section>
+
+  <p class="empty-state" id="empty-state" hidden>No sites yet — check back soon.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>&copy; 2026 The Blueprint Labs</p>
+    <div class="footer-contact">
+      <a href="mailto:TODO:contact@example.com">TODO: contact email</a>
+      <a href="https://TODO-fastwork-profile-url.example" target="_blank" rel="noopener noreferrer">TODO: Fastwork profile</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
