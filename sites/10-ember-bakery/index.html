@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember — Bread by Firelight</title>
+<meta name="description" content="Ember — a wood-fired bakery open only while the oven burns. Keep the fire stoked to read the menu by its light.">
+<meta name="theme-color" content="#160d06">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,600;1,6..12,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="fire" aria-label="A wood fire burning in a brick oven. Its light illuminates the page." role="img"></canvas>
+<div class="lightfield" id="lightfield" aria-hidden="true"></div>
+
+<main class="room">
+  <header class="sign">
+    <h1 class="sign-name">EMBER</h1>
+    <p class="sign-sub">wood-fired bakery · open while the fire burns</p>
+  </header>
+
+  <section class="menu" aria-label="Tonight's bake">
+    <article class="loaf loaf-1">
+      <h2>Midnight Miche</h2>
+      <p class="loaf-desc">Two-kilo country round, 36-hour ferment. The crust
+      is the colour of the last hour of the fire.</p>
+      <span class="loaf-price">— nine</span>
+    </article>
+    <article class="loaf loaf-2">
+      <h2>Ember Rye</h2>
+      <p class="loaf-desc">Dark rye with molasses and a whisper of smoke it
+      picks up honestly, from the room itself.</p>
+      <span class="loaf-price">— seven</span>
+    </article>
+    <article class="loaf loaf-3">
+      <h2>Ash Crust Sour</h2>
+      <p class="loaf-desc">Baked directly on the hearth stones after the
+      flames retire. Flour, water, salt, patience, heat.</p>
+      <span class="loaf-price">— eight</span>
+    </article>
+    <article class="loaf loaf-4">
+      <h2>The Baker's Mistake</h2>
+      <p class="loaf-desc">Whatever went sideways tonight, sold honest and
+      warm. Historically our most beloved item.</p>
+      <span class="loaf-price">— four</span>
+    </article>
+  </section>
+
+  <div class="hearth-zone">
+    <div class="oven-arch" aria-hidden="true"></div>
+    <button class="stoke" id="stoke" type="button">
+      <span class="stoke-icon" aria-hidden="true">⤾</span>
+      hold to stoke the fire
+    </button>
+    <p class="fire-meter" aria-hidden="true">
+      <span class="meter-label" id="meter-label">fire: steady</span>
+      <span class="meter-track"><span class="meter-fill" id="meter-fill"></span></span>
+    </p>
+  </div>
+</main>
+
+<footer class="baseline">
+  <span>Ember is a fictional bakery — a Blueprint Labs capability study.</span>
+  <a href="../../">← The Blueprint Labs</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

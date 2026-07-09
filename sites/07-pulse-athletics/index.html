@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSE — Interval Training Club</title>
+<meta name="description" content="PULSE — a boutique interval-training gym. Grab the dial, scrub the workout, feel the tempo.">
+<meta name="theme-color" content="#0c0d0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="marquee marquee-top" aria-hidden="true">
+  <div class="marquee-inner" id="mq-top">
+    <span>NO MIRRORS · NO MACHINES · NO MERCY · JUST THE CLOCK ·&nbsp;</span>
+    <span>NO MIRRORS · NO MACHINES · NO MERCY · JUST THE CLOCK ·&nbsp;</span>
+  </div>
+</div>
+
+<main class="arena">
+  <header class="masthead">
+    <span class="logo">PULSE<span class="logo-dot" id="logo-dot"></span></span>
+    <span class="club">INTERVAL TRAINING CLUB — EST. ON A TUESDAY</span>
+  </header>
+
+  <section class="dial-zone">
+    <h1 class="phase-word" id="phase-word" aria-live="polite">WORK</h1>
+
+    <div class="dial-wrap">
+      <svg class="dial" id="dial" viewBox="0 0 200 200" role="slider" tabindex="0"
+           aria-label="Workout scrubber dial. Drag to move through the interval, or use arrow keys."
+           aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-valuetext="0 seconds">
+        <circle class="dial-track" cx="100" cy="100" r="88"/>
+        <path class="dial-work" id="dial-work" />
+        <path class="dial-rest" id="dial-rest" />
+        <circle class="dial-progress-dot" id="dial-dot" cx="100" cy="12" r="6"/>
+        <g class="dial-ticks" id="dial-ticks"></g>
+        <text class="dial-time" id="dial-time" x="100" y="94" text-anchor="middle">0:00</text>
+        <text class="dial-sub" x="100" y="118" text-anchor="middle">of 1:00 round</text>
+      </svg>
+      <p class="dial-hint" aria-hidden="true">↻ drag the ring · space to run</p>
+    </div>
+
+    <div class="stats" aria-hidden="true">
+      <div class="stat"><span class="stat-num" id="stat-bpm">128</span><span class="stat-label">BPM TARGET</span></div>
+      <div class="stat"><span class="stat-num" id="stat-round">01</span><span class="stat-label">ROUND</span></div>
+      <div class="stat"><span class="stat-num" id="stat-effort">86%</span><span class="stat-label">EFFORT</span></div>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <p class="line-item" data-slam>40 SECONDS ON.</p>
+    <p class="line-item" data-slam>20 SECONDS TO REMEMBER YOUR NAME.</p>
+    <p class="line-item" data-slam>REPEAT UNTIL NEW.</p>
+  </section>
+</main>
+
+<div class="marquee marquee-bottom" aria-hidden="true">
+  <div class="marquee-inner" id="mq-bottom">
+    <span>SWEAT IS JUST YOUR BODY APPLAUDING ·&nbsp;</span>
+    <span>SWEAT IS JUST YOUR BODY APPLAUDING ·&nbsp;</span>
+  </div>
+</div>
+
+<footer class="baseline">
+  <span>PULSE is a fictional club — a Blueprint Labs capability study.</span>
+  <a href="../../">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

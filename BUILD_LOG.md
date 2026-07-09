@@ -17,3 +17,8 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 - [03-nova-orbit] Nova Orbit — Space Tourism / cinematic, scroll-driven, shader sky — built by Fable 5
 - [04-cipher-security] CIPHER — Cybersecurity / terminal, CRT, interactive fiction — built by Fable 5
 - [05-flora-lab] Flora Lab — Botanical Perfumery / generative, botanical, playful — built by Fable 5
+- [06-meridian-watches] Meridian — Horology / ultra-luxury, exploded view, product anatomy — built by Fable 5
+- [07-pulse-athletics] PULSE — Boutique Fitness / brutalist, kinetic type, interactive dial — built by Fable 5
+- [08-glacier-water] Glacier — Premium Water / raymarched, refraction, serene — built by Fable 5
+- [09-noctua-observatory] Noctua Observatory — Public Observatory / celestial, explorable map, storytelling — built by Fable 5
+- [10-ember-bakery] Ember — Artisan Bakery / firelit, editorial, living light — built by Fable 5

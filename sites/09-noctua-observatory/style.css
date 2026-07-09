@@ -1,0 +1,178 @@
+:root {
+  --night: #040711;
+  --star: #e8edff;
+  --gold: #d9b970;
+  --haze: #8a93b8;
+  --font-serif: "Spectral", serif;
+  --font-sans: "Sora", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--star);
+  font-family: var(--font-sans);
+}
+
+#sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+#sky:active { cursor: grabbing; }
+#sky:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+
+.station {
+  position: fixed;
+  top: clamp(1.4rem, 4vh, 2.8rem);
+  left: clamp(1.4rem, 4vw, 3rem);
+  z-index: 5;
+  pointer-events: none;
+}
+.station-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 0.5em;
+}
+.station-sub {
+  margin-top: 0.3rem;
+  font-size: 0.66rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  color: var(--haze);
+  text-transform: uppercase;
+}
+
+.finder {
+  position: fixed;
+  top: clamp(1.4rem, 4vh, 2.8rem);
+  right: clamp(1.4rem, 4vw, 3rem);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+.finder-ra {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.finder-note {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--haze);
+}
+
+/* constellation story card */
+.story-card {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(7rem, 16vh, 10rem);
+  transform: translateX(-50%);
+  z-index: 6;
+  width: min(24rem, calc(100vw - 3rem));
+  background: rgba(8, 12, 28, 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(217, 185, 112, 0.35);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem 1.2rem;
+  text-align: center;
+  pointer-events: none;
+  animation: card-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[hidden] { display: none !important; }
+@keyframes card-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.story-name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--gold);
+}
+.story-kind {
+  margin: 0.25rem 0 0.7rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--haze);
+}
+.story-text {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(232, 237, 255, 0.85);
+}
+
+.tonight {
+  position: fixed;
+  left: clamp(1.4rem, 4vw, 3rem);
+  bottom: clamp(3.4rem, 9vh, 5rem);
+  z-index: 5;
+  pointer-events: none;
+}
+.tonight-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.02rem;
+  color: var(--haze);
+  margin-bottom: 0.7rem;
+}
+.tonight-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 300;
+}
+.tonight-list li { display: flex; gap: 0.9rem; align-items: baseline; }
+.t-time {
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+.t-what { color: rgba(232, 237, 255, 0.75); }
+
+.baseline {
+  position: fixed;
+  bottom: 0.9rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(1.4rem, 4vw, 3rem);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(138, 147, 184, 0.7);
+  z-index: 5;
+}
+.baseline a { color: var(--gold); text-decoration: none; }
+.baseline a:hover { text-decoration: underline; }
+.baseline a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .tonight { display: none; }
+  .story-card { bottom: 5.5rem; }
+  .baseline { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card { animation: none; }
+}

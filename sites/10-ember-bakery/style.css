@@ -1,0 +1,230 @@
+:root {
+  --coal: #160d06;
+  --cream: #f5e6d0;
+  --amber: #ff9d3c;
+  --rust: #b4552d;
+  --glow: 0.55; /* driven by JS: 0 dead fire … 1 roaring */
+  --font-serif: "DM Serif Display", serif;
+  --font-sans: "Nunito Sans", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--coal);
+  color: var(--cream);
+  font-family: var(--font-sans);
+}
+
+#fire {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* the light the fire casts on the room — scales with --glow */
+.lightfield {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse calc(60% + var(--glow) * 75%) calc(55% + var(--glow) * 70%) at 50% 88%,
+    rgba(255, 157, 60, calc(0.12 + var(--glow) * 0.16)) 0%,
+    rgba(255, 130, 40, calc(0.05 + var(--glow) * 0.08)) 35%,
+    rgba(22, 13, 6, 0.0) 62%,
+    rgba(10, 6, 3, calc(0.88 - var(--glow) * 0.45)) 100%
+  );
+  mix-blend-mode: screen;
+}
+
+.room {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1.6rem, 4vh, 3rem) clamp(1.2rem, 4vw, 3rem) 0;
+}
+
+.sign { text-align: center; }
+.sign-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 8vw, 5.2rem);
+  letter-spacing: 0.28em;
+  margin-right: -0.28em;
+  line-height: 1;
+  color: var(--cream);
+  /* letters catch the firelight */
+  text-shadow:
+    0 0 calc(8px + var(--glow) * 30px) rgba(255, 157, 60, calc(var(--glow) * 0.55)),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.sign-sub {
+  margin-top: 0.7rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 208, calc(0.35 + var(--glow) * 0.4));
+}
+
+.menu {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 22rem));
+  gap: clamp(1rem, 3vh, 2rem) clamp(2rem, 6vw, 5rem);
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.loaf {
+  /* legibility rises and falls with the fire */
+  opacity: calc(0.25 + var(--glow) * 0.75);
+  transition: opacity 0.6s ease;
+}
+.loaf h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  color: var(--cream);
+  margin-bottom: 0.35rem;
+  text-shadow: 0 0 calc(var(--glow) * 14px) rgba(255, 157, 60, calc(var(--glow) * 0.35));
+}
+.loaf-desc {
+  font-weight: 300;
+  font-size: clamp(0.82rem, 1.3vw, 0.95rem);
+  line-height: 1.65;
+  color: rgba(245, 230, 208, 0.75);
+  max-width: 24rem;
+}
+.loaf-price {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-style: italic;
+  font-family: var(--font-serif);
+  color: var(--amber);
+  font-size: 1rem;
+}
+
+.hearth-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: clamp(5rem, 14vh, 9rem);
+}
+
+.oven-arch {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, 92vw);
+  height: clamp(150px, 26vh, 240px);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  border: 14px solid #241209;
+  border-bottom: none;
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.85),
+    0 0 calc(var(--glow) * 60px) rgba(255, 120, 30, calc(var(--glow) * 0.25));
+  background:
+    repeating-conic-gradient(from 0deg at 50% 130%, #2a1710 0deg 7deg, #211008 7deg 14deg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stoke {
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: rgba(36, 18, 9, 0.75);
+  border: 1px solid rgba(255, 157, 60, 0.45);
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.stoke:hover {
+  border-color: var(--amber);
+  box-shadow: 0 0 24px rgba(255, 157, 60, 0.3);
+}
+.stoke:active { transform: scale(0.96); }
+.stoke:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.stoke-icon { font-size: 1rem; color: var(--amber); }
+
+.fire-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.meter-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245, 230, 208, 0.5);
+}
+.meter-track {
+  width: 130px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(245, 230, 208, 0.14);
+  overflow: hidden;
+}
+.meter-fill {
+  display: block;
+  height: 100%;
+  width: 55%;
+  background: linear-gradient(to right, var(--rust), var(--amber));
+  transition: width 0.4s ease;
+}
+
+.baseline {
+  position: fixed;
+  bottom: 0.85rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(1.2rem, 4vw, 3rem);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: rgba(245, 230, 208, 0.4);
+  z-index: 5;
+}
+.baseline a { color: var(--amber); text-decoration: none; }
+.baseline a:hover { text-decoration: underline; }
+.baseline a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+@media (max-width: 760px) {
+  html, body { overflow: auto; }
+  .room { height: auto; min-height: 100vh; }
+  .menu {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+    padding: 2rem 0;
+    text-align: center;
+  }
+  .loaf-desc { margin: 0 auto; }
+  .baseline { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --glow: 0.85; }
+  .loaf { transition: none; }
+}

@@ -1,0 +1,233 @@
+:root {
+  --tar: #0c0d0a;
+  --acid: #c8ff2e;
+  --blood: #ff3d2e;
+  --bone: #f2f1ea;
+  --font-display: "Anton", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--tar);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+body.phase-rest { --acid: #5ec8ff; }
+
+/* marquees */
+.marquee {
+  position: fixed;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--acid);
+  color: var(--tar);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.6vw, 1.7rem);
+  letter-spacing: 0.06em;
+  padding: 0.28em 0;
+  z-index: 20;
+  transition: background 0.4s ease;
+}
+.marquee-top { top: 0; }
+.marquee-bottom { bottom: 0; transform: rotate(180deg); }
+.marquee-inner { display: inline-flex; will-change: transform; }
+
+.arena {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(3.2rem, 7vh, 4.5rem) clamp(1.2rem, 4vw, 3.5rem);
+  gap: 1rem;
+}
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.logo-dot {
+  display: inline-block;
+  width: 0.32em;
+  height: 0.32em;
+  margin-left: 0.14em;
+  background: var(--blood);
+  border-radius: 50%;
+}
+.club {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: rgba(242, 241, 234, 0.5);
+}
+
+.dial-zone {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 3rem);
+  min-height: 0;
+}
+
+/* the giant phase word fills the left column */
+.phase-word {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 13vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--acid);
+  transition: color 0.4s ease;
+  text-align: right;
+  user-select: none;
+  overflow-wrap: anywhere;
+}
+
+.dial-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+.dial {
+  width: clamp(230px, 34vmin, 380px);
+  height: auto;
+  cursor: grab;
+  touch-action: none;
+}
+.dial:active { cursor: grabbing; }
+.dial:focus-visible { outline: 3px solid var(--acid); outline-offset: 6px; border-radius: 50%; }
+
+.dial-track {
+  fill: none;
+  stroke: rgba(242, 241, 234, 0.12);
+  stroke-width: 14;
+}
+.dial-work {
+  fill: none;
+  stroke: var(--acid);
+  stroke-width: 14;
+  stroke-linecap: butt;
+  transition: stroke 0.4s ease;
+}
+.dial-rest {
+  fill: none;
+  stroke: rgba(242, 241, 234, 0.32);
+  stroke-width: 14;
+}
+.dial-progress-dot {
+  fill: var(--bone);
+  stroke: var(--tar);
+  stroke-width: 2;
+}
+.dial-ticks line { stroke: rgba(242, 241, 234, 0.3); stroke-width: 1; }
+.dial-time {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  fill: var(--bone);
+}
+.dial-sub {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  fill: rgba(242, 241, 234, 0.45);
+}
+.dial-hint {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: rgba(242, 241, 234, 0.45);
+  text-transform: uppercase;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+.stat { display: flex; flex-direction: column; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  line-height: 1;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: rgba(242, 241, 234, 0.45);
+  margin-top: 0.3rem;
+}
+
+.manifesto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-bottom: 0.6rem;
+}
+.line-item {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 2rem);
+  line-height: 1.15;
+  color: rgba(242, 241, 234, 0.85);
+  letter-spacing: 0.03em;
+}
+.line-item:nth-child(2) { color: var(--acid); transition: color 0.4s ease; }
+
+.baseline {
+  position: fixed;
+  bottom: 3.2rem;
+  right: clamp(1.2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: rgba(242, 241, 234, 0.4);
+  z-index: 15;
+}
+.baseline a { color: var(--acid); text-decoration: none; transition: color 0.4s ease; }
+.baseline a:hover { text-decoration: underline; }
+.baseline a:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
+
+/* flash on phase change */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: var(--acid);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+}
+
+@media (max-width: 900px) {
+  .dial-zone {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.8rem;
+  }
+  .phase-word { text-align: center; font-size: clamp(3rem, 16vw, 6rem); }
+  .stats { flex-direction: row; gap: 2rem; }
+  .manifesto { align-items: center; text-align: center; }
+  .baseline { position: static; align-items: center; margin-bottom: 3rem; }
+  html, body { overflow: auto; }
+  .arena { min-height: 100vh; height: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-inner { transform: none !important; }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — Calibre M-1, Explained</title>
+<meta name="description" content="Meridian — independent horology. Scroll to lift a mechanical watch apart, layer by layer, down to the mainspring.">
+<meta name="theme-color" content="#0d0c0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="scene" aria-label="A mechanical wristwatch that separates into its component layers as the page scrolls" role="img"></canvas>
+
+<header class="brand">
+  <span class="brand-rule" aria-hidden="true"></span>
+  <span class="brand-name">MERIDIAN</span>
+  <span class="brand-rule" aria-hidden="true"></span>
+</header>
+
+<div class="depth-gauge" aria-hidden="true">
+  <span class="gauge-label" id="gauge-label">assembled</span>
+  <div class="gauge-track"><div class="gauge-fill" id="gauge-fill"></div></div>
+</div>
+
+<main>
+  <section class="plate" data-layer="0">
+    <p class="index">Calibre M-1</p>
+    <h1>Time, taken<br>apart.</h1>
+    <p class="copy">One hundred and forty-two components. Five years of drawing.
+    Scroll, and the watch will come apart in your hands — it keeps running
+    the whole way down. The hands you see hold the actual time.</p>
+    <p class="cue" aria-hidden="true">scroll to disassemble ↓</p>
+  </section>
+
+  <section class="plate plate-r" data-layer="1">
+    <p class="index">I — Crystal</p>
+    <h2>Sapphire, domed<br>by flame.</h2>
+    <p class="copy">Grown as a single crystal boule, sliced, then ground for
+    eleven hours against diamond paste. It will scratch only if the world
+    ends. Double anti-reflective coating makes it disappear entirely.</p>
+  </section>
+
+  <section class="plate" data-layer="2">
+    <p class="index">II — Dial &amp; hands</p>
+    <h2>Champagne, brushed<br>in one direction.</h2>
+    <p class="copy">Solid silver, sunray-brushed from the pinion outward.
+    The hands are flame-blued steel — heated to exactly 290°C, the moment
+    the oxide layer turns cornflower. One degree more and you start again.</p>
+  </section>
+
+  <section class="plate plate-r" data-layer="3">
+    <p class="index">III — Gear train</p>
+    <h2>Four wheels,<br>one argument with physics.</h2>
+    <p class="copy">The barrel turns once every six hours; the escape wheel,
+    ten times a second. Between them, four gold wheels negotiate a
+    36,000-fold gearing in the space of a coin.</p>
+  </section>
+
+  <section class="plate" data-layer="4">
+    <p class="index">IV — Mainspring &amp; rotor</p>
+    <h2>A steel ribbon<br>holding its breath.</h2>
+    <p class="copy">Sixty-five centimeters of alloy coiled into a barrel
+    twelve millimeters wide. The tungsten rotor rewinds it with every
+    movement of your wrist — ninety hours of reserve, wound by walking.</p>
+  </section>
+
+  <section class="plate plate-r plate-end" data-layer="5">
+    <p class="index">V — Caseback</p>
+    <h2>Signed where<br>only you will look.</h2>
+    <p class="copy">Every calibre is engraved with its assembler's initials
+    and regulated in six positions over fifteen days. Drag the exploded
+    stack to turn it. Scroll back up to reassemble.</p>
+    <p class="footnote">Meridian is a fictional maison — a Blueprint Labs capability study.<br>
+    <a class="back" href="../../">← The Blueprint Labs</a></p>
+  </section>
+</main>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

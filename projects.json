@@ -58,5 +58,65 @@
     "tech": ["Canvas 2D", "procedural plant growth", "recursive branching"],
     "status": "complete",
     "builtBy": "Fable 5"
+  },
+  {
+    "id": "06-meridian-watches",
+    "title": "Meridian",
+    "vertical": "Horology",
+    "styleTags": ["ultra-luxury", "exploded view", "product anatomy"],
+    "description": "A mechanical watch built from primitives that lifts apart layer by layer as you scroll — crystal to caseback — while its blued-steel hands keep real time.",
+    "thumbnail": "/sites/06-meridian-watches/assets/thumb.png",
+    "livePath": "/sites/06-meridian-watches/",
+    "tech": ["Three.js", "PBR + RoomEnvironment", "staggered explode rig"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "07-pulse-athletics",
+    "title": "PULSE",
+    "vertical": "Boutique Fitness",
+    "styleTags": ["brutalist", "kinetic type", "interactive dial"],
+    "description": "An interval-training round you can grab: drag the 60-second dial to scrub WORK and REST phases while the whole page — marquees, BPM, giant type — keeps tempo.",
+    "thumbnail": "/sites/07-pulse-athletics/assets/thumb.png",
+    "livePath": "/sites/07-pulse-athletics/",
+    "tech": ["GSAP", "SVG dial slider", "kinetic typography"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "08-glacier-water",
+    "title": "Glacier",
+    "vertical": "Premium Water",
+    "styleTags": ["raymarched", "refraction", "serene"],
+    "description": "A living body of water raymarched in a raw-WebGL fragment shader — metaballs with refraction, dispersion, and caustics that your cursor stirs and joins.",
+    "thumbnail": "/sites/08-glacier-water/assets/thumb.png",
+    "livePath": "/sites/08-glacier-water/",
+    "tech": ["Raw WebGL", "SDF raymarching", "adaptive resolution"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "09-noctua-observatory",
+    "title": "Noctua Observatory",
+    "vertical": "Public Observatory",
+    "styleTags": ["celestial", "explorable map", "storytelling"],
+    "description": "Drag a wrapping night sky with inertia — seven invented constellations draw themselves in as you drift near, each with its own folklore card.",
+    "thumbnail": "/sites/09-noctua-observatory/assets/thumb.png",
+    "livePath": "/sites/09-noctua-observatory/",
+    "tech": ["Canvas 2D", "seeded starfield", "parallax pan + inertia"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "10-ember-bakery",
+    "title": "Ember",
+    "vertical": "Artisan Bakery",
+    "styleTags": ["firelit", "editorial", "living light"],
+    "description": "A menu you read by firelight: a particle hearth fire lights the whole page, dims as it burns down, and must be stoked to keep the bread legible.",
+    "thumbnail": "/sites/10-ember-bakery/assets/thumb.png",
+    "livePath": "/sites/10-ember-bakery/",
+    "tech": ["Canvas 2D particle fire", "CSS variable lighting rig"],
+    "status": "complete",
+    "builtBy": "Fable 5"
   }
 ]

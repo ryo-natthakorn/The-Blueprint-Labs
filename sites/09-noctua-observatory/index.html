@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noctua Observatory — The Sky, On Duty</title>
+<meta name="description" content="Noctua Observatory — a public mountain observatory. Drag the night sky to explore invented constellations and tonight's viewing schedule.">
+<meta name="theme-color" content="#040711">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,300&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="sky" tabindex="0" aria-label="An explorable night sky. Drag, or use arrow keys, to pan. Constellations reveal themselves as you pass near them." role="application"></canvas>
+
+<header class="station">
+  <h1 class="station-name">NOCTUA</h1>
+  <p class="station-sub">public observatory · 2,340 m</p>
+</header>
+
+<div class="finder" aria-hidden="true">
+  <span class="finder-ra" id="finder-ra">RA 00h 00m</span>
+  <span class="finder-note">drag the sky · constellations live here</span>
+</div>
+
+<aside class="story-card" id="story-card" aria-live="polite" hidden>
+  <h2 class="story-name" id="story-name"></h2>
+  <p class="story-kind" id="story-kind"></p>
+  <p class="story-text" id="story-text"></p>
+</aside>
+
+<section class="tonight">
+  <h2 class="tonight-title">Tonight at the eyepiece</h2>
+  <ul class="tonight-list">
+    <li><span class="t-time">21:00</span><span class="t-what">Saturn — rings at 17° tilt</span></li>
+    <li><span class="t-time">22:30</span><span class="t-what">M13 — 300,000 old suns</span></li>
+    <li><span class="t-time">00:15</span><span class="t-what">A satellite pretending to be a star</span></li>
+  </ul>
+</section>
+
+<footer class="baseline">
+  <span>Noctua is a fictional observatory — a Blueprint Labs capability study.</span>
+  <a href="../../">← The Blueprint Labs</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
