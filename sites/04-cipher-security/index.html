@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIPHER — Offensive Security, Defensively Applied</title>
+<meta name="description" content="CIPHER — a penetration-testing and red-team consultancy. The whole site is a terminal: type help to begin.">
+<meta name="theme-color" content="#020604">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="rain" aria-hidden="true"></canvas>
+<div class="crt" aria-hidden="true"></div>
+
+<div class="frame">
+  <header class="titlebar" aria-hidden="true">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="title glitch" data-text="cipher@fieldstation: ~/engagements">cipher@fieldstation: ~/engagements</span>
+    <span class="status">TLS 1.3 · ONLINE</span>
+  </header>
+
+  <main class="term" id="term" aria-label="Interactive terminal. Type help for available commands.">
+    <div id="output"></div>
+    <form id="prompt-form" class="prompt-line" autocomplete="off">
+      <label for="cmd" class="ps1">visitor@cipher:~$</label>
+      <input id="cmd" name="cmd" type="text" spellcheck="false" autocapitalize="off"
+             aria-label="Terminal command input. Type help and press enter." />
+      <span class="caret" aria-hidden="true"></span>
+    </form>
+  </main>
+
+  <nav class="quick" aria-label="Quick commands">
+    <span class="quick-label">shortcuts:</span>
+    <button data-cmd="help">help</button>
+    <button data-cmd="services">services</button>
+    <button data-cmd="scan demo.target">scan</button>
+    <button data-cmd="casework">casework</button>
+    <button data-cmd="team">team</button>
+    <button data-cmd="clear">clear</button>
+  </nav>
+
+  <footer class="baseline">
+    <span>CIPHER is a fictional consultancy — a Blueprint Labs capability study.</span>
+    <a href="../../">← The Blueprint Labs</a>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

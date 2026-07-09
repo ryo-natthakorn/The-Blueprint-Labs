@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flora Lab — Perfume, Grown Not Made</title>
+<meta name="description" content="Flora Lab — a botanical perfumery. Plant a seed and watch your scent grow: a generative garden where every bloom is an accord.">
+<meta name="theme-color" content="#f7f4ec">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="garden" tabindex="0" aria-label="A generative garden. Click the soil, or press Enter, to plant the selected seed and watch it grow and bloom." role="img"></canvas>
+
+<header class="masthead">
+  <h1 class="wordmark">Flora <em>Lab</em></h1>
+  <p class="tagline">perfume, grown not made</p>
+</header>
+
+<aside class="accord-panel" aria-live="polite">
+  <h2 class="panel-title">Your accord</h2>
+  <ul class="accord-list" id="accord-list">
+    <li class="accord-empty">The plot is bare. Plant something.</li>
+  </ul>
+  <div class="accord-meta">
+    <span id="bloom-count">0 blooms</span>
+    <button id="clear-garden" type="button">Clear the plot</button>
+  </div>
+</aside>
+
+<nav class="seed-tray" aria-label="Choose a seed to plant">
+  <p class="tray-label">choose a seed · then click the soil</p>
+  <div class="tray-buttons">
+    <button class="seed" data-species="rose" aria-pressed="true">
+      <span class="swatch" style="--c:#c96f8e"></span>Damask Rose<span class="note">heart · velvet</span>
+    </button>
+    <button class="seed" data-species="iris" aria-pressed="false">
+      <span class="swatch" style="--c:#8d7fc7"></span>Orris Iris<span class="note">heart · powder</span>
+    </button>
+    <button class="seed" data-species="jasmine" aria-pressed="false">
+      <span class="swatch" style="--c:#f0ead3"></span>Night Jasmine<span class="note">top · indolic</span>
+    </button>
+    <button class="seed" data-species="marigold" aria-pressed="false">
+      <span class="swatch" style="--c:#e0913c"></span>Wild Marigold<span class="note">top · green fire</span>
+    </button>
+    <button class="seed" data-species="vetiver" aria-pressed="false">
+      <span class="swatch" style="--c:#7d8f62"></span>Vetiver Grass<span class="note">base · smoke &amp; root</span>
+    </button>
+  </div>
+</nav>
+
+<footer class="baseline">
+  <span>Flora Lab is a fictional perfumery — a Blueprint Labs capability study.</span>
+  <a href="../../">← The Blueprint Labs</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

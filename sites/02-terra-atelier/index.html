@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Atelier — Thrown by Hand</title>
+<meta name="description" content="Terra Atelier — a ceramics studio. Scroll to throw a vessel on the wheel, from raw clay to finished form.">
+<meta name="theme-color" content="#f4efe6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="wheel-stage">
+  <canvas id="scene" aria-label="A ceramic vessel forming on a potter's wheel as the page scrolls" role="img"></canvas>
+</div>
+
+<header class="masthead">
+  <span class="mark">陶</span>
+  <span class="wordmark">Terra&nbsp;Atelier</span>
+</header>
+
+<div class="progress" aria-hidden="true">
+  <span class="progress-stage" id="stage-name">raw clay</span>
+  <span class="progress-track"><span class="progress-fill" id="progress-fill"></span></span>
+</div>
+
+<main>
+  <section class="panel panel-open" data-stage="0">
+    <p class="jp" aria-hidden="true">土から</p>
+    <h1>Every vessel<br><em>begins as earth.</em></h1>
+    <p class="lede">Scroll slowly. The wheel is already turning.</p>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <section class="panel" data-stage="1">
+    <p class="jp" aria-hidden="true">中心</p>
+    <h2>Centering</h2>
+    <p>The clay fights you at first. Steady pressure, wet palms —
+    until it runs true and silent under the hand. Nothing can be
+    built on a lump that wobbles.</p>
+  </section>
+
+  <section class="panel panel-right" data-stage="2">
+    <p class="jp" aria-hidden="true">開く</p>
+    <h2>Opening</h2>
+    <p>Thumbs find the center and press down. A floor forms.
+    The walls remember every hesitation, so we don't hesitate.</p>
+  </section>
+
+  <section class="panel" data-stage="3">
+    <p class="jp" aria-hidden="true">引き上げ</p>
+    <h2>Pulling up</h2>
+    <p>Three pulls, no more. Knuckle outside, fingertips inside,
+    rising together. The vessel grows taller and thinner with each
+    pass — this is the moment most pots die.</p>
+  </section>
+
+  <section class="panel panel-right" data-stage="4">
+    <p class="jp" aria-hidden="true">形</p>
+    <h2>Shaping</h2>
+    <p>A rib against the shoulder coaxes the belly outward.
+    The curve you're watching was decided a thousand pots ago;
+    the hand just remembers it.</p>
+  </section>
+
+  <section class="panel panel-final" data-stage="5">
+    <p class="jp" aria-hidden="true">窯</p>
+    <h2>Fired &amp; finished</h2>
+    <p>Glazed in our studio celadon, kiln-fired to 1280°C.
+    Drag the vessel to turn it in your hands.</p>
+    <p class="footnote">Terra Atelier is a fictional studio — a Blueprint Labs capability study.<br>
+    <a class="back" href="../../">← The Blueprint Labs</a></p>
+  </section>
+</main>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

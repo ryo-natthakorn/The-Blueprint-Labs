@@ -1,0 +1,199 @@
+:root {
+  --deep: #0a0e1c;
+  --ink: #eef1fa;
+  --dim: #93a0c4;
+  --flame: #ff7a3c;
+  --cyan: #57d6ff;
+  --font-display: "Michroma", sans-serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--deep);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.9rem, 2.5vw, 1.6rem) clamp(1.2rem, 4vw, 3rem);
+  background: linear-gradient(to bottom, rgba(10, 14, 28, 0.85), transparent);
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+}
+.logo b { color: var(--ink); font-weight: 400; }
+
+.telemetry {
+  display: flex;
+  gap: clamp(1rem, 3.5vw, 2.6rem);
+}
+.tel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 5.5rem;
+}
+.tel i {
+  font-style: normal;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+}
+.tel em {
+  font-style: normal;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+
+main { position: relative; z-index: 5; }
+
+.chapter {
+  min-height: 130vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(1.5rem, 8vw, 9rem);
+  max-width: 46rem;
+  pointer-events: none;
+}
+.chapter > * { pointer-events: auto; }
+
+.ch-pad { min-height: 110vh; }
+.ch-orbit { min-height: 140vh; justify-content: flex-start; padding-top: 30vh; }
+
+.mission {
+  font-size: 0.68rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--flame);
+  margin-bottom: 1.4rem;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 5.4vw, 3.9rem);
+  line-height: 1.18;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 40px rgba(10, 14, 28, 0.9);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 3.4vw, 2.2rem);
+  line-height: 1.25;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-shadow: 0 4px 40px rgba(10, 14, 28, 0.9);
+}
+.num {
+  font-size: 0.66rem;
+  letter-spacing: 0.4em;
+  color: var(--flame);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.body-copy {
+  font-size: clamp(0.98rem, 1.5vw, 1.12rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--dim);
+  max-width: 30rem;
+  text-shadow: 0 2px 24px rgba(10, 14, 28, 0.95);
+}
+
+.cue {
+  margin-top: 3.2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.42em;
+  color: var(--dim);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.cue-line {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(to bottom, var(--flame), transparent);
+  animation: cue-stretch 1.6s ease-in-out infinite alternate;
+  transform-origin: top;
+}
+@keyframes cue-stretch {
+  from { transform: scaleY(0.4); }
+  to { transform: scaleY(1); }
+}
+
+.footnote {
+  margin-top: 4rem;
+  font-size: 0.78rem;
+  color: var(--dim);
+  line-height: 2.1;
+}
+.back {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(87, 214, 255, 0.35);
+  padding-bottom: 2px;
+  margin-left: 0.6rem;
+  transition: border-color 0.3s ease;
+}
+.back:hover { border-color: var(--cyan); }
+.back:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+/* chapter reveal */
+.chapter h1, .chapter h2, .chapter .body-copy, .chapter .mission {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chapter.in-view h1, .chapter.in-view h2, .chapter.in-view .body-copy, .chapter.in-view .mission {
+  opacity: 1;
+  transform: none;
+}
+.chapter.in-view .body-copy { transition-delay: 0.18s; }
+
+/* shake layer applied to the whole viewport during max-Q */
+body.shaking main, body.shaking .topbar { will-change: transform; }
+
+@media (max-width: 720px) {
+  .telemetry .tel:nth-child(2) { display: none; }
+  .tel { min-width: 0; }
+  .chapter { min-height: 115vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue-line { animation: none; }
+  .chapter h1, .chapter h2, .chapter .body-copy, .chapter .mission {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "01-aurora-audio",
+    "title": "Aurora Audio",
+    "vertical": "Consumer Audio",
+    "styleTags": ["dark luxury", "audio-reactive", "particles"],
+    "description": "Reference headphone brand rendered as a living sound-field: 12,000 particles bent by a generative Web Audio synth you conduct.",
+    "thumbnail": "/sites/01-aurora-audio/assets/thumb.png",
+    "livePath": "/sites/01-aurora-audio/",
+    "tech": ["Three.js", "custom GLSL", "UnrealBloom", "Web Audio API"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "02-terra-atelier",
+    "title": "Terra Atelier",
+    "vertical": "Ceramics Studio",
+    "styleTags": ["wabi-sabi", "scroll-driven", "3D craft"],
+    "description": "Scroll to throw a pot: one lathe-morphed vessel travels from raw lump to glazed celadon across six stages of the wheel.",
+    "thumbnail": "/sites/02-terra-atelier/assets/thumb.png",
+    "livePath": "/sites/02-terra-atelier/",
+    "tech": ["Three.js", "LatheGeometry morphing", "scroll choreography"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "03-nova-orbit",
+    "title": "Nova Orbit",
+    "vertical": "Space Tourism",
+    "styleTags": ["cinematic", "scroll-driven", "shader sky"],
+    "description": "Fly a full launch profile with the scrollbar: ignition, max-Q shake, the Kármán line fade to vacuum, and a procedural Earth rising into frame.",
+    "thumbnail": "/sites/03-nova-orbit/assets/thumb.png",
+    "livePath": "/sites/03-nova-orbit/",
+    "tech": ["Three.js", "custom GLSL sky/earth/flame", "camera keyframes"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "04-cipher-security",
+    "title": "CIPHER",
+    "vertical": "Cybersecurity",
+    "styleTags": ["terminal", "CRT", "interactive fiction"],
+    "description": "The whole site is a working terminal: navigate a red-team consultancy by typing commands, running a fake recon sweep, and reading redacted casework.",
+    "thumbnail": "/sites/04-cipher-security/assets/thumb.png",
+    "livePath": "/sites/04-cipher-security/",
+    "tech": ["Canvas 2D digital rain", "command parser", "CSS CRT/glitch"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "05-flora-lab",
+    "title": "Flora Lab",
+    "vertical": "Botanical Perfumery",
+    "styleTags": ["generative", "botanical", "playful"],
+    "description": "Plant seeds in a living canvas garden — procedural stems grow, branch, and bloom into five perfume botanicals while your accord recipe composes itself.",
+    "thumbnail": "/sites/05-flora-lab/assets/thumb.png",
+    "livePath": "/sites/05-flora-lab/",
+    "tech": ["Canvas 2D", "procedural plant growth", "recursive branching"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  }
+]

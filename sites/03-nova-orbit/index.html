@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Orbit — 400 km Up</title>
+<meta name="description" content="Nova Orbit — commercial spaceflight. Scroll from the launchpad through the atmosphere into orbit.">
+<meta name="theme-color" content="#0a0e1c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<canvas id="scene" aria-label="A rocket ascent from launchpad to Earth orbit, animated as the page scrolls" role="img"></canvas>
+
+<header class="topbar">
+  <span class="logo">NOVA<b>ORBIT</b></span>
+  <div class="telemetry" aria-hidden="true">
+    <span class="tel"><i>ALT</i><em id="tel-alt">0.0 km</em></span>
+    <span class="tel"><i>VEL</i><em id="tel-vel">0 m/s</em></span>
+    <span class="tel"><i>PHASE</i><em id="tel-phase">PRE-LAUNCH</em></span>
+  </div>
+</header>
+
+<main>
+  <section class="chapter ch-pad">
+    <p class="mission">Mission NV-7 · Civilian crew</p>
+    <h1>The window seat<br>to end all<br>window seats.</h1>
+    <p class="body-copy">Four minutes of powered flight. Three days in orbit.
+    One view that rewires you permanently. Scroll to fly the profile.</p>
+    <div class="cue" aria-hidden="true">SCROLL TO LAUNCH<span class="cue-line"></span></div>
+  </section>
+
+  <section class="chapter ch-ignition">
+    <h2><span class="num">T−0</span>Ignition</h2>
+    <p class="body-copy">Nine engines light in staggered pairs. 7.6 meganewtons
+    push back against the planet — and win. You weigh twice yourself,
+    then three times.</p>
+  </section>
+
+  <section class="chapter ch-maxq">
+    <h2><span class="num">T+72s</span>Max Q</h2>
+    <p class="body-copy">The loudest the sky will ever be. Peak aerodynamic
+    pressure as the vehicle punches through the thickest air at
+    supersonic speed. The airframe shoulders 35&nbsp;kPa and doesn't blink.</p>
+  </section>
+
+  <section class="chapter ch-karman">
+    <h2><span class="num">T+3m 12s</span>The Kármán line</h2>
+    <p class="body-copy">100 kilometers. The sky stops being blue because
+    there isn't enough sky left to be blue. Stars come out in the
+    middle of the afternoon.</p>
+  </section>
+
+  <section class="chapter ch-orbit">
+    <h2><span class="num">T+8m 40s</span>Orbit</h2>
+    <p class="body-copy">Engines cut. Your pen floats off your flight suit.
+    Below, the Pacific slides past at 7.66 kilometers per second, and
+    sunrise happens sixteen times a day.</p>
+    <p class="footnote">Nova Orbit is a fictional carrier — a Blueprint Labs capability study.
+    <a class="back" href="../../">← The Blueprint Labs</a></p>
+  </section>
+</main>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

@@ -12,4 +12,8 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 
 ## Phase 2
 
-_(no sites completed yet)_
+- [01-aurora-audio] Aurora Audio — Consumer Audio / dark luxury, audio-reactive, particles — built by Fable 5
+- [02-terra-atelier] Terra Atelier — Ceramics Studio / wabi-sabi, scroll-driven, 3D craft — built by Fable 5
+- [03-nova-orbit] Nova Orbit — Space Tourism / cinematic, scroll-driven, shader sky — built by Fable 5
+- [04-cipher-security] CIPHER — Cybersecurity / terminal, CRT, interactive fiction — built by Fable 5
+- [05-flora-lab] Flora Lab — Botanical Perfumery / generative, botanical, playful — built by Fable 5

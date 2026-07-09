@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Audio — Hear the Light</title>
+<meta name="description" content="Aurora Audio — reference headphones tuned to the physics of light. An audio-reactive listening experience.">
+<meta name="theme-color" content="#05060e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="brand">
+  <span class="brand-mark" aria-hidden="true"></span>
+  <span class="brand-name">Aurora&nbsp;Audio</span>
+</header>
+
+<main id="stage">
+  <section class="intro" id="intro">
+    <p class="kicker">Reference Series · AA-01</p>
+    <h1 class="headline">
+      <span class="line">Hear</span>
+      <span class="line">the</span>
+      <span class="line accent">light.</span>
+    </h1>
+    <p class="sub">Twelve thousand particles, tuned live to a generative
+    ambient score. This is what our drivers do to sound — rendered so you
+    can see it.</p>
+    <button class="cta" id="enter-sound" type="button">
+      <span class="cta-ring" aria-hidden="true"></span>
+      <span class="cta-label">Begin listening</span>
+    </button>
+    <p class="hint" id="hint">Headphones recommended · Move your cursor to bend the field</p>
+  </section>
+
+  <section class="listening" id="listening" hidden>
+    <div class="hud">
+      <div class="hud-block">
+        <span class="hud-label">Now generating</span>
+        <span class="hud-value" id="chord-name" aria-live="polite">Aurora I</span>
+      </div>
+      <div class="hud-block hud-freqs" aria-hidden="true">
+        <span class="freq-bar" style="--i:0"></span>
+        <span class="freq-bar" style="--i:1"></span>
+        <span class="freq-bar" style="--i:2"></span>
+        <span class="freq-bar" style="--i:3"></span>
+        <span class="freq-bar" style="--i:4"></span>
+      </div>
+      <div class="hud-block">
+        <span class="hud-label">Driver response</span>
+        <span class="hud-value" id="level-readout">−∞ dB</span>
+      </div>
+    </div>
+
+    <div class="controls" role="group" aria-label="Sound controls">
+      <button class="chip" data-mood="0" aria-pressed="true">Aurora I<span class="chip-sub">warm pad</span></button>
+      <button class="chip" data-mood="1" aria-pressed="false">Borealis<span class="chip-sub">bright fifths</span></button>
+      <button class="chip" data-mood="2" aria-pressed="false">Zenith<span class="chip-sub">deep sub</span></button>
+      <button class="chip chip-mute" id="mute" aria-pressed="false">Mute</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Aurora Audio is a fictional brand — a Blueprint Labs capability study.</span>
+  <a class="back" href="../../">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
