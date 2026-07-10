@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide — The Blueprint Labs</title>
+<meta name="description" content="How The Blueprint Labs was built: stack, architecture, workflow, and authorship.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/guide/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="logo">The Blueprint Labs</a>
+    <p class="tagline">How this was built.</p>
+  </div>
+</header>
+
+<main class="wrap guide">
+
+  <section class="guide-intro">
+    <p class="kicker">Guide &middot; N&ordm; 01</p>
+    <h1>Twenty-five sites, one method.</h1>
+    <p class="lede">
+      The Blueprint Labs is a capability showcase, not a client roster — twenty-five
+      single-scene sites, each built to demonstrate a different code-driven visual
+      technique across a different business vertical. This page documents how the
+      collection was actually assembled: the stack, the repo shape, the batching
+      workflow, and who — or what — did the building.
+    </p>
+  </section>
+
+  <section class="guide-section">
+    <h2><span class="num">01</span> Stack</h2>
+    <p>
+      Every site is plain HTML, CSS, and JavaScript — no framework, no bundler, no
+      build step. The only exception is how the two heavy libraries are loaded:
+    </p>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <i class="fa-solid fa-cube" aria-hidden="true"></i>
+        <h3>Three.js</h3>
+        <p>Loaded as a native ES module straight from a CDN via an <code>importmap</code>, which unlocks the full modern addon ecosystem — <code>EffectComposer</code>, post-processing passes, <code>OrbitControls</code>, node materials — rather than the stripped UMD build.</p>
+      </div>
+      <div class="stack-item">
+        <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+        <h3>GSAP</h3>
+        <p>Scroll-linked and pointer-driven timelines where a hand-rolled <code>requestAnimationFrame</code> loop would have been more code for the same result.</p>
+      </div>
+      <div class="stack-item">
+        <i class="fa-solid fa-water" aria-hidden="true"></i>
+        <h3>Raw WebGL</h3>
+        <p>A handful of sites skip Three.js entirely and hand-write GLSL fragment shaders directly against the WebGL context — raymarched fluid, FBM cloud, domain-warped melt.</p>
+      </div>
+      <div class="stack-item">
+        <i class="fa-solid fa-shapes" aria-hidden="true"></i>
+        <h3>Canvas 2D</h3>
+        <p>The default for particle systems, generative drawing, and pseudo-3D — cheaper than WebGL for scenes that don't need a real camera.</p>
+      </div>
+      <div class="stack-item">
+        <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+        <h3>Web Audio API</h3>
+        <p>A few sites synthesize their own audio live — generative ambient scores, drum machines, turntable pitch-bend — with zero audio files shipped.</p>
+      </div>
+      <div class="stack-item">
+        <i class="fa-solid fa-font" aria-hidden="true"></i>
+        <h3>Variable fonts</h3>
+        <p>One site is built entirely from <code>font-variation-settings</code> animation — no canvas, no WebGL, just type as the interactive medium.</p>
+      </div>
+    </div>
+    <p class="stack-footnote">
+      Fonts are Google Fonts only, icons are Font Awesome free tier, and every image
+      on every site is self-hosted — no live third-party hotlinking, no paid or
+      external AI image/video generation APIs anywhere in the build.
+    </p>
+  </section>
+
+  <section class="guide-section">
+    <h2><span class="num">02</span> Architecture</h2>
+    <p>
+      The whole project is a static monorepo. There's nothing to compile, so
+      deploying to Vercel is zero-config — the repo <em>is</em> the site.
+    </p>
+    <pre class="tree"><code>/sites/01-&lt;slug&gt;/index.html   (+ style.css, script.js, /assets)
+&hellip; through /sites/25-&lt;slug&gt;/
+/guide/index.html               &larr; you are here
+/index.html                     &larr; the Hub
+/projects.json                  &larr; single source of truth, drives the Hub
+/BUILD_LOG.md                   &larr; one line per completed site
+/DESIGN_NOTES.md                &larr; cross-site palette/motion/type audit</code></pre>
+    <p>
+      <code>projects.json</code> is the only database this project has — id, title,
+      vertical, style tags, accent color, description, thumbnail, live path, tech
+      used, and which model built it. The Hub reads it client-side and renders every
+      card from it; nothing about a site's metadata lives in HTML markup.
+    </p>
+  </section>
+
+  <section class="guide-section">
+    <h2><span class="num">03</span> Workflow</h2>
+    <ol class="phase-list">
+      <li>
+        <span class="phase-tag">Phase 1</span>
+        <h3>Hub shell + schema</h3>
+        <p>The grid, the filter/sort controls, the <code>projects.json</code> schema, the Playwright screenshot script, and the Vercel config — built before a single site existed.</p>
+      </li>
+      <li>
+        <span class="phase-tag">Phase 2</span>
+        <h3>The 25 sites</h3>
+        <p>Built in batches of four to five, autonomously, with three full iteration passes per site — a first pass for the concept, a second for design problems and polish, a third for responsiveness and edge cases. No repeated vertical-plus-style combination across all twenty-five.</p>
+      </li>
+      <li>
+        <span class="phase-tag">Phase 3</span>
+        <h3>Hub polish + this guide</h3>
+        <p>Real thumbnails generated against the finished sites, a visual pass on the Hub to sit coherently in front of what it showcases, and this page.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="guide-section guide-authorship">
+    <h2><span class="num">04</span> Authorship</h2>
+    <p>
+      This is the only page in the project that mentions how the work was made.
+      The twenty-five standalone sites were designed and built by
+      <strong>Claude Fable 5</strong>, an Anthropic model, working through Phase 2
+      autonomously in creative batches with a full budget and no cost constraint —
+      the brief was simply to push visual and interactive ambition as far as each
+      concept called for. The Hub shell, this guide, and the final polish pass were
+      done by <strong>Claude Sonnet 5</strong>. <code>projects.json</code> records
+      which model built which site.
+    </p>
+  </section>
+
+  <p class="guide-back"><a href="/">&larr; Back to The Blueprint Labs</a></p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-meta">&copy; 2026 The Blueprint Labs</p>
+  </div>
+</footer>
+
+</body>
+</html>

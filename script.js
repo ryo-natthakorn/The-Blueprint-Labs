@@ -46,6 +46,7 @@
     const card = document.createElement('article');
     card.className = 'card';
     card.dataset.title = project.title;
+    if (project.accent) card.style.setProperty('--card-accent', project.accent);
 
     const link = document.createElement('a');
     link.className = 'card-link';
