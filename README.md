@@ -9,8 +9,10 @@ Full context, constraints, and the phased build spec live in
 ## Status
 
 - [x] Phase 1 — Hub shell + schema
-- [ ] Phase 2 — 25 standalone sites
-- [ ] Phase 3 — Hub polish + guide
+- [x] Phase 2 — 25 standalone sites
+- [x] Phase 3 — Hub polish + guide
+
+Live: https://the-blueprint-labs.vercel.app
 
 ## Structure
 
