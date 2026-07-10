@@ -52,7 +52,7 @@ async function main() {
     try {
       await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
       fs.mkdirSync(path.dirname(thumbAbsPath), { recursive: true });
-      await page.screenshot({ path: thumbAbsPath });
+      await page.screenshot({ path: thumbAbsPath, type: 'jpeg', quality: 82 });
       count++;
     } catch (err) {
       console.error(`Failed to screenshot ${project.id}: ${err.message}`);

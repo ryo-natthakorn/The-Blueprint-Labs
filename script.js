@@ -1,5 +1,13 @@
 (() => {
   const MAX_LIVE_IFRAMES = 3;
+  // Reference desktop viewport the 25 sites are designed for (matches the
+  // 16:10 .card-preview aspect ratio and sits above every site's largest
+  // mobile breakpoint, ~900px) — rendering at this size then scaling the
+  // whole frame down keeps each site's real desktop layout intact instead
+  // of squeezing it into a tiny viewport where fixed/100vh hero content
+  // overlaps.
+  const PREVIEW_REF_WIDTH = 1440;
+  const PREVIEW_REF_HEIGHT = 900;
 
   const grid = document.getElementById('project-grid');
   const emptyState = document.getElementById('empty-state');
@@ -32,12 +40,16 @@
     }
 
     const preview = card.querySelector('.card-preview');
+    const scale = preview.clientWidth / PREVIEW_REF_WIDTH;
     const iframe = document.createElement('iframe');
     iframe.src = livePath;
     iframe.loading = 'lazy';
     iframe.title = card.dataset.title ? `${card.dataset.title} live preview` : 'Live site preview';
     iframe.setAttribute('tabindex', '-1');
     iframe.setAttribute('aria-hidden', 'true');
+    iframe.style.width = `${PREVIEW_REF_WIDTH}px`;
+    iframe.style.height = `${PREVIEW_REF_HEIGHT}px`;
+    iframe.style.transform = `scale(${scale})`;
     preview.appendChild(iframe);
     activeLiveCards.push(card);
   }

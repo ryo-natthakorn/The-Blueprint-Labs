@@ -164,21 +164,22 @@ select:focus-visible,
   border-bottom: 1px solid var(--border);
 }
 
-.card-preview img,
-.card-preview iframe {
+.card-preview img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
   object-fit: cover;
-}
-
-.card-preview img {
   transition: opacity 0.25s ease;
 }
 
 .card-preview iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  border: 0;
   pointer-events: none;
 }
 
