@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMBRA — Single-Origin Chocolate</title>
+<meta name="description" content="Umbra — a chocolate maker's conching vat, live in a shader. Stir it steadily and bring the batch into temper.">
+<meta name="theme-color" content="#170e09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Outfit:wght@200;300;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/23-umbra-cacao/style.css">
+</head>
+<body>
+
+<canvas id="vat" aria-label="A vat of molten chocolate. Stir it with slow circles of the pointer to bring it into temper." role="img"></canvas>
+
+<header class="maker">
+  <span class="maker-name">UMBRA</span>
+  <span class="maker-sub">single-origin cacao — batch 34</span>
+</header>
+
+<div class="verse">
+  <p>The vat has been turning<br>for three days. It is almost<br>ready to become a bar.<br><em>Stir — slow, steady circles.</em></p>
+</div>
+
+<aside class="temper" aria-live="polite">
+  <div class="temper-read">
+    <span class="temper-key">CRYSTAL V</span>
+    <span class="temper-val" id="temper-pct">0%</span>
+  </div>
+  <div class="temper-rail"><span id="temper-fill"></span></div>
+  <p class="temper-stage" id="temper-stage">molten · unstructured</p>
+  <p class="temper-note" id="temper-note"></p>
+</aside>
+
+<footer class="wrapper-line">
+  <span>Umbra is a fictional maker — a Blueprint Labs capability study.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/23-umbra-cacao/script.js"></script>
+</body>
+</html>

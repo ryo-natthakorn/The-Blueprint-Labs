@@ -250,5 +250,53 @@
     "tech": ["raw WebGL", "5-octave FBM clouds", "screen-space rain"],
     "status": "complete",
     "builtBy": "Fable 5"
+  },
+  {
+    "id": "22-grammage-paper",
+    "title": "GRAMMAGE",
+    "vertical": "Paper Goods",
+    "styleTags": ["origami engine", "scroll-driven", "editorial light"],
+    "description": "One sheet folds itself into a paper plane as you scroll — a real hinge-and-membership fold engine, crease by crease — then flies off the bench trailing a dashed line.",
+    "thumbnail": "/sites/22-grammage-paper/assets/thumb.png",
+    "livePath": "/sites/22-grammage-paper/",
+    "tech": ["Three.js", "Rodrigues fold engine", "scroll choreography"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "23-umbra-cacao",
+    "title": "UMBRA",
+    "vertical": "Chocolate Maker",
+    "styleTags": ["viscous shader", "stir-to-play", "dark luxury"],
+    "description": "A conching vat of molten chocolate in a domain-warped shader — stir it in slow, steady circles and the temper meter grows Form-V crystals until the gloss snaps in.",
+    "thumbnail": "/sites/23-umbra-cacao/assets/thumb.png",
+    "livePath": "/sites/23-umbra-cacao/",
+    "tech": ["raw WebGL", "domain-warped FBM", "stir-quality judge"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "24-pendula-works",
+    "title": "PENDULA",
+    "vertical": "Kinetic Sculpture",
+    "styleTags": ["harmonograph", "generative ink", "gallery light"],
+    "description": "A four-arm damped harmonograph drawing live in accumulating ink, with its pendulum bobs visible at the table's edge — strike it and no two études repeat.",
+    "thumbnail": "/sites/24-pendula-works/assets/thumb.png",
+    "livePath": "/sites/24-pendula-works/",
+    "tech": ["Canvas 2D", "damped oscillator model", "persistent ink layer"],
+    "status": "complete",
+    "builtBy": "Fable 5"
+  },
+  {
+    "id": "25-somne-railways",
+    "title": "SOMNE",
+    "vertical": "Sleeper Rail Travel",
+    "styleTags": ["parallax journey", "night ambience", "narrative"],
+    "description": "A sleeper train window from the 22:04 departure to the coast at dawn: the scrollbar is the timetable, so the train genuinely brakes into every station on the line.",
+    "thumbnail": "/sites/25-somne-railways/assets/thumb.png",
+    "livePath": "/sites/25-somne-railways/",
+    "tech": ["Canvas 2D", "piecewise-eased timetable", "procedural parallax"],
+    "status": "complete",
+    "builtBy": "Fable 5"
   }
 ]

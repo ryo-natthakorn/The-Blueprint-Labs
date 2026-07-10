@@ -1,0 +1,119 @@
+:root {
+  --deckle: #f3f0e7;
+  --graphite: #2b2a26;
+  --graphite-dim: rgba(43, 42, 38, 0.55);
+  --stamp: #b4432f;
+  --hair: rgba(43, 42, 38, 0.16);
+  --serif: "Libre Caslon Text", serif;
+  --sans: "Archivo Narrow", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--deckle);
+  color: var(--graphite);
+  font-family: var(--sans);
+}
+
+#bench {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.atelier {
+  position: fixed;
+  top: clamp(1.6rem, 4.5vh, 2.8rem);
+  left: clamp(1.6rem, 4.5vw, 3.2rem);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+.atelier-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  letter-spacing: 0.34em;
+}
+.atelier-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--graphite-dim);
+}
+
+#story { position: relative; z-index: 5; }
+
+.crease {
+  min-height: 120vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: clamp(1.6rem, 7vw, 6rem);
+  max-width: 34rem;
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1s ease, transform 1s ease;
+  pointer-events: none;
+}
+.crease.set { opacity: 1; transform: translateY(0); }
+.crease:first-child { min-height: 100vh; }
+
+.crease h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 5.6vw, 4rem);
+  line-height: 1.12;
+  margin-bottom: 1.2rem;
+  text-wrap: balance;
+}
+.crease h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+  margin-bottom: 0.9rem;
+}
+.crease h2::first-letter { color: var(--stamp); }
+.crease p {
+  font-size: clamp(0.9rem, 1.7vw, 1.05rem);
+  line-height: 1.8;
+  color: var(--graphite-dim);
+  max-width: 26rem;
+}
+.cue {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  color: var(--stamp);
+  animation: sink 2s ease-in-out infinite;
+}
+@keyframes sink {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.crease-flight { min-height: 150vh; }
+.colophon-note {
+  margin-top: 2.4rem;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.06em;
+  pointer-events: auto;
+}
+.colophon-note a { color: var(--stamp); text-decoration: none; }
+.colophon-note a:hover { text-decoration: underline; }
+.colophon-note a:focus-visible { outline: 2px solid var(--stamp); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .crease { max-width: 100%; padding-right: 1.6rem; min-height: 110vh; }
+  .crease p { max-width: 22rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue { animation: none; }
+  .crease { transition: opacity 0.5s ease; transform: none; }
+}

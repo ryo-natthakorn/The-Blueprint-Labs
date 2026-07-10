@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMNE — Night Railways</title>
+<meta name="description" content="Somne Night Railways — a sleeper journey in one window. Scroll from the 22:04 departure to the coast at dawn; the train stops where it should.">
+<meta name="theme-color" content="#0a0d18">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Karla:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/25-somne-railways/style.css">
+</head>
+<body>
+
+<canvas id="window-view" aria-hidden="true"></canvas>
+<div class="cabin-frame" aria-hidden="true"></div>
+
+<header class="line-crest">
+  <span class="crest-name">SOMNE</span>
+  <span class="crest-sub">night railways — car 7, berth 14</span>
+</header>
+
+<aside class="manifest" aria-hidden="true">
+  <div class="mf-row"><span class="mf-key">LOCAL</span><span class="mf-val" id="mf-time">22:04</span></div>
+  <div class="mf-row"><span class="mf-key">SPEED</span><span class="mf-val" id="mf-speed">0 km/h</span></div>
+  <div class="mf-row"><span class="mf-key">NEXT</span><span class="mf-val" id="mf-next">LARKSPUR HALT</span></div>
+</aside>
+
+<main id="journey">
+  <section class="berth">
+    <h1>Fall asleep in one country.<br>Wake up beside the sea.</h1>
+    <p>The 22:04 from Veldt Central runs every night, all winter.
+    Scroll, and ride it through.</p>
+    <p class="cue" aria-hidden="true">↓</p>
+  </section>
+
+  <section class="berth">
+    <h2>Veldt Central, 22:04</h2>
+    <p>The platform smells of rain and diesel. Somewhere ahead,
+    an attendant is turning down two hundred beds.</p>
+  </section>
+
+  <section class="berth">
+    <h2>Larkspur Halt, 23:37</h2>
+    <p>A two-minute stop for a town that is already asleep.
+    Nobody boards. The signal light changes anyway, faithfully.</p>
+  </section>
+
+  <section class="berth">
+    <h2>The long dark</h2>
+    <p>Fields, then forests, then fields again. The wires rise and
+    fall between the poles like slow breathing. This is the part
+    you paid for.</p>
+  </section>
+
+  <section class="berth">
+    <h2>Mirensee, 03:12</h2>
+    <p>If you are awake — and you should try to be — the moon
+    crosses the lake here and rides alongside the train
+    for a full four minutes.</p>
+  </section>
+
+  <section class="berth berth-arrival">
+    <h2>Iskar Coast, 06:31</h2>
+    <p>Dawn arrives before the train does, barely. Coffee in the
+    dining car is served from kilometre 604. You have slept
+    through four hundred of them.</p>
+    <p class="ticket-note">Somne is a fictional railway — a Blueprint Labs
+    capability study. <a href="/">← The Blueprint Labs</a></p>
+  </section>
+</main>
+
+<script type="module" src="/sites/25-somne-railways/script.js"></script>
+</body>
+</html>

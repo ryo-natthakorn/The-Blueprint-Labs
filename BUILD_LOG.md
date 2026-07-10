@@ -33,3 +33,7 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 - [19-voltaic-moto] VOLTAIC — Electric Motorcycles / showroom 3D, configurator, dark product — built by Fable 5
 - [20-halftone-records] HALFTONE — Record Label / retro print, playable instrument, generative audio — built by Fable 5
 - [21-petrichor-atmos] PETRICHOR — Weather Intelligence / procedural sky, shader, instrument panel — built by Fable 5
+- [22-grammage-paper] GRAMMAGE — Paper Goods / origami engine, scroll-driven, editorial light — built by Fable 5
+- [23-umbra-cacao] UMBRA — Chocolate Maker / viscous shader, stir-to-play, dark luxury — built by Fable 5
+- [24-pendula-works] PENDULA — Kinetic Sculpture / harmonograph, generative ink, gallery light — built by Fable 5
+- [25-somne-railways] SOMNE — Sleeper Rail Travel / parallax journey, night ambience, narrative — built by Fable 5

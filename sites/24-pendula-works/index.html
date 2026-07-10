@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PENDULA — Kinetic Sculpture Works</title>
+<meta name="description" content="Pendula Works — a kinetic sculpture studio. Two damped pendulums, one pen: strike the machine and watch it think in ink.">
+<meta name="theme-color" content="#f4f1ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/24-pendula-works/style.css">
+</head>
+<body>
+
+<canvas id="table" aria-label="A harmonograph drawing: two damped pendulums move a pen that traces slowly decaying curves in ink." role="img"></canvas>
+
+<header class="works">
+  <span class="works-name">PENDULA</span>
+  <span class="works-sub">kinetic sculpture works</span>
+</header>
+
+<aside class="bench">
+  <div class="knob">
+    <label for="ratio">INTERVAL <span id="ratio-out">3 : 2</span></label>
+    <input type="range" id="ratio" min="0" max="5" step="1" value="2" aria-label="Frequency interval between the two pendulums">
+  </div>
+  <div class="knob">
+    <label for="phase">PHASE <span id="phase-out">90°</span></label>
+    <input type="range" id="phase" min="0" max="180" step="1" value="90" aria-label="Phase offset">
+  </div>
+  <div class="knob">
+    <label for="decay">DECAY <span id="decay-out">gentle</span></label>
+    <input type="range" id="decay" min="2" max="20" value="7" aria-label="Pendulum decay">
+  </div>
+  <div class="strikes">
+    <button class="strike" id="strike">STRIKE</button>
+    <button class="lift" id="lift">LIFT THE PEN</button>
+  </div>
+  <p class="bench-note" id="bench-note">the machine is drawing — étude nº <span id="etude">1</span></p>
+</aside>
+
+<footer class="plaque">
+  <span>Pendula is a fictional studio — a Blueprint Labs capability study. Every drawing is unrepeatable.</span>
+  <a href="/">← The Blueprint Labs</a>
+</footer>
+
+<script type="module" src="/sites/24-pendula-works/script.js"></script>
+</body>
+</html>
