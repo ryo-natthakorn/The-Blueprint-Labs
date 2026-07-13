@@ -37,3 +37,7 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 - [23-umbra-cacao] UMBRA — Chocolate Maker / viscous shader, stir-to-play, dark luxury — built by Fable 5
 - [24-pendula-works] PENDULA — Kinetic Sculpture / harmonograph, generative ink, gallery light — built by Fable 5
 - [25-somne-railways] SOMNE — Sleeper Rail Travel / parallax journey, night ambience, narrative — built by Fable 5
+
+## Phase 4
+
+- [26-the-tideline] The Tideline — Restaurant (Modern Coastal Kitchen) / flagship seven-page site: WebGL shoreline hero, full reservation flow, menu, story, private dining, gallery, contact — built by Fable 5

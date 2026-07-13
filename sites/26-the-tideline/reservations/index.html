@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservations — The Tideline · Harrow's Point</title>
+<meta name="description" content="Reserve a table at The Tideline. Choose your party size, pick a date and time, and we'll hold your seat by the water. Tables released 60 days out.">
+<meta name="theme-color" content="#0f171a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f171a'/%3E%3Cpath d='M5 19c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M5 24c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round' opacity='.5'/%3E%3Ccircle cx='23' cy='9' r='2.6' fill='%23d9a05b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/sites/26-the-tideline/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header solid">
+  <div class="nav-bar">
+    <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+      <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
+        <li><a href="/sites/26-the-tideline/story">Story</a></li>
+        <li><a href="/sites/26-the-tideline/private-dining">Private Dining</a></li>
+        <li><a href="/sites/26-the-tideline/gallery">Gallery</a></li>
+        <li><a href="/sites/26-the-tideline/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-amber nav-cta" href="/sites/26-the-tideline/reservations" aria-current="page">Reserve a Table</a>
+    <button class="nav-burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <nav aria-label="Mobile">
+    <ul>
+      <li><a class="d-link" href="/sites/26-the-tideline/"><span class="n">01</span>Home</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/menu"><span class="n">02</span>Menu</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/reservations" aria-current="page"><span class="n">03</span>Reservations</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/story"><span class="n">04</span>Story</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/private-dining"><span class="n">05</span>Private Dining</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/gallery"><span class="n">06</span>Gallery</a></li>
+      <li><a class="d-link" href="/sites/26-the-tideline/contact"><span class="n">07</span>Contact</a></li>
+    </ul>
+  </nav>
+  <div class="drawer-foot">
+    <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
+    <p class="tide-pill"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+  </div>
+</div>
+
+<main id="main">
+
+  <div class="wrap page-head">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href="/sites/26-the-tideline/">The Tideline</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Reservations</li>
+      </ol>
+    </nav>
+    <p class="overline rv">Reservations</p>
+    <h1 class="t-display rv" data-d="1">A table by the water,<br>held in your name.</h1>
+    <p class="t-lede rv" data-d="2">Four quick steps. Tables are released sixty days out,
+      the dining room seats forty, and the bar is always kept free for walk-ins.
+      Parties of eight or more head to our private room instead.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="res-layout rv" data-d="3">
+
+      <!-- ==================== STEPPER ==================== -->
+      <section class="res-steps" id="res-steps" aria-label="Reservation form">
+
+        <div class="res-progress">
+          <button type="button" data-step="1" aria-current="step"><span class="n">1</span>Party</button>
+          <button type="button" data-step="2" disabled><span class="n">2</span>Date</button>
+          <button type="button" data-step="3" disabled><span class="n">3</span>Time</button>
+          <button type="button" data-step="4" disabled><span class="n">4</span>Details</button>
+        </div>
+
+        <!-- STEP 1 — party size -->
+        <div class="res-pane" id="pane-1">
+          <h2>How many of you?</h2>
+          <p class="hint">Tables in the dining room seat up to seven. Eight or more is a
+            private-room night — a better night, honestly.</p>
+          <div class="party-grid" role="group" aria-label="Party size">
+            <button class="party-btn" data-party="1" aria-pressed="false">1<small>guest</small></button>
+            <button class="party-btn" data-party="2" aria-pressed="false">2<small>guests</small></button>
+            <button class="party-btn" data-party="3" aria-pressed="false">3<small>guests</small></button>
+            <button class="party-btn" data-party="4" aria-pressed="false">4<small>guests</small></button>
+            <button class="party-btn" data-party="5" aria-pressed="false">5<small>guests</small></button>
+            <button class="party-btn" data-party="6" aria-pressed="false">6<small>guests</small></button>
+            <button class="party-btn" data-party="7" aria-pressed="false">7<small>guests</small></button>
+            <button class="party-btn" data-party="8" aria-pressed="false">8+<small>private</small></button>
+          </div>
+          <div class="private-route" id="private-route">
+            <h3>Eight or more — let's do this properly.</h3>
+            <p>Our private dining room sits just off the main kitchen and seats up to fourteen —
+              same menu, same sourcing, a table that's actually yours for the night.
+              Chef's tasting available for six and up; full buyouts for larger events.</p>
+            <a class="btn btn-ghost" href="/sites/26-the-tideline/private-dining">See private dining</a>
+          </div>
+          <div class="res-actions">
+            <span></span>
+            <button class="btn btn-amber" id="next-1" disabled>Choose a date</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 — date -->
+        <div class="res-pane" id="pane-2" hidden>
+          <h2>Pick your evening.</h2>
+          <p class="hint">We're open Tuesday through Sunday. Tables are released sixty days out.</p>
+          <div class="cal-head">
+            <button class="cal-nav" id="cal-prev" aria-label="Previous month">
+              <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M13 6H1m0 0 4.5-4.5M1 6l4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <span class="m" id="cal-month" aria-live="polite">Month</span>
+            <button class="cal-nav" id="cal-next" aria-label="Next month">
+              <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6h12m0 0L8.5 1.5M13 6l-4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="cal-grid" id="cal-grid" role="grid" aria-label="Choose a date"></div>
+          <div class="cal-foot">
+            <span class="k"><span class="sw" style="background:var(--amber)"></span>today</span>
+            <span class="k"><span class="sw" style="border:1px dashed var(--line-2)"></span>closed Mondays</span>
+            <span class="k"><span class="sw" style="background:var(--danger);opacity:.7"></span>fully booked</span>
+          </div>
+          <div class="res-actions">
+            <button class="btn btn-ghost" data-back="1">Back</button>
+            <button class="btn btn-amber" id="next-2" disabled>Choose a time</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 — time -->
+        <div class="res-pane" id="pane-3" hidden>
+          <h2>What time suits?</h2>
+          <p class="hint" id="time-hint">Service runs 5:00 to 10:00 PM.</p>
+          <p class="slot-note" id="slot-tide-note">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 10c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2 13.5c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".5"/><circle cx="11.5" cy="4" r="1.6" fill="currentColor"/></svg>
+            <span id="slot-tide-text">Window tables watch the tide come in.</span>
+          </p>
+          <div class="slot-grid" id="slot-grid" role="group" aria-label="Available times"></div>
+          <div class="res-actions">
+            <button class="btn btn-ghost" data-back="2">Back</button>
+            <button class="btn btn-amber" id="next-3" disabled>Your details</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 — details -->
+        <div class="res-pane" id="pane-4" hidden>
+          <h2>Who's the table for?</h2>
+          <p class="hint">We'll hold the table for fifteen minutes past your time —
+            call if the harbor road is slow.</p>
+          <form id="res-form" novalidate>
+            <div class="f-grid">
+              <div class="f-field">
+                <label for="f-name">Name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required>
+                <span class="f-err" id="err-name">Please give us a name for the table.</span>
+              </div>
+              <div class="f-field">
+                <label for="f-phone">Phone</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+                <span class="f-err" id="err-phone">A phone number helps if anything changes.</span>
+              </div>
+              <div class="f-field full">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required>
+                <span class="f-err" id="err-email">That email doesn't look quite right.</span>
+              </div>
+              <div class="f-field full">
+                <label for="f-note">Allergies or occasion <span class="opt">— optional</span></label>
+                <textarea id="f-note" name="note" placeholder="Shellfish allergy at the table · celebrating ten years · window seat if the tide's in…"></textarea>
+              </div>
+            </div>
+            <div class="res-actions">
+              <button type="button" class="btn btn-ghost" data-back="3">Back</button>
+              <button type="submit" class="btn btn-amber" id="confirm-btn">Confirm reservation</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==================== SUMMARY ==================== -->
+      <aside class="res-side" id="res-side">
+        <div class="res-sum" aria-live="polite">
+          <h3>Your reservation</h3>
+          <dl>
+            <div class="row"><dt>Party</dt><dd id="sum-party" class="unset">—</dd></div>
+            <div class="row"><dt>Date</dt><dd id="sum-date" class="unset">—</dd></div>
+            <div class="row"><dt>Time</dt><dd id="sum-time" class="unset">—</dd></div>
+          </dl>
+        </div>
+        <div class="tide-card">
+          <span class="t-mono" data-tide="short">Tide</span>
+          <p>The dining room looks straight down the harbor channel — at high water
+            the boats come past the windows at eye level.</p>
+          <p style="font-size:.8rem;color:var(--bone-3)">Can't find a table? The bar seats twelve,
+            first come first served, full menu.</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ==================== CONFIRMATION ==================== -->
+    <section class="res-confirm" id="res-confirm" aria-live="polite">
+      <div class="confirm-card">
+        <div class="ok-ring">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13.5 10 19.5 22 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>See you at the tideline.</h2>
+        <p class="big-line" id="confirm-line">Table for 4 — Saturday, July 18 at 7:30 PM</p>
+        <div class="confirm-details">
+          <div class="row"><span>Name</span><span id="cf-name">—</span></div>
+          <div class="row"><span>Party</span><span id="cf-party">—</span></div>
+          <div class="row"><span>Date</span><span id="cf-date">—</span></div>
+          <div class="row"><span>Time</span><span id="cf-time">—</span></div>
+          <div class="row"><span>Confirmation</span><span class="confirm-code" id="cf-code">—</span></div>
+          <div class="row" id="cf-note-row" hidden><span>Notes</span><span id="cf-note">—</span></div>
+        </div>
+        <p class="confirm-note">We hold tables for fifteen minutes past the hour. Plans change?
+          Call <a href="tel:+15550100178" style="color:var(--glass)">(555) 010-0178</a> and we'll move things around.
+          <em>(This page is a front-end demonstration — no live booking system is attached and no email is sent.)</em></p>
+        <div class="confirm-cta">
+          <button class="btn btn-amber" id="ics-btn">Add to calendar</button>
+          <button class="btn btn-ghost" id="again-btn">Make another reservation</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+        <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
+      </a>
+      <p class="foot-tag">A modern coastal kitchen. Same-day sourcing off the town dock,
+        and a menu that changes with the water.</p>
+      <p class="tide-pill foot-tide"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+    </div>
+    <nav class="foot-col" aria-label="Footer">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
+        <li><a href="/sites/26-the-tideline/reservations">Reservations</a></li>
+        <li><a href="/sites/26-the-tideline/story">Story</a></li>
+        <li><a href="/sites/26-the-tideline/private-dining">Private Dining</a></li>
+        <li><a href="/sites/26-the-tideline/gallery">Gallery</a></li>
+        <li><a href="/sites/26-the-tideline/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="foot-col">
+      <h3>Visit</h3>
+      <p>6 Quay Lane<br>Harrow's Point</p>
+      <p style="margin-top:12px">
+        <a href="tel:+15550100178">(555) 010-0178</a><br>
+        <a href="mailto:hello@thetideline.example">hello@thetideline.example</a>
+      </p>
+    </div>
+    <div class="foot-col">
+      <h3>Hours</h3>
+      <div class="foot-hours">
+        <div><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
+        <div><span>Bar opens</span><span>4:30 PM</span></div>
+        <div><span>Monday</span><span>Closed</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-base">
+    <div class="foot-base-in">
+      <span>© <span data-year>2026</span> The Tideline · Harrow's Point</span>
+      <span>A concept kitchen in a fictional harbor town, built as a design study.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/sites/26-the-tideline/main.js" defer></script>
+<script src="/sites/26-the-tideline/reserve.js" defer></script>
+</body>
+</html>

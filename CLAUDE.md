@@ -15,6 +15,9 @@ build. Still deploys to Vercel with zero config.
 ```
 /sites/01-<slug>/index.html (+ style.css, script.js, /assets)
 ... through /sites/25-<slug>/
+/sites/26-<slug>/index.html (+ /product/, /demo/, /pricing/, /customers/,
+  /blog/ subfolders, each its own index.html — the flagship multi-page
+  site, see SPEC.md Phase 4)
 /guide/index.html
 /index.html            <- Master Hub
 /projects.json         <- single source of truth, drives the Hub
@@ -33,9 +36,11 @@ See `SPEC.md` for the phased, batch-by-batch task breakdown.
 | 2 | The 25 standalone sites, 3 iteration passes each | **Fable 5** — full budget, no cost constraint |
 | 2 (tail) | DESIGN_NOTES.md summary | Fable 5 |
 | 3 | Hub visual polish, /guide content, deploy verification | Sonnet 5 (escalate to Opus 4.8 only if genuinely stuck on a specific task) |
+| 4 | Flagship multi-page product site (site 26) — see SPEC.md | **Fable 5** — full budget, no cost constraint |
+| 5 | Hub feature-card treatment for site 26, projects.json update | Sonnet 5 |
 
-Fable 5 is used **only** in Phase 2. Don't escalate to Opus by default
-elsewhere — per-task, only when Sonnet actually struggles.
+Fable 5 is used **only** in Phase 2 and Phase 4. Don't escalate to Opus by
+default elsewhere — per-task, only when Sonnet actually struggles.
 
 Each phase runs in its own fresh session. Don't carry a prior phase's
 conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
@@ -56,6 +61,12 @@ conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
   or lower-end devices rather than assuming full desktop fidelity. Also a
   fallback state, not a cap on the primary build.
 - Baseline accessibility: alt text, visible focus states, semantic HTML.
+- No real, identifiable human faces or people in any imagery, anywhere in
+  the project (existing 25 sites included, going forward). Food, product,
+  interior, architectural, and process photography (hands, plating,
+  motion, silhouettes) is fine — posed or recognizable people are not.
+  This avoids likeness/model-release ambiguity in self-hosted stock
+  photography.
 - No mention of Claude, Fable 5, or AI authorship anywhere except `/guide`.
 - Contact info (placeholder email + placeholder Fastwork URL, marked
   `TODO:`) lives on the Hub only. The 25 sites are single-scene capability
@@ -69,6 +80,12 @@ conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
   /sites/01-aurora-audio/style.css), never bare relative filenames —
   these routes are served without a trailing slash, which breaks
   relative-path resolution.
+- Site 26 (flagship, multi-page) is nested one level deeper
+  (/sites/26-<slug>/pricing/index.html etc.) — the same root-absolute
+  rule applies from every nested page: reference shared CSS/JS/nav
+  partials by their full root-absolute path
+  (/sites/26-<slug>/style.css), never by relative depth (../style.css),
+  since relative depth differs per page.
 
 ## Performance
 - **Hub (Phase 1/3):** Lighthouse 90+, FCP under ~2s — this is the entry

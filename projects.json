@@ -3,12 +3,21 @@
     "id": "01-aurora-audio",
     "title": "Aurora Audio",
     "vertical": "Consumer Audio",
-    "styleTags": ["dark luxury", "audio-reactive", "particles"],
+    "styleTags": [
+      "dark luxury",
+      "audio-reactive",
+      "particles"
+    ],
     "accent": "#8f7cff",
     "description": "Reference headphone brand rendered as a living sound-field: 12,000 particles bent by a generative Web Audio synth you conduct.",
     "thumbnail": "/sites/01-aurora-audio/assets/thumb.jpg",
     "livePath": "/sites/01-aurora-audio/",
-    "tech": ["Three.js", "custom GLSL", "UnrealBloom", "Web Audio API"],
+    "tech": [
+      "Three.js",
+      "custom GLSL",
+      "UnrealBloom",
+      "Web Audio API"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -16,12 +25,20 @@
     "id": "02-terra-atelier",
     "title": "Terra Atelier",
     "vertical": "Ceramics Studio",
-    "styleTags": ["wabi-sabi", "scroll-driven", "3D craft"],
+    "styleTags": [
+      "wabi-sabi",
+      "scroll-driven",
+      "3D craft"
+    ],
     "accent": "#c17a4f",
     "description": "Scroll to throw a pot: one lathe-morphed vessel travels from raw lump to glazed celadon across six stages of the wheel.",
     "thumbnail": "/sites/02-terra-atelier/assets/thumb.jpg",
     "livePath": "/sites/02-terra-atelier/",
-    "tech": ["Three.js", "LatheGeometry morphing", "scroll choreography"],
+    "tech": [
+      "Three.js",
+      "LatheGeometry morphing",
+      "scroll choreography"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -29,12 +46,20 @@
     "id": "03-nova-orbit",
     "title": "Nova Orbit",
     "vertical": "Space Tourism",
-    "styleTags": ["cinematic", "scroll-driven", "shader sky"],
+    "styleTags": [
+      "cinematic",
+      "scroll-driven",
+      "shader sky"
+    ],
     "accent": "#ff7a45",
     "description": "Fly a full launch profile with the scrollbar: ignition, max-Q shake, the Kármán line fade to vacuum, and a procedural Earth rising into frame.",
     "thumbnail": "/sites/03-nova-orbit/assets/thumb.jpg",
     "livePath": "/sites/03-nova-orbit/",
-    "tech": ["Three.js", "custom GLSL sky/earth/flame", "camera keyframes"],
+    "tech": [
+      "Three.js",
+      "custom GLSL sky/earth/flame",
+      "camera keyframes"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -42,12 +67,20 @@
     "id": "04-cipher-security",
     "title": "CIPHER",
     "vertical": "Cybersecurity",
-    "styleTags": ["terminal", "CRT", "interactive fiction"],
+    "styleTags": [
+      "terminal",
+      "CRT",
+      "interactive fiction"
+    ],
     "accent": "#39ff6a",
     "description": "The whole site is a working terminal: navigate a red-team consultancy by typing commands, running a fake recon sweep, and reading redacted casework.",
     "thumbnail": "/sites/04-cipher-security/assets/thumb.jpg",
     "livePath": "/sites/04-cipher-security/",
-    "tech": ["Canvas 2D digital rain", "command parser", "CSS CRT/glitch"],
+    "tech": [
+      "Canvas 2D digital rain",
+      "command parser",
+      "CSS CRT/glitch"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -55,12 +88,20 @@
     "id": "05-flora-lab",
     "title": "Flora Lab",
     "vertical": "Botanical Perfumery",
-    "styleTags": ["generative", "botanical", "playful"],
+    "styleTags": [
+      "generative",
+      "botanical",
+      "playful"
+    ],
     "accent": "#7a8a4a",
     "description": "Plant seeds in a living canvas garden — procedural stems grow, branch, and bloom into five perfume botanicals while your accord recipe composes itself.",
     "thumbnail": "/sites/05-flora-lab/assets/thumb.jpg",
     "livePath": "/sites/05-flora-lab/",
-    "tech": ["Canvas 2D", "procedural plant growth", "recursive branching"],
+    "tech": [
+      "Canvas 2D",
+      "procedural plant growth",
+      "recursive branching"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -68,12 +109,20 @@
     "id": "06-meridian-watches",
     "title": "Meridian",
     "vertical": "Horology",
-    "styleTags": ["ultra-luxury", "exploded view", "product anatomy"],
+    "styleTags": [
+      "ultra-luxury",
+      "exploded view",
+      "product anatomy"
+    ],
     "accent": "#c9a355",
     "description": "A mechanical watch built from primitives that lifts apart layer by layer as you scroll — crystal to caseback — while its blued-steel hands keep real time.",
     "thumbnail": "/sites/06-meridian-watches/assets/thumb.jpg",
     "livePath": "/sites/06-meridian-watches/",
-    "tech": ["Three.js", "PBR + RoomEnvironment", "staggered explode rig"],
+    "tech": [
+      "Three.js",
+      "PBR + RoomEnvironment",
+      "staggered explode rig"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -81,12 +130,20 @@
     "id": "07-pulse-athletics",
     "title": "PULSE",
     "vertical": "Boutique Fitness",
-    "styleTags": ["brutalist", "kinetic type", "interactive dial"],
+    "styleTags": [
+      "brutalist",
+      "kinetic type",
+      "interactive dial"
+    ],
     "accent": "#d4ff3d",
     "description": "An interval-training round you can grab: drag the 60-second dial to scrub WORK and REST phases while the whole page — marquees, BPM, giant type — keeps tempo.",
     "thumbnail": "/sites/07-pulse-athletics/assets/thumb.jpg",
     "livePath": "/sites/07-pulse-athletics/",
-    "tech": ["GSAP", "SVG dial slider", "kinetic typography"],
+    "tech": [
+      "GSAP",
+      "SVG dial slider",
+      "kinetic typography"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -94,12 +151,20 @@
     "id": "08-glacier-water",
     "title": "Glacier",
     "vertical": "Premium Water",
-    "styleTags": ["raymarched", "refraction", "serene"],
+    "styleTags": [
+      "raymarched",
+      "refraction",
+      "serene"
+    ],
     "accent": "#3f7fa3",
     "description": "A living body of water raymarched in a raw-WebGL fragment shader — metaballs with refraction, dispersion, and caustics that your cursor stirs and joins.",
     "thumbnail": "/sites/08-glacier-water/assets/thumb.jpg",
     "livePath": "/sites/08-glacier-water/",
-    "tech": ["Raw WebGL", "SDF raymarching", "adaptive resolution"],
+    "tech": [
+      "Raw WebGL",
+      "SDF raymarching",
+      "adaptive resolution"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -107,12 +172,20 @@
     "id": "09-noctua-observatory",
     "title": "Noctua Observatory",
     "vertical": "Public Observatory",
-    "styleTags": ["celestial", "explorable map", "storytelling"],
+    "styleTags": [
+      "celestial",
+      "explorable map",
+      "storytelling"
+    ],
     "accent": "#d9a24c",
     "description": "Drag a wrapping night sky with inertia — seven invented constellations draw themselves in as you drift near, each with its own folklore card.",
     "thumbnail": "/sites/09-noctua-observatory/assets/thumb.jpg",
     "livePath": "/sites/09-noctua-observatory/",
-    "tech": ["Canvas 2D", "seeded starfield", "parallax pan + inertia"],
+    "tech": [
+      "Canvas 2D",
+      "seeded starfield",
+      "parallax pan + inertia"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -120,12 +193,19 @@
     "id": "10-ember-bakery",
     "title": "Ember",
     "vertical": "Artisan Bakery",
-    "styleTags": ["firelit", "editorial", "living light"],
+    "styleTags": [
+      "firelit",
+      "editorial",
+      "living light"
+    ],
     "accent": "#e8935a",
     "description": "A menu you read by firelight: a particle hearth fire lights the whole page, dims as it burns down, and must be stoked to keep the bread legible.",
     "thumbnail": "/sites/10-ember-bakery/assets/thumb.jpg",
     "livePath": "/sites/10-ember-bakery/",
-    "tech": ["Canvas 2D particle fire", "CSS variable lighting rig"],
+    "tech": [
+      "Canvas 2D particle fire",
+      "CSS variable lighting rig"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -133,12 +213,20 @@
     "id": "11-vertex-architecture",
     "title": "Vertex",
     "vertical": "Architecture Studio",
-    "styleTags": ["blueprint", "line-drawn 3D", "drafting"],
+    "styleTags": [
+      "blueprint",
+      "line-drawn 3D",
+      "drafting"
+    ],
     "accent": "#5ec8f2",
     "description": "Three unbuilt projects draft themselves line by line on a living blueprint sheet — orbit the wireframe while annotations, dimensions, and redlines catch up.",
     "thumbnail": "/sites/11-vertex-architecture/assets/thumb.jpg",
     "livePath": "/sites/11-vertex-architecture/",
-    "tech": ["Three.js", "procedural line geometry", "drawRange reveal"],
+    "tech": [
+      "Three.js",
+      "procedural line geometry",
+      "drawRange reveal"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -146,12 +234,20 @@
     "id": "12-ligature-foundry",
     "title": "LIGATURE",
     "vertical": "Type Foundry",
-    "styleTags": ["kinetic type", "variable font", "editorial"],
+    "styleTags": [
+      "kinetic type",
+      "variable font",
+      "editorial"
+    ],
     "accent": "#d9ff44",
     "description": "A specimen you conduct: pointer X bends weight, Y bends optical size, the wheel softens terminals, and a glyph waterfall ripples in your wake.",
     "thumbnail": "/sites/12-ligature-foundry/assets/thumb.jpg",
     "livePath": "/sites/12-ligature-foundry/",
-    "tech": ["variable fonts", "font-variation-settings", "zero-canvas DOM animation"],
+    "tech": [
+      "variable fonts",
+      "font-variation-settings",
+      "zero-canvas DOM animation"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -159,12 +255,20 @@
     "id": "13-bathyal-institute",
     "title": "BATHYAL",
     "vertical": "Ocean Research",
-    "styleTags": ["scroll-driven", "bioluminescent", "narrative"],
+    "styleTags": [
+      "scroll-driven",
+      "bioluminescent",
+      "narrative"
+    ],
     "accent": "#64f0d2",
     "description": "One continuous dive from surf to seafloor: the scrollbar is a winch, sunlight dies on schedule, and procedurally drawn animals glow at their true depths.",
     "thumbnail": "/sites/13-bathyal-institute/assets/thumb.jpg",
     "livePath": "/sites/13-bathyal-institute/",
-    "tech": ["Canvas 2D", "depth-keyed scene graph", "procedural creatures"],
+    "tech": [
+      "Canvas 2D",
+      "depth-keyed scene graph",
+      "procedural creatures"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -172,12 +276,20 @@
     "id": "14-suminaga-teahouse",
     "title": "SUMINAGA",
     "vertical": "Tea House",
-    "styleTags": ["suminagashi", "generative", "light zen"],
+    "styleTags": [
+      "suminagashi",
+      "generative",
+      "light zen"
+    ],
     "accent": "#a8503c",
     "description": "The menu is marbled, not printed: mathematically exact suminagashi where taps drop ink, drags comb it, and each tea re-inks the stylus.",
     "thumbnail": "/sites/14-suminaga-teahouse/assets/thumb.jpg",
     "livePath": "/sites/14-suminaga-teahouse/",
-    "tech": ["Canvas 2D", "conformal-map marbling", "tine deformation"],
+    "tech": [
+      "Canvas 2D",
+      "conformal-map marbling",
+      "tine deformation"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -185,12 +297,20 @@
     "id": "15-vector-drift",
     "title": "VECTOR DRIFT",
     "vertical": "Game Studio",
-    "styleTags": ["synthwave", "playable", "CRT"],
+    "styleTags": [
+      "synthwave",
+      "playable",
+      "CRT"
+    ],
     "accent": "#ff2e88",
     "description": "The studio site is the demo cabinet: a complete pseudo-3D neon lane runner with attract mode, WebAudio bleeps, and a best score that survives you.",
     "thumbnail": "/sites/15-vector-drift/assets/thumb.jpg",
     "livePath": "/sites/15-vector-drift/",
-    "tech": ["Canvas 2D pseudo-3D", "game loop", "WebAudio synth"],
+    "tech": [
+      "Canvas 2D pseudo-3D",
+      "game loop",
+      "WebAudio synth"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -198,12 +318,20 @@
     "id": "16-orrery-capital",
     "title": "ORRERY",
     "vertical": "Quantitative Finance",
-    "styleTags": ["GPU particles", "celestial", "data-luxe"],
+    "styleTags": [
+      "GPU particles",
+      "celestial",
+      "data-luxe"
+    ],
     "accent": "#d4a94e",
     "description": "A quant fund as celestial mechanics: 40,000 instruments orbit in shader-integrated shells while a volatility dial degrades clockwork into storm.",
     "thumbnail": "/sites/16-orrery-capital/assets/thumb.jpg",
     "livePath": "/sites/16-orrery-capital/",
-    "tech": ["Three.js", "custom vertex-shader orbits", "UnrealBloom"],
+    "tech": [
+      "Three.js",
+      "custom vertex-shader orbits",
+      "UnrealBloom"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -211,12 +339,21 @@
     "id": "17-maison-vela",
     "title": "MAISON VELA",
     "vertical": "Haute Couture",
-    "styleTags": ["cloth simulation", "atmospheric", "luxury minimal"],
+    "styleTags": [
+      "cloth simulation",
+      "atmospheric",
+      "luxury minimal"
+    ],
     "accent": "#7a2e28",
     "description": "The whole house is one length of simulated silk: 2,300 Verlet particles under gravity and breath, stirred by your hand, re-dyed for the season.",
     "thumbnail": "/sites/17-maison-vela/assets/thumb.jpg",
     "livePath": "/sites/17-maison-vela/",
-    "tech": ["Three.js", "Verlet cloth physics", "sheen PBR", "canvas-woven label"],
+    "tech": [
+      "Three.js",
+      "Verlet cloth physics",
+      "sheen PBR",
+      "canvas-woven label"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -224,12 +361,20 @@
     "id": "18-koppar-roastery",
     "title": "KOPPAR",
     "vertical": "Coffee Roastery",
-    "styleTags": ["interactive appliance", "warm light", "data-drawn"],
+    "styleTags": [
+      "interactive appliance",
+      "warm light",
+      "data-drawn"
+    ],
     "accent": "#b5602f",
     "description": "Roast the batch yourself: hold for heat, watch 140 beans darken through the true color stages, catch first crack on the live profile curve — or make charcoal.",
     "thumbnail": "/sites/18-koppar-roastery/assets/thumb.jpg",
     "livePath": "/sites/18-koppar-roastery/",
-    "tech": ["Canvas 2D", "thermodynamic lag model", "live roast logger"],
+    "tech": [
+      "Canvas 2D",
+      "thermodynamic lag model",
+      "live roast logger"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -237,12 +382,21 @@
     "id": "19-voltaic-moto",
     "title": "VOLTAIC",
     "vertical": "Electric Motorcycles",
-    "styleTags": ["showroom 3D", "configurator", "dark product"],
+    "styleTags": [
+      "showroom 3D",
+      "configurator",
+      "dark product"
+    ],
     "accent": "#c8f549",
     "description": "A motorcycle assembled from sixty raw primitives — no models loaded — idling on a lit plinth with live paint, ride modes, and Sport-mode light streaks.",
     "thumbnail": "/sites/19-voltaic-moto/assets/thumb.jpg",
     "livePath": "/sites/19-voltaic-moto/",
-    "tech": ["Three.js", "procedural vehicle build", "clearcoat PBR", "RoomEnvironment"],
+    "tech": [
+      "Three.js",
+      "procedural vehicle build",
+      "clearcoat PBR",
+      "RoomEnvironment"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -250,12 +404,20 @@
     "id": "20-halftone-records",
     "title": "HALFTONE",
     "vertical": "Record Label",
-    "styleTags": ["retro print", "playable instrument", "generative audio"],
+    "styleTags": [
+      "retro print",
+      "playable instrument",
+      "generative audio"
+    ],
     "accent": "#f2762e",
     "description": "The catalogue is a working turntable: four records, each a generative WebAudio loop, with a draggable platter that bends tempo and pitch like the real thing.",
     "thumbnail": "/sites/20-halftone-records/assets/thumb.jpg",
     "livePath": "/sites/20-halftone-records/",
-    "tech": ["Canvas 2D", "WebAudio scheduler synth", "platter-drag rate bend"],
+    "tech": [
+      "Canvas 2D",
+      "WebAudio scheduler synth",
+      "platter-drag rate bend"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -263,12 +425,20 @@
     "id": "21-petrichor-atmos",
     "title": "PETRICHOR",
     "vertical": "Weather Intelligence",
-    "styleTags": ["procedural sky", "shader", "instrument panel"],
+    "styleTags": [
+      "procedural sky",
+      "shader",
+      "instrument panel"
+    ],
     "accent": "#e8a23a",
     "description": "One fragment shader as an entire sky: scrub the hour from dawn to starfield, raise a storm with a slider, and wait for the lightning it earns.",
     "thumbnail": "/sites/21-petrichor-atmos/assets/thumb.jpg",
     "livePath": "/sites/21-petrichor-atmos/",
-    "tech": ["raw WebGL", "5-octave FBM clouds", "screen-space rain"],
+    "tech": [
+      "raw WebGL",
+      "5-octave FBM clouds",
+      "screen-space rain"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -276,12 +446,20 @@
     "id": "22-grammage-paper",
     "title": "GRAMMAGE",
     "vertical": "Paper Goods",
-    "styleTags": ["origami engine", "scroll-driven", "editorial light"],
+    "styleTags": [
+      "origami engine",
+      "scroll-driven",
+      "editorial light"
+    ],
     "accent": "#8a8272",
     "description": "One sheet folds itself into a paper plane as you scroll — a real hinge-and-membership fold engine, crease by crease — then flies off the bench trailing a dashed line.",
     "thumbnail": "/sites/22-grammage-paper/assets/thumb.jpg",
     "livePath": "/sites/22-grammage-paper/",
-    "tech": ["Three.js", "Rodrigues fold engine", "scroll choreography"],
+    "tech": [
+      "Three.js",
+      "Rodrigues fold engine",
+      "scroll choreography"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -289,12 +467,20 @@
     "id": "23-umbra-cacao",
     "title": "UMBRA",
     "vertical": "Chocolate Maker",
-    "styleTags": ["viscous shader", "stir-to-play", "dark luxury"],
+    "styleTags": [
+      "viscous shader",
+      "stir-to-play",
+      "dark luxury"
+    ],
     "accent": "#c9963f",
     "description": "A conching vat of molten chocolate in a domain-warped shader — stir it in slow, steady circles and the temper meter grows Form-V crystals until the gloss snaps in.",
     "thumbnail": "/sites/23-umbra-cacao/assets/thumb.jpg",
     "livePath": "/sites/23-umbra-cacao/",
-    "tech": ["raw WebGL", "domain-warped FBM", "stir-quality judge"],
+    "tech": [
+      "raw WebGL",
+      "domain-warped FBM",
+      "stir-quality judge"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -302,12 +488,20 @@
     "id": "24-pendula-works",
     "title": "PENDULA",
     "vertical": "Kinetic Sculpture",
-    "styleTags": ["harmonograph", "generative ink", "gallery light"],
+    "styleTags": [
+      "harmonograph",
+      "generative ink",
+      "gallery light"
+    ],
     "accent": "#a4874a",
     "description": "A four-arm damped harmonograph drawing live in accumulating ink, with its pendulum bobs visible at the table's edge — strike it and no two études repeat.",
     "thumbnail": "/sites/24-pendula-works/assets/thumb.jpg",
     "livePath": "/sites/24-pendula-works/",
-    "tech": ["Canvas 2D", "damped oscillator model", "persistent ink layer"],
+    "tech": [
+      "Canvas 2D",
+      "damped oscillator model",
+      "persistent ink layer"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
   },
@@ -315,13 +509,46 @@
     "id": "25-somne-railways",
     "title": "SOMNE",
     "vertical": "Sleeper Rail Travel",
-    "styleTags": ["parallax journey", "night ambience", "narrative"],
+    "styleTags": [
+      "parallax journey",
+      "night ambience",
+      "narrative"
+    ],
     "accent": "#e8b45a",
     "description": "A sleeper train window from the 22:04 departure to the coast at dawn: the scrollbar is the timetable, so the train genuinely brakes into every station on the line.",
     "thumbnail": "/sites/25-somne-railways/assets/thumb.jpg",
     "livePath": "/sites/25-somne-railways/",
-    "tech": ["Canvas 2D", "piecewise-eased timetable", "procedural parallax"],
+    "tech": [
+      "Canvas 2D",
+      "piecewise-eased timetable",
+      "procedural parallax"
+    ],
     "status": "complete",
     "builtBy": "Fable 5"
+  },
+  {
+    "id": "26-the-tideline",
+    "title": "The Tideline",
+    "vertical": "Restaurant — Modern Coastal Kitchen",
+    "styleTags": [
+      "multi-page",
+      "reservation flow",
+      "moody coastal",
+      "shader shoreline"
+    ],
+    "accent": "#93bcae",
+    "description": "A complete seven-page restaurant website for a tide-to-table kitchen in a fictional harbor town — WebGL shoreline hero, a four-step reservation flow with realistically uneven availability, inline dietary tags, private dining, gallery and contact. Built to work like a real client site, not a demo.",
+    "thumbnail": "/sites/26-the-tideline/assets/thumb.jpg",
+    "livePath": "/sites/26-the-tideline/",
+    "tech": [
+      "Raw WebGL shoreline shader",
+      "custom reservation engine",
+      "seeded availability model",
+      "shared multi-page design system",
+      "masonry lightbox"
+    ],
+    "status": "complete",
+    "builtBy": "Fable 5",
+    "flagship": true
   }
 ]

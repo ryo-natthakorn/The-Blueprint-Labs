@@ -51,6 +51,9 @@ async function main() {
 
     try {
       await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+      // let fonts, reveal transitions and first canvas frames settle
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(1500);
       fs.mkdirSync(path.dirname(thumbAbsPath), { recursive: true });
       await page.screenshot({ path: thumbAbsPath, type: 'jpeg', quality: 82 });
       count++;
