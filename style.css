@@ -133,6 +133,140 @@ select:focus-visible,
   font-variant-numeric: tabular-nums;
 }
 
+/* Flagship */
+.flagship {
+  --flagship-accent: var(--accent);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  margin: 2rem 0 3.5rem;
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--flagship-accent);
+  border-radius: var(--radius);
+}
+
+.flagship-preview {
+  display: block;
+  position: relative;
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  background: #000;
+  min-height: 320px;
+  border: 1px solid var(--border);
+}
+
+.flagship-preview .card-preview {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  border-bottom: 0;
+}
+
+.flagship-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.flagship-kicker {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--flagship-accent);
+  margin: 0;
+}
+
+.flagship-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.flagship-vertical {
+  font-family: var(--mono);
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin: 0 0 0.4rem;
+}
+
+.flagship-pitch {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.flagship-desc {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 0.4rem;
+}
+
+.flagship .card-tags {
+  margin-bottom: 0.6rem;
+}
+
+.flagship-cta {
+  align-self: flex-start;
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  background: var(--flagship-accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.flagship-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -12px var(--flagship-accent);
+}
+
+.browse-heading {
+  padding: 0.5rem 0 0;
+}
+
+.browse-heading h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+
+.browse-heading p {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .flagship {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+  .flagship-preview {
+    min-height: 220px;
+  }
+}
+
+/* Reduced motion: flagship live preview already gated in script.js by
+   prefers-reduced-motion, so the thumbnail image is the static fallback. */
+
 /* Grid */
 .grid {
   display: grid;
@@ -265,17 +399,37 @@ select:focus-visible,
 
 .footer-contact {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem;
 }
 
-.footer-contact a {
-  text-decoration: underline;
+.footer-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  cursor: default;
+  user-select: none;
+}
+
+.footer-contact-item.is-todo {
+  opacity: 0.6;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.15rem;
+}
+
+.footer-contact-item i {
+  font-size: 0.85em;
 }
 
 /* Reduced motion fallback */
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .card-preview img {
+  .card-preview img,
+  .flagship-cta {
     transition: none;
   }
 }

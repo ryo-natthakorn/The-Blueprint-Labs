@@ -15,6 +15,7 @@
   const verticalSelect = document.getElementById('filter-vertical');
   const styleSelect = document.getElementById('filter-style');
   const sortSelect = document.getElementById('sort-by');
+  const flagshipSection = document.getElementById('flagship-feature');
 
   const hoverCapable = window.matchMedia('(hover: hover)').matches;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -115,6 +116,82 @@
     return card;
   }
 
+  function buildFlagship(project) {
+    if (!project) return;
+
+    flagshipSection.style.setProperty('--flagship-accent', project.accent || 'var(--accent)');
+
+    const preview = document.createElement('a');
+    preview.className = 'flagship-preview';
+    preview.href = project.livePath || '#';
+    preview.dataset.title = project.title;
+
+    const previewInner = document.createElement('div');
+    previewInner.className = 'card-preview';
+
+    const img = document.createElement('img');
+    img.src = project.thumbnail || '';
+    img.alt = `${project.title} — thumbnail preview`;
+    img.loading = 'lazy';
+    previewInner.appendChild(img);
+    preview.appendChild(previewInner);
+
+    if (!prefersReducedMotion && project.livePath) {
+      if (hoverCapable) {
+        preview.addEventListener('mouseenter', () => loadPreview(preview, project.livePath));
+        preview.addEventListener('mouseleave', () => unloadPreview(preview));
+      } else {
+        preview.addEventListener('touchstart', () => {
+          activeLiveCards
+            .filter((c) => c !== preview)
+            .slice()
+            .forEach(unloadPreview);
+          loadPreview(preview, project.livePath);
+        }, { passive: true });
+      }
+    }
+
+    const body = document.createElement('div');
+    body.className = 'flagship-body';
+
+    const kicker = document.createElement('p');
+    kicker.className = 'flagship-kicker';
+    kicker.textContent = 'Flagship build';
+
+    const title = document.createElement('h2');
+    title.className = 'flagship-title';
+    title.textContent = project.title;
+
+    const vertical = document.createElement('p');
+    vertical.className = 'flagship-vertical';
+    vertical.textContent = project.vertical || '';
+
+    const pitch = document.createElement('p');
+    pitch.className = 'flagship-pitch';
+    pitch.textContent = 'A full seven-page restaurant site, not another single-scene demo: real working code covering a business like yours, reservations flow included.';
+
+    const desc = document.createElement('p');
+    desc.className = 'flagship-desc';
+    desc.textContent = project.description || '';
+
+    const tags = document.createElement('div');
+    tags.className = 'card-tags';
+    (project.styleTags || []).forEach((tag) => {
+      const el = document.createElement('span');
+      el.className = 'tag';
+      el.textContent = tag;
+      tags.appendChild(el);
+    });
+
+    const cta = document.createElement('a');
+    cta.className = 'flagship-cta';
+    cta.href = project.livePath || '#';
+    cta.textContent = 'View The Tideline';
+
+    body.append(kicker, title, vertical, pitch, desc, tags, cta);
+    flagshipSection.append(preview, body);
+  }
+
   function populateFilterOptions(projects) {
     const verticals = [...new Set(projects.map((p) => p.vertical).filter(Boolean))].sort();
     const styles = [...new Set(projects.flatMap((p) => p.styleTags || []))].sort();
@@ -192,15 +269,24 @@
     }, { root: null, rootMargin: '0px', threshold: 0 });
 
     grid.querySelectorAll('.card').forEach((card) => observer.observe(card));
+    const flagshipPreview = flagshipSection.querySelector('.flagship-preview');
+    if (flagshipPreview) observer.observe(flagshipPreview);
   }
 
   async function init() {
+    let projects = [];
     try {
       const res = await fetch('projects.json');
-      allProjects = await res.json();
+      projects = await res.json();
     } catch (err) {
-      allProjects = [];
+      projects = [];
     }
+
+    const flagshipProject = projects.find((p) => p.flagship);
+    allProjects = projects.filter((p) => !p.flagship);
+
+    if (flagshipProject) buildFlagship(flagshipProject);
+    else flagshipSection.hidden = true;
 
     populateFilterOptions(allProjects);
     verticalSelect.addEventListener('change', applyFiltersAndSort);

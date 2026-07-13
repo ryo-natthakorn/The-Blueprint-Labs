@@ -205,13 +205,26 @@ don't stop to ask me anything until it's fully built and iterated.
 ## Phase 5 — Hub feature treatment for site 26 (Sonnet 5)
 
 Deliverables:
-- [ ] Give the site 26 card a distinct "flagship" treatment on the
+- [x] Give the site 26 card a distinct "flagship" treatment on the
       Hub grid (visually larger, or a badge/label — read
       `projects.json`'s `flagship` field to drive this), so it reads as
       the standout entry rather than card #26 of 26
-- [ ] Regenerate its thumbnail via `scripts/screenshot.js`
-- [ ] Verify all site 26 subpages resolve correctly on the live Vercel
+- [x] Regenerate its thumbnail via `scripts/screenshot.js`
+- [x] Verify all site 26 subpages resolve correctly on the live Vercel
       deployment (not just the homepage)
+
+Completed: distinct flagship hero section above the 25-site grid
+(`#flagship-feature` in `index.html`, rendered by `script.js` from
+`projects.json`'s `flagship: true` entry), belief-ladder copy pulled
+from `PRODUCT.md`, grid demoted to a "Browse the full portfolio"
+secondary section, footer contact wired for email/Fastwork/LINE as
+inert `TODO:` placeholders, thumbnail regenerated locally. All 7 site
+26 subpages confirmed 200 on the live Vercel deployment
+(the-blueprint-labs.vercel.app) — trailing-slash URLs 308-redirect to
+their non-trailing-slash form there (Vercel's default routing, not a
+regression) and resolve 200. This session's Hub changes are
+uncommitted, so the live site still reflects the pre-Phase-5 state
+pending push.
 
 **Kickoff message for this session:**
 ```

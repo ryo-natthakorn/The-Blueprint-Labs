@@ -18,18 +18,20 @@ const ROOT = path.resolve(__dirname, '..');
 const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 
 function parseArgs(argv) {
-  const args = { baseUrl: 'http://localhost:3000', force: false };
+  const args = { baseUrl: 'http://localhost:3000', force: false, id: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--base-url') args.baseUrl = argv[++i];
     if (argv[i] === '--force') args.force = true;
+    if (argv[i] === '--id') args.id = argv[++i];
   }
   return args;
 }
 
 async function main() {
-  const { baseUrl, force } = parseArgs(process.argv.slice(2));
+  const { baseUrl, force, id } = parseArgs(process.argv.slice(2));
 
-  const projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'));
+  let projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'));
+  if (id) projects = projects.filter((p) => p.id === id);
 
   if (projects.length === 0) {
     console.log('projects.json is empty — nothing to screenshot yet.');

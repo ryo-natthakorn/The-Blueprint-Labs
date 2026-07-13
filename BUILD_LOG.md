@@ -41,3 +41,13 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 ## Phase 4
 
 - [26-the-tideline] The Tideline — Restaurant (Modern Coastal Kitchen) / flagship seven-page site: WebGL shoreline hero, full reservation flow, menu, story, private dining, gallery, contact — built by Fable 5
+
+## Phase 5
+
+- Hub flagship treatment for site 26 — distinct hero section above the
+  25-site grid, sourced from projects.json's flagship field, with
+  belief-ladder copy pulled from PRODUCT.md; grid demoted to a "Browse
+  the full portfolio" secondary section (25 projects, site 26 excluded);
+  footer contact wired for email, Fastwork, and LINE as visually inert
+  TODO placeholders (no real values supplied); thumbnail regenerated via
+  scripts/screenshot.js — built by Sonnet 5
