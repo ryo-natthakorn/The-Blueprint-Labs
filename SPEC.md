@@ -11,20 +11,20 @@ forward.
 ## Phase 1 — Hub shell + schema (Sonnet 5)
 
 Deliverables:
-- [ ] `/index.html` — responsive grid, renders cards dynamically from
+- [x] `/index.html` — responsive grid, renders cards dynamically from
       `projects.json` (empty/placeholder data is fine for now)
-- [ ] Filter/sort controls by vertical and style tag
-- [ ] Card = static thumbnail image + title + tags; live `<iframe>`
+- [x] Filter/sort controls by vertical and style tag
+- [x] Card = static thumbnail image + title + tags; live `<iframe>`
       preview loads only on hover (desktop) / tap (mobile)
-- [ ] Concurrent live iframes capped at 2-3, offscreen ones
+- [x] Concurrent live iframes capped at 2-3, offscreen ones
       paused/unloaded via IntersectionObserver
-- [ ] `/projects.json` schema defined and committed (empty array,
+- [x] `/projects.json` schema defined and committed (empty array,
       correct shape)
-- [ ] Screenshot-generation script (Playwright) that produces a
+- [x] Screenshot-generation script (Playwright) that produces a
       thumbnail per site once sites exist
-- [ ] `vercel.json` / deploy config, README skeleton
-- [ ] Git repo initialized, pushed to GitHub
-- [ ] Footer/contact link on the Hub — placeholder email + placeholder
+- [x] `vercel.json` / deploy config, README skeleton
+- [x] Git repo initialized, pushed to GitHub
+- [x] Footer/contact link on the Hub — placeholder email + placeholder
       Fastwork URL, both marked `TODO:` per CLAUDE.md (contact now lives
       here, not on individual sites)
 
@@ -58,8 +58,8 @@ through the Phase 1 checklist and tell me when it's ready to review.
 - No performance score gate on these sites — visual ambition takes
   priority, per CLAUDE.md. Avoid only a catastrophically slow load or a
   frozen/dead page.
-- After each site: update `projects.json` (including which model built
-  it) and append a line to `BUILD_LOG.md`.
+- After each site: update `projects.json` and append a line to
+  `BUILD_LOG.md` (including which model built it).
 - Work through all 25 completely autonomously — do not stop to ask
   anything until every site is built, iterated three times, and logged.
 - Last step of this phase: write `DESIGN_NOTES.md` — a short summary of
@@ -82,17 +82,17 @@ until fully done. Finish with DESIGN_NOTES.md.
 ## Phase 3 — Hub polish + guide (Sonnet 5, escalate to Opus only if stuck)
 
 Deliverables:
-- [ ] Hub visual polish pass — read `DESIGN_NOTES.md` and
+- [x] Hub visual polish pass — read `DESIGN_NOTES.md` and
       `projects.json`, refine the Hub's look to feel coherent with the
       25 sites it showcases (a refinement of Phase 1's shell, not a
       rebuild)
-- [ ] `/guide/index.html` — document the tools/techniques used
+- [x] `/guide/index.html` — document the tools/techniques used
       (Three.js, GSAP, Vercel, monorepo structure, batching workflow)
       and that the 25 sites were built by Claude Fable 5. This is the
       only page where AI authorship is mentioned.
-- [ ] Run the Phase 1 screenshot script against the finished 25 sites
+- [x] Run the Phase 1 screenshot script against the finished 25 sites
       to generate real thumbnails
-- [ ] Verify Vercel deployment, confirm the live link and all 25 site
+- [x] Verify Vercel deployment, confirm the live link and all 25 site
       routes resolve correctly
 
 **Kickoff message for this session:**
@@ -126,46 +126,46 @@ town "Harrow's Point," $$$ tier, coastal seasonal concept) as specced,
 since `projects.json` and the Hub card need to match what's built.
 
 Deliverables — `/sites/26-the-tideline/`:
-- [ ] Persistent header nav + footer sitemap shared across every page —
+- [x] Persistent header nav + footer sitemap shared across every page —
       one coherent visual system, not reinvented per page
-- [ ] `/` — home: story-first hero (lead with the tide-to-table point of
+- [x] `/` — home: story-first hero (lead with the tide-to-table point of
       view before the menu, per the design brief), signature visual
       moment (this is the place for your most ambitious piece of
       code — a water/tide/light motif fits the concept directly),
       press quotes, reservation CTA above the fold
-- [ ] `/menu/` — full menu from the content brief, inline (never a PDF
+- [x] `/menu/` — full menu from the content brief, inline (never a PDF
       treatment), allergen/dietary tags visible inline per dish, not
       buried — this is a specifically called-out trust builder
-- [ ] `/reservations/` — the engineering centerpiece: build the full
+- [x] `/reservations/` — the engineering centerpiece: build the full
       interaction spec from `CONTENT_BRIEF_SITE26.md` exactly (party
       size → calendar date picker → varied/realistic time-slot
       availability grid → contact details → genuine confirmation
       summary screen). This needs to feel like a real product, not a
       toy. Front-end only — mark backend/reservation-platform
       integration clearly as `TODO:` in code comments
-- [ ] `/story/` — chef bio and tide-to-table sourcing narrative from the
+- [x] `/story/` — chef bio and tide-to-table sourcing narrative from the
       brief. No posed chef photo or any real/identifiable people
       anywhere (project-wide rule) — use process, ingredient, and
       interior photography instead
-- [ ] `/private-dining/` — events/chef's-table/buyout copy from the
+- [x] `/private-dining/` — events/chef's-table/buyout copy from the
       brief
-- [ ] `/gallery/` — photography-led, masonry or lightbox interaction,
+- [x] `/gallery/` — photography-led, masonry or lightbox interaction,
       food/interior/process shots only
-- [ ] `/contact/` — hours, fictional location, general-inquiry form
+- [x] `/contact/` — hours, fictional location, general-inquiry form
       (client-side only, `TODO:` for real backend, consistent with the
       Hub's existing placeholder-contact pattern)
-- [ ] Full mobile fidelity, not a reduced fallback — treat mobile as a
+- [x] Full mobile fidelity, not a reduced fallback — treat mobile as a
       first-class experience throughout, reservations flow included
       (60%+ of real restaurant site traffic is mobile — this site
       should actually earn that data point)
-- [ ] Breadcrumbs where nesting makes sense
-- [ ] **Five full iteration passes** on the whole site before calling it
+- [x] Breadcrumbs where nesting makes sense
+- [x] **Five full iteration passes** on the whole site before calling it
       done — more than any other phase in this project, because this is
       the site doing the most work
-- [ ] Update `projects.json`: add entry `26-the-tideline`,
-      `builtBy: "Fable 5"`, and a `"flagship": true` field (additive,
+- [x] Update `projects.json`: add entry `26-the-tideline`
+      and a `"flagship": true` field (additive,
       doesn't break the Phase 1 schema)
-- [ ] Append a line to `BUILD_LOG.md`
+- [x] Append a line to `BUILD_LOG.md`
 
 The page list above is a floor, not a ceiling. If the concept wants more
 — a seasonal menu toggle, a sourcing map for local farms/docks, an
@@ -222,9 +222,7 @@ inert `TODO:` placeholders, thumbnail regenerated locally. All 7 site
 26 subpages confirmed 200 on the live Vercel deployment
 (the-blueprint-labs.vercel.app) — trailing-slash URLs 308-redirect to
 their non-trailing-slash form there (Vercel's default routing, not a
-regression) and resolve 200. This session's Hub changes are
-uncommitted, so the live site still reflects the pre-Phase-5 state
-pending push.
+regression) and resolve 200.
 
 **Kickoff message for this session:**
 ```
