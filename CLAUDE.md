@@ -102,6 +102,8 @@ Name: **The Blueprint Labs**
 
 ## State files
 - `projects.json`: id, title, vertical, style tags, description, thumbnail
-  path, live path, tech used, status, built-by (model).
+  path, live path, tech used, status. It is served publicly (the Hub
+  fetches it), so it never records which model built a site — that
+  goes in `BUILD_LOG.md` only.
 - `BUILD_LOG.md`: append one line per completed site. If a session is
   interrupted, resume from here — don't restart.

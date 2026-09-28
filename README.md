@@ -57,7 +57,6 @@ Each entry:
 | `livePath`   | string     | Path to the live site, e.g. `/sites/01-slug/index.html` |
 | `tech`       | string[]   | e.g. `["Three.js", "GSAP"]`                         |
 | `status`     | string     | `"planned"` \| `"in-progress"` \| `"complete"`      |
-| `builtBy`    | string     | Model that built it, e.g. `"Fable 5"`               |
 | `flagship`   | boolean    | Optional. `true` on site 26 only — rendered as the Hub hero feature and excluded from the grid |
 
 Currently 26 entries, all `"complete"`.
@@ -79,6 +78,8 @@ site changes.
 ## Deploy
 
 Zero-config static deploy on Vercel — see [`vercel.json`](./vercel.json).
+[`.vercelignore`](./.vercelignore) keeps the internal `.md` notes,
+`scripts/`, and `.claude/` out of the deployed site.
 
 ## Contact
 
