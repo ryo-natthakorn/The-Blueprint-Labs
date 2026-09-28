@@ -45,7 +45,7 @@ Fable 5 is used **only** in Phase 2 and Phase 4. Don't escalate to Opus by
 default elsewhere — per-task, only when Sonnet actually struggles.
 
 Each phase runs in its own fresh session. Don't carry a prior phase's
-conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
+conversation forward — read AGENTS.md and SPEC.md fresh each time instead.
 
 ## Hard constraints (all phases)
 - No paid or external AI image/video generation APIs, ever.
@@ -69,7 +69,7 @@ conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
   motion, silhouettes) is fine — posed or recognizable people are not.
   This avoids likeness/model-release ambiguity in self-hosted stock
   photography.
-- No mention of Claude, Fable 5, or AI authorship anywhere except `/guide`.
+- No mention of Codex, Fable 5, or AI authorship anywhere except `/guide`.
 - Contact info (placeholder email + placeholder Fastwork URL, marked
   `TODO:`) lives on the Hub only. The 25 sites are single-scene capability
   showcases with no required section structure and no contact section.
