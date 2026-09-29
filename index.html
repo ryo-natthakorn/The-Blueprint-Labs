@@ -66,6 +66,62 @@
 
   <p class="empty-state" id="empty-state" hidden>No sites yet — check back soon.</p>
 
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="contact-intro">
+      <p class="contact-kicker">Start a project</p>
+      <h2 id="contact-heading">Tell me about your business.</h2>
+      <p>Point at a site above that feels right, or describe what you need in your own words. Every message is read and answered personally.</p>
+      <p class="contact-alt">Prefer to chat? Reach out directly:</p>
+      <ul class="contact-channels">
+        <!-- TODO: replace each span with a real <a href> once the account exists. -->
+        <li><span class="contact-channel is-todo"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email: TODO</span></li>
+        <li><span class="contact-channel is-todo"><i class="fa-brands fa-line" aria-hidden="true"></i> LINE Official Account: TODO</span></li>
+        <li><span class="contact-channel is-todo"><i class="fa-brands fa-facebook" aria-hidden="true"></i> Facebook: TODO</span></li>
+        <li><span class="contact-channel is-todo"><i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram: TODO</span></li>
+      </ul>
+    </div>
+
+    <!-- TODO: set data-endpoint to the real Formspree form URL (https://formspree.io/f/<id>).
+         While it starts with "TODO", submitting shows a note pointing to the channels instead. -->
+    <form class="contact-form" id="contact-form" method="post" data-endpoint="TODO">
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="cf-reply">Email or LINE ID</label>
+        <input id="cf-reply" name="reply_to" type="text" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="cf-business">Type of business</label>
+        <select id="cf-business" name="business">
+          <option value="">Choose one</option>
+          <option>Restaurant or café</option>
+          <option>Shop or boutique</option>
+          <option>Studio or creative</option>
+          <option>Professional services</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cf-budget">Rough budget <span class="optional">(optional)</span></label>
+        <input id="cf-budget" name="budget" type="text">
+      </div>
+      <div class="field field-wide">
+        <label for="cf-message">What do you need?</label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+      </div>
+      <div class="field-trap" aria-hidden="true">
+        <label for="cf-gotcha">Leave this empty</label>
+        <input id="cf-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="form-actions field-wide">
+        <button type="submit" class="contact-submit">Send message</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
+
 </main>
 
 <footer class="site-footer">
@@ -73,8 +129,9 @@
     <p class="footer-meta">&copy; 2026 The Blueprint Labs &middot; <a href="/guide/">How this was built</a></p>
     <div class="footer-contact" aria-label="Contact channels, not yet live">
       <span class="footer-contact-item is-todo"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email: TODO</span>
-      <span class="footer-contact-item is-todo"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Fastwork: TODO</span>
       <span class="footer-contact-item is-todo"><i class="fa-brands fa-line" aria-hidden="true"></i> LINE: TODO</span>
+      <span class="footer-contact-item is-todo"><i class="fa-brands fa-facebook" aria-hidden="true"></i> Facebook: TODO</span>
+      <span class="footer-contact-item is-todo"><i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram: TODO</span>
     </div>
   </div>
 </footer>

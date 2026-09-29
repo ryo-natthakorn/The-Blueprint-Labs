@@ -83,5 +83,9 @@ Zero-config static deploy on Vercel — see [`vercel.json`](./vercel.json).
 
 ## Contact
 
-Placeholder contact info (email, Fastwork, LINE) lives in the Hub footer
-(`index.html`), marked `TODO` until real values are supplied.
+The Hub's "Start a project" section (`index.html`) holds the contact form
+and the direct channels (email, LINE Official Account, Facebook,
+Instagram), repeated in the footer. All are marked `TODO` until real
+values are supplied. The form posts to Formspree: set `data-endpoint` on
+`#contact-form` to the real form URL; until then it tells visitors to use
+the direct channels.

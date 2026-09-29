@@ -70,8 +70,10 @@ conversation forward — read CLAUDE.md and SPEC.md fresh each time instead.
   This avoids likeness/model-release ambiguity in self-hosted stock
   photography.
 - No mention of Claude, Fable 5, or AI authorship anywhere except `/guide`.
-- Contact info (placeholder email + placeholder Fastwork URL, marked
-  `TODO:`) lives on the Hub only. The 25 sites are single-scene capability
+- Contact info (email, LINE Official Account, Facebook, Instagram, plus
+  the Hub's contact form; placeholders marked `TODO:` until real values
+  exist) lives on the Hub only. Fastwork is shutting down — don't
+  reintroduce it. The 25 sites are single-scene capability
   showcases with no required section structure and no contact section.
 - Never embed more than 2-3 live WebGL `<iframe>`s at once on the Hub —
   browsers cap concurrent WebGL contexts around 16 and the page will

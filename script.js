@@ -296,5 +296,49 @@
     render(allProjects);
   }
 
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const status = document.getElementById('form-status');
+    const submit = form.querySelector('.contact-submit');
+    const endpoint = form.dataset.endpoint || '';
+
+    function setStatus(text, kind) {
+      status.textContent = text;
+      status.classList.toggle('is-success', kind === 'success');
+      status.classList.toggle('is-error', kind === 'error');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      // TODO: until data-endpoint holds a real Formspree URL, point people to
+      // the direct channels instead of pretending the message was sent.
+      if (!endpoint.startsWith('https://')) {
+        setStatus('The form isn’t connected yet — please use one of the channels listed here for now.', 'error');
+        return;
+      }
+
+      submit.disabled = true;
+      setStatus('Sending…');
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.reset();
+        setStatus('Thanks — your message is in. I’ll get back to you soon.', 'success');
+      } catch (err) {
+        setStatus('Something went wrong sending that. Please try again, or use one of the channels listed here.', 'error');
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+
+  initContactForm();
   init();
 })();
