@@ -6,7 +6,7 @@
 - **Next step:** Audit (see PROTOCOL §4 Build step 1)
 
 ## Original audit
-_Written before changing any code. Compare against tag `v1-original`._
+_Written before changing any code. Compare against branch `origin/v1-original`._
 
 **Keep:**
 

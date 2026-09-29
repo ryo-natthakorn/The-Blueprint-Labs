@@ -9,7 +9,7 @@ Kickoff message (the same for both agents, every time):
 > to the `revamp` branch. Reply to me in Thai.
 
 Rules: `revamp/PROTOCOL.md`. Per-site detail: `revamp/notes/`.
-Baseline to compare against: git tag `v1-original`.
+Baseline to compare against: branch `v1-original` (the live site before the revamp; use `git diff origin/v1-original -- sites/NN-slug`).
 
 ## Queue
 

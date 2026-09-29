@@ -253,7 +253,8 @@ duplicate it.
 Upgrade every site in place, using what current models can do. Each
 site keeps its folder, URL, fictional brand and core concept, and gains
 craft: visuals, interaction depth, motion, mobile, load behaviour and
-polish. The baseline is the git tag `v1-original`. All work happens on
+polish. The baseline is the branch `v1-original`
+(the site as it was before the revamp; never push to it). All work happens on
 the `revamp` branch and ships in one PR to `master` at the end.
 
 Claude (Claude Code) and Codex alternate. One builds a batch, the other

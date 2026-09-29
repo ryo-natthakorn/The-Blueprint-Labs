@@ -71,8 +71,8 @@ For each site in the batch:
 7. Set the site's stage to `awaiting review`.
 
 ### Review (reviewer)
-For each site: open it at desktop and mobile widths, read the diff since
-`v1-original`, and go through the checklist in §5. Write findings in the
+For each site: open it at desktop and mobile widths, read the diff against the
+original (`git diff origin/v1-original -- sites/NN-slug`), and go through the checklist in §5. Write findings in the
 note's Review section as unchecked items (`- [ ] R1 …`). Tag each one
 `must` (blocks done) or `nice` (builder's call).
 - No findings: stage `done` (see §8).
@@ -114,7 +114,7 @@ tell the user it's ready to merge.
 ## 5. Review checklist
 
 - [ ] Concept and brand still recognisable; craft clearly above the
-      `v1-original` version.
+      original (branch `v1-original`).
 - [ ] No console errors. No frozen or blank canvas.
 - [ ] Mobile width (390px) is a real experience, not broken or
       squeezed, and nothing scrolls sideways.

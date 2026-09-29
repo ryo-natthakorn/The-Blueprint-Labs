@@ -6,7 +6,7 @@
 - **Next step:** Codex writes the audit and improvement list below (Queue T18, PROTOCOL §4 Audit). Claude builds from it in T21.
 
 ## Original audit
-_Written before changing any code. Compare against tag `v1-original`._
+_Written before changing any code. Compare against branch `origin/v1-original`._
 
 **Keep:**
 
