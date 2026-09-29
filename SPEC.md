@@ -240,3 +240,38 @@ style-and-customize model works, a simple process, honest positioning
 (no fabricated experience, testimonials, or client history). Links to
 the style gallery (25 sites) and site 26 as proof of range and depth.
 Not yet detailed — spec this out in its own session when ready.
+
+Note: the Hub's "Start a project" section (contact form plus email, LINE
+Official Account, Facebook and Instagram) already exists, replacing
+Fastwork, which is shutting down. This page should link to it, not
+duplicate it.
+
+---
+
+## Phase 7 — Revamp all 26 sites (Claude Opus 5.5 + Codex, taking turns)
+
+Upgrade every site in place, using what current models can do. Each
+site keeps its folder, URL, fictional brand and core concept, and gains
+craft: visuals, interaction depth, motion, mobile, load behaviour and
+polish. The baseline is the git tag `v1-original`. All work happens on
+the `revamp` branch and ships in one PR to `master` at the end.
+
+Claude (Claude Code) and Codex alternate. One builds a batch, the other
+reviews it, and the builder fixes. They coordinate only through files:
+
+- `revamp/PROTOCOL.md`: the operating manual for both agents (session
+  start and end checklists, task types, review checklist, verification).
+- `revamp/BOARD.md`: whose turn it is, the task queue, the stage of
+  every site, questions for the user, and the session log.
+- `revamp/notes/NN-slug.md`: one handoff note per site (audit, plan,
+  pass log, verification, review findings, fix log, next step).
+- `scripts/check-rules.js`: mechanical check of the hard constraints.
+  It must pass before every handoff.
+
+**Kickoff message**, the same for both agents every session. The user
+opens whichever agent the board's **Next up** line names:
+```
+Read revamp/PROTOCOL.md, then revamp/BOARD.md, and do every task
+assigned to you there, following the protocol exactly. Work on and push
+to the `revamp` branch. Reply to me in Thai.
+```

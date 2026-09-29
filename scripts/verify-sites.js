@@ -4,7 +4,10 @@
  * page so blank/frozen canvases can be visually inspected afterward.
  *
  * Usage:
- *   node verify-sites.js [--base-url http://localhost:3000]
+ *   node verify-sites.js [--base-url http://localhost:3000] [--only 01,05,26]
+ *
+ * --only limits the run to projects whose id starts with one of the given
+ * prefixes (e.g. the batch currently being revamped).
  *
  * Not part of the deployed site. Writes screenshots to
  * scripts/.verify-shots/<id>.png and a JSON report to
@@ -19,16 +22,18 @@ const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 const SHOTS_DIR = path.join(__dirname, '.verify-shots');
 
 function parseArgs(argv) {
-  const args = { baseUrl: 'http://localhost:3000' };
+  const args = { baseUrl: 'http://localhost:3000', only: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--base-url') args.baseUrl = argv[++i];
+    else if (argv[i] === '--only') args.only = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
   }
   return args;
 }
 
 async function main() {
-  const { baseUrl } = parseArgs(process.argv.slice(2));
-  const projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'));
+  const { baseUrl, only } = parseArgs(process.argv.slice(2));
+  const projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'))
+    .filter((p) => !only || only.some((prefix) => p.id.startsWith(prefix)));
   fs.mkdirSync(SHOTS_DIR, { recursive: true });
 
   const browser = await chromium.launch();

@@ -15,6 +15,7 @@ Codex) and [`SPEC.md`](./SPEC.md).
 - [x] Phase 4 — Flagship site 26: The Tideline (multi-page restaurant site)
 - [x] Phase 5 — Hub flagship treatment for site 26
 - [ ] Phase 6 — "Work With Me" page (not yet specced)
+- [ ] Phase 7 — Revamp all 26 sites (see `revamp/BOARD.md`)
 
 Live: https://the-blueprint-labs.vercel.app
 
@@ -32,7 +33,8 @@ Live: https://the-blueprint-labs.vercel.app
 /DESIGN_NOTES.md       <- written at end of Phase 2, informs Hub polish
 /PRODUCT.md            <- positioning + belief-ladder copy (site 26, Hub)
 /CONTENT_BRIEF_SITE26.md <- content brief for The Tideline
-/scripts/              <- screenshot.js, verify-sites.js (Playwright)
+/scripts/              <- screenshot.js, verify-sites.js (Playwright), check-rules.js
+/revamp/               <- Phase 7 board, protocol and per-site notes (not deployed)
 ```
 
 ## Architecture

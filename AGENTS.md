@@ -40,9 +40,17 @@ See `SPEC.md` for the phased, batch-by-batch task breakdown.
 | 4 | Flagship multi-page site (site 26, The Tideline) — see SPEC.md | **Fable 5** — full budget, no cost constraint |
 | 5 | Hub feature-card treatment for site 26, projects.json update | Sonnet 5 |
 | 6 | "Work With Me" page — not yet specced, see SPEC.md | Sonnet 5 |
+| 7 | Revamp all 26 sites in place — see `revamp/PROTOCOL.md` | **Claude Opus 5.5** (Claude Code) and **Codex (Astra / GPT 6)**, taking turns per `revamp/BOARD.md` |
 
-Fable 5 is used **only** in Phase 2 and Phase 4. Don't escalate to Opus by
-default elsewhere — per-task, only when Sonnet actually struggles.
+Fable 5 was used only in Phases 2 and 4. For Phases 1, 3, 5 and 6, don't
+escalate to Opus by default: escalate per task, and only when Sonnet
+actually struggles.
+
+**Revamp (Phase 7):** if you are asked to work on the revamp, or the user
+sends the revamp kickoff message, read `revamp/PROTOCOL.md` first and
+follow it exactly. `revamp/BOARD.md` is the single source of truth for
+whose turn it is and what's left. Never work a task the board assigns to
+the other agent.
 
 Each phase runs in its own fresh session. Don't carry a prior phase's
 conversation forward — read AGENTS.md and SPEC.md fresh each time instead.
