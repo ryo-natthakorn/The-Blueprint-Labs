@@ -31,11 +31,13 @@
       "3D craft"
     ],
     "accent": "#c17a4f",
-    "description": "Scroll to throw a pot: one lathe-morphed vessel travels from raw lump to glazed celadon across six stages of the wheel.",
+    "description": "Scroll to throw a stoneware pot: wet clay on a working wheel, three pulls, a kiln firing to 1280°C, then a celadon piece you can turn in your hands.",
     "thumbnail": "/sites/02-terra-atelier/assets/thumb.jpg",
     "livePath": "/sites/02-terra-atelier/",
     "tech": [
       "Three.js",
+      "MeshPhysicalMaterial",
+      "procedural canvas maps",
       "LatheGeometry morphing",
       "scroll choreography"
     ],

@@ -51,7 +51,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | Site | Batch | Builder | Reviewer | Stage | Note |
 |---|---|---|---|---|---|
 | 01-aurora-audio | 1 | Claude | Codex | awaiting review | [note](notes/01-aurora-audio.md) |
-| 02-terra-atelier | 1 | Claude | Codex | not started | [note](notes/02-terra-atelier.md) |
+| 02-terra-atelier | 1 | Claude | Codex | awaiting review | [note](notes/02-terra-atelier.md) |
 | 03-nova-orbit | 1 | Claude | Codex | not started | [note](notes/03-nova-orbit.md) |
 | 04-cipher-security | 1 | Claude | Codex | not started | [note](notes/04-cipher-security.md) |
 | 05-flora-lab | 1 | Claude | Codex | not started | [note](notes/05-flora-lab.md) |
