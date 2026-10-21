@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: USER: merge PR https://github.com/ryo-natthakorn/The-Blueprint-Labs/pull/2 into revamp, then open Codex** ← the only line the user needs to read
+**Next up / ถัดไป: Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
