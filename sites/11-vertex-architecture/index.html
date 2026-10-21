@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vertex — Architecture, Sheet by Sheet</title>
-<meta name="description" content="Vertex — an architecture studio. Three unbuilt projects draw themselves as living blueprints on one drawing sheet.">
+<meta name="description" content="Vertex — an architecture studio. Three unbuilt projects draft themselves on one blueprint sheet: axonometric, plan and section, with a redline pen for your own markup.">
 <meta name="theme-color" content="#0a1b30">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/11-vertex-architecture/style.css">
 <script type="importmap">
 {
@@ -22,47 +22,79 @@
 <body>
 
 <div class="sheet">
+  <canvas id="drawing" tabindex="0" role="application"
+    aria-label="Architectural drawing that drafts itself. Drag or use arrow keys to orbit, scroll or plus and minus to zoom."></canvas>
+  <img class="fallback" data-src="/sites/11-vertex-architecture/assets/fallback.webp"
+    alt="Blueprint axonometric of Meridian Tower, a twisting diagrid tower on its site with dimensions and a redline revision cloud."
+    width="1440" height="900" hidden>
   <div class="sheet-border" aria-hidden="true"></div>
-
-  <canvas id="drawing" aria-label="A wireframe building drawing itself line by line on a blueprint sheet. Drag to orbit." role="img"></canvas>
 
   <header class="studio">
     <span class="studio-mark" aria-hidden="true">▲</span>
-    <span class="studio-name">VERTEX</span>
+    <h1 class="studio-name">VERTEX</h1>
     <span class="studio-sub">architecture &amp; structures</span>
   </header>
 
-  <nav class="drawings" aria-label="Select a project drawing">
-    <button class="dwg" data-design="0" aria-pressed="true">
-      <span class="dwg-no">DWG-01</span>
-      <span class="dwg-name">Meridian Tower</span>
-    </button>
-    <button class="dwg" data-design="1" aria-pressed="false">
-      <span class="dwg-no">DWG-02</span>
-      <span class="dwg-name">Courtyard Pavilion</span>
-    </button>
-    <button class="dwg" data-design="2" aria-pressed="false">
-      <span class="dwg-no">DWG-03</span>
-      <span class="dwg-name">The Circle Archive</span>
-    </button>
-  </nav>
+  <p class="sheet-tag" id="sheet-tag" aria-hidden="true">A-101 · AXO</p>
 
-  <aside class="annotations" aria-live="polite">
-    <p class="anno" id="anno-height"><span class="anno-key">HEIGHT</span><span class="anno-val">—</span></p>
-    <p class="anno" id="anno-floors"><span class="anno-key">FLOORS</span><span class="anno-val">—</span></p>
+  <div class="panel">
+    <section class="panel-block panel-set">
+      <h2 class="panel-label">Sheet set</h2>
+      <nav class="drawings" aria-label="Select a project">
+        <button class="dwg" type="button" data-design="0" aria-pressed="true">
+          <span class="dwg-no">DWG-01</span>
+          <span class="dwg-name">Meridian Tower</span>
+        </button>
+        <button class="dwg" type="button" data-design="1" aria-pressed="false">
+          <span class="dwg-no">DWG-02</span>
+          <span class="dwg-name">Courtyard Pavilion</span>
+        </button>
+        <button class="dwg" type="button" data-design="2" aria-pressed="false">
+          <span class="dwg-no">DWG-03</span>
+          <span class="dwg-name">The Circle Archive</span>
+        </button>
+      </nav>
+    </section>
+
+    <section class="panel-block panel-view">
+      <h2 class="panel-label">View</h2>
+      <div class="views" role="group" aria-label="Drawing type">
+        <button class="view" type="button" data-view="axo" aria-pressed="true">Axo</button>
+        <button class="view" type="button" data-view="plan" aria-pressed="false">Plan</button>
+        <button class="view" type="button" data-view="section" aria-pressed="false">Section</button>
+      </div>
+      <div class="tools">
+        <button class="tool tool-pen" id="pen" type="button" aria-pressed="false">
+          <span class="tool-ico" aria-hidden="true"></span><span class="tool-txt">Redline pen</span>
+        </button>
+        <button class="tool" id="replay" type="button">
+          <span class="tool-ico tool-ico-redraw" aria-hidden="true"></span><span class="tool-txt">Redraw</span>
+        </button>
+        <button class="tool tool-clear" id="clear" type="button" hidden>Clear marks</button>
+      </div>
+    </section>
+  </div>
+
+  <aside class="annotations" aria-label="Project data">
+    <p class="anno" id="anno-height"><span class="anno-key">Height</span><span class="anno-val">—</span></p>
+    <p class="anno" id="anno-floors"><span class="anno-key">Floors</span><span class="anno-val">—</span></p>
     <p class="anno" id="anno-area"><span class="anno-key">GFA</span><span class="anno-val">—</span></p>
-    <p class="anno" id="anno-status"><span class="anno-key">STATUS</span><span class="anno-val">—</span></p>
+    <p class="anno" id="anno-status"><span class="anno-key">Status</span><span class="anno-val">—</span></p>
   </aside>
+  <p class="sr-only" aria-live="polite" id="live"></p>
 
-  <p class="site-note" aria-hidden="true" id="site-note">"the client asked for a landmark.<br>we asked the site first."</p>
+  <p class="site-note" id="site-note" aria-hidden="true">“the client asked for a landmark.<br>we asked the site first.”</p>
 
   <div class="titleblock" aria-hidden="true">
-    <div class="tb-row"><span class="tb-key">PROJECT</span><span class="tb-val" id="tb-project">MERIDIAN TOWER</span></div>
-    <div class="tb-row"><span class="tb-key">SHEET</span><span class="tb-val" id="tb-sheet">A-101 · MASSING</span></div>
-    <div class="tb-row"><span class="tb-key">SCALE</span><span class="tb-val">1 : 500 @ A1</span></div>
-    <div class="tb-row"><span class="tb-key">DRAWN</span><span class="tb-val">VX / studio</span></div>
+    <div class="tb-row tb-head"><span class="tb-mark">▲ VERTEX</span><span class="tb-rev" id="tb-rev">REV P2</span></div>
+    <div class="tb-row"><span class="tb-key">Project</span><span class="tb-val" id="tb-project">MERIDIAN TOWER</span></div>
+    <div class="tb-row"><span class="tb-key">Sheet</span><span class="tb-val" id="tb-sheet">A-101 · AXONOMETRIC</span></div>
+    <div class="tb-row"><span class="tb-key">Scale</span><span class="tb-val" id="tb-scale">1 : 1000 @ A1</span></div>
+    <div class="tb-row"><span class="tb-key">Drawn</span><span class="tb-val">VX / studio</span></div>
     <div class="tb-row tb-stamp"><span>NOT FOR CONSTRUCTION</span></div>
   </div>
+
+  <p class="hint" id="hint" aria-hidden="true">Drag to orbit · scroll to zoom</p>
 
   <footer class="baseline">
     <span>Vertex is a fictional studio — a Blueprint Labs capability study.</span>
