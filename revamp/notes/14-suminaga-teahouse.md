@@ -2,8 +2,8 @@
 
 - **Vertical:** Tea House
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews (T9).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -82,17 +82,59 @@ taps and a drag, and after switching tea.
   still work.
 
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
+- Pass 1: Rebuilt on the same exact maths, now rendered as ink. Drops
+  and strokes are polygons drawn to an offscreen canvas, and a Three.js
+  shader composites them with pigment granulation, darker wet edges
+  where rings meet, slight edge softening, a slow water sheen that leans
+  toward the pointer, and ripple rings that refract the ink wherever a
+  drop lands or the stylus passes. The stylus is a true tine line
+  (falloff by distance to the stroke, not to the pointer), and the comb
+  runs seven tines in one fused pass. Holding grows a larger drop, shown
+  as a ring. Edges are adaptively resampled under a point budget, and
+  drops are culled only when off-screen or hidden under a newer drop
+  that wraps the whole view (no more pops). "Take a print" lowers a
+  washi sheet, lifts the ink off the water, turns over to show the
+  mirrored pull, and files it in a tray; each print opens in a dialog
+  with Save. A real menu (four teas with kanji, notes, steeping and
+  price, with the next ring marked), a short note on suminagashi, hints
+  that walk you from drop to stroke to print, and three composed
+  overtures (ringed bouquets, stone, combed nonpareil). The basin takes
+  the keyboard: Enter drops, arrows draw.
+- Pass 2: From renders. The paper fibres were three fixed angles of
+  straight streaks that read as scratched linen; they are now wandering
+  isolines of warped noise in loose drifts, plus a cloudy formation,
+  so the sheet reads as kozo. The granulation was halved (flat ink
+  looked like felt), the stone overture packs its drops, phone drops are
+  larger, and the crest gets a paper halo where ink passes under it.
+  "Still the water" and tea or tool changes now count as activity, so
+  the house no longer pours into water you just stilled. Mouse wakes on
+  the water. Layouts: portrait tablets use the stacked phone layout,
+  landscape phones get a slim menu column, the tray moves up beside the
+  menu on small desktops, print thumbnails have a fixed crop (a portrait
+  print made a tall thumb that hit the hint), and kanji no longer split
+  across lines.
+- Pass 3: Fallbacks and access. Without WebGL the ink canvas is shown
+  directly, and drops, strokes, prints and the viewer all work, with no
+  console errors (WebGL2 is probed before Three.js tries). Reduced
+  motion: the overture appears composed and still, there is no swirl,
+  no ripples and no house pours, and a print goes straight to the tray.
+  The viewer closes on Esc and returns focus to its thumbnail; the
+  status line announces each print. Checked 1440x900, 1024x640,
+  768x1024, 844x390, 390x844 and 360x640.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects)
+- verify-sites: `--only 14 --cdn-mirror` → ok, console 0, page 0,
+  failed requests 0.
+- Visual check, desktop 1440x900: done. All three overtures, drops,
+  hold, stylus, comb over a stone field, keyboard drop and draw, Still,
+  the print sequence (lower, turn, tray) and the viewer; plus 1024x640
+  and 844x390.
+- Visual check, mobile 390x844: done. Overture, taps, hold, stylus,
+  comb, print, tray and viewer; plus 360x640 and 768x1024.
+- Reduced motion: done. Static composed overture, no swirl or ripples,
+  instant print. No-WebGL fallback checked at desktop and phone sizes.
+- Thumbnail regenerated: yes (`--wait 6500`, after the overture).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

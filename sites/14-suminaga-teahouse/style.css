@@ -179,6 +179,8 @@ html, body {
   letter-spacing: 0.1em;
   color: var(--ink-soft);
   margin-left: 0.25rem;
+  display: inline-block;
+  white-space: nowrap;
 }
 .tea-price { grid-area: price; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-soft); }
 .tea-note { grid-area: note; font-size: 0.66rem; font-weight: 300; letter-spacing: 0.05em; color: var(--ink-soft); }

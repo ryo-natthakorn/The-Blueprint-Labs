@@ -271,18 +271,19 @@
     "title": "SUMINAGA",
     "vertical": "Tea House",
     "styleTags": [
-      "suminagashi",
       "generative",
-      "light zen"
+      "ink marbling",
+      "wabi-sabi"
     ],
     "accent": "#a8503c",
-    "description": "The menu is marbled, not printed: mathematically exact suminagashi where taps drop ink, drags comb it, and each tea re-inks the stylus.",
+    "description": "Suminagashi you can pull: float each tea's ink on still water, draw it out with a stylus or comb using the exact marbling maths, then lay washi on the basin and keep the mirrored print.",
     "thumbnail": "/sites/14-suminaga-teahouse/assets/thumb.jpg",
     "livePath": "/sites/14-suminaga-teahouse/",
     "tech": [
-      "Canvas 2D",
-      "conformal-map marbling",
-      "tine deformation"
+      "Three.js",
+      "GLSL ink shader",
+      "marbling geometry",
+      "Canvas 2D"
     ],
     "status": "complete"
   },

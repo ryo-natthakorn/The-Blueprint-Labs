@@ -249,10 +249,15 @@ function paintInk() {
 }
 
 let renderer = null;
-try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
-} catch (err) {
-  renderer = null;
+const hasGL = (() => {
+  try { return !!document.createElement('canvas').getContext('webgl2'); } catch (err) { return false; }
+})();
+if (hasGL) {
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
+  } catch (err) {
+    renderer = null;
+  }
 }
 
 const RIPPLES = 10;
