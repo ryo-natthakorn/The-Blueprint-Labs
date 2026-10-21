@@ -53,13 +53,14 @@
       "shader sky"
     ],
     "accent": "#ff7a45",
-    "description": "Fly a full launch profile with the scrollbar: ignition, max-Q shake, the Kármán line fade to vacuum, and a procedural Earth rising into frame.",
+    "description": "Fly a full launch profile with the scrollbar: nine engines at dawn, a punch through the cloud deck, max-Q vapour, staging, and an orbital sunrise over a night-side Earth.",
     "thumbnail": "/sites/03-nova-orbit/assets/thumb.jpg",
     "livePath": "/sites/03-nova-orbit/",
     "tech": [
       "Three.js",
-      "custom GLSL sky/earth/flame",
-      "camera keyframes"
+      "custom GLSL plume/sky/Earth",
+      "UnrealBloom",
+      "mission-time choreography"
     ],
     "status": "complete"
   },
