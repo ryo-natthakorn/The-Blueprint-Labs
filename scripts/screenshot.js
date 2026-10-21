@@ -3,7 +3,11 @@
  * doesn't have one yet (or all of them, with --force).
  *
  * Usage:
- *   node screenshot.js [--base-url http://localhost:3000] [--force] [--id NN-slug] [--cdn-mirror]
+ *   node screenshot.js [--base-url http://localhost:3000] [--force] [--id NN-slug] [--cdn-mirror] [--wait ms]
+ *
+ * --wait sets how long to let the page run before the shot (default 1500 ms).
+ * Use it for sites whose opening is an animation that builds the scene, so
+ * the thumbnail shows the finished state.
  *
  * --cdn-mirror serves CDN requests from local npm copies (see cdn-mirror.js),
  * for environments whose network blocks the CDNs.
@@ -22,18 +26,19 @@ const ROOT = path.resolve(__dirname, '..');
 const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 
 function parseArgs(argv) {
-  const args = { baseUrl: 'http://localhost:3000', force: false, id: null, cdnMirror: false };
+  const args = { baseUrl: 'http://localhost:3000', force: false, id: null, cdnMirror: false, wait: 1500 };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--base-url') args.baseUrl = argv[++i];
     if (argv[i] === '--force') args.force = true;
     if (argv[i] === '--id') args.id = argv[++i];
     if (argv[i] === '--cdn-mirror') args.cdnMirror = true;
+    if (argv[i] === '--wait') args.wait = Number(argv[++i]) || 1500;
   }
   return args;
 }
 
 async function main() {
-  const { baseUrl, force, id, cdnMirror } = parseArgs(process.argv.slice(2));
+  const { baseUrl, force, id, cdnMirror, wait } = parseArgs(process.argv.slice(2));
 
   let projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'));
   if (id) projects = projects.filter((p) => p.id === id);
@@ -61,7 +66,7 @@ async function main() {
       await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
       // let fonts, reveal transitions and first canvas frames settle
       await page.evaluate(() => document.fonts.ready);
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(wait);
       fs.mkdirSync(path.dirname(thumbAbsPath), { recursive: true });
       await page.screenshot({ path: thumbAbsPath, type: 'jpeg', quality: 82 });
       count++;

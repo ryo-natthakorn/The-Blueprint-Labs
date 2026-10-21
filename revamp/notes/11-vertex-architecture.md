@@ -2,8 +2,8 @@
 
 - **Vertical:** Architecture Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews (T9).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -70,17 +70,78 @@ Rendered at 1440x900 and 390x844 (motion on/off): opening draw at 3 s and
   cap DPR. Without WebGL a still drawing shows and the panels still work.
 
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
+- Pass 1: Rebuilt the renderer around a drafting clock. Every stroke is
+  a LineSegments2 segment with a time window, and a patched LineMaterial
+  grows it from its start point, so the pen travels. Six pens (guide
+  dashed, light, medium, heavy, dimension, redline) are scheduled by
+  phase: construction lines and gridlines with bubbles; site; structure
+  bottom-up; facade detail; dimensions, datums, north arrow and section
+  marks; redlines. Closed solids under the lines do the hidden-line
+  removal and get a shaded fill. Their back faces are hatched, so any
+  cut shows poché, including the rising "drafting cut" while a building
+  draws. A paper-coloured ground block gives earth poché in section.
+  Added AXO / PLAN / SECTION per project: the camera dolly-zooms to near
+  orthographic and a clipping plane sweeps in, and the title block and
+  sheet tag follow (A-101…A-303). New models: a twisting, tapering
+  diagrid tower (podium, canopy, slabs with core and column holes, crown
+  lantern, street, crossing, trees, neighbours across the street); a
+  Miesian pavilion (plinth and steps, 30 square columns, roof with
+  courtyard cut, glass line with mullions, service core, branching
+  tree, pool); the ribbed archive drum (base wall, ring beams, 24 ribs,
+  glazing, stacks, a spiral ramp solid, conical roof, oculus light
+  column, reading tables). Added the redline pen (raycast onto the
+  model, notes in Caveat), Redraw, keyboard shortcuts, a paper shader
+  (mottling, grain, fold creases, grid), the camera fit to the free area
+  between panels, and the mobile dock layout. Fixes found by rendering:
+  fills too dark (linear colours written without colour-space
+  conversion), the site base read as a black slab (now paper-coloured),
+  missing core poché (slabs and the podium roof overlapped the core,
+  now cut with holes), labels stacking in plan (each label now lists the
+  sheets it shows on), and redline notes that never appeared (label time
+  equal to the clock end).
+- Pass 2: Polish and missed details. Labels are clamped to a readable
+  pixel size in every view (they grew huge in the zoomed sections).
+  Vertical dimension text is rotated and the dimension strings sit in
+  the section plane, so they read in both axo and section. Datum marks
+  have their own pen that only shows on section sheets. Shorter
+  redline notes, centred over their cloud on phones; clouds are
+  horizontal so they read from every heading. Added a graphic scale bar
+  per project, a subtle glass sheen up the curtain wall, and a soft ink
+  bleed under the heavy pen (desktop). Respaced collisions (chain
+  dimensions around the section line, section marks, north arrows,
+  pool and scale bars inside each sheet's frame). Per-sheet framing for
+  sections, blended during the dolly so it never jumps. Sheet text now
+  changes when the new drawing starts, not while the old one erases.
+- Pass 3: Tiers, viewports and fallbacks. Checked 1024x640, 768x1024,
+  2560x1080, 844x390, 667x375 and 360x640. Landscape phones got a side
+  column for the controls (the dock left the drawing ~150 px tall).
+  Labels are now depth-tested, with a pull toward the camera of their
+  own height so ground labels stay whole, and no longer show through
+  the tower. No-WebGL path: WebGL is probed before Three.js starts (no
+  console errors), a finished still of each project swaps in with its
+  own alt text, the view tools hide, and the panels keep working.
+  Checked the high tier (8 cores emulated: hidden-line dashes and ink
+  bleed) and the default mid tier.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects)
+- verify-sites: `--only 11 --cdn-mirror` → ok, console 0, page 0,
+  failed requests 0. Three.js, Archivo and Caveat came from local npm
+  copies (this environment blocks cdn.jsdelivr.net).
+- Visual check, desktop 1440x900: done. All three projects in AXO, PLAN
+  and SECTION; the drafting sequence at five times per project; mid
+  dolly-zoom; erase-and-redraw when switching; redline pen strokes and
+  notes; keyboard focus rings. High tier (8 cores emulated) and mid
+  tier. SwiftShader runs at a few fps here, so the clock is time-based.
+- Visual check, mobile 390x844: done. All nine sheets, motion on and
+  off, plus 360x640, 768x1024 and landscape 844x390 / 667x375.
+- Reduced motion: done. Each sheet appears finished, with no spin, no
+  pen, and instant cuts and view changes. Labels and notes all show.
+- No WebGL: done (Chromium with 3D APIs disabled): per-project stills,
+  no errors.
+- Thumbnail regenerated: yes, with a new `--wait 15000` flag on
+  `scripts/screenshot.js` so the shot shows the finished tower rather
+  than the first strokes (default stays 1500 ms).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

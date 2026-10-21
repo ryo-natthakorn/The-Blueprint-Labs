@@ -211,17 +211,17 @@
     "vertical": "Architecture Studio",
     "styleTags": [
       "blueprint",
-      "line-drawn 3D",
+      "hidden-line 3D",
       "drafting"
     ],
     "accent": "#5ec8f2",
-    "description": "Three unbuilt projects draft themselves line by line on a living blueprint sheet — orbit the wireframe while annotations, dimensions, and redlines catch up.",
+    "description": "Three unbuilt projects draft themselves pen stroke by pen stroke on one blueprint sheet, then dolly into hatched plans and sections. A redline pen lets you mark up the model yourself.",
     "thumbnail": "/sites/11-vertex-architecture/assets/thumb.jpg",
     "livePath": "/sites/11-vertex-architecture/",
     "tech": [
       "Three.js",
-      "procedural line geometry",
-      "drawRange reveal"
+      "fat-line drafting shader",
+      "clipping-plane sections"
     ],
     "status": "complete"
   },

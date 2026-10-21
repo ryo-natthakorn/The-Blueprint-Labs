@@ -202,6 +202,21 @@ class Sheet {
     this.label('N', [x, 0.05, z - r * 1.95], { after: last, weight: 600, views: ['axo', 'plan'] });
   }
 
+  /* graphic scale: alternating blocks along x on the ground */
+  scaleBar(x, z, unit, count, label) {
+    const k = this.design.text * 0.32;
+    for (let i = 0; i < count; i++) {
+      const x0 = x + i * unit, x1 = x0 + unit;
+      this.seg('dim', 'dims', [x0, 0.03, z], [x1, 0.03, z]);
+      this.seg('dim', 'dims', [x0, 0.03, z + k], [x1, 0.03, z + k]);
+      if (i % 2 === 0) for (let j = 1; j < 4; j++) this.seg('light', 'dims', [x0, 0.03, z + (k * j) / 4], [x1, 0.03, z + (k * j) / 4]);
+      this.seg('dim', 'dims', [x0, 0.03, z - k * 0.4], [x0, 0.03, z + k]);
+    }
+    const last = this.seg('dim', 'dims', [x + unit * count, 0.03, z - k * 0.4], [x + unit * count, 0.03, z + k]);
+    this.label('0', [x, 0.05, z - k * 2.6], { after: last, views: ['axo', 'plan'] });
+    this.label(label, [x + unit * count, 0.05, z - k * 2.6], { after: last, views: ['axo', 'plan'] });
+  }
+
   /* section marker: heavy cut stub, arrow pointing in the view direction, bubble */
   sectionMark(x, z, letter, look) {
     const k = this.design.text;
@@ -541,7 +556,8 @@ function buildTower(S) {
   for (const [y, t] of [[0, '±0.0 GL'], [PODIUM, '+16.0 L03'], [lvl(12), '+64.0 L12'], [lvl(28), '+128.0 L28'], [TOP, '+168.0 RF'], [CROWN, '+182.0']]) {
     S.level(half(y) + 3, y, 0, [1, 0, 0], t);
   }
-  S.northArrow(SW / 2 + 15, -SD / 2 + 10);
+  S.northArrow(38, -27);
+  S.scaleBar(-SW / 2, SD / 2 + 16, 10, 3, '30 m');
   S.sectionMark(-SW / 2 - 21, 0, 'A', -1);
   S.sectionMark(SW / 2 + 18, 0, 'A', -1);
 
@@ -554,7 +570,7 @@ function buildTower(S) {
 
   return {
     bounds: new THREE.Box3(new THREE.Vector3(-SW / 2 - 30, -6, -SD / 2 - 70), new THREE.Vector3(SW / 2 + 30, CROWN + 16, SD / 2 + 20)),
-    frame: new THREE.Box3(new THREE.Vector3(-SW / 2 - 12, 0, -SD / 2 - 6), new THREE.Vector3(SW / 2 + 8, CROWN + 10, SD / 2 + 10)),
+    frame: new THREE.Box3(new THREE.Vector3(-SW / 2 - 12, 0, -SD / 2 - 6), new THREE.Vector3(SW / 2 + 8, CROWN + 10, SD / 2 + 19)),
     sectionFrame: new THREE.Box3(new THREE.Vector3(-50, -4, -10), new THREE.Vector3(66, CROWN + 12, 10)),
   };
 }
@@ -682,15 +698,15 @@ function buildPavilion(S) {
 
   /* --- dimensions and datums --- */
   S.dim([-RX, 0.02, RZ + 2], [RX, 0.02, RZ + 2], [0, 0, 6], '46.0', { views: ['axo', 'plan'] });
-  S.dim([RX + 2, 0.02, -RZ], [RX + 2, 0.02, 0], [6, 0, 0], '16.0', { views: ['axo', 'plan'] });
-  S.dim([RX + 2, 0.02, 0], [RX + 2, 0.02, RZ], [6, 0, 0], '16.0', { views: ['axo', 'plan'] });
+  S.dim([RX + 2, 0.02, -RZ], [RX + 2, 0.02, RZ], [12, 0, 0], '32.0', { views: ['axo', 'plan'] });
   S.dim([14, 0.02, RZ + 2], [21, 0.02, RZ + 2], [0, 0, 3], '7.0', { ext: false, views: ['axo', 'plan'] });
   S.dim([-RX - 2, 0, 0.3], [-RX - 2, ROOF, 0.3], [-3, 0, 0], '6.3', { ext: false, views: UP });
   S.level(RX, ROOF, 0, [1, 0, 0], '+6.3 ROOF');
   S.level(26, PL, 0, [1, 0, 0], '+0.6 FFL');
   S.northArrow(RX - 6, -RZ - 5);
+  S.scaleBar(-RX - 4, -RZ - 8, 2, 5, '10 m');
   S.sectionMark(-RX - 15, 0.3, 'B', -1);
-  S.sectionMark(RX + 16, 0.3, 'B', -1);
+  S.sectionMark(RX + 22, 0.3, 'B', -1);
 
   /* --- redlines --- */
   seed = 5;
@@ -700,7 +716,7 @@ function buildPavilion(S) {
 
   return {
     bounds: new THREE.Box3(new THREE.Vector3(-RX - 12, -3, -RZ - 12), new THREE.Vector3(RX + 18, ROOF + 6, RZ + 18)),
-    frame: new THREE.Box3(new THREE.Vector3(-RX - 6, 0, -RZ - 4), new THREE.Vector3(RX + 8, ROOF + 4, RZ + 8)),
+    frame: new THREE.Box3(new THREE.Vector3(-RX - 21, 0, -RZ - 10), new THREE.Vector3(RX + 16, ROOF + 4, RZ + 9)),
     sectionFrame: new THREE.Box3(new THREE.Vector3(-RX - 8, -2, -4), new THREE.Vector3(RX + 14, ROOF + 3, 4)),
   };
 }
@@ -832,6 +848,7 @@ function buildArchive(S) {
   S.dim([-R - 4, H, 0], [-R - 4, ROOF_TOP + 0.5, 0], [-3, 0, 0], '3.9', { ext: false, views: UP });
   for (const [y, t] of [[0, '±0.0'], [15, '+15.0'], [H, '+30.0'], [ROOF_TOP + 0.5, '+33.9 OCULUS']]) S.level(R + 2.4, y, 0, [1, 0, 0], t);
   S.northArrow(R + 13, -R - 2);
+  S.scaleBar(-R - 8, R + 8, 2, 5, '10 m');
   S.sectionMark(-R - 9, 0.05, 'C', -1);
   S.sectionMark(R + 9, 0.05, 'C', -1);
 
@@ -853,15 +870,29 @@ function buildArchive(S) {
    ============================================================ */
 
 let renderer = null;
-try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-  if (!renderer.getContext()) throw new Error('no context');
-} catch (err) {
-  renderer = null;
+const fallbackImg = document.querySelector('.fallback');
+const FALLBACK_ALT = [
+  'Blueprint axonometric of Meridian Tower: a twisting diagrid tower on its podium and street, with dimensions and a redline cloud around the crown.',
+  'Blueprint axonometric of the Courtyard Pavilion: one roof on a colonnade around a courtyard tree, with grid bubbles and a redline note.',
+  'Blueprint axonometric of the Circle Archive: a ribbed drum with a spiral ramp inside and an oculus, with a redline cloud.',
+];
+const showFallback = (i) => {
+  fallbackImg.src = `/sites/11-vertex-architecture/assets/fallback-${i}.webp`;
+  fallbackImg.alt = FALLBACK_ALT[i];
+};
+const probe = document.createElement('canvas');
+if (probe.getContext('webgl2') || probe.getContext('webgl')) {
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  } catch (err) {
+    renderer = null;
+  }
+}
+if (!renderer) {
+  // no WebGL: a finished still of each sheet, panels still work
   document.documentElement.classList.add('no-webgl');
-  const img = document.querySelector('.fallback');
-  img.src = img.dataset.src;
-  img.hidden = false;
+  showFallback(0);
+  fallbackImg.hidden = false;
 }
 
 const DPR_CAP = isSmall() || !HIGH ? 1.5 : 2;
@@ -956,13 +987,14 @@ const fillVert = /* glsl */`
   }`;
 const revealU = { value: 1e4 };
 const hatchU = { value: 6 };
-function fillMaterial(top, side, shade) {
+const spanU = { value: new THREE.Vector2(0, 100) };
+function fillMaterial(top, side, shade, sheen = 0) {
   return new THREE.ShaderMaterial({
-    uniforms: { uRevealY: revealU, uTop: { value: new THREE.Color(top) }, uSide: { value: new THREE.Color(side) }, uShade: { value: new THREE.Color(shade) } },
+    uniforms: { uRevealY: revealU, uSpan: spanU, uSheen: { value: sheen }, uTop: { value: new THREE.Color(top) }, uSide: { value: new THREE.Color(side) }, uShade: { value: new THREE.Color(shade) } },
     vertexShader: fillVert,
     fragmentShader: /* glsl */`
       #include <clipping_planes_pars_fragment>
-      uniform float uRevealY; uniform vec3 uTop; uniform vec3 uSide; uniform vec3 uShade;
+      uniform float uRevealY; uniform vec2 uSpan; uniform float uSheen; uniform vec3 uTop; uniform vec3 uSide; uniform vec3 uShade;
       varying vec3 vN; varying vec3 vW;
       void main() {
         #include <clipping_planes_fragment>
@@ -972,6 +1004,8 @@ function fillMaterial(top, side, shade) {
         vec3 col = mix( uShade, uSide, lit );
         col = mix( col, uTop, smoothstep( 0.55, 0.95, n.y ) );
         col = mix( col, uShade * 0.9, smoothstep( -0.55, -0.95, n.y ) );
+        float h = clamp( ( vW.y - uSpan.x ) / max( 1.0, uSpan.y - uSpan.x ), 0.0, 1.0 );
+        col += uSheen * ( 1.0 - abs( n.y ) ) * vec3( 0.010, 0.022, 0.034 ) * ( 0.4 + 1.6 * h * h );
         gl_FragColor = vec4( col, 1.0 );
         #include <colorspace_fragment>
       }`,
@@ -1000,7 +1034,7 @@ const hatchMaterial = new THREE.ShaderMaterial({
   polygonOffset: true, polygonOffsetFactor: 1.2, polygonOffsetUnits: 1,
 });
 const solidFill = fillMaterial('#1b4670', '#143a5e', '#0f2e4c');
-const skinFill = fillMaterial('#18426a', '#123657', '#0e2a47');
+const skinFill = fillMaterial('#18426a', '#123657', '#0e2a47', 1);
 const contextFill = fillMaterial('#13314f', '#102b46', '#0d243d');
 // the ground block is paper on top (invisible) and only shows as poché when cut
 const groundFill = new THREE.ShaderMaterial({
@@ -1068,7 +1102,13 @@ function makeLabel(text, size, { kind = 'dim', align = 'center', weight = 500, r
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
-  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false, opacity: 0, rotation: rotate });
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 0, rotation: rotate });
+  // depth-tested so buildings hide labels behind them, but pulled toward the
+  // camera by about its own height so a label standing on the ground stays whole
+  mat.onBeforeCompile = (sh) => {
+    sh.vertexShader = sh.vertexShader.replace('mvPosition.xy += rotatedPosition;',
+      'mvPosition.xy += rotatedPosition;\n\tmvPosition.xyz += normalize( - mvPosition.xyz ) * scale.y * 0.9;');
+  };
   const sprite = new THREE.Sprite(mat);
   const h = size * (hand ? 3.1 : 1.85);
   sprite.scale.set((h * c.width) / c.height, h, 1);
@@ -1157,6 +1197,11 @@ function mount(index) {
     group.add(lines);
     if (w === 'datum') datumMat = mat;
 
+    if (HIGH && w === 'heavy') {
+      const glow = new LineSegments2(geo, draftMaterial({ color: '#7fd4ff', linewidth: 6, opacity: 0.07 }));
+      glow.renderOrder = 3;
+      group.add(glow);
+    }
     // hidden edges, faint and dashed (desktop only)
     if (HIGH && (w === 'heavy' || w === 'medium')) {
       const hm = draftMaterial({
@@ -1200,6 +1245,7 @@ function mount(index) {
   siteNote.innerHTML = design.note;
   sheetIndex = index;
   updateSheetText();
+  spanU.value.set(bounds.min.y, frame.max.y);
   current = { index, design, group, objs, labels, tipTrack, revealT, revealY, bounds, frame, sectionFrame, datumMat };
   updateResolution();
 }
@@ -1242,9 +1288,17 @@ function measureAvail() {
   if (isSmall()) {
     const top = r('.annotations');
     const dock = r('.panel');
-    avail.x0 = 16; avail.x1 = W - 16;
-    avail.y0 = (top ? top.bottom : 90) + 8;
-    avail.y1 = (dock ? dock.top : H - 200) - 8;
+    const head = r('.studio');
+    if (dock && dock.left > W / 2) {
+      // landscape phone: dock is a side column
+      avail.x0 = 16; avail.x1 = dock.left - 12;
+      avail.y0 = (head ? head.bottom : 40) + 6;
+      avail.y1 = H - 30;
+    } else {
+      avail.x0 = 16; avail.x1 = W - 16;
+      avail.y0 = (top && top.height ? top.bottom : 90) + 8;
+      avail.y1 = (dock ? dock.top : H - 200) - 8;
+    }
   } else {
     const nav = r('.panel'), anno = r('.annotations'), tb = r('.titleblock');
     avail.x0 = (nav ? nav.right : 260) + 24;
@@ -1376,7 +1430,7 @@ function selectDesign(index) {
   const prev = activeIndex;
   activeIndex = index;
   clearMarks();
-  if (!renderer) { sheetIndex = index; siteNote.innerHTML = DESIGNS[index].note; updateSheetText(); updateAnnotations(1); return; }
+  if (!renderer) { sheetIndex = index; siteNote.innerHTML = DESIGNS[index].note; updateSheetText(); updateAnnotations(1); showFallback(index); return; }
   if (reduceMotion || !current) {
     mount(index);
     drawT = reduceMotion ? 1 : 0;

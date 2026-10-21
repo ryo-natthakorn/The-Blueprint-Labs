@@ -60,7 +60,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 08-glacier-water | 2 | Codex | Claude | changes requested | [note](notes/08-glacier-water.md) |
 | 09-noctua-observatory | 2 | Codex | Claude | changes requested | [note](notes/09-noctua-observatory.md) |
 | 10-ember-bakery | 2 | Codex | Claude | changes requested | [note](notes/10-ember-bakery.md) |
-| 11-vertex-architecture | 3 | Claude | Codex | not started | [note](notes/11-vertex-architecture.md) |
+| 11-vertex-architecture | 3 | Claude | Codex | awaiting review | [note](notes/11-vertex-architecture.md) |
 | 12-ligature-foundry | 3 | Claude | Codex | not started | [note](notes/12-ligature-foundry.md) |
 | 13-bathyal-institute | 3 | Claude | Codex | not started | [note](notes/13-bathyal-institute.md) |
 | 14-suminaga-teahouse | 3 | Claude | Codex | not started | [note](notes/14-suminaga-teahouse.md) |
