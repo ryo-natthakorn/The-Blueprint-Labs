@@ -4,39 +4,118 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VECTOR DRIFT — Night Signal Games</title>
-<meta name="description" content="Night Signal Games presents VECTOR DRIFT — the studio's site is the demo. Steer, dodge the pylons, harvest shards.">
-<meta name="theme-color" content="#0d0116">
+<meta name="description" content="Night Signal Games presents VECTOR DRIFT. The studio's site is the demo cabinet: steer a neon runner through the grid, thread the gates, harvest the shards, and sign the high-score table.">
+<meta name="theme-color" content="#07010f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Chakra+Petch:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/15-vector-drift/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
 
-<canvas id="game" aria-label="Vector Drift — a playable neon lane-dodging game. Use arrow keys or drag to steer." role="img"></canvas>
+<canvas id="game" tabindex="0" role="application" aria-roledescription="arcade game" aria-label="Vector Drift" aria-describedby="how-to"></canvas>
+<p class="sr-only" id="how-to">Space or Enter starts a run. Arrow keys or A and D steer; on touch, drag sideways.
+P or Escape pauses. M switches the sound on or off.</p>
 <div class="crt" aria-hidden="true"></div>
 
 <header class="studio">
   <span class="studio-name">NIGHT SIGNAL</span>
-  <span class="studio-sub">games — demo cabinet 01</span>
+  <span class="studio-sub">games · demo cabinet 01</span>
 </header>
 
-<div class="hud" aria-hidden="true">
+<div class="hud" id="hud" aria-hidden="true">
   <div class="hud-item"><span class="hud-key">SCORE</span><span class="hud-val" id="score">0</span></div>
-  <div class="hud-item"><span class="hud-key">BEST</span><span class="hud-val" id="best">0</span></div>
-  <div class="hud-item"><span class="hud-key">SPEED</span><span class="hud-val" id="speed">—</span></div>
+  <div class="hud-item hud-mult"><span class="hud-key">MULT</span><span class="hud-val" id="mult">×1</span></div>
+  <div class="hud-item"><span class="hud-key">SECTOR</span><span class="hud-val" id="sector">01</span></div>
+  <div class="hud-item hud-speed"><span class="hud-key">KM/H</span><span class="hud-val" id="speed">—</span></div>
 </div>
 
-<div class="overlay" id="overlay">
-  <p class="ov-kicker" id="ov-kicker">NIGHT SIGNAL GAMES PRESENTS</p>
-  <h1 class="ov-title">VECTOR<br>DRIFT</h1>
-  <p class="ov-line" id="ov-line">steer with ← → or drag · harvest the shards · the pylons do not move for you</p>
-  <button class="ov-start" id="start">INSERT COIN</button>
+<div class="callouts" id="callouts" aria-hidden="true"></div>
+<p class="banner" id="banner" aria-hidden="true"></p>
+<p class="sr-only" id="announce" aria-live="polite"></p>
+
+<button class="pause-btn" id="pause-btn" type="button" aria-label="Pause" hidden><span aria-hidden="true">❚❚</span></button>
+
+<!-- the attract loop: what an arcade cabinet does while nobody is playing -->
+<section class="attract" id="attract" aria-label="Cabinet">
+  <div class="cards">
+    <div class="card is-on" data-card="title">
+      <p class="kicker">NIGHT SIGNAL GAMES PRESENTS</p>
+      <h1 class="title"><span>VECTOR</span><span>DRIFT</span></h1>
+      <p class="line">steer through the grid · thread the gates · harvest the shards</p>
+    </div>
+    <div class="card" data-card="scores">
+      <h2 class="card-head">HIGH SCORES</h2>
+      <ol class="scores" id="scores"></ol>
+    </div>
+    <div class="card" data-card="how">
+      <h2 class="card-head">HOW TO PLAY</h2>
+      <dl class="how">
+        <div><dt>← →  ·  A D  ·  drag</dt><dd>steer</dd></div>
+        <div><dt class="t-shard">◆ shard</dt><dd>500 × mult</dd></div>
+        <div><dt class="t-close">near miss</dt><dd>builds the multiplier</dd></div>
+        <div><dt class="t-gate">laser gate</dt><dd>one way through</dd></div>
+        <div><dt>P · Esc</dt><dd>pause</dd></div>
+      </dl>
+    </div>
+    <div class="card" data-card="cabinets">
+      <h2 class="card-head">MORE FROM NIGHT SIGNAL</h2>
+      <ul class="cabs">
+        <li><b>HALCYON RELAY</b><span>a courier run across a drowned city · out now</span></li>
+        <li><b>STATIC BLOOM</b><span>a garden grown from radio noise · in development</span></li>
+        <li><b>LOW ORBIT LOUNGE</b><span>a cocktail bar four hundred kilometres up · 2023</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="dots" role="group" aria-label="Cabinet screens">
+    <button type="button" class="dot" data-go="0" aria-label="Title" aria-pressed="true"></button>
+    <button type="button" class="dot" data-go="1" aria-label="High scores" aria-pressed="false"></button>
+    <button type="button" class="dot" data-go="2" aria-label="How to play" aria-pressed="false"></button>
+    <button type="button" class="dot" data-go="3" aria-label="More games" aria-pressed="false"></button>
+  </div>
+  <button class="coin" id="start" type="button">INSERT COIN</button>
+  <p class="press"><span class="press-key">press space</span><span class="press-touch">tap insert coin</span></p>
+</section>
+
+<!-- after a crash -->
+<section class="over" id="over" aria-labelledby="over-head" hidden>
+  <p class="kicker" id="over-head">SIGNAL LOST</p>
+  <p class="final" id="final">0</p>
+  <p class="final-meta" id="final-meta"></p>
+  <form class="initials" id="initials" hidden>
+    <label for="initials-in">NEW HIGH SCORE — SIGN THE CABINET</label>
+    <div class="initials-row">
+      <input id="initials-in" name="initials" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" pattern="[A-Za-z0-9]{1,3}" required>
+      <button class="coin coin-sm" type="submit">SAVE</button>
+    </div>
+  </form>
+  <div class="over-actions" id="over-actions">
+    <button class="coin" id="restart" type="button">RE-SYNC</button>
+    <button class="ghost" id="to-cabinet" type="button">CABINET</button>
+  </div>
+</section>
+
+<section class="paused" id="paused" aria-labelledby="paused-head" hidden>
+  <p class="kicker" id="paused-head">PAUSED</p>
+  <button class="coin" id="resume" type="button">RESUME</button>
+  <button class="ghost" id="quit" type="button">QUIT RUN</button>
+</section>
+
+<div class="no-gl-note" id="no-gl" hidden>
+  <p>This cabinet needs WebGL to run. Here is its marquee instead.</p>
 </div>
 
 <footer class="cab-foot">
-  <button class="mute" id="mute" aria-pressed="false" aria-label="Toggle sound">SND OFF</button>
-  <span>Night Signal is a fictional studio — a Blueprint Labs capability study.</span>
+  <button class="mute" id="mute" type="button" aria-pressed="false">SOUND OFF</button>
+  <span class="foot-note">Night Signal is a fictional studio — a Blueprint Labs capability study.</span>
   <a href="/">← The Blueprint Labs</a>
 </footer>
 
