@@ -74,6 +74,20 @@ html, body {
   text-transform: uppercase;
   color: var(--haze);
 }
+.targets {
+  position: fixed; right: clamp(1.4rem, 4vw, 3rem); top: 36%; z-index: 7;
+  display: flex; flex-direction: column; align-items: flex-end; gap: .4rem;
+}
+.targets::before { content: 'FIND IN THE SKY'; font-size: .58rem; letter-spacing: .24em; color: var(--haze); margin-bottom: .4rem; }
+.targets button {
+  color: rgba(232,237,255,.8); background: rgba(8,12,28,.62);
+  border: 1px solid rgba(217,185,112,.26); border-radius: 30px;
+  padding: .45rem .7rem; font: 300 .68rem var(--font-sans); letter-spacing: .06em;
+  cursor: pointer; backdrop-filter: blur(8px);
+}
+.targets button:hover { color: var(--gold); border-color: var(--gold); }
+.targets button.is-current { color: var(--gold); border-color: rgba(217,185,112,.8); background: rgba(56,46,30,.76); }
+.targets button:focus-visible, .tonight summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* constellation story card */
 .story-card {
@@ -123,7 +137,7 @@ html, body {
   left: clamp(1.4rem, 4vw, 3rem);
   bottom: clamp(3.4rem, 9vh, 5rem);
   z-index: 5;
-  pointer-events: none;
+  pointer-events: auto;
 }
 .tonight-title {
   font-family: var(--font-serif);
@@ -132,6 +146,7 @@ html, body {
   font-size: 1.02rem;
   color: var(--haze);
   margin-bottom: 0.7rem;
+  cursor: pointer;
 }
 .tonight-list {
   list-style: none;
@@ -168,8 +183,21 @@ html, body {
 .baseline a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
 @media (max-width: 720px) {
-  .tonight { display: none; }
-  .story-card { bottom: 5.5rem; }
+  .station { top: 1.3rem; left: 1.2rem; }
+  .station-name { font-size: 1.3rem; }
+  .station-sub { font-size: .53rem; letter-spacing: .12em; }
+  .finder { top: 1.35rem; right: 1rem; }
+  .finder-note { display: none; }
+  .finder-ra { font-size: .68rem; }
+  .tonight { left: auto; right: 1rem; top: 5.6rem; bottom: auto; max-width: calc(100vw - 2rem); background: rgba(8,12,28,.76); border: 1px solid rgba(217,185,112,.22); border-radius: 4px; padding: .5rem .65rem; }
+  .tonight-title { font-size: .78rem; margin: 0; }
+  .tonight-list { margin-top: .65rem; font-size: .67rem; }
+  .story-card { bottom: 8.5rem; padding: .8rem 1rem; }
+  .story-name { font-size: 1.25rem; }
+  .story-text { font-size: .82rem; line-height: 1.45; }
+  .targets { left: 0; right: 0; top: auto; bottom: 3.4rem; flex-direction: row; overflow-x: auto; align-items: center; gap: .4rem; padding: .4rem .8rem; scrollbar-width: none; }
+  .targets::before { content: 'FIND'; white-space: nowrap; margin: 0 .35rem 0 0; }
+  .targets button { white-space: nowrap; flex: none; font-size: .62rem; }
   .baseline { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
 }
 

@@ -23,6 +23,32 @@ html, body {
   height: 100%;
   display: block;
 }
+.vessel-fallback {
+  position: fixed; right: 15%; top: 22%; width: min(27vw, 330px); height: min(65vh, 560px);
+  border-radius: 29% 29% 21% 21% / 15% 15% 10% 10%;
+  background: linear-gradient(110deg, rgba(255,255,255,.88), rgba(91,169,198,.45) 29%, rgba(219,247,255,.63) 70%, rgba(54,139,171,.72));
+  border: 2px solid rgba(255,255,255,.8);
+  box-shadow: inset 20px 0 26px rgba(255,255,255,.5), inset -22px 0 32px rgba(13,98,139,.2), 0 30px 60px rgba(28,91,122,.18);
+  pointer-events: none;
+}
+.vessel-fallback::before {
+  content: ''; position: absolute; width: 40%; height: 18%; left: 30%; top: -12%;
+  border-radius: 9px 9px 4px 4px; background: linear-gradient(90deg,#d9f0f7,#8dc8dc,#eaf8fb);
+  border: 2px solid rgba(255,255,255,.75);
+}
+.vessel-fallback::after {
+  content: 'SPRING N° 4'; position: absolute; left: 5%; right: 5%; top: 41%;
+  padding: 1.5rem .2rem; background: rgba(239,248,250,.8); color: #174862;
+  text-align: center; font: 400 .62rem var(--font-sans); letter-spacing: .26em;
+}
+.has-webgl .vessel-fallback { display: none; }
+.vessel-mark {
+  display: none; position: fixed; z-index: 2; left: 66%; top: 51%; transform: translate(-50%,-50%);
+  color: #1d5771; text-align: center; font: 300 clamp(.6rem, 1.25vw, .84rem) var(--font-sans);
+  letter-spacing: .3em; pointer-events: none;
+}
+.vessel-mark small { display: block; margin-top: .28rem; font-size: .48em; letter-spacing: .12em; }
+.has-webgl .vessel-mark { display: block; }
 
 .crest {
   position: fixed;
@@ -126,12 +152,22 @@ h1 em { font-style: italic; }
 @keyframes rise { to { opacity: 1; transform: none; } }
 
 @media (max-width: 720px) {
+  .vessel-mark { left: 50%; top: 39%; font-size: .55rem; }
+  .vessel-fallback { width: 32vw; height: 31vh; right: 34%; top: 20%; }
   .voice {
-    left: 1.4rem;
-    right: 1.4rem;
-    bottom: 6rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 3.8rem;
     max-width: none;
+    padding: 1rem;
+    background: linear-gradient(120deg, rgba(239,249,251,.82), rgba(239,249,251,.56));
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 1rem;
+    backdrop-filter: blur(8px);
   }
+  h1 { font-size: clamp(2.8rem, 13vw, 3.6rem); margin-bottom: .55rem; }
+  .lede { font-size: .86rem; line-height: 1.6; margin-bottom: .9rem; }
+  .analysis { gap: .8rem 1.15rem; }
   .baseline { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
 }
 

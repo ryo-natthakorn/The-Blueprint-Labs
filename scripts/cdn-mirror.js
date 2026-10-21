@@ -71,6 +71,34 @@ function resolve(url) {
 }
 
 async function installCdnMirror(target) {
+  // Google Fonts is also blocked in some cloud workspaces. Serve the same
+  // families from Fontsource's self-hosted Google Fonts packages for local
+  // screenshots and verification; deployed pages keep their Google Fonts URLs.
+  await target.route('https://fonts.googleapis.com/**', async (route) => {
+    try {
+      const families = new URL(route.request().url()).searchParams.getAll('family');
+      const css = families.flatMap((entry) => {
+        const family = entry.split(':')[0].replace(/\+/g, ' ');
+        const slug = family.toLowerCase().replace(/ /g, '-');
+        const version = slug === 'zen-kaku-gothic-new' ? '5.3.1' : '5.3.0';
+        const dir = packageDir(`@fontsource/${slug}`, version);
+        const files = fs.readdirSync(path.join(dir, 'files'));
+        const faces = [];
+        for (const weight of [300, 400, 500, 600, 700]) {
+          for (const style of ['normal', 'italic']) {
+            const file = files.find((name) => name === `${slug}-latin-${weight}-${style}.woff2`);
+            if (!file) continue;
+            const data = fs.readFileSync(path.join(dir, 'files', file)).toString('base64');
+            faces.push(`@font-face{font-family:'${family}';font-style:${style};font-weight:${weight};font-display:swap;src:url(data:font/woff2;base64,${data}) format('woff2')}`);
+          }
+        }
+        return faces;
+      }).join('\n');
+      await route.fulfill({ status: 200, contentType: 'text/css', body: css });
+    } catch (err) {
+      await route.fulfill({ status: 502, body: `font-mirror: ${err.message}` });
+    }
+  });
   const handler = async (route) => {
     const hit = resolve(route.request().url());
     if (!hit) return route.continue();

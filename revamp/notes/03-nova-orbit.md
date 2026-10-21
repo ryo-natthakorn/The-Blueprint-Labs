@@ -2,8 +2,7 @@
 
 - **Vertical:** Space Tourism
 - **Batch:** 1 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T2)
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -144,6 +143,12 @@ environment blocks cdn.jsdelivr.net).
 - Thumbnail regenerated: yes (mid tier, pad at dawn, 1440x900).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex review (2026-10-21): No findings. Compared the revamp with
+`origin/v1-original` and checked the §5 checklist. At 1440×900 and 390×844,
+with motion enabled and reduced, the concept, visual craft, layout and
+interactions hold up. No horizontal overflow or page errors. `verify-sites`
+passed with `--cdn-mirror` (the mirror supplied the original npm CDN packages
+and Google font families locally); `check-rules` printed OK. The refreshed
+thumbnail matches the opening state.
 
 ## Fix log

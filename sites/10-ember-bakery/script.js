@@ -36,13 +36,19 @@
   const meterFill = document.getElementById('meter-fill');
   const meterLabel = document.getElementById('meter-label');
 
-  const startStoke = (e) => { e.preventDefault(); stoking = true; };
+  const startStoke = (e) => {
+    e.preventDefault(); stoking = true;
+    if (prefersReducedMotion) {
+      intensity = Math.min(1, intensity + 0.15);
+      paintStatic();
+    }
+  };
   const endStoke = () => { stoking = false; };
   stokeBtn.addEventListener('pointerdown', startStoke);
   window.addEventListener('pointerup', endStoke);
   window.addEventListener('pointercancel', endStoke);
   stokeBtn.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); stoking = true; }
+    if (e.key === ' ' || e.key === 'Enter') startStoke(e);
   });
   stokeBtn.addEventListener('keyup', () => { stoking = false; });
 
@@ -50,7 +56,7 @@
   let wind = 0, windTarget = 0;
   window.addEventListener('pointermove', (e) => {
     const dx = e.clientX - W / 2;
-    const dy = e.clientY - (H - 120);
+    const dy = e.clientY - hearthY();
     const near = Math.hypot(dx, dy) < Math.min(420, W * 0.4);
     windTarget = near ? -Math.sign(dx) * Math.min(1.6, Math.abs(dx) / 130) : 0;
   });
@@ -61,9 +67,9 @@
   const embers = [];
   const smoke = [];
 
-  function hearthX() { return W / 2; }
-  function hearthY() { return H - 26; }
-  function hearthWidth() { return Math.min(560, W * 0.92) * 0.55; }
+  function hearthX() { return isSmallScreen ? W / 2 : W * 0.76; }
+  function hearthY() { return isSmallScreen ? Math.min(H * 0.47, 390) : H * 0.82; }
+  function hearthWidth() { return isSmallScreen ? Math.min(260, W * 0.68) : Math.min(470, W * 0.32); }
 
   function spawnFlame() {
     const spread = hearthWidth() / 2;
@@ -137,6 +143,18 @@
       ctx.fill();
     }
 
+    // Charred logs give the flame a source and catch the orange light.
+    ctx.lineCap = 'round';
+    ctx.shadowColor = `rgba(255,106,22,${intensity * .6})`;
+    ctx.shadowBlur = 22;
+    ctx.strokeStyle = '#45200e'; ctx.lineWidth = isSmallScreen ? 18 : 29;
+    ctx.beginPath();
+    ctx.moveTo(hearthX() - hearthWidth() * .37, hearthY() + 4);
+    ctx.lineTo(hearthX() + hearthWidth() * .28, hearthY() - 23);
+    ctx.moveTo(hearthX() + hearthWidth() * .35, hearthY() + 6);
+    ctx.lineTo(hearthX() - hearthWidth() * .23, hearthY() - 28);
+    ctx.stroke(); ctx.shadowBlur = 0;
+
     /* flames (additive) */
     ctx.globalCompositeOperation = 'lighter';
     for (let i = flames.length - 1; i >= 0; i--) {
@@ -148,8 +166,17 @@
       p.life -= p.decay * dtScale;
       if (p.life <= 0 || p.r < 0.6) { flames.splice(i, 1); continue; }
       ctx.fillStyle = flameColor(p.life, p.y / H);
+      const breadth = Math.max(1.5, p.r * p.life);
+      const height = breadth * (2.9 + intensity);
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+      ctx.moveTo(p.x - breadth, p.y + breadth * .45);
+      ctx.bezierCurveTo(p.x - breadth * 1.1, p.y - height * .3,
+        p.x - breadth * .1, p.y - height * .6,
+        p.x + wind * breadth * .45, p.y - height);
+      ctx.bezierCurveTo(p.x + breadth * .35, p.y - height * .72,
+        p.x + breadth * 1.15, p.y - height * .15,
+        p.x + breadth, p.y + breadth * .45);
+      ctx.closePath();
       ctx.fill();
     }
 
@@ -180,15 +207,14 @@
   }
 
   function paintStatic() {
-    intensity = 0.85;
     // a handful of frozen flames for the poster state
     flames.length = 0;
-    for (let i = 0; i < 60; i++) spawnFlame();
-    flames.forEach((p) => { p.y -= Math.random() * 90; p.life = 0.3 + Math.random() * 0.7; });
+    for (let i = 0; i < 85; i++) spawnFlame();
+    flames.forEach((p) => { p.y -= Math.random() * 115; p.life = 0.28 + Math.random() * 0.55; });
     paint(1);
-    document.documentElement.style.setProperty('--glow', '0.85');
-    meterFill.style.width = '85%';
-    meterLabel.textContent = 'fire: roaring';
+    document.documentElement.style.setProperty('--glow', intensity.toFixed(2));
+    meterFill.style.width = `${Math.round(intensity * 100)}%`;
+    meterLabel.textContent = intensity > .9 ? 'fire: roaring' : 'fire: steady';
   }
 
   /* ---------------- the fire economy + page lighting ---------------- */
@@ -206,7 +232,7 @@
     if (stoking) {
       intensity = Math.min(1, intensity + dt * 0.35);
     } else {
-      intensity = Math.max(0.08, intensity - dt * 0.022);
+      intensity = Math.max(0.25, intensity - dt * 0.008);
     }
 
     /* page lighting = intensity + organic flicker */
@@ -226,6 +252,7 @@
 
   /* ---------------- loop -------------------------------------------- */
   if (prefersReducedMotion) {
+    intensity = 0.85;
     paintStatic();
   } else {
     let last = performance.now();

@@ -116,13 +116,13 @@
       "product anatomy"
     ],
     "accent": "#c9a355",
-    "description": "A mechanical watch built from primitives that lifts apart layer by layer as you scroll — crystal to caseback — while its blued-steel hands keep real time.",
+    "description": "A mechanical watch with an engraved dial and stitched leather strap lifts apart layer by layer as you scroll, while its blued-steel hands keep time.",
     "thumbnail": "/sites/06-meridian-watches/assets/thumb.jpg",
     "livePath": "/sites/06-meridian-watches/",
     "tech": [
       "Three.js",
       "PBR + RoomEnvironment",
-      "staggered explode rig"
+      "scroll-driven explode rig"
     ],
     "status": "complete"
   },
@@ -136,13 +136,13 @@
       "interactive dial"
     ],
     "accent": "#d4ff3d",
-    "description": "An interval-training round you can grab: drag the 60-second dial to scrub WORK and REST phases while the whole page — marquees, BPM, giant type — keeps tempo.",
+    "description": "A playable 40/20 interval clock: drag the dial to preview WORK and REST, then start, pause or reset rounds as the kinetic type responds.",
     "thumbnail": "/sites/07-pulse-athletics/assets/thumb.jpg",
     "livePath": "/sites/07-pulse-athletics/",
     "tech": [
       "GSAP",
-      "SVG dial slider",
-      "kinetic typography"
+      "accessible SVG dial",
+      "interval timer"
     ],
     "status": "complete"
   },
@@ -156,7 +156,7 @@
       "serene"
     ],
     "accent": "#3f7fa3",
-    "description": "A living body of water raymarched in a raw-WebGL fragment shader — metaballs with refraction, dispersion, and caustics that your cursor stirs and joins.",
+    "description": "A spring-water vessel raymarched in raw WebGL, with a refractive surface and pointer ripples, paired with its source and mineral profile.",
     "thumbnail": "/sites/08-glacier-water/assets/thumb.jpg",
     "livePath": "/sites/08-glacier-water/",
     "tech": [
@@ -176,13 +176,13 @@
       "storytelling"
     ],
     "accent": "#d9a24c",
-    "description": "Drag a wrapping night sky with inertia — seven invented constellations draw themselves in as you drift near, each with its own folklore card.",
+    "description": "Explore a seeded night sky by drag, keyboard or named targets; seven constellations reveal their drawn forms and folklore at the eyepiece.",
     "thumbnail": "/sites/09-noctua-observatory/assets/thumb.jpg",
     "livePath": "/sites/09-noctua-observatory/",
     "tech": [
       "Canvas 2D",
       "seeded starfield",
-      "parallax pan + inertia"
+      "constellation finder"
     ],
     "status": "complete"
   },
@@ -196,7 +196,7 @@
       "living light"
     ],
     "accent": "#e8935a",
-    "description": "A menu you read by firelight: a particle hearth fire lights the whole page, dims as it burns down, and must be stoked to keep the bread legible.",
+    "description": "A wood-fired bakery menu beside a living hearth: stoke the illustrated fire and watch its light warm a collection of tonight’s loaves.",
     "thumbnail": "/sites/10-ember-bakery/assets/thumb.jpg",
     "livePath": "/sites/10-ember-bakery/",
     "tech": [

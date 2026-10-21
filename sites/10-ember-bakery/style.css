@@ -45,14 +45,14 @@ html, body {
 .room {
   position: relative;
   z-index: 3;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: clamp(1.6rem, 4vh, 3rem) clamp(1.2rem, 4vw, 3rem) 0;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 55%) minmax(0, 45%);
+  grid-template-rows: auto 1fr;
+  padding: clamp(2rem, 6vh, 4rem) clamp(1.2rem, 4vw, 3rem) 3.5rem;
 }
 
-.sign { text-align: center; }
+.sign { grid-column: 1; text-align: left; }
 .sign-name {
   font-family: var(--font-serif);
   font-size: clamp(2.8rem, 8vw, 5.2rem);
@@ -74,19 +74,36 @@ html, body {
 }
 
 .menu {
-  flex: 1;
+  grid-column: 1; grid-row: 2;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 22rem));
-  gap: clamp(1rem, 3vh, 2rem) clamp(2rem, 6vw, 5rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vh, 2rem) clamp(1rem, 3vw, 3rem);
   align-content: center;
-  justify-content: center;
   width: 100%;
+  padding-right: 1.5rem;
 }
 
 .loaf {
-  /* legibility rises and falls with the fire */
-  opacity: calc(0.25 + var(--glow) * 0.75);
+  position: relative;
+  padding: 1rem 1rem 1rem 4.1rem;
+  border-top: 1px solid rgba(245,230,208,.24);
+  background: linear-gradient(100deg, rgba(94,47,20,.2), transparent);
+  opacity: calc(0.78 + var(--glow) * 0.22);
   transition: opacity 0.6s ease;
+}
+.loaf::before {
+  content: ''; position: absolute; left: .45rem; top: 1.15rem; width: 2.8rem; height: 2.1rem;
+  border-radius: 48% 52% 42% 45%; transform: rotate(-15deg);
+  background: radial-gradient(ellipse at 35% 25%, #e9bd73 0 8%, #a9602c 39%, #5d2d13 75%, #2e160b 100%);
+  box-shadow: inset -5px -5px 8px #4d200d, 2px 5px 10px #060302;
+}
+.loaf:nth-child(2)::before { border-radius: 37%; transform: rotate(12deg); background: radial-gradient(ellipse at 35% 25%, #b8844e,#703816 55%,#28160c); }
+.loaf:nth-child(3)::before { border-radius: 46% 41%; background: radial-gradient(ellipse at 35% 25%, #d8af70,#99622e 54%,#3a1c0d); }
+.loaf:nth-child(4)::before { border-radius: 44%; transform: rotate(22deg); background: radial-gradient(ellipse at 35% 25%, #c99b64,#84451f 53%,#2d150a); }
+.loaf::after {
+  content: ''; position: absolute; left: 1rem; top: 1.65rem; width: 1.65rem; height: 2px;
+  transform: rotate(-23deg); border-radius: 2px; background: rgba(255,221,171,.55);
+  box-shadow: 0 .38rem 0 rgba(255,221,171,.35);
 }
 .loaf h2 {
   font-family: var(--font-serif);
@@ -100,7 +117,7 @@ html, body {
   font-weight: 300;
   font-size: clamp(0.82rem, 1.3vw, 0.95rem);
   line-height: 1.65;
-  color: rgba(245, 230, 208, 0.75);
+  color: rgba(245, 230, 208, 0.91);
   max-width: 24rem;
 }
 .loaf-price {
@@ -113,33 +130,38 @@ html, body {
 }
 
 .hearth-zone {
+  grid-column: 2; grid-row: 1 / 3;
+  align-self: end;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  padding-bottom: clamp(5rem, 14vh, 9rem);
+  min-height: min(72vh, 620px);
+  justify-content: flex-end;
+  padding-bottom: 2rem;
 }
 
 .oven-arch {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(560px, 92vw);
-  height: clamp(150px, 26vh, 240px);
+  width: min(100%, 540px);
+  height: min(55vh, 410px);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  border: 14px solid #241209;
+  border: 18px solid #3a1d0d;
   border-bottom: none;
   box-shadow:
-    inset 0 0 60px rgba(0, 0, 0, 0.85),
+    inset 0 0 60px rgba(0, 0, 0, 0.35),
     0 0 calc(var(--glow) * 60px) rgba(255, 120, 30, calc(var(--glow) * 0.25));
-  background:
-    repeating-conic-gradient(from 0deg at 50% 130%, #2a1710 0deg 7deg, #211008 7deg 14deg);
+  background: radial-gradient(ellipse at 50% 120%, rgba(255,129,28,.13), transparent 70%);
   z-index: 0;
   pointer-events: none;
 }
 
 .stoke {
+  position: relative;
   font: inherit;
   font-size: 0.72rem;
   letter-spacing: 0.26em;
@@ -168,6 +190,7 @@ html, body {
 .stoke-icon { font-size: 1rem; color: var(--amber); }
 
 .fire-meter {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -213,15 +236,26 @@ html, body {
 
 @media (max-width: 760px) {
   html, body { overflow: auto; }
-  .room { height: auto; min-height: 100vh; }
+  .room { display: flex; flex-direction: column; min-height: 100vh; padding: 1.7rem 1rem 4rem; }
+  .sign { text-align: center; }
+  .sign-name { font-size: 2.8rem; }
+  .sign-sub { font-size: .58rem; letter-spacing: .2em; }
+  .hearth-zone { order: 1; width: 100%; min-height: 300px; padding-bottom: 1rem; margin-top: .6rem; }
+  .oven-arch { width: min(100%, 360px); height: 250px; border-width: 12px; }
+  .stoke { font-size: .63rem; padding: .68rem 1.15rem; }
   .menu {
-    grid-template-columns: 1fr;
-    gap: 1.4rem;
-    padding: 2rem 0;
-    text-align: center;
+    order: 2;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: .6rem;
+    padding: 1.4rem 0 0;
+    text-align: left;
   }
-  .loaf-desc { margin: 0 auto; }
-  .baseline { flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
+  .loaf { padding: .7rem .55rem .8rem; }
+  .loaf::before { position: relative; display: block; left: auto; top: auto; margin-bottom: .45rem; width: 2.3rem; height: 1.6rem; }
+  .loaf::after { left: 1.1rem; top: 1.15rem; width: 1.2rem; }
+  .loaf h2 { font-size: 1.15rem; }
+  .loaf-desc { font-size: .74rem; line-height: 1.45; }
+  .baseline { position: relative; bottom: auto; flex-direction: column; align-items: center; gap: 0.25rem; padding: .5rem 1rem 1rem; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

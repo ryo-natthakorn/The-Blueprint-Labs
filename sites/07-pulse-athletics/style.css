@@ -128,6 +128,7 @@ body.phase-rest { --acid: #5ec8ff; }
   stroke: rgba(242, 241, 234, 0.32);
   stroke-width: 14;
 }
+.dial-elapsed { fill: none; stroke: var(--bone); stroke-width: 3; stroke-linecap: round; opacity: .9; }
 .dial-progress-dot {
   fill: var(--bone);
   stroke: var(--tar);
@@ -151,6 +152,19 @@ body.phase-rest { --acid: #5ec8ff; }
   color: rgba(242, 241, 234, 0.45);
   text-transform: uppercase;
 }
+.timer-controls { display: flex; gap: .55rem; justify-content: center; width: 100%; }
+.timer-controls button {
+  min-height: 2.9rem; padding: .65rem 1rem; border: 1px solid var(--acid);
+  background: var(--acid); color: var(--tar); cursor: pointer;
+  font: 700 .68rem var(--font-mono); letter-spacing: .08em;
+  transition: transform .2s, background .2s, color .2s;
+}
+.timer-controls button:hover { transform: translateY(-2px); }
+.timer-controls .reset { background: transparent; color: var(--bone); border-color: rgba(242,241,234,.35); }
+.timer-controls button:focus-visible { outline: 3px solid var(--bone); outline-offset: 3px; }
+.logo-dot { transform-origin: center; animation: beat 1.2s ease-in-out infinite; }
+.is-running .logo-dot { animation-duration: .8s; }
+@keyframes beat { 50% { transform: scale(1.5); box-shadow: 0 0 22px var(--blood); } }
 
 .stats {
   display: flex;
@@ -226,8 +240,17 @@ body.phase-rest { --acid: #5ec8ff; }
   .baseline { position: static; align-items: center; margin-bottom: 3rem; }
   html, body { overflow: auto; }
   .arena { min-height: 100vh; height: auto; }
+  .dial { width: clamp(210px, 52vw, 270px); }
+  .dial-zone { align-content: center; }
+  .dial-wrap { gap: .55rem; }
+  .stats { gap: 1.4rem; }
+  .stat-num { font-size: clamp(1.5rem, 7vw, 2.5rem); }
+  .manifesto { padding-bottom: 2rem; }
+  .baseline { margin-bottom: 2.4rem; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-inner { transform: none !important; }
+  .logo-dot, .is-running .logo-dot { animation: none; }
+  .timer-controls button { transition: none; }
 }

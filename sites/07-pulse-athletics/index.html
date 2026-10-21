@@ -36,18 +36,23 @@
         <circle class="dial-track" cx="100" cy="100" r="88"/>
         <path class="dial-work" id="dial-work" />
         <path class="dial-rest" id="dial-rest" />
+        <path class="dial-elapsed" id="dial-elapsed" />
         <circle class="dial-progress-dot" id="dial-dot" cx="100" cy="12" r="6"/>
         <g class="dial-ticks" id="dial-ticks"></g>
         <text class="dial-time" id="dial-time" x="100" y="94" text-anchor="middle">0:00</text>
-        <text class="dial-sub" x="100" y="118" text-anchor="middle">of 1:00 round</text>
+        <text class="dial-sub" id="dial-sub" x="100" y="118" text-anchor="middle">SECONDS LEFT</text>
       </svg>
-      <p class="dial-hint" aria-hidden="true">↻ drag the ring · space to run</p>
+      <div class="timer-controls" role="group" aria-label="Workout controls">
+        <button id="run-toggle" class="run-toggle" type="button" aria-pressed="false">▶ START SESSION</button>
+        <button id="reset" class="reset" type="button">↺ RESET</button>
+      </div>
+      <p class="dial-hint" aria-hidden="true">DRAG THE RING TO PREVIEW · SPACE TO PAUSE</p>
     </div>
 
-    <div class="stats" aria-hidden="true">
-      <div class="stat"><span class="stat-num" id="stat-bpm">128</span><span class="stat-label">BPM TARGET</span></div>
+    <div class="stats" aria-label="Workout status">
+      <div class="stat"><span class="stat-num" id="stat-bpm">40:20</span><span class="stat-label">WORK : REST</span></div>
       <div class="stat"><span class="stat-num" id="stat-round">01</span><span class="stat-label">ROUND</span></div>
-      <div class="stat"><span class="stat-num" id="stat-effort">86%</span><span class="stat-label">EFFORT</span></div>
+      <div class="stat"><span class="stat-num" id="stat-effort">40s</span><span class="stat-label">UNTIL REST</span></div>
     </div>
   </section>
 

@@ -5,3 +5,4 @@ Thumbs.db
 scripts/.verify-shots/
 scripts/.verify-report.json
 scripts/.cdn-cache/
+scripts/.font-cache/

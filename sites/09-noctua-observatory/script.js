@@ -28,7 +28,7 @@
   size();
 
   /* ---------------- star field ------------------------------------ */
-  const STAR_COUNT = isSmallScreen ? 700 : 1400;
+  const STAR_COUNT = isSmallScreen ? 1900 : 2300;
   const stars = [];
   // deterministic PRNG so the sky is the same sky every visit
   let seed = 20260709;
@@ -40,7 +40,7 @@
     stars.push({
       x: rand() * SKY_W,
       y: rand() * SKY_H,
-      r: Math.pow(rand(), 2.6) * 1.9 + 0.3,
+      r: Math.pow(rand(), 2.3) * 2.0 + 0.35,
       warm: rand() < 0.18,
       twinklePhase: rand() * Math.PI * 2,
       twinkleSpeed: 0.4 + rand() * 1.4,
@@ -134,12 +134,35 @@
   }
 
   /* ---------------- pan state -------------------------------------- */
-  let panX = 300, panY = 500;
+  // Open with the namesake figure in the finder, rather than empty sky.
+  let panX = 0, panY = 0;
   let velX = 0, velY = 0;
   let dragging = false, lastX = 0, lastY = 0;
   let pointerSkyX = null, pointerSkyY = null;
 
   const clampY = (y) => Math.max(0, Math.min(SKY_H - H, y));
+  panX = CONSTELLATIONS[0].pos[0] + CONSTELLATIONS[0].centroid[0] - W / 2;
+  panY = clampY(CONSTELLATIONS[0].pos[1] + CONSTELLATIONS[0].centroid[1] - H / 2);
+
+  const targetNav = document.getElementById('targets');
+  CONSTELLATIONS.forEach((c, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = `${String(index + 1).padStart(2, '0')} ${c.name}`;
+    button.setAttribute('aria-label', `Find ${c.name} constellation`);
+    button.addEventListener('click', () => {
+      panX = c.pos[0] + c.centroid[0] - W / 2;
+      panY = clampY(c.pos[1] + c.centroid[1] - H / 2);
+      velX = velY = 0;
+      pointerSkyX = pointerSkyY = null;
+      c.reveal = 1;
+      setActive(c);
+      paint(performance.now());
+      canvas.focus({ preventScroll: true });
+    });
+    targetNav.appendChild(button);
+  });
+  if (isSmallScreen) document.querySelector('.tonight').open = false;
 
   canvas.addEventListener('pointerdown', (e) => {
     dragging = true;
@@ -186,6 +209,12 @@
   function setActive(c) {
     if (c === activeConstellation) return;
     activeConstellation = c;
+    [...targetNav.children].forEach((button, index) => {
+      const current = CONSTELLATIONS[index] === c;
+      button.classList.toggle('is-current', current);
+      if (current) button.setAttribute('aria-current', 'true');
+      else button.removeAttribute('aria-current');
+    });
     if (!c) { card.hidden = true; return; }
     cardName.textContent = c.name;
     cardKind.textContent = c.kind;
@@ -244,7 +273,7 @@
       const d = Math.hypot(wrapDX(cx, probeX), cy - probeY);
       const target = d < c.radius ? 1 : 0;
       if (target === 1 && (!nearest || d < nearest.d)) nearest = { c, d };
-      const speed = prefersReducedMotion ? 1 : 0.045;
+      const speed = prefersReducedMotion ? 1 : 0.075;
       c.reveal += (target - c.reveal) * speed;
 
       if (c.reveal < 0.01) continue;
@@ -292,6 +321,14 @@
     }
 
     setActive(nearest ? nearest.c : null);
+
+    // Finder crosshairs: the centre is the touch and keyboard probe.
+    if (isSmallScreen || pointerSkyX === null) {
+      ctx.strokeStyle = 'rgba(217,185,112,.48)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(W/2, H/2, 13, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(W/2-24,H/2); ctx.lineTo(W/2-17,H/2);
+      ctx.moveTo(W/2+17,H/2); ctx.lineTo(W/2+24,H/2); ctx.stroke();
+    }
 
     // horizon silhouette
     ctx.fillStyle = '#02040a';

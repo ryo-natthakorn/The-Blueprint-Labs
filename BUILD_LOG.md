@@ -55,3 +55,9 @@ Format: `- [id] title — vertical / style tags — built by <model>`
 ## Phase 7 — Revamp
 
 One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
+
+- [01-aurora-audio] Aurora Audio — revamped by Claude, reviewed by Codex
+- [02-terra-atelier] Terra Atelier — revamped by Claude, reviewed by Codex
+- [03-nova-orbit] Nova Orbit — revamped by Claude, reviewed by Codex
+- [04-cipher-security] CIPHER — revamped by Claude, reviewed by Codex
+- [05-flora-lab] Flora Lab — revamped by Claude, reviewed by Codex

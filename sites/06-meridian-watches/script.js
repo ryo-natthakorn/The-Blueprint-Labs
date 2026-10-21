@@ -38,7 +38,27 @@ const GOLD_BRIGHT = new THREE.MeshStandardMaterial({ color: 0xe8cf9c, metalness:
 const STEEL = new THREE.MeshStandardMaterial({ color: 0x9aa2b0, metalness: 1.0, roughness: 0.28 });
 const BLUED = new THREE.MeshStandardMaterial({ color: 0x2b4fd8, metalness: 0.9, roughness: 0.25 });
 const DARK = new THREE.MeshStandardMaterial({ color: 0x24211d, metalness: 0.8, roughness: 0.5 });
-const DIAL = new THREE.MeshStandardMaterial({ color: 0xe6d3a3, metalness: 0.55, roughness: 0.38 });
+const dialCanvas = document.createElement('canvas');
+dialCanvas.width = dialCanvas.height = 1024;
+const dc = dialCanvas.getContext('2d');
+const dg = dc.createRadialGradient(512, 512, 90, 512, 512, 520);
+dg.addColorStop(0, '#393b3a'); dg.addColorStop(0.55, '#262927'); dg.addColorStop(1, '#111715');
+dc.fillStyle = dg; dc.fillRect(0, 0, 1024, 1024);
+dc.translate(512, 512);
+for (let i = 0; i < 720; i++) {
+  const a = i * Math.PI / 360;
+  dc.strokeStyle = `rgba(231,215,179,${i % 6 === 0 ? 0.042 : 0.015})`;
+  dc.beginPath(); dc.moveTo(0, 0); dc.lineTo(Math.cos(a) * 500, Math.sin(a) * 500); dc.stroke();
+}
+dc.rotate(-Math.PI / 2);
+dc.textAlign = 'center'; dc.fillStyle = '#cdb98e';
+dc.font = '38px serif'; dc.fillText('MERIDIAN', 0, -240);
+dc.font = '16px sans-serif'; dc.letterSpacing = '7px'; dc.fillText('CALIBRE M–1', 0, 285);
+const dialTexture = new THREE.CanvasTexture(dialCanvas);
+dialTexture.colorSpace = THREE.SRGBColorSpace;
+const DIAL = new THREE.MeshStandardMaterial({ map: dialTexture, metalness: 0.24, roughness: 0.64 });
+const LEATHER = new THREE.MeshStandardMaterial({ color: 0x38291e, roughness: 0.82 });
+const STITCH = new THREE.MeshStandardMaterial({ color: 0xb99d70, roughness: 0.85 });
 const TUNGSTEN = new THREE.MeshStandardMaterial({ color: 0x4c4a46, metalness: 1.0, roughness: 0.4 });
 
 /* the watch: layers stacked along Z (face toward +Z) */
@@ -56,6 +76,16 @@ function addLayer(group, assembledZ, explodedZ) {
 /* --- L5 caseback (deepest) --------------------------------------- */
 {
   const g = new THREE.Group();
+  for (const side of [-1, 1]) {
+    const strap = new THREE.Mesh(new THREE.BoxGeometry(2.35, 1.42, 0.17), LEATHER);
+    strap.position.set(0, side * 3.31, -0.18);
+    g.add(strap);
+    for (const x of [-1.02, 1.02]) {
+      const seam = new THREE.Mesh(new THREE.BoxGeometry(0.018, 1.23, 0.01), STITCH);
+      seam.position.set(x, side * 3.31, -0.08);
+      g.add(seam);
+    }
+  }
   const back = new THREE.Mesh(new THREE.CylinderGeometry(2.55, 2.62, 0.22, 64), STEEL);
   back.rotation.x = Math.PI / 2;
   g.add(back);
@@ -245,9 +275,10 @@ const handSec = new THREE.Group();
     color: 0xffffff,
     metalness: 0,
     roughness: 0.02,
-    transmission: isSmallScreen ? 0 : 0.96,
+    transmission: 0,
     transparent: true,
-    opacity: isSmallScreen ? 0.12 : 1,
+    opacity: 0.085,
+    depthWrite: false,
     thickness: 0.4,
     ior: 1.77,
     clearcoat: 1,
@@ -262,6 +293,8 @@ const handSec = new THREE.Group();
 
 /* tilt the whole stack toward the viewer */
 watch.rotation.x = -0.32;
+watch.scale.setScalar(isSmallScreen ? 0.56 : 0.82);
+watch.position.set(isSmallScreen ? 0 : 2.3, isSmallScreen ? 1.65 : 0, 0);
 
 /* ------------------------------------------------------------------
    Scroll → explosion; sections highlight; drag orbits
@@ -273,7 +306,7 @@ function readScroll() {
   const max = document.documentElement.scrollHeight - window.innerHeight;
   scrollProgress = max > 0 ? window.scrollY / max : 0;
 }
-window.addEventListener('scroll', readScroll, { passive: true });
+window.addEventListener('scroll', () => { readScroll(); if (prefersReducedMotion) renderOnce(); }, { passive: true });
 readScroll();
 
 const plates = document.querySelectorAll('.plate');
@@ -318,8 +351,9 @@ function setHands(nowDate) {
 const clock = new THREE.Clock();
 
 function composeFrame(t) {
-  explode += (scrollProgress - explode) * 0.07;
+  explode += (scrollProgress - explode) * (prefersReducedMotion ? 1 : 0.07);
   const e = explode * explode * (3 - 2 * explode);
+  watch.scale.setScalar((isSmallScreen ? 0.56 : 0.82) * (1 - e * (isSmallScreen ? 0.18 : 0.04)));
 
   layers.forEach((l, i) => {
     // top layers lift first: stagger each layer's ease window
@@ -328,24 +362,28 @@ function composeFrame(t) {
     const local = THREE.MathUtils.clamp((e - start) / (1 - 0.35), 0, 1);
     const le = local * local * (3 - 2 * local);
     l.group.position.z = THREE.MathUtils.lerp(l.assembledZ, l.explodedZ, le);
+    l.group.position.x = (i - 2.5) * 0.34 * le;
+    l.group.position.y = (i - 2.5) * 0.24 * le;
   });
 
   /* idle turn + drag orbit */
-  if (!dragging) {
+  if (!dragging && !prefersReducedMotion) {
     orbitVel *= 0.95;
     orbitY += orbitVel + 0.0012;
   }
-  watch.rotation.y = orbitY;
-  watch.rotation.x = -0.32 + orbitX + e * 0.35; // pitch flatter when exploded
+  watch.rotation.y = orbitY + e * 0.42;
+  watch.rotation.x = -0.32 + orbitX + e * 0.48;
 
   /* mechanism life */
-  setHands(new Date());
+  if (prefersReducedMotion) {
+    const stillTime = new Date(); stillTime.setHours(10, 9, 30, 0); setHands(stillTime);
+  } else setHands(new Date());
   gears.forEach((g) => { g.mesh.rotation.z = t * g.speed; });
   rotorGroup.rotation.z = Math.sin(t * 0.7) * 1.1;
 
   /* camera drifts back to fit the exploded stack */
-  camera.position.z = 11 + e * 4.5;
-  camera.position.y = 2.2 - e * 1.2;
+  camera.position.z = 11.8 + e * 2.5;
+  camera.position.y = isSmallScreen ? 0 : 0.5;
   camera.lookAt(0, 0, 0);
 
   /* gauge */
@@ -362,22 +400,7 @@ function tick() {
 }
 
 function renderOnce() {
-  explode = 0.55;
-  scrollProgress = 0.55;
-  const e = explode;
-  layers.forEach((l) => {
-    l.group.position.z = THREE.MathUtils.lerp(l.assembledZ, l.explodedZ, e);
-  });
-  watch.rotation.y = orbitY + 0.5;
-  watch.rotation.x = -0.32 + orbitX + e * 0.35;
-  const tenNine = new Date();
-  tenNine.setHours(10, 9, 30, 0);
-  setHands(tenNine);
-  camera.position.set(0, 2.2 - e * 1.2, 11 + e * 4.5);
-  camera.lookAt(0, 0, 0);
-  gaugeFill.style.height = '55%';
-  gaugeLabel.textContent = 'exploded view';
-  renderer.render(scene, camera);
+  composeFrame(0);
 }
 
 window.addEventListener('resize', () => {

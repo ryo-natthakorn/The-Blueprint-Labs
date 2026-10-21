@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Codex** ← the only line the user needs to read
+**Next up / ถัดไป: Claude** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -18,8 +18,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | # | Task | Owner | Status |
 |---|---|---|---|
 | T1 | Build batch 1 (01–05) | Claude | done |
-| T2 | Review batch 1 | Codex | todo |
-| T3 | Build batch 2 (06–10) | Codex | todo |
+| T2 | Review batch 1 | Codex | done |
+| T3 | Build batch 2 (06–10) | Codex | done |
 | T4 | Fix batch 1 | Claude | todo |
 | T5 | Review batch 2 | Claude | todo |
 | T6 | Build batch 3 (11–15) | Claude | todo |
@@ -50,16 +50,16 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 
 | Site | Batch | Builder | Reviewer | Stage | Note |
 |---|---|---|---|---|---|
-| 01-aurora-audio | 1 | Claude | Codex | awaiting review | [note](notes/01-aurora-audio.md) |
-| 02-terra-atelier | 1 | Claude | Codex | awaiting review | [note](notes/02-terra-atelier.md) |
-| 03-nova-orbit | 1 | Claude | Codex | awaiting review | [note](notes/03-nova-orbit.md) |
-| 04-cipher-security | 1 | Claude | Codex | awaiting review | [note](notes/04-cipher-security.md) |
-| 05-flora-lab | 1 | Claude | Codex | awaiting review | [note](notes/05-flora-lab.md) |
-| 06-meridian-watches | 2 | Codex | Claude | not started | [note](notes/06-meridian-watches.md) |
-| 07-pulse-athletics | 2 | Codex | Claude | not started | [note](notes/07-pulse-athletics.md) |
-| 08-glacier-water | 2 | Codex | Claude | not started | [note](notes/08-glacier-water.md) |
-| 09-noctua-observatory | 2 | Codex | Claude | not started | [note](notes/09-noctua-observatory.md) |
-| 10-ember-bakery | 2 | Codex | Claude | not started | [note](notes/10-ember-bakery.md) |
+| 01-aurora-audio | 1 | Claude | Codex | done | [note](notes/01-aurora-audio.md) |
+| 02-terra-atelier | 1 | Claude | Codex | done | [note](notes/02-terra-atelier.md) |
+| 03-nova-orbit | 1 | Claude | Codex | done | [note](notes/03-nova-orbit.md) |
+| 04-cipher-security | 1 | Claude | Codex | done | [note](notes/04-cipher-security.md) |
+| 05-flora-lab | 1 | Claude | Codex | done | [note](notes/05-flora-lab.md) |
+| 06-meridian-watches | 2 | Codex | Claude | awaiting review | [note](notes/06-meridian-watches.md) |
+| 07-pulse-athletics | 2 | Codex | Claude | awaiting review | [note](notes/07-pulse-athletics.md) |
+| 08-glacier-water | 2 | Codex | Claude | awaiting review | [note](notes/08-glacier-water.md) |
+| 09-noctua-observatory | 2 | Codex | Claude | awaiting review | [note](notes/09-noctua-observatory.md) |
+| 10-ember-bakery | 2 | Codex | Claude | awaiting review | [note](notes/10-ember-bakery.md) |
 | 11-vertex-architecture | 3 | Claude | Codex | not started | [note](notes/11-vertex-architecture.md) |
 | 12-ligature-foundry | 3 | Claude | Codex | not started | [note](notes/12-ligature-foundry.md) |
 | 13-bathyal-institute | 3 | Claude | Codex | not started | [note](notes/13-bathyal-institute.md) |

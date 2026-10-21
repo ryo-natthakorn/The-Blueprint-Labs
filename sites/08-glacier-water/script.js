@@ -15,6 +15,7 @@
     canvas.style.background = 'linear-gradient(165deg, #eaf4f8 0%, #bcd9e6 55%, #8fbdd3 100%)';
     return;
   }
+  document.body.classList.add('has-webgl');
 
   const VERT = `
     attribute vec2 aPos;
@@ -37,28 +38,21 @@
       return mix(b, a, h) - k * h * (1.0 - h);
     }
 
-    vec3 ballPos(int i, float t) {
-      float fi = float(i);
-      return vec3(
-        sin(t * (0.31 + fi * 0.07) + fi * 2.4) * (0.85 - fi * 0.06),
-        sin(t * (0.23 + fi * 0.09) + fi * 1.7) * 0.62,
-        sin(t * (0.17 + fi * 0.05) + fi * 3.1) * 0.4
-      );
-    }
-
     float map(vec3 p, float t) {
-      // center the cluster right-of-copy on landscape, center on portrait
-      vec3 q = p - vec3(mix(0.62, 0.0, uPortrait), 0.08, 0.0);
-      float d = 1e5;
-      for (int i = 0; i < 5; i++) {
-        vec3 c = ballPos(i, t);
-        float r = 0.34 + 0.1 * sin(t * 0.6 + float(i) * 2.0);
-        d = smin(d, length(q - c) - r, 0.42);
-      }
-      // the cursor is a body of water too
-      float md = length(q - uMouse.xyz * vec3(1.0, 1.0, 0.0)) - 0.30 * uMouse.z - 0.001;
-      d = smin(d, md, 0.5);
-      return d;
+      // A continuous glass spring vessel: rounded base, shoulders, neck and lip.
+      float scale = mix(0.88, 0.80, uPortrait);
+      vec3 center = vec3(mix(0.78, 0.0, uPortrait), mix(0.06, 0.78, uPortrait), 0.0);
+      vec3 q = (p - center) / scale;
+      float y = q.y;
+      float shoulder = smoothstep(0.24, 0.86, y);
+      float radius = mix(0.55, 0.205, shoulder);
+      radius -= 0.035 * (1.0 - smoothstep(-1.08, -0.9, y));
+      radius += 0.055 * exp(-pow((y - 1.18) * 25.0, 2.0));
+      radius += 0.018 * sin((y + 0.7) * 18.0) * smoothstep(-0.96, -0.5, y) * (1.0 - shoulder);
+      float d = max(length(q.xz) - radius, max(-1.07 - y, y - 1.28));
+      float ripple = sin(length(p.xy - uMouse.xy) * 31.0 - t * 8.0);
+      d += ripple * 0.016 * exp(-length(p.xy - uMouse.xy) * 3.0) * uMouse.z;
+      return d * scale;
     }
 
     vec3 normalAt(vec3 p, float t) {
@@ -103,7 +97,7 @@
         p = ro + rd * dist;
         d = map(p, t);
         if (d < EPS) { hit = true; break; }
-        dist += d * 0.9;
+        dist += d * 0.72;
         if (dist > 8.0) break;
       }
 
@@ -137,6 +131,13 @@
 
         // inner edge glow where the surface silhouettes
         col += vec3(0.12, 0.2, 0.24) * fres * 0.6;
+
+        // A quiet, printed provenance band anchors the refractive form.
+        float scale = mix(0.88, 0.80, uPortrait);
+        vec3 center = vec3(mix(0.78, 0.0, uPortrait), mix(0.06, 0.78, uPortrait), 0.0);
+        vec3 q = (p - center) / scale;
+        float band = 1.0 - smoothstep(0.29, 0.32, abs(q.y + 0.14));
+        col = mix(col, vec3(0.89, 0.95, 0.96), band * max(0.0, n.z) * 0.82);
       } else {
         col = background(rd, t);
       }
@@ -190,13 +191,13 @@
   }
   size();
 
-  /* mouse in blob-space */
+  /* pointer in the vessel's world space */
   const mouse = { x: 0, y: 0, tx: 0, ty: 0, strength: 0, tStrength: 0 };
   window.addEventListener('pointermove', (e) => {
     const aspectMin = Math.min(window.innerWidth, window.innerHeight);
     // ray at z=0 plane sits ~1.55x the uv coordinate (ro.z 3.1 / rd.z 2.0)
-    mouse.tx = ((e.clientX * 2 - window.innerWidth) / aspectMin) * 1.55 - (window.innerHeight > window.innerWidth ? 0 : 0.62);
-    mouse.ty = (-(e.clientY * 2 - window.innerHeight) / aspectMin) * 1.55 - 0.08;
+    mouse.tx = ((e.clientX * 2 - window.innerWidth) / aspectMin) * 1.55;
+    mouse.ty = (-(e.clientY * 2 - window.innerHeight) / aspectMin) * 1.55;
     mouse.tStrength = 1;
   });
   window.addEventListener('pointerleave', () => { mouse.tStrength = 0; });

@@ -16,6 +16,10 @@ const dialTime = document.getElementById('dial-time');
 const dialTicks = document.getElementById('dial-ticks');
 const workArc = document.getElementById('dial-work');
 const restArc = document.getElementById('dial-rest');
+const elapsedArc = document.getElementById('dial-elapsed');
+const runToggle = document.getElementById('run-toggle');
+const resetButton = document.getElementById('reset');
+const dialSub = document.getElementById('dial-sub');
 const phaseWord = document.getElementById('phase-word');
 const statBpm = document.getElementById('stat-bpm');
 const statRound = document.getElementById('stat-round');
@@ -62,7 +66,7 @@ for (let s = 0; s < ROUND; s += 5) {
    State
 ------------------------------------------------------------------ */
 let seconds = 0;         // position in the round, 0..60
-let running = !prefersReducedMotion;
+let running = false;
 let round = 1;
 let lastPhase = 'work';
 
@@ -75,38 +79,29 @@ function setSeconds(s, { announce = true } = {}) {
   dialDot.setAttribute('cx', dx);
   dialDot.setAttribute('cy', dy);
   const whole = Math.floor(seconds);
-  dialTime.textContent = `0:${String(whole).padStart(2, '0')}`;
-  dial.setAttribute('aria-valuenow', whole);
-  dial.setAttribute('aria-valuetext', `${whole} seconds — ${phaseAt(seconds) === 'work' ? 'work phase' : 'rest phase'}`);
-
   const phase = phaseAt(seconds);
+  const remaining = Math.max(1, Math.ceil((phase === 'work' ? WORK_END : ROUND) - seconds));
+  dialTime.textContent = `0:${String(remaining).padStart(2, '0')}`;
+  dialSub.textContent = phase === 'work' ? 'SECONDS TO REST' : 'SECONDS TO WORK';
+  elapsedArc.setAttribute('d', seconds > 0.3 ? arcPath(0, Math.min(359.8, angle)) : '');
+  dial.setAttribute('aria-valuenow', whole);
+  dial.setAttribute('aria-valuetext', `${remaining} seconds left in ${phase} phase, round ${round}`);
+
   if (phase !== lastPhase) {
     lastPhase = phase;
     onPhaseChange(phase, announce);
   }
 
-  /* live numbers */
-  if (phase === 'work') {
-    const f = seconds / WORK_END;
-    statBpm.textContent = String(Math.round(128 + f * 42));
-    statEffort.textContent = `${Math.round(72 + f * 26)}%`;
-  } else {
-    const f = (seconds - WORK_END) / (ROUND - WORK_END);
-    statBpm.textContent = String(Math.round(170 - f * 48));
-    statEffort.textContent = `${Math.round(98 - f * 30)}%`;
-  }
+  statBpm.textContent = '40:20';
+  statEffort.textContent = `${remaining}s`;
+  statEffort.nextElementSibling.textContent = phase === 'work' ? 'UNTIL REST' : 'UNTIL WORK';
 }
 
 function onPhaseChange(phase, announce) {
   document.body.classList.toggle('phase-rest', phase === 'rest');
   phaseWord.textContent = phase === 'work' ? 'WORK' : 'REST';
 
-  if (phase === 'work' && announce) {
-    round += 1;
-    statRound.textContent = String(round).padStart(2, '0');
-  }
-
-  if (prefersReducedMotion || !announce) return;
+  if (prefersReducedMotion || !announce || !running) return;
 
   gsap.fromTo(flash, { opacity: 0.85 }, { opacity: 0, duration: 0.5, ease: 'power2.out' });
   gsap.fromTo(phaseWord,
@@ -133,7 +128,7 @@ function eventToSeconds(e) {
 
 dial.addEventListener('pointerdown', (e) => {
   scrubbing = true;
-  running = false;
+  setRunning(false);
   dial.setPointerCapture(e.pointerId);
   setSeconds(eventToSeconds(e));
 });
@@ -146,18 +141,33 @@ dial.addEventListener('pointercancel', () => { scrubbing = false; });
 
 dial.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
-    e.preventDefault(); running = false; setSeconds(seconds + 1);
+    e.preventDefault(); setRunning(false); setSeconds(seconds + 1);
   } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-    e.preventDefault(); running = false; setSeconds(seconds - 1);
+    e.preventDefault(); setRunning(false); setSeconds(seconds - 1);
   } else if (e.key === ' ' || e.key === 'Enter') {
-    e.preventDefault(); running = !running;
+    e.preventDefault(); setRunning(!running);
   }
 });
 window.addEventListener('keydown', (e) => {
   if (e.key === ' ' && e.target === document.body) {
     e.preventDefault();
-    running = !running;
+    setRunning(!running);
   }
+});
+
+function setRunning(value) {
+  running = value;
+  runToggle.textContent = value ? 'Ⅱ PAUSE SESSION' : '▶ START SESSION';
+  runToggle.setAttribute('aria-pressed', String(value));
+  document.body.classList.toggle('is-running', value);
+}
+runToggle.addEventListener('click', () => setRunning(!running));
+resetButton.addEventListener('click', () => {
+  setRunning(false); round = 1; lastPhase = 'work';
+  statRound.textContent = '01';
+  document.body.classList.remove('phase-rest');
+  phaseWord.textContent = 'WORK';
+  setSeconds(0, { announce: false });
 });
 
 /* ------------------------------------------------------------------
@@ -170,37 +180,32 @@ function loop(now) {
   const dt = Math.min((now - lastT) / 1000, 0.1);
   lastT = now;
 
-  if (running && !scrubbing) setSeconds(seconds + dt, { announce: true });
+  if (running && !scrubbing) {
+    if (seconds + dt >= ROUND) {
+      round += 1;
+      statRound.textContent = String(round).padStart(2, '0');
+    }
+    setSeconds(seconds + dt, { announce: true });
+  }
 
   /* marquee speed follows the phase: sprint during WORK, jog during REST */
   const speed = phaseAt(seconds) === 'work' ? 120 : 45;
-  mqOffset = (mqOffset + speed * dt) % (mqTop.scrollWidth / 2 || 1000);
-  mqTop.style.transform = `translateX(${-mqOffset}px)`;
-  mqBottom.style.transform = `translateX(${-mqOffset * 0.8}px)`;
+  if (!prefersReducedMotion) {
+    mqOffset = (mqOffset + (running ? speed : 38) * dt) % (mqTop.scrollWidth / 2 || 1000);
+    mqTop.style.transform = `translateX(${-mqOffset}px)`;
+    mqBottom.style.transform = `translateX(${-mqOffset * 0.8}px)`;
+  }
 
   requestAnimationFrame(loop);
 }
 
+setSeconds(0, { announce: false });
+requestAnimationFrame((t) => { lastT = t; requestAnimationFrame(loop); });
 if (!prefersReducedMotion) {
-  /* heartbeat on the logo dot, tempo tied to displayed BPM */
-  (function heartbeat() {
-    const bpm = Number(statBpm.textContent) || 120;
-    gsap.fromTo(logoDot, { scale: 1.45 }, {
-      scale: 1, duration: 0.35, ease: 'power2.out',
-      onComplete: () => setTimeout(heartbeat, Math.max(60000 / bpm - 350, 50)),
-    });
-  })();
-
-  setSeconds(0, { announce: false });
-  requestAnimationFrame((t) => { lastT = t; requestAnimationFrame(loop); });
-
   /* load-in: everything slams into place */
   gsap.from('.logo', { y: -40, opacity: 0, duration: 0.6, ease: 'power3.out' });
   gsap.from('.phase-word', { scale: 2.2, opacity: 0, duration: 0.55, ease: 'power4.out', delay: 0.1 });
   gsap.from('.dial', { scale: 0.7, opacity: 0, duration: 0.7, ease: 'back.out(1.6)', delay: 0.2 });
   gsap.from('.stat', { x: 30, opacity: 0, stagger: 0.08, duration: 0.5, ease: 'power3.out', delay: 0.35 });
   gsap.from('.line-item', { y: 24, opacity: 0, stagger: 0.09, duration: 0.5, ease: 'power3.out', delay: 0.45 });
-} else {
-  setSeconds(22, { announce: false });
-  statRound.textContent = '01';
 }
