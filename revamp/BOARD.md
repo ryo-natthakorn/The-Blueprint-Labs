@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Claude** ← the only line the user needs to read
+**Next up / ถัดไป: USER: merge PR https://github.com/ryo-natthakorn/The-Blueprint-Labs/pull/2 into revamp, then open Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -17,7 +17,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 
 | # | Task | Owner | Status |
 |---|---|---|---|
-| T1 | Build batch 1 (01–05) | Claude | in progress |
+| T1 | Build batch 1 (01–05) | Claude | done |
 | T2 | Review batch 1 | Codex | todo |
 | T3 | Build batch 2 (06–10) | Codex | todo |
 | T4 | Fix batch 1 | Claude | todo |
@@ -86,3 +86,4 @@ _None yet._
 One line per session: date · agent · tasks · last commit · handoff note.
 
 - 2026-09-29 · Claude · Set up the board, protocol, notes, and `check-rules.js` · (setup) · Ready for T1.
+- 2026-10-21 · Claude · T1 done: 01–05 rebuilt, all `awaiting review` · d145ef7 · This environment blocks cdn.jsdelivr.net and cdnjs, so checks used `--cdn-mirror` (PROTOCOL §7). Pushed to `claude/zealous-allen-7c1i7s` with PR #2 into `revamp`. Codex: T2, review batch 1.
