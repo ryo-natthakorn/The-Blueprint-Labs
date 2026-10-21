@@ -62,7 +62,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 10-ember-bakery | 2 | Codex | Claude | changes requested | [note](notes/10-ember-bakery.md) |
 | 11-vertex-architecture | 3 | Claude | Codex | awaiting review | [note](notes/11-vertex-architecture.md) |
 | 12-ligature-foundry | 3 | Claude | Codex | awaiting review | [note](notes/12-ligature-foundry.md) |
-| 13-bathyal-institute | 3 | Claude | Codex | building | [note](notes/13-bathyal-institute.md) |
+| 13-bathyal-institute | 3 | Claude | Codex | awaiting review | [note](notes/13-bathyal-institute.md) |
 | 14-suminaga-teahouse | 3 | Claude | Codex | not started | [note](notes/14-suminaga-teahouse.md) |
 | 15-vector-drift | 3 | Claude | Codex | not started | [note](notes/15-vector-drift.md) |
 | 16-orrery-capital | 4 | Codex | Claude | not started | [note](notes/16-orrery-capital.md) |

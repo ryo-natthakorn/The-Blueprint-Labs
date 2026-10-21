@@ -14,7 +14,9 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = window.matchMedia('(pointer: coarse)').matches;
-const isSmall = () => window.innerWidth <= 760;
+// phones and portrait tablets share one stacked layout (mirrors the CSS query)
+const smallMQ = window.matchMedia('(max-width: 760px), (max-width: 1099px) and (max-aspect-ratio: 10/11)');
+const isSmall = () => smallMQ.matches;
 const HIGH = !(isSmall() || coarse || (navigator.hardwareConcurrency || 8) <= 4);
 const T_STILL = 37.0;   // reduced motion freezes every animal in a formed pose
 
@@ -248,7 +250,7 @@ function startOcean() {
       void main(){
         vec4 v = uInvProj * vec4(vNdc, 1.0, 1.0);
         vec3 rd = normalize((uCamWorld * vec4(v.xyz / v.w, 0.0)).xyz);
-        float j = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+        float j = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));   // interleaved gradient noise
         float acc = 0.0;
         for (int i = 0; i < STEPS; i++) {
           float t = 0.8 + (float(i) + j) * STEP_L;

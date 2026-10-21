@@ -2,8 +2,8 @@
 
 - **Vertical:** Ocean Research
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews (T9).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -67,17 +67,57 @@ Rendered at 1440x900 and 390x844 (motion on/off) at eight scroll depths.
   follows depth.
 
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
+- Pass 1: Rebuilt in Three.js. Scroll maps to a station index, so the
+  depth on the HUD always matches the card being read, and the descent
+  eases like a winch. A background shader draws the surface (Snell's
+  window, soft god rays) and the water colour dies with depth. Marine
+  snow rises past the camera and lights up inside the floodlight, a real
+  SpotLight that follows the pointer (tap on touch) below 220 m and
+  otherwise rests on the station's animal. Animals: an instanced bait
+  ball, pulsing jellies with verlet tentacles plus a migration layer, a
+  siphonophore chain and an iridescent comb jelly, an anglerfish with
+  jaw, teeth and a lure that lights its face, a giant squid with bending
+  arms and an eye that only reads in the beam, and a vent field with
+  crack-glowing chimneys, lit smoke, swaying tube worms and the Station
+  VI habitat. HUD: depth gauge with zone bands, readouts, a dive log of
+  sightings and a floodlight switch; with the light off, the pointer
+  leaves bioluminescent sparks. Fixed in the same pass from the first
+  renders: a washed-out surface, the anglerfish facing away and too
+  dark, a NaN in the beam shader that bloom spread over the anglerfish,
+  snow blowing out next to the lamp, a jelly that popped when it
+  wrapped, and the phone brand and hint overlapping the HUD and cards.
+- Pass 2: From interaction renders (aiming at the squid, lights off at
+  1,600 m, frames between stations). The beam cone was invisible from
+  the camera, so it became a per-pixel raymarch through the beam (22
+  steps on desktop, 11 on phones), faint and cool, and only in dark
+  water. The water between stations went fully black, so a layer of
+  bioluminescent flashes (blue, cyan, a rare green, some double
+  flashes) now fills the dark column and gives parallax while
+  scrolling. The Station VI habitat sat behind the HUD; it now stands in
+  the foreground with its lamp on the worms, and phones frame the floor
+  lower so the chimneys and habitat both sit above the card.
+- Pass 3: Viewports and input. Checked 1024x640, 768x1024, 844x390 and
+  360x640. Portrait tablets now get the stacked phone layout (the
+  desktop card and HUD covered the animals and the squid fell out of
+  frame); windows under 700 px tall drop the dive log, and under 520 px
+  also the readout grid, with a smaller card. Tested tap-to-aim, the
+  floodlight switch (aria-pressed) and the tap spark burst on a phone,
+  and pointer aiming and lights-off sparks on desktop. The haze dither
+  now uses interleaved gradient noise, so phones show no grain.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects)
+- verify-sites: `--only 13 --cdn-mirror` → ok, console 0, page 0,
+  failed requests 0.
+- Visual check, desktop 1440x900: done. All seven stations at the HIGH
+  tier with bloom, frames between stations, aiming at the squid, and
+  lights off with sparks at 1,600 m; plus 1024x640 and 844x390.
+- Visual check, mobile 390x844: done. All stations, tap-to-aim, the
+  floodlight switch and tap sparks; plus 360x640 and 768x1024.
+- Reduced motion: done. Scroll still drives the dive with no easing or
+  sway, and every animal holds a formed pose. Without WebGL the page
+  colour follows depth and every card reads.
+- Thumbnail regenerated: yes (the surface hero, `--wait 4000`).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

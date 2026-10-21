@@ -252,16 +252,17 @@
     "styleTags": [
       "scroll-driven",
       "bioluminescent",
-      "narrative"
+      "3D scene"
     ],
     "accent": "#64f0d2",
-    "description": "One continuous dive from surf to seafloor: the scrollbar is a winch, sunlight dies on schedule, and procedurally drawn animals glow at their true depths.",
+    "description": "One continuous dive from the surface to 6,000 m: scroll works the winch, sunlight dies on schedule, and below it your pointer aims the floodlight at animals that glow at their real depths. Switch it off and make your own light.",
     "thumbnail": "/sites/13-bathyal-institute/assets/thumb.jpg",
     "livePath": "/sites/13-bathyal-institute/",
     "tech": [
-      "Canvas 2D",
-      "depth-keyed scene graph",
-      "procedural creatures"
+      "Three.js",
+      "GLSL shaders",
+      "bloom post-processing",
+      "verlet strands"
     ],
     "status": "complete"
   },
