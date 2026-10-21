@@ -149,6 +149,12 @@ tell the user it's ready to merge.
 - The sites load Three.js/GSAP from `cdn.jsdelivr.net`, fonts from
   `fonts.googleapis.com` / `fonts.gstatic.com`, and icons from
   `cdnjs.cloudflare.com`. The environment must allow those hosts.
+- If the network blocks those CDNs, pass `--cdn-mirror` to
+  `screenshot.js` and `verify-sites.js`. It answers jsdelivr, unpkg and
+  cdnjs Font Awesome requests from the same package versions, fetched
+  with `npm pack` into `scripts/.cdn-cache/` (see `scripts/cdn-mirror.js`).
+  Say in the note that you used it. The deployed sites still load from
+  the real CDNs.
 - Playwright: in Claude Code cloud, Chromium lives at `/opt/pw-browsers`.
   Don't run `playwright install` there.
 

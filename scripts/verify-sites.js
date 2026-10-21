@@ -4,10 +4,13 @@
  * page so blank/frozen canvases can be visually inspected afterward.
  *
  * Usage:
- *   node verify-sites.js [--base-url http://localhost:3000] [--only 01,05,26]
+ *   node verify-sites.js [--base-url http://localhost:3000] [--only 01,05,26] [--cdn-mirror]
  *
  * --only limits the run to projects whose id starts with one of the given
  * prefixes (e.g. the batch currently being revamped).
+ *
+ * --cdn-mirror serves CDN requests from local npm copies (see cdn-mirror.js),
+ * for environments whose network blocks the CDNs.
  *
  * Not part of the deployed site. Writes screenshots to
  * scripts/.verify-shots/<id>.png and a JSON report to
@@ -16,22 +19,24 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
+const { installCdnMirror } = require('./cdn-mirror');
 
 const ROOT = path.resolve(__dirname, '..');
 const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 const SHOTS_DIR = path.join(__dirname, '.verify-shots');
 
 function parseArgs(argv) {
-  const args = { baseUrl: 'http://localhost:3000', only: null };
+  const args = { baseUrl: 'http://localhost:3000', only: null, cdnMirror: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--base-url') args.baseUrl = argv[++i];
     else if (argv[i] === '--only') args.only = argv[++i].split(',').map((s) => s.trim()).filter(Boolean);
+    else if (argv[i] === '--cdn-mirror') args.cdnMirror = true;
   }
   return args;
 }
 
 async function main() {
-  const { baseUrl, only } = parseArgs(process.argv.slice(2));
+  const { baseUrl, only, cdnMirror } = parseArgs(process.argv.slice(2));
   const projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'))
     .filter((p) => !only || only.some((prefix) => p.id.startsWith(prefix)));
   fs.mkdirSync(SHOTS_DIR, { recursive: true });
@@ -44,6 +49,7 @@ async function main() {
     const entry = { id: project.id, url, consoleErrors: [], pageErrors: [], failedRequests: [], status: 'ok' };
 
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    if (cdnMirror) await installCdnMirror(page);
     page.on('console', (msg) => {
       if (msg.type() === 'error') entry.consoleErrors.push(msg.text());
     });

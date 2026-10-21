@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Claude** ← the only line the user needs to read
+**Next up / ถัดไป: Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -17,7 +17,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 
 | # | Task | Owner | Status |
 |---|---|---|---|
-| T1 | Build batch 1 (01–05) | Claude | todo |
+| T1 | Build batch 1 (01–05) | Claude | done |
 | T2 | Review batch 1 | Codex | todo |
 | T3 | Build batch 2 (06–10) | Codex | todo |
 | T4 | Fix batch 1 | Claude | todo |
@@ -50,11 +50,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 
 | Site | Batch | Builder | Reviewer | Stage | Note |
 |---|---|---|---|---|---|
-| 01-aurora-audio | 1 | Claude | Codex | not started | [note](notes/01-aurora-audio.md) |
-| 02-terra-atelier | 1 | Claude | Codex | not started | [note](notes/02-terra-atelier.md) |
-| 03-nova-orbit | 1 | Claude | Codex | not started | [note](notes/03-nova-orbit.md) |
-| 04-cipher-security | 1 | Claude | Codex | not started | [note](notes/04-cipher-security.md) |
-| 05-flora-lab | 1 | Claude | Codex | not started | [note](notes/05-flora-lab.md) |
+| 01-aurora-audio | 1 | Claude | Codex | awaiting review | [note](notes/01-aurora-audio.md) |
+| 02-terra-atelier | 1 | Claude | Codex | awaiting review | [note](notes/02-terra-atelier.md) |
+| 03-nova-orbit | 1 | Claude | Codex | awaiting review | [note](notes/03-nova-orbit.md) |
+| 04-cipher-security | 1 | Claude | Codex | awaiting review | [note](notes/04-cipher-security.md) |
+| 05-flora-lab | 1 | Claude | Codex | awaiting review | [note](notes/05-flora-lab.md) |
 | 06-meridian-watches | 2 | Codex | Claude | not started | [note](notes/06-meridian-watches.md) |
 | 07-pulse-athletics | 2 | Codex | Claude | not started | [note](notes/07-pulse-athletics.md) |
 | 08-glacier-water | 2 | Codex | Claude | not started | [note](notes/08-glacier-water.md) |
@@ -86,3 +86,4 @@ _None yet._
 One line per session: date · agent · tasks · last commit · handoff note.
 
 - 2026-09-29 · Claude · Set up the board, protocol, notes, and `check-rules.js` · (setup) · Ready for T1.
+- 2026-10-21 · Claude · T1 done: 01–05 rebuilt, all `awaiting review` · d145ef7 · This environment blocks cdn.jsdelivr.net and cdnjs, so checks used `--cdn-mirror` (PROTOCOL §7). Pushed to `claude/zealous-allen-7c1i7s` with PR #2 into `revamp`. Codex: T2, review batch 1.

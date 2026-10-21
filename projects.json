@@ -9,12 +9,13 @@
       "particles"
     ],
     "accent": "#8f7cff",
-    "description": "Reference headphone brand rendered as a living sound-field: 12,000 particles bent by a generative Web Audio synth you conduct.",
+    "description": "A headphone held in 65,000 points dissolves into an aurora whose curtains are the live spectrum of a generative score you can play by hand.",
     "thumbnail": "/sites/01-aurora-audio/assets/thumb.jpg",
     "livePath": "/sites/01-aurora-audio/",
     "tech": [
       "Three.js",
       "custom GLSL",
+      "MeshSurfaceSampler",
       "UnrealBloom",
       "Web Audio API"
     ],
@@ -30,11 +31,13 @@
       "3D craft"
     ],
     "accent": "#c17a4f",
-    "description": "Scroll to throw a pot: one lathe-morphed vessel travels from raw lump to glazed celadon across six stages of the wheel.",
+    "description": "Scroll to throw a stoneware pot: wet clay on a working wheel, three pulls, a kiln firing to 1280°C, then a celadon piece you can turn in your hands.",
     "thumbnail": "/sites/02-terra-atelier/assets/thumb.jpg",
     "livePath": "/sites/02-terra-atelier/",
     "tech": [
       "Three.js",
+      "MeshPhysicalMaterial",
+      "procedural canvas maps",
       "LatheGeometry morphing",
       "scroll choreography"
     ],
@@ -50,13 +53,14 @@
       "shader sky"
     ],
     "accent": "#ff7a45",
-    "description": "Fly a full launch profile with the scrollbar: ignition, max-Q shake, the Kármán line fade to vacuum, and a procedural Earth rising into frame.",
+    "description": "Fly a full launch profile with the scrollbar: nine engines at dawn, a punch through the cloud deck, max-Q vapour, staging, and an orbital sunrise over a night-side Earth.",
     "thumbnail": "/sites/03-nova-orbit/assets/thumb.jpg",
     "livePath": "/sites/03-nova-orbit/",
     "tech": [
       "Three.js",
-      "custom GLSL sky/earth/flame",
-      "camera keyframes"
+      "custom GLSL plume/sky/Earth",
+      "UnrealBloom",
+      "mission-time choreography"
     ],
     "status": "complete"
   },
@@ -70,13 +74,14 @@
       "interactive fiction"
     ],
     "accent": "#39ff6a",
-    "description": "The whole site is a working terminal: navigate a red-team consultancy by typing commands, running a fake recon sweep, and reading redacted casework.",
+    "description": "A red-team firm whose whole site is a terminal on a phosphor CRT — anyone can play it: a numbered menu, tappable commands, plain-language questions, a live port-scan demo and a guided tour.",
     "thumbnail": "/sites/04-cipher-security/assets/thumb.jpg",
     "livePath": "/sites/04-cipher-security/",
     "tech": [
-      "Canvas 2D digital rain",
-      "command parser",
-      "CSS CRT/glitch"
+      "Three.js CRT post-processing",
+      "Canvas 2D text engine",
+      "UnrealBloom + afterimage",
+      "command parser with fuzzy matching"
     ],
     "status": "complete"
   },
@@ -90,13 +95,14 @@
       "playful"
     ],
     "accent": "#7a8a4a",
-    "description": "Plant seeds in a living canvas garden — procedural stems grow, branch, and bloom into five perfume botanicals while your accord recipe composes itself.",
+    "description": "Plant five perfume botanicals in a living garden. Each grows its own way, buds open, bees visit, and every flower that opens adds its note to a perfume that names, colours and fills itself.",
     "thumbnail": "/sites/05-flora-lab/assets/thumb.jpg",
     "livePath": "/sites/05-flora-lab/",
     "tech": [
       "Canvas 2D",
       "procedural plant growth",
-      "recursive branching"
+      "pre-rendered bloom sprites",
+      "generative perfume pyramid"
     ],
     "status": "complete"
   },
