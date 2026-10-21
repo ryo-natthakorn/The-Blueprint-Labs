@@ -54,7 +54,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 02-terra-atelier | 1 | Claude | Codex | awaiting review | [note](notes/02-terra-atelier.md) |
 | 03-nova-orbit | 1 | Claude | Codex | awaiting review | [note](notes/03-nova-orbit.md) |
 | 04-cipher-security | 1 | Claude | Codex | awaiting review | [note](notes/04-cipher-security.md) |
-| 05-flora-lab | 1 | Claude | Codex | not started | [note](notes/05-flora-lab.md) |
+| 05-flora-lab | 1 | Claude | Codex | awaiting review | [note](notes/05-flora-lab.md) |
 | 06-meridian-watches | 2 | Codex | Claude | not started | [note](notes/06-meridian-watches.md) |
 | 07-pulse-athletics | 2 | Codex | Claude | not started | [note](notes/07-pulse-athletics.md) |
 | 08-glacier-water | 2 | Codex | Claude | not started | [note](notes/08-glacier-water.md) |

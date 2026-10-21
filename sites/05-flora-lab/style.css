@@ -1,11 +1,14 @@
 :root {
-  --paper: #f7f4ec;
+  --paper: #f6f2e8;
+  --card: rgba(250, 247, 239, 0.86);
   --ink: #33392e;
-  --moss: #7d8f62;
-  --rose: #c96f8e;
+  --ink-soft: rgba(51, 57, 46, 0.62);
+  --line: rgba(51, 57, 46, 0.14);
+  --moss: #6f8452;
+  --moss-deep: #4f6338;
   --gold: #b9975b;
-  --font-serif: "Fraunces", serif;
-  --font-sans: "Karla", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Karla", system-ui, sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,6 +19,7 @@ html, body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
+  overscroll-behavior: none;
 }
 
 #garden {
@@ -23,199 +27,390 @@ html, body {
   inset: 0;
   width: 100%;
   height: 100%;
+  display: block;
   cursor: crosshair;
+  touch-action: manipulation;
 }
-#garden:focus-visible {
-  outline: 3px solid var(--moss);
-  outline-offset: -3px;
+#garden:focus { outline: none; }
+#garden:focus-visible { box-shadow: inset 0 0 0 3px var(--moss); }
+
+button { font: inherit; color: inherit; }
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--moss-deep);
+  outline-offset: 3px;
 }
 
+/* masthead ------------------------------------------------------------ */
 .masthead {
   position: fixed;
-  top: clamp(1.4rem, 4vh, 3rem);
+  top: clamp(1.2rem, 4vh, 2.6rem);
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   pointer-events: none;
   z-index: 5;
+  white-space: nowrap;
 }
 .wordmark {
   font-family: var(--font-serif);
   font-weight: 300;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  letter-spacing: 0.01em;
   line-height: 1;
 }
 .wordmark em {
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--moss);
 }
 .tagline {
-  margin-top: 0.6rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.42em;
+  margin-top: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: rgba(51, 57, 46, 0.55);
+  color: var(--ink-soft);
 }
 
-/* accord panel — the "recipe" that builds as you plant */
-.accord-panel {
+/* the perfume card ------------------------------------------------------ */
+.perfume {
   position: fixed;
-  top: 50%;
-  right: clamp(1rem, 3vw, 2.6rem);
-  transform: translateY(-50%);
-  width: min(15.5rem, 42vw);
-  background: rgba(247, 244, 236, 0.82);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(51, 57, 46, 0.14);
-  border-radius: 4px;
-  padding: 1.2rem 1.3rem 1rem;
-  z-index: 5;
+  top: clamp(1rem, 3vh, 1.8rem);
+  right: clamp(1rem, 2.4vw, 2rem);
+  width: min(19rem, 32vw);
+  z-index: 6;
+  background: var(--card);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px -24px rgba(51, 57, 46, 0.35);
 }
-.panel-title {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-style: italic;
-  font-size: 1.15rem;
-  margin-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(51, 57, 46, 0.14);
-  padding-bottom: 0.6rem;
-}
-.accord-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  min-height: 4.5rem;
-  font-size: 0.8rem;
-}
-.accord-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.6rem;
-}
-.accord-list .sp-name { font-weight: 500; }
-.accord-list .sp-pct {
-  color: rgba(51, 57, 46, 0.6);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.72rem;
-}
-.accord-empty { color: rgba(51, 57, 46, 0.5); font-style: italic; }
-.accord-meta {
-  margin-top: 0.9rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid rgba(51, 57, 46, 0.14);
-  display: flex;
-  justify-content: space-between;
+.perfume-toggle {
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  font-size: 0.68rem;
-  color: rgba(51, 57, 46, 0.6);
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.9rem 1rem 0.6rem;
+  background: none;
+  border: 0;
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.bottle {
+  display: block;
+  width: 60px;
+  height: 92px;
+  position: relative;
+  transform-origin: 50% 90%;
+}
+.bottle svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bottle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sip, #d9a0b4) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+.bottle.is-sip { animation: sip 0.7s ease-out; }
+.bottle.is-sip::after { animation: sip-glow 0.7s ease-out; }
+@keyframes sip {
+  30% { transform: scale(1.06) rotate(-2deg); }
+  60% { transform: scale(0.99) rotate(1deg); }
+}
+@keyframes sip-glow {
+  20% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+.perfume-head { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+.perfume-kicker {
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.perfume-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.32rem;
+  line-height: 1.12;
+}
+.perfume-short { font-size: 0.74rem; color: var(--ink-soft); }
+
+.perfume-toggle[aria-expanded="false"] + .perfume-details { display: none; }
+.perfume-details { padding: 0 1rem 0.9rem; }
+.perfume-desc {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  padding: 0.3rem 0 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.pyramid {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+}
+.pyramid li {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.6rem;
+  align-items: baseline;
+}
+.tier-name {
+  grid-row: span 2;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.tier-notes { font-size: 0.82rem; line-height: 1.3; }
+.tier-bar {
+  margin-top: 0.3rem;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(51, 57, 46, 0.08);
+  overflow: hidden;
+}
+.tier-bar i {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+[data-tier="top"] .tier-bar i { background: linear-gradient(90deg, #e6892e, #e8d9a4); }
+[data-tier="heart"] .tier-bar i { background: linear-gradient(90deg, #c4577d, #7d6cc6); }
+[data-tier="base"] .tier-bar i { background: linear-gradient(90deg, #6f7d48, #a8b37a); }
+.perfume-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.74rem;
+  color: var(--ink-soft);
 }
 #clear-garden {
-  font: inherit;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
   background: none;
-  border: 1px solid rgba(51, 57, 46, 0.25);
+  border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 0.3rem 0.8rem;
-  color: var(--ink);
+  padding: 0.35rem 0.8rem;
+  font-size: 0.72rem;
+  color: var(--moss-deep);
   cursor: pointer;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
-#clear-garden:hover { background: rgba(125, 143, 98, 0.15); border-color: var(--moss); }
-#clear-garden:focus-visible { outline: 2px solid var(--moss); outline-offset: 2px; }
+#clear-garden:hover { background: rgba(111, 132, 82, 0.1); border-color: rgba(111, 132, 82, 0.4); }
 
-/* seed tray */
+/* seed tray ------------------------------------------------------------- */
 .seed-tray {
   position: fixed;
-  bottom: clamp(2.6rem, 6vh, 3.4rem);
   left: 50%;
+  bottom: 1.9rem;
   transform: translateX(-50%);
-  z-index: 5;
-  text-align: center;
-  width: min(52rem, calc(100vw - 2rem));
+  z-index: 6;
+  max-width: calc(100vw - 2rem);
+  padding: 0.55rem 0.6rem 0.6rem;
+  background: var(--card);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px -26px rgba(51, 57, 46, 0.4);
 }
 .tray-label {
-  font-size: 0.64rem;
-  letter-spacing: 0.34em;
+  text-align: center;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(51, 57, 46, 0.5);
-  margin-bottom: 0.7rem;
+  color: var(--ink-soft);
+  padding-bottom: 0.45rem;
 }
-.tray-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
+.tray-buttons { display: flex; gap: 0.4rem; }
 .seed {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.55rem;
   align-items: center;
-  gap: 0.2rem;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--ink);
-  background: rgba(247, 244, 236, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(51, 57, 46, 0.16);
-  border-radius: 4px;
-  padding: 0.65rem 1rem 0.55rem;
+  min-width: 9.2rem;
+  padding: 0.5rem 1.7rem 0.5rem 0.6rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  text-align: left;
   cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
-.seed:hover { transform: translateY(-3px); }
-.seed:focus-visible { outline: 2px solid var(--moss); outline-offset: 2px; }
+.seed:hover { background: rgba(51, 57, 46, 0.05); }
+.seed:active { transform: translateY(1px); }
 .seed[aria-pressed="true"] {
-  border-color: var(--moss);
-  box-shadow: 0 4px 18px rgba(125, 143, 98, 0.3);
+  background: #fffdf7;
+  border-color: rgba(51, 57, 46, 0.22);
+  box-shadow: 0 6px 14px -8px rgba(51, 57, 46, 0.35);
 }
 .swatch {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--c);
-  border: 1px solid rgba(51, 57, 46, 0.2);
+  grid-row: span 2;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50% 50% 50% 12%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55), transparent 55%), var(--c);
+  box-shadow: inset 0 0 0 1px rgba(51, 57, 46, 0.2);
+  transform: rotate(-45deg);
+  transition: transform 0.3s ease;
+}
+.seed[aria-pressed="true"] .swatch { transform: rotate(-45deg) scale(1.12); }
+.seed-name {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 .note {
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(51, 57, 46, 0.55);
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.seed kbd {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.5rem;
+  font: 500 0.6rem var(--font-sans);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
 }
 
+/* baseline -------------------------------------------------------------- */
 .baseline {
   position: fixed;
-  bottom: 0.7rem;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 clamp(1rem, 3vw, 2.6rem);
-  font-size: 0.62rem;
-  color: rgba(51, 57, 46, 0.5);
+  bottom: 0.45rem;
   z-index: 5;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.66rem;
+  color: var(--ink-soft);
+  pointer-events: none;
 }
-.baseline a { color: var(--moss); text-decoration: none; }
+.baseline a {
+  color: var(--moss-deep);
+  text-decoration: none;
+  pointer-events: auto;
+}
 .baseline a:hover { text-decoration: underline; }
-.baseline a:focus-visible { outline: 2px solid var(--moss); outline-offset: 2px; }
 
-@media (max-width: 880px) {
-  .accord-panel {
-    top: auto;
-    right: auto;
-    bottom: 9.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(20rem, calc(100vw - 2rem));
-    padding: 0.9rem 1rem 0.8rem;
+/* mid widths: tighter tray ------------------------------------------- */
+@media (max-width: 1100px) {
+  .seed { min-width: 0; padding-right: 1.5rem; }
+  .note { display: none; }
+  .perfume { width: min(17rem, 34vw); }
+}
+
+/* phones and narrow windows: perfume bar on top, seed strip below ------ */
+@media (max-width: 768px) {
+  .masthead { top: 0.9rem; }
+  .wordmark { font-size: 2.1rem; }
+  .tagline { font-size: 0.58rem; letter-spacing: 0.32em; margin-top: 0.35rem; }
+
+  .perfume {
+    top: 5.2rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
+    border-radius: 12px;
   }
-  .accord-list { min-height: 0; }
-  .seed-tray { bottom: 2.2rem; }
-  .seed { padding: 0.5rem 0.7rem 0.45rem; font-size: 0.7rem; }
-  .baseline { flex-direction: column; text-align: center; gap: 0.2rem; }
+  .perfume-toggle {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.7rem;
+    padding: 0.45rem 0.8rem 0.45rem 0.6rem;
+    border-radius: 12px;
+  }
+  .perfume-toggle::after {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.2rem;
+    border-right: 1.5px solid var(--ink-soft);
+    border-bottom: 1.5px solid var(--ink-soft);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.25s ease;
+  }
+  .perfume-toggle[aria-expanded="true"]::after { transform: rotate(-135deg) translateY(-2px); }
+  .bottle { width: 30px; height: 46px; }
+  .perfume-kicker { font-size: 0.56rem; }
+  .perfume-name { font-size: 1.05rem; }
+  .perfume-short { font-size: 0.68rem; }
+  .perfume-details { padding: 0 0.85rem 0.75rem; }
+  .perfume-desc { font-size: 0.86rem; }
+
+  .seed-tray {
+    left: 0;
+    right: 0;
+    bottom: 1.5rem;
+    transform: none;
+    max-width: none;
+    padding: 0.4rem 0 0.45rem;
+    border-radius: 0;
+    border-width: 1px 0;
+  }
+  .tray-label { padding-bottom: 0.3rem; font-size: 0.56rem; }
+  /* all five seeds in one row: swatch over name */
+  .tray-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.2rem; padding: 0 0.4rem; }
+  .seed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 0;
+    padding: 0.45rem 0.15rem 0.4rem;
+    text-align: center;
+  }
+  .seed kbd, .note { display: none; }
+  .swatch { width: 1.35rem; height: 1.35rem; }
+  .seed-name { font-size: 0.74rem; white-space: normal; line-height: 1.1; }
+  .baseline { bottom: 0.3rem; font-size: 0.58rem; gap: 0.6rem; padding: 0 0.75rem; }
+  .baseline span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .baseline a { white-space: nowrap; }
+}
+
+/* short landscape phones: everything slimmer */
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .masthead { top: 0.6rem; }
+  .wordmark { font-size: 1.8rem; }
+  .tagline { display: none; }
+  .perfume { top: 0.6rem; right: 0.6rem; left: auto; width: min(16rem, 40vw); }
+  .perfume-toggle { padding: 0.4rem 0.6rem; }
+  .bottle { width: 26px; height: 40px; }
+  .perfume-kicker { display: none; }
+  .perfume-details { max-height: 52vh; overflow-y: auto; }
+  .seed-tray { bottom: 1.3rem; padding: 0.3rem 0.4rem; }
+  .tray-label { display: none; }
+  .seed { padding: 0.35rem 0.6rem 0.35rem 0.45rem; }
+  .note, .seed kbd { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottle.is-sip, .bottle.is-sip::after { animation: none; }
+  .tier-bar i, .seed, .swatch, #clear-garden, .perfume-toggle::after { transition: none; }
 }

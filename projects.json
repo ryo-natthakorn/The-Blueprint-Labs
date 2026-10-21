@@ -95,13 +95,14 @@
       "playful"
     ],
     "accent": "#7a8a4a",
-    "description": "Plant seeds in a living canvas garden — procedural stems grow, branch, and bloom into five perfume botanicals while your accord recipe composes itself.",
+    "description": "Plant five perfume botanicals in a living garden. Each grows its own way, buds open, bees visit, and every flower that opens adds its note to a perfume that names, colours and fills itself.",
     "thumbnail": "/sites/05-flora-lab/assets/thumb.jpg",
     "livePath": "/sites/05-flora-lab/",
     "tech": [
       "Canvas 2D",
       "procedural plant growth",
-      "recursive branching"
+      "pre-rendered bloom sprites",
+      "generative perfume pyramid"
     ],
     "status": "complete"
   },

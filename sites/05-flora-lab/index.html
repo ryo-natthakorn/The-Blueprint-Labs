@@ -4,50 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flora Lab — Perfume, Grown Not Made</title>
-<meta name="description" content="Flora Lab — a botanical perfumery. Plant a seed and watch your scent grow: a generative garden where every bloom is an accord.">
-<meta name="theme-color" content="#f7f4ec">
+<meta name="description" content="Flora Lab, a botanical perfumery. Plant five perfume botanicals in a living garden and watch your perfume compose itself, bloom by bloom.">
+<meta name="theme-color" content="#f6f2e8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/05-flora-lab/style.css">
 </head>
 <body>
 
-<canvas id="garden" tabindex="0" aria-label="A generative garden. Click the soil, or press Enter, to plant the selected seed and watch it grow and bloom." role="img"></canvas>
+<canvas id="garden" tabindex="0" role="img" aria-label="A generative garden. Choose a seed, then click the soil to plant it, or use the arrow keys to move the planting marker and press Enter. Number keys 1 to 5 choose a seed."></canvas>
 
 <header class="masthead">
   <h1 class="wordmark">Flora <em>Lab</em></h1>
   <p class="tagline">perfume, grown not made</p>
 </header>
 
-<aside class="accord-panel" aria-live="polite">
-  <h2 class="panel-title">Your accord</h2>
-  <ul class="accord-list" id="accord-list">
-    <li class="accord-empty">The plot is bare. Plant something.</li>
-  </ul>
-  <div class="accord-meta">
-    <span id="bloom-count">0 blooms</span>
-    <button id="clear-garden" type="button">Clear the plot</button>
+<aside class="perfume" id="perfume" aria-labelledby="perfume-name">
+  <button class="perfume-toggle" id="perfume-toggle" type="button" aria-expanded="false" aria-controls="perfume-details">
+    <span class="bottle" aria-hidden="true">
+      <svg viewBox="0 0 60 92" width="60" height="92">
+        <defs>
+          <clipPath id="bottle-clip"><path d="M14 30 Q14 26 18 25 L42 25 Q46 26 46 30 L48 80 Q48 86 42 86 L18 86 Q12 86 12 80 Z"/></clipPath>
+          <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="0.35" stop-color="#fff" stop-opacity="0.05"/><stop offset="1" stop-color="#fff" stop-opacity="0.25"/></linearGradient>
+        </defs>
+        <rect x="22" y="6" width="16" height="12" rx="2" fill="#b9975b"/>
+        <rect x="25" y="17" width="10" height="9" fill="#d8c9a6"/>
+        <g clip-path="url(#bottle-clip)">
+          <rect x="0" y="86" width="60" height="62" id="liquid" fill="#d9a0b4"/>
+          <path id="liquid-wave" d="M0 0" fill="#d9a0b4" opacity="0.65"/>
+        </g>
+        <path d="M14 30 Q14 26 18 25 L42 25 Q46 26 46 30 L48 80 Q48 86 42 86 L18 86 Q12 86 12 80 Z" fill="url(#glass)" stroke="rgba(51,57,46,0.45)" stroke-width="1.2"/>
+        <rect x="18" y="48" width="24" height="16" rx="1.5" fill="#f6f2e8" stroke="rgba(51,57,46,0.35)" stroke-width="0.8"/>
+        <text x="30" y="58.6" text-anchor="middle" font-size="5.2" font-family="Fraunces, serif" font-style="italic" fill="#33392e">Flora Lab</text>
+      </svg>
+    </span>
+    <span class="perfume-head">
+      <span class="perfume-kicker">Your perfume</span>
+      <span class="perfume-name" id="perfume-name">Still a seed</span>
+      <span class="perfume-short" id="perfume-short">0 blooms</span>
+    </span>
+  </button>
+  <div class="perfume-details" id="perfume-details">
+    <p class="perfume-desc" id="perfume-desc" aria-live="polite">Plant something. Every flower that opens adds its note.</p>
+    <ol class="pyramid" aria-label="Fragrance pyramid">
+      <li data-tier="top"><span class="tier-name">Top</span><span class="tier-notes" id="tier-top">—</span><span class="tier-bar"><i id="bar-top"></i></span></li>
+      <li data-tier="heart"><span class="tier-name">Heart</span><span class="tier-notes" id="tier-heart">—</span><span class="tier-bar"><i id="bar-heart"></i></span></li>
+      <li data-tier="base"><span class="tier-name">Base</span><span class="tier-notes" id="tier-base">—</span><span class="tier-bar"><i id="bar-base"></i></span></li>
+    </ol>
+    <div class="perfume-meta">
+      <span id="bloom-count">0 blooms open</span>
+      <button id="clear-garden" type="button">Harvest &amp; replant</button>
+    </div>
   </div>
 </aside>
 
 <nav class="seed-tray" aria-label="Choose a seed to plant">
-  <p class="tray-label">choose a seed · then click the soil</p>
+  <p class="tray-label" id="tray-label">choose a seed · then tap the soil</p>
   <div class="tray-buttons">
-    <button class="seed" data-species="rose" aria-pressed="true">
-      <span class="swatch" style="--c:#c96f8e"></span>Damask Rose<span class="note">heart · velvet</span>
+    <button class="seed" type="button" data-species="rose" aria-pressed="true">
+      <span class="swatch" style="--c:#c4577d"></span><span class="seed-name">Damask Rose</span><span class="note">heart · velvet</span><kbd>1</kbd>
     </button>
-    <button class="seed" data-species="iris" aria-pressed="false">
-      <span class="swatch" style="--c:#8d7fc7"></span>Orris Iris<span class="note">heart · powder</span>
+    <button class="seed" type="button" data-species="iris" aria-pressed="false">
+      <span class="swatch" style="--c:#7d6cc6"></span><span class="seed-name">Orris Iris</span><span class="note">heart · powder</span><kbd>2</kbd>
     </button>
-    <button class="seed" data-species="jasmine" aria-pressed="false">
-      <span class="swatch" style="--c:#f0ead3"></span>Night Jasmine<span class="note">top · indolic</span>
+    <button class="seed" type="button" data-species="jasmine" aria-pressed="false">
+      <span class="swatch" style="--c:#f3ecd2"></span><span class="seed-name">Night Jasmine</span><span class="note">top · indolic</span><kbd>3</kbd>
     </button>
-    <button class="seed" data-species="marigold" aria-pressed="false">
-      <span class="swatch" style="--c:#e0913c"></span>Wild Marigold<span class="note">top · green fire</span>
+    <button class="seed" type="button" data-species="marigold" aria-pressed="false">
+      <span class="swatch" style="--c:#e6892e"></span><span class="seed-name">Wild Marigold</span><span class="note">top · green fire</span><kbd>4</kbd>
     </button>
-    <button class="seed" data-species="vetiver" aria-pressed="false">
-      <span class="swatch" style="--c:#7d8f62"></span>Vetiver Grass<span class="note">base · smoke &amp; root</span>
+    <button class="seed" type="button" data-species="vetiver" aria-pressed="false">
+      <span class="swatch" style="--c:#8a9a5c"></span><span class="seed-name">Vetiver</span><span class="note">base · smoke &amp; root</span><kbd>5</kbd>
     </button>
   </div>
 </nav>
