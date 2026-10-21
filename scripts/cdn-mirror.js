@@ -75,6 +75,12 @@ async function installCdnMirror(target) {
   // families from Fontsource's self-hosted Google Fonts packages for local
   // screenshots and verification; deployed pages keep their Google Fonts URLs.
   await target.route('https://fonts.googleapis.com/**', async (route) => {
+    // Prefer the real stylesheet: variable axes (opsz, SOFT, …) only exist
+    // there. Fall back to Fontsource statics when Google Fonts is blocked.
+    try {
+      const real = await route.fetch({ timeout: 8000 });
+      if (real.ok()) return route.fulfill({ response: real });
+    } catch (err) { /* blocked: use the local copies below */ }
     try {
       const families = new URL(route.request().url()).searchParams.getAll('family');
       const css = families.flatMap((entry) => {
