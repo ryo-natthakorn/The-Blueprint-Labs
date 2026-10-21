@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIGATURE — Variable Type Foundry</title>
-<meta name="description" content="LIGATURE — an independent type foundry. One variable specimen, every axis live under your cursor.">
+<meta name="description" content="LIGATURE — an independent type foundry. Specimen Nº 04: conduct four live variable axes, then watch the whole specimen sheet re-set in your instance.">
 <meta name="theme-color" content="#111114">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,36 +13,141 @@
 </head>
 <body>
 
-<main class="press" id="press">
+<header class="bar">
+  <a class="bar-name" href="#top" aria-label="Ligature, back to the top">LIGATURE</a>
+  <nav class="bar-nav" aria-label="Specimen sections">
+    <a href="#sizes"><span>02</span> Optical sizes</a>
+    <a href="#space"><span>03</span> Design space</a>
+    <a href="#glyphs"><span>04</span> Glyphs</a>
+    <a href="#inuse"><span>05</span> In use</a>
+  </nav>
+  <button class="mode" id="mode" type="button" aria-pressed="false" aria-label="Proof paper palette">
+    <span class="mode-a">Screen</span><span class="mode-b">Proof</span>
+  </button>
+</header>
 
-  <header class="masthead">
-    <span class="mast-name">LIGATURE</span>
-    <span class="mast-sub">independent type foundry — specimen nº 04</span>
-  </header>
+<main id="top">
 
-  <div class="axis-hud" aria-hidden="true">
-    <div class="axis"><span class="axis-tag">wght</span><span class="axis-val" id="v-wght">400</span><span class="axis-bar"><span id="b-wght"></span></span></div>
-    <div class="axis"><span class="axis-tag">opsz</span><span class="axis-val" id="v-opsz">72</span><span class="axis-bar"><span id="b-opsz"></span></span></div>
-    <div class="axis"><span class="axis-tag">SOFT</span><span class="axis-val" id="v-soft">0</span><span class="axis-bar"><span id="b-soft"></span></span></div>
-    <div class="axis"><span class="axis-tag">WONK</span><span class="axis-val" id="v-wonk">0</span><span class="axis-bar"><span id="b-wonk"></span></span></div>
-  </div>
+  <!-- 01 — the conductor -->
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 class="sr-only" id="hero-title">Ligature specimen Nº 04: conduct the variable axes</h1>
+    <p class="hero-kicker"><span>Specimen Nº 04</span><span>One file · four axes · roman &amp; italic</span></p>
 
-  <section class="stage" aria-label="Interactive type specimen. Move your pointer to change weight and optical size. Click or press Enter for the next word. Scroll to soften the terminals.">
-    <button class="specimen" id="specimen" aria-live="polite">Marmalade</button>
-    <p class="stage-hint" id="hint">move — weight &amp; optical size · scroll — softness · click — next word · W — wonk</p>
+    <div class="stage" id="stage">
+      <div class="ruler ruler-x" aria-hidden="true"><div class="ruler-ticks" id="ruler-x"></div><span class="ruler-mark" id="mark-x"></span><span class="ruler-name">wght</span></div>
+      <div class="ruler ruler-y" aria-hidden="true"><div class="ruler-ticks" id="ruler-y"></div><span class="ruler-mark" id="mark-y"></span><span class="ruler-name">opsz</span></div>
+      <div class="guides" id="guides" aria-hidden="true"></div>
+      <div class="cross" id="cross" aria-hidden="true"><span class="cross-h"></span><span class="cross-v"></span></div>
+      <div class="specimen-wrap">
+        <p class="specimen" id="specimen" contenteditable="plaintext-only" spellcheck="false" autocapitalize="off"
+           role="textbox" aria-label="Specimen word. Type your own." aria-multiline="false">Marmalade</p>
+      </div>
+      <p class="stage-hint" id="hint" aria-hidden="true"><span class="hint-desk">Move across the sheet to conduct · click the word to type your own</span><span class="hint-touch">Drag sideways to conduct weight · tap the word to type</span></p>
+    </div>
+
+    <div class="console">
+      <div class="instance">
+        <p class="instance-name" id="instance-name" aria-live="polite">Regular · Poster</p>
+        <p class="instance-vals" id="instance-vals">wght 400 · opsz 72 · SOFT 0 · WONK 0</p>
+      </div>
+      <div class="sliders">
+        <label class="slider"><span class="slider-tag">wght</span><input type="range" id="s-wght" min="100" max="900" step="1" value="400"><span class="slider-val" id="o-wght">400</span></label>
+        <label class="slider"><span class="slider-tag">opsz</span><input type="range" id="s-opsz" min="9" max="144" step="1" value="72"><span class="slider-val" id="o-opsz">72</span></label>
+        <label class="slider"><span class="slider-tag">SOFT</span><input type="range" id="s-soft" min="0" max="100" step="1" value="0"><span class="slider-val" id="o-soft">0</span></label>
+      </div>
+      <div class="toggles">
+        <button class="chip" id="t-wonk" type="button" aria-pressed="false">Wonk</button>
+        <button class="chip" id="t-ital" type="button" aria-pressed="false"><em>Italic</em></button>
+        <button class="chip chip-solid" id="shuffle" type="button">Next word</button>
+      </div>
+    </div>
   </section>
 
-  <div class="wave" id="wave" aria-hidden="true"></div>
+  <!-- 02 — optical sizes -->
+  <section class="sheet" id="sizes" aria-labelledby="sizes-title">
+    <header class="sheet-head">
+      <p class="sheet-no">02</p>
+      <h2 class="sheet-title" id="sizes-title">Optical sizes</h2>
+      <p class="sheet-note">Every line below takes its own optical size from its point size: hairlines thicken and spacing opens as the type gets small. Switch it off and set everything with the poster master to see why it matters.</p>
+      <div class="seg" role="group" aria-label="Optical sizing">
+        <button type="button" class="seg-btn" id="opsz-auto" aria-pressed="true">Auto</button>
+        <button type="button" class="seg-btn" id="opsz-off" aria-pressed="false">Off · 144</button>
+      </div>
+    </header>
+    <div class="waterfall" id="waterfall"></div>
+  </section>
 
-  <footer class="colophon">
-    <span>Ligature is a fictional foundry — a Blueprint Labs capability study.</span>
-    <span class="col-sep">·</span>
-    <span>Four live variable axes, bent in real time in your browser.</span>
-    <span class="col-sep">·</span>
-    <a href="/">← The Blueprint Labs</a>
-  </footer>
+  <!-- 03 — design space -->
+  <section class="sheet" id="space" aria-labelledby="space-title">
+    <header class="sheet-head">
+      <p class="sheet-no">03</p>
+      <h2 class="sheet-title" id="space-title">Design space</h2>
+      <p class="sheet-note">Weight runs across, optical size runs down. Thirty-five instances of one file. Your current instance is the acid crosshair; pick any cell to jump there.</p>
+    </header>
+    <div class="space">
+      <div class="space-axis space-axis-x" aria-hidden="true"><span>wght 100</span><span>→</span><span>900</span></div>
+      <div class="space-axis space-axis-y" aria-hidden="true"><span>opsz 144</span><span>↓</span><span>9</span></div>
+      <div class="space-grid" id="space-grid"></div>
+    </div>
+  </section>
+
+  <!-- 04 — glyphs -->
+  <section class="sheet" id="glyphs" aria-labelledby="glyphs-title">
+    <header class="sheet-head">
+      <p class="sheet-no">04</p>
+      <h2 class="sheet-title" id="glyphs-title">Glyphs</h2>
+      <p class="sheet-note">The Latin set in your instance. Point at, or tab to, a glyph to inspect it.</p>
+    </header>
+    <div class="glyphs">
+      <figure class="inspector" aria-live="polite">
+        <div class="insp-stage" id="insp-stage">
+          <div class="insp-guides" id="insp-guides" aria-hidden="true"></div>
+          <span class="insp-glyph" id="insp-glyph">R</span>
+        </div>
+        <figcaption class="insp-cap">
+          <span class="insp-code" id="insp-code">U+0052</span>
+          <span class="insp-name" id="insp-name">Latin capital letter R</span>
+          <span class="insp-adv" id="insp-adv">advance 0.66 em</span>
+        </figcaption>
+      </figure>
+      <div class="glyph-grid" id="glyph-grid" role="list"></div>
+    </div>
+  </section>
+
+  <!-- 05 — in use -->
+  <section class="sheet sheet-use" id="inuse" aria-labelledby="inuse-title">
+    <header class="sheet-head">
+      <p class="sheet-no">05</p>
+      <h2 class="sheet-title" id="inuse-title">In use</h2>
+      <p class="sheet-note">One family carrying a whole page. Each size sets itself at its own optical size; your weight, softness and wonk run through all of it.</p>
+    </header>
+    <article class="spread">
+      <p class="mag">The Quarterly Preserve <span>Issue 12 · Autumn</span></p>
+      <h3 class="mag-head"><span id="use-word">Marmalade</span>, and other slow arguments</h3>
+      <p class="mag-deck"><em>On bitter oranges, patient sugar, and why the best things in a kitchen refuse to be hurried.</em></p>
+      <div class="mag-body">
+        <p class="mag-p mag-drop">There is a week in late winter when the bitter oranges arrive and the kitchen stops pretending to be modern. The fruit is ugly, thick-skinned and sour enough to make you laugh, and every year it asks the same question: how long are you willing to wait for something good?</p>
+        <p class="mag-p">The answer is longer than you think. Peel is sliced by hand, thin as a fingernail, and left overnight to soften in its own juice. Sugar goes in only when the pith has given up its bitterness, and then the pot is watched — not stirred — until a spoonful wrinkles on a cold saucer.</p>
+        <blockquote class="mag-quote">“Set is a moment, not a temperature.”</blockquote>
+        <p class="mag-p">Type works the same way. A letter drawn for a poster has to be thinned and opened before it can whisper in a footnote, and the work is invisible when it is done well. You only notice it when someone forgot.</p>
+        <p class="mag-p">So we keep a jar on the studio shelf, labelled with the year, as a reminder that slow things are still allowed. Some of them even keep.</p>
+      </div>
+      <p class="mag-folio"><span>12</span><span>The Quarterly Preserve</span></p>
+    </article>
+  </section>
 
 </main>
+
+<footer class="colophon">
+  <div class="colo-main">
+    <p class="colo-mark">LIGATURE</p>
+    <p class="colo-text">Specimen Nº 04 is set entirely in one open-source variable serif, served from Google Fonts: weight 100–900, optical size 9–144, softness 0–100, wonk on or off, in roman and italic. Labels in Space Grotesk.</p>
+  </div>
+  <p class="colo-foot">
+    <span>Ligature is a fictional foundry — a Blueprint Labs capability study.</span>
+    <a href="/">← The Blueprint Labs</a>
+  </p>
+</footer>
 
 <script type="module" src="/sites/12-ligature-foundry/script.js"></script>
 </body>
