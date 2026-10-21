@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurora Audio — Hear the Light</title>
-<meta name="description" content="Aurora Audio — reference headphones tuned to the physics of light. An audio-reactive listening experience.">
-<meta name="theme-color" content="#05060e">
+<meta name="description" content="Aurora Audio AA-01 reference headphones. Press play and watch the live spectrum of a generative score rise as an aurora, then play it yourself.">
+<meta name="theme-color" content="#04050c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/01-aurora-audio/style.css">
 <script type="importmap">
 {
@@ -21,59 +21,78 @@
 </head>
 <body>
 <canvas id="scene" aria-hidden="true"></canvas>
-
+<div class="fallback-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="grain" aria-hidden="true"></div>
 
 <header class="brand">
   <span class="brand-mark" aria-hidden="true"></span>
   <span class="brand-name">Aurora&nbsp;Audio</span>
+  <span class="brand-model" aria-hidden="true">AA-01 Reference</span>
 </header>
 
 <main id="stage">
-  <section class="intro" id="intro">
-    <p class="kicker">Reference Series · AA-01</p>
-    <h1 class="headline">
+  <section class="intro" id="intro" aria-labelledby="headline">
+    <p class="kicker">Reference Series · AA-01 · Closed-back</p>
+    <h1 class="headline" id="headline">
       <span class="line">Hear</span>
       <span class="line">the</span>
       <span class="line accent">light.</span>
     </h1>
-    <p class="sub">Twelve thousand particles, tuned live to a generative
-    ambient score. This is what our drivers do to sound — rendered so you
-    can see it.</p>
-    <button class="cta" id="enter-sound" type="button">
-      <span class="cta-ring" aria-hidden="true"></span>
-      <span class="cta-label">Begin listening</span>
-    </button>
-    <p class="hint" id="hint">Headphones recommended · Move your cursor to bend the field</p>
+    <p class="sub">Forty-millimetre beryllium drivers that trace sound
+    with the accuracy of light. Press play: a generative score starts,
+    and its live spectrum rises as an aurora you can play by hand.</p>
+    <div class="cta-row">
+      <button class="cta" id="enter-sound" type="button">
+        <span class="cta-ring" aria-hidden="true"></span>
+        <span class="cta-icon" aria-hidden="true"></span>
+        <span class="cta-label">Begin listening</span>
+      </button>
+      <p class="hint">Headphones recommended<br>Sound starts on press</p>
+    </div>
+    <dl class="specs">
+      <div><dt>Driver</dt><dd>40 mm beryllium</dd></div>
+      <div><dt>Response</dt><dd>4 Hz – 48 kHz</dd></div>
+      <div><dt>THD</dt><dd>0.018 %</dd></div>
+      <div><dt>Weight</dt><dd>312 g</dd></div>
+    </dl>
   </section>
 
-  <section class="listening" id="listening" hidden>
+  <section class="listening" id="listening" aria-label="Listening room" hidden>
     <div class="hud">
       <div class="hud-block">
         <span class="hud-label">Now generating</span>
-        <span class="hud-value" id="chord-name" aria-live="polite">Aurora I</span>
+        <span class="hud-value" id="chord-name">Aurora I · Am9</span>
       </div>
-      <div class="hud-block hud-freqs" aria-hidden="true">
-        <span class="freq-bar" style="--i:0"></span>
-        <span class="freq-bar" style="--i:1"></span>
-        <span class="freq-bar" style="--i:2"></span>
-        <span class="freq-bar" style="--i:3"></span>
-        <span class="freq-bar" style="--i:4"></span>
-      </div>
-      <div class="hud-block">
-        <span class="hud-label">Driver response</span>
-        <span class="hud-value" id="level-readout">−∞ dB</span>
+      <div class="hud-block hud-right">
+        <span class="hud-label">Output level</span>
+        <span class="hud-value mono" id="level-readout">−∞ dBFS</span>
       </div>
     </div>
 
-    <div class="controls" role="group" aria-label="Sound controls">
-      <button class="chip" data-mood="0" aria-pressed="true">Aurora I<span class="chip-sub">warm pad</span></button>
-      <button class="chip" data-mood="1" aria-pressed="false">Borealis<span class="chip-sub">bright fifths</span></button>
-      <button class="chip" data-mood="2" aria-pressed="false">Zenith<span class="chip-sub">deep sub</span></button>
-      <button class="chip chip-mute" id="mute" aria-pressed="false">Mute</button>
+    <div class="dock">
+      <div class="spectrum" aria-hidden="true">
+        <canvas id="spectrum"></canvas>
+        <div class="spectrum-axis">
+          <span style="left:3.9%">50</span>
+          <span style="left:28.2%">200</span>
+          <span style="left:56.4%">1k</span>
+          <span style="left:84.6%">5k Hz</span>
+        </div>
+      </div>
+      <div class="controls" role="group" aria-label="Sound controls">
+        <button class="chip" type="button" data-mood="0" aria-pressed="true"><span class="chip-key" aria-hidden="true">1</span>Aurora I<span class="chip-sub">warm pad</span></button>
+        <button class="chip" type="button" data-mood="1" aria-pressed="false"><span class="chip-key" aria-hidden="true">2</span>Borealis<span class="chip-sub">bright fifths</span></button>
+        <button class="chip" type="button" data-mood="2" aria-pressed="false"><span class="chip-key" aria-hidden="true">3</span>Zenith<span class="chip-sub">deep sub</span></button>
+        <button class="chip chip-small" type="button" id="mute" aria-pressed="false">Mute</button>
+        <button class="chip chip-small" type="button" id="leave">Back</button>
+      </div>
+      <p class="play-hint" id="play-hint">Click the aurora to play a note · 1 2 3 moods · M mute · Esc back</p>
     </div>
   </section>
 </main>
+
+<div class="cursor-readout" id="cursor-readout" aria-hidden="true"></div>
+<p class="sr-only" id="sr-status" aria-live="polite"></p>
 
 <footer class="foot">
   <span>Aurora Audio is a fictional brand — a Blueprint Labs capability study.</span>

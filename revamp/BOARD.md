@@ -17,7 +17,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 
 | # | Task | Owner | Status |
 |---|---|---|---|
-| T1 | Build batch 1 (01–05) | Claude | todo |
+| T1 | Build batch 1 (01–05) | Claude | in progress |
 | T2 | Review batch 1 | Codex | todo |
 | T3 | Build batch 2 (06–10) | Codex | todo |
 | T4 | Fix batch 1 | Claude | todo |
@@ -50,7 +50,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 
 | Site | Batch | Builder | Reviewer | Stage | Note |
 |---|---|---|---|---|---|
-| 01-aurora-audio | 1 | Claude | Codex | not started | [note](notes/01-aurora-audio.md) |
+| 01-aurora-audio | 1 | Claude | Codex | awaiting review | [note](notes/01-aurora-audio.md) |
 | 02-terra-atelier | 1 | Claude | Codex | not started | [note](notes/02-terra-atelier.md) |
 | 03-nova-orbit | 1 | Claude | Codex | not started | [note](notes/03-nova-orbit.md) |
 | 04-cipher-security | 1 | Claude | Codex | not started | [note](notes/04-cipher-security.md) |

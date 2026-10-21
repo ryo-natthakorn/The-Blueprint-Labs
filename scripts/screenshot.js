@@ -3,7 +3,10 @@
  * doesn't have one yet (or all of them, with --force).
  *
  * Usage:
- *   node screenshot.js [--base-url http://localhost:3000] [--force]
+ *   node screenshot.js [--base-url http://localhost:3000] [--force] [--id NN-slug] [--cdn-mirror]
+ *
+ * --cdn-mirror serves CDN requests from local npm copies (see cdn-mirror.js),
+ * for environments whose network blocks the CDNs.
  *
  * Requires the sites to be servable at --base-url (default: a `vercel dev`
  * or `npx serve` instance rooted at the repo root, so /sites/NN-slug/
@@ -13,22 +16,24 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
+const { installCdnMirror } = require('./cdn-mirror');
 
 const ROOT = path.resolve(__dirname, '..');
 const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 
 function parseArgs(argv) {
-  const args = { baseUrl: 'http://localhost:3000', force: false, id: null };
+  const args = { baseUrl: 'http://localhost:3000', force: false, id: null, cdnMirror: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--base-url') args.baseUrl = argv[++i];
     if (argv[i] === '--force') args.force = true;
     if (argv[i] === '--id') args.id = argv[++i];
+    if (argv[i] === '--cdn-mirror') args.cdnMirror = true;
   }
   return args;
 }
 
 async function main() {
-  const { baseUrl, force, id } = parseArgs(process.argv.slice(2));
+  const { baseUrl, force, id, cdnMirror } = parseArgs(process.argv.slice(2));
 
   let projects = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf-8'));
   if (id) projects = projects.filter((p) => p.id === id);
@@ -40,6 +45,7 @@ async function main() {
 
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  if (cdnMirror) await installCdnMirror(page);
 
   let count = 0;
   for (const project of projects) {

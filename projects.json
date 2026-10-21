@@ -9,12 +9,13 @@
       "particles"
     ],
     "accent": "#8f7cff",
-    "description": "Reference headphone brand rendered as a living sound-field: 12,000 particles bent by a generative Web Audio synth you conduct.",
+    "description": "A headphone held in 65,000 points dissolves into an aurora whose curtains are the live spectrum of a generative score you can play by hand.",
     "thumbnail": "/sites/01-aurora-audio/assets/thumb.jpg",
     "livePath": "/sites/01-aurora-audio/",
     "tech": [
       "Three.js",
       "custom GLSL",
+      "MeshSurfaceSampler",
       "UnrealBloom",
       "Web Audio API"
     ],
