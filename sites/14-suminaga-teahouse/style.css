@@ -299,7 +299,7 @@ html, body {
 }
 .thumb:hover { transform: rotate(0deg) translateY(-3px); }
 .thumb:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.thumb img { display: block; width: 4.6rem; height: auto; }
+.thumb img { display: block; width: 4.6rem; height: 3rem; object-fit: cover; }
 .thumb span {
   position: absolute;
   right: 0.35rem;
@@ -413,24 +413,39 @@ html, body {
 /* ---------- smaller desktops ---------- */
 
 @media (max-width: 1100px) and (min-width: 761px) {
-  .menu { width: 16.5rem; padding: 1.2rem 1.1rem; }
-  .menu-about { display: none; }
-  .tray { top: var(--edge); right: var(--edge); left: auto; bottom: auto; max-width: 40vw; }
+  .menu { width: 17rem; padding: 1.2rem 1.1rem; }
+  .menu-about, .tea-kanji { display: none; }
+}
+/* the tray moves up beside the menu when the bottom corner gets tight */
+@media (max-width: 1100px) and (min-width: 761px), (max-height: 520px) and (min-width: 761px) {
+  .tray { top: var(--edge); right: calc(var(--edge) + 18.5rem); left: auto; bottom: auto; max-width: 30vw; }
   .tray-title { text-align: right; }
   .tray-list { justify-content: flex-end; flex-wrap: nowrap; }
-  .tray-list li:nth-last-child(n + 5) { display: none; }
-  .thumb img { width: 3.6rem; }
+  .tray-list li:nth-last-child(n + 4) { display: none; }
+  .thumb img { width: 3.6rem; height: 2.4rem; }
 }
 @media (max-height: 700px) and (min-width: 761px) {
   .menu-about { display: none; }
   .tea { padding-top: 0.45rem; padding-bottom: 0.45rem; }
   .tea-steep { display: none; }
-  .whisper { display: none; }
+}
+/* landscape phones and short windows: a slim menu column */
+@media (max-height: 520px) and (min-width: 761px) {
+  .menu { width: 13.5rem; padding: 0.5rem 0.6rem; top: calc(50% - 1.6rem); }
+  .menu-title, .tea-note, .tea-kanji { display: none; }
+  .tea { padding: 0.3rem 0.4rem; grid-template-areas: "rings name price"; grid-template-columns: 1.6rem 1fr auto; }
+  .tea-rings { width: 1.6rem; height: 1.6rem; }
+  .tea-rings i:nth-child(2) { inset: 0.3rem; }
+  .tea-rings i:nth-child(3) { inset: 0.56rem; }
+  .tea-name { font-size: 0.86rem; }
+  .tray { right: calc(var(--edge) + 14.5rem); }
+  .crest-sub { display: none; }
+  .sheet { inset: 1rem 4vw 4.8rem; }
 }
 
 /* ---------- phones ---------- */
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (max-width: 1099px) and (max-aspect-ratio: 10/11) {
   :root { --edge: 1.1rem; }
   .crest-kanji { display: none; }
   .crest-sub { font-size: 0.54rem; }
@@ -442,6 +457,8 @@ html, body {
     width: auto;
     transform: none;
     padding: 0.55rem 0.5rem 0.5rem;
+    max-width: 34rem;
+    margin: 0 auto;
   }
   .menu-title, .menu-about { display: none; }
   .teas { grid-template-columns: repeat(4, 1fr); gap: 0.2rem; }
@@ -478,6 +495,8 @@ html, body {
     justify-content: space-between;
     gap: 0.3rem;
     padding: 0.3rem;
+    max-width: 34rem;
+    margin: 0 auto;
   }
   .tools { padding-right: 0.3rem; gap: 0.1rem; }
   .tool, .act { font-size: 0.56rem; letter-spacing: 0.1em; padding: 0.55rem 0.6rem; gap: 0.3rem; }
@@ -497,7 +516,7 @@ html, body {
   .tray-title { display: none; }
   .tray-list { justify-content: flex-end; flex-wrap: nowrap; gap: 0.35rem; }
   .tray-list li:nth-last-child(n + 4) { display: none; }
-  .thumb img { width: 2.9rem; }
+  .thumb img { width: 2.6rem; height: 2.6rem; }
   .thumb span { display: none; }
   .sheet { inset: 5rem 1rem 9rem; }
   .floor-line { bottom: 0.3rem; gap: 0.6rem; font-size: 0.52rem; letter-spacing: 0.02em; }

@@ -15,7 +15,9 @@ import * as THREE from 'three';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = window.matchMedia('(pointer: coarse)').matches;
-const isSmall = () => window.innerWidth <= 760;
+// phones and portrait tablets share the stacked layout (mirrors the CSS query)
+const smallMQ = window.matchMedia('(max-width: 760px), (max-width: 1099px) and (max-aspect-ratio: 10/11)');
+const isSmall = () => smallMQ.matches;
 const LOW = isSmall() || coarse || (navigator.hardwareConcurrency || 8) <= 4;
 
 const PAPER = '#f1eadb';
@@ -429,12 +431,13 @@ function setTea(i) {
   document.documentElement.style.setProperty('--active', TEAS[i].ink);
   $('#tea-detail').textContent = TEAS[i].detail;
 }
-teaButtons.forEach((b, i) => b.addEventListener('click', () => setTea(i)));
+teaButtons.forEach((b, i) => b.addEventListener('click', () => { setTea(i); lastAction = performance.now(); }));
 setTea(0);
 
 const toolButtons = { stylus: $('#tool-stylus'), comb: $('#tool-comb') };
 function setTool(name) {
   tool = name;
+  lastAction = performance.now();
   for (const [k, b] of Object.entries(toolButtons)) b.setAttribute('aria-pressed', String(k === name));
 }
 toolButtons.stylus.addEventListener('click', () => setTool('stylus'));
@@ -491,8 +494,15 @@ canvas.addEventListener('pointerdown', (e) => {
   Object.assign(press, { on: true, id: e.pointerId, x: e.clientX, y: e.clientY, lx: e.clientX, ly: e.clientY, moved: 0, t0: performance.now(), r: 0, travel: 0 });
   nibShown = false;
 });
+let hoverTravel = 0, hx = 0, hy = 0;
 canvas.addEventListener('pointermove', (e) => {
   U.uLight.value.set(e.clientX / W, 1 - e.clientY / H);
+  if (!press.on && e.pointerType === 'mouse') {
+    // a hand passing over the basin leaves the faintest wake
+    hoverTravel += Math.hypot(e.clientX - hx, e.clientY - hy);
+    hx = e.clientX; hy = e.clientY;
+    if (hoverTravel > 160) { hoverTravel = 0; ripple(e.clientX, e.clientY, 0.12); }
+  }
   if (!press.on || e.pointerId !== press.id) return;
   const dx = e.clientX - press.lx, dy = e.clientY - press.ly;
   press.moved += Math.hypot(dx, dy);
@@ -654,6 +664,7 @@ $('#still').addEventListener('click', () => {
   if (busy) return;
   timeline.length = 0;
   strokeQueue.length = 0;
+  lastAction = performance.now() + 6000;   // let the water rest before the house pours again
   if (reduceMotion) { drops.length = 0; dirty = true; return; }
   stilling = 1;
   const [cx, cy] = focusCenter();
