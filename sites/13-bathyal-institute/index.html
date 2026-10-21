@@ -4,12 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BATHYAL — Deep Ocean Research Institute</title>
-<meta name="description" content="BATHYAL — a deep ocean research institute. Scroll from the surface to 6,000 metres: the light dies, the animals start to glow.">
+<meta name="description" content="BATHYAL — a deep ocean research institute. Scroll from the surface to 6,000 metres: the light dies, the animals start to glow, and your pointer becomes the submersible's floodlight.">
 <meta name="theme-color" content="#02121e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/13-bathyal-institute/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -20,61 +28,95 @@
   <span class="brand-sub">deep ocean research institute</span>
 </header>
 
-<aside class="hud" aria-hidden="true">
-  <div class="hud-row"><span class="hud-key">DEPTH</span><span class="hud-val" id="hud-depth">0 m</span></div>
-  <div class="hud-row"><span class="hud-key">PRESSURE</span><span class="hud-val" id="hud-press">1 atm</span></div>
-  <div class="hud-row"><span class="hud-key">TEMP</span><span class="hud-val" id="hud-temp">21.0 °C</span></div>
-  <div class="hud-row"><span class="hud-key">SUNLIGHT</span><span class="hud-val" id="hud-light">100%</span></div>
-  <div class="hud-gauge"><span id="hud-bar"></span></div>
+<aside class="hud" aria-label="Dive instruments">
+  <div class="gauge" aria-hidden="true">
+    <div class="gauge-track" id="gauge-track">
+      <span class="zone" style="--a:0;--b:0.0333" data-name="Epi"></span>
+      <span class="zone" style="--a:0.0333;--b:0.1667" data-name="Meso"></span>
+      <span class="zone" style="--a:0.1667;--b:0.6667" data-name="Bathy"></span>
+      <span class="zone" style="--a:0.6667;--b:1" data-name="Abysso"></span>
+      <span class="gauge-mark" id="gauge-mark"></span>
+    </div>
+  </div>
+  <div class="readouts">
+    <p class="ro-depth"><span id="hud-depth">0</span><small> m</small></p>
+    <p class="ro-zone" id="hud-zone">Epipelagic · sunlit</p>
+    <dl class="ro-grid">
+      <div><dt>Pressure</dt><dd id="hud-press">1 atm</dd></div>
+      <div><dt>Temp</dt><dd id="hud-temp">21.0 °C</dd></div>
+      <div><dt>Sunlight</dt><dd id="hud-light">100%</dd></div>
+    </dl>
+    <button class="lamp" id="lamp" type="button" aria-pressed="true">
+      <span class="lamp-dot" aria-hidden="true"></span><span class="lamp-txt">Floodlight <b>on</b></span>
+    </button>
+    <ol class="log" id="log" aria-label="Dive log"></ol>
+  </div>
 </aside>
 
-<p class="start-cue" id="start-cue">scroll to descend<span class="cue-arrow">↓</span></p>
+<p class="start-cue" id="start-cue" aria-hidden="true">scroll to descend<span class="cue-arrow">↓</span></p>
+<p class="aim-hint" id="aim-hint" aria-hidden="true"><span class="hint-desk">your pointer aims the floodlight</span><span class="hint-touch">tap the water to aim the floodlight</span></p>
 
 <!-- The scroll track. Each station is real, readable content pinned to a depth. -->
 <main id="track">
-  <section class="station" data-depth="0">
-    <h1>The ocean is a building<br>six kilometres tall.</h1>
-    <p>Bathyal operates crewed and autonomous descents through every floor
-    of it. This page is one continuous dive — scroll, and mind the pressure.</p>
+  <section class="station station-top" data-depth="0">
+    <div class="card">
+      <h1>The ocean is a building<br>six kilometres tall.</h1>
+      <p>Bathyal runs crewed and autonomous descents through every floor
+      of it. This page is one continuous dive — scroll, and mind the pressure.</p>
+    </div>
   </section>
 
   <section class="station" data-depth="150">
-    <h2>−150 m · Epipelagic</h2>
-    <p>The last of the weather. Baitfish shoal where the light still
-    reaches; everything below here runs on what sinks.</p>
+    <div class="card">
+      <h2>−150 m · Epipelagic</h2>
+      <p>The last of the weather. A bait ball turns in the light; everything
+      below here runs on what sinks from it.</p>
+    </div>
   </section>
 
   <section class="station" data-depth="700">
-    <h2>−700 m · Mesopelagic</h2>
-    <p>The twilight zone. Our acoustic arrays log the largest animal
-    migration on Earth here, nightly, in the dark.</p>
+    <div class="card">
+      <h2>−700 m · Mesopelagic</h2>
+      <p>The twilight zone. Our acoustic arrays log the largest animal
+      migration on Earth here, nightly, in the dark. The jellies stay.</p>
+    </div>
   </section>
 
   <section class="station" data-depth="1600">
-    <h2>−1,600 m · Bathypelagic</h2>
-    <p>No sunlight has ever reached this water. Four out of five animals
-    at this depth make their own — move your pointer, and so will you.</p>
+    <div class="card">
+      <h2>−1,600 m · Bathypelagic</h2>
+      <p>No sunlight has ever reached this water. Four out of five animals
+      here make their own. Your pointer is our floodlight — or switch it
+      off, and make your own light.</p>
+    </div>
   </section>
 
   <section class="station" data-depth="3000">
-    <h2>−3,000 m · Abyssal plain approach</h2>
-    <p>Pressure: three hundred atmospheres. Our vehicles are titanium
-    spheres pretending to be indifferent.</p>
+    <div class="card">
+      <h2>−3,000 m · Abyssal approach</h2>
+      <p>Three hundred atmospheres. Something here fishes with a lamp of its
+      own, and it is not afraid of ours.</p>
+    </div>
   </section>
 
   <section class="station" data-depth="4500">
-    <h2>−4,500 m · Something large</h2>
-    <p>The cameras catch a silhouette perhaps once a season.
-    We name them; they ignore us.</p>
+    <div class="card">
+      <h2>−4,500 m · Something large</h2>
+      <p>The cameras catch a silhouette perhaps once a season. Sweep the
+      light slowly. It has the largest eyes in the animal kingdom, and it
+      has already seen us.</p>
+    </div>
   </section>
 
   <section class="station station-floor" data-depth="6000">
-    <h2>−6,000 m · Station VI</h2>
-    <p>A hydrothermal vent field and the institute's deepest lab.
-    Chemosynthesis, tube worms, water at 380 °C that cannot boil.
-    This is the ground floor of the planet.</p>
-    <p class="floor-note">Bathyal is a fictional institute — a Blueprint Labs
-    capability study. <a href="/">← The Blueprint Labs</a></p>
+    <div class="card">
+      <h2>−6,000 m · Station VI</h2>
+      <p>A hydrothermal vent field and the institute's deepest lab.
+      Chemosynthesis, tube worms, water at 380 °C that cannot boil.
+      This is the ground floor of the planet.</p>
+      <p class="floor-note">Bathyal is a fictional institute — a Blueprint Labs
+      capability study. <a href="/">← The Blueprint Labs</a></p>
+    </div>
   </section>
 </main>
 
