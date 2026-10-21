@@ -21,8 +21,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T2 | Review batch 1 | Codex | done |
 | T3 | Build batch 2 (06–10) | Codex | done |
 | T4 | Fix batch 1 | Claude | skipped |
-| T5 | Review batch 2 | Claude | todo |
-| T6 | Build batch 3 (11–15) | Claude | todo |
+| T5 | Review batch 2 | Claude | done |
+| T6 | Build batch 3 (11–15) | Claude | in progress |
 | T7 | Confirm batch 1 | Codex | todo |
 | T8 | Fix batch 2 | Codex | todo |
 | T9 | Review batch 3 | Codex | todo |
@@ -55,11 +55,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 03-nova-orbit | 1 | Claude | Codex | done | [note](notes/03-nova-orbit.md) |
 | 04-cipher-security | 1 | Claude | Codex | done | [note](notes/04-cipher-security.md) |
 | 05-flora-lab | 1 | Claude | Codex | done | [note](notes/05-flora-lab.md) |
-| 06-meridian-watches | 2 | Codex | Claude | awaiting review | [note](notes/06-meridian-watches.md) |
-| 07-pulse-athletics | 2 | Codex | Claude | awaiting review | [note](notes/07-pulse-athletics.md) |
-| 08-glacier-water | 2 | Codex | Claude | awaiting review | [note](notes/08-glacier-water.md) |
-| 09-noctua-observatory | 2 | Codex | Claude | awaiting review | [note](notes/09-noctua-observatory.md) |
-| 10-ember-bakery | 2 | Codex | Claude | awaiting review | [note](notes/10-ember-bakery.md) |
+| 06-meridian-watches | 2 | Codex | Claude | changes requested | [note](notes/06-meridian-watches.md) |
+| 07-pulse-athletics | 2 | Codex | Claude | changes requested | [note](notes/07-pulse-athletics.md) |
+| 08-glacier-water | 2 | Codex | Claude | changes requested | [note](notes/08-glacier-water.md) |
+| 09-noctua-observatory | 2 | Codex | Claude | changes requested | [note](notes/09-noctua-observatory.md) |
+| 10-ember-bakery | 2 | Codex | Claude | changes requested | [note](notes/10-ember-bakery.md) |
 | 11-vertex-architecture | 3 | Claude | Codex | not started | [note](notes/11-vertex-architecture.md) |
 | 12-ligature-foundry | 3 | Claude | Codex | not started | [note](notes/12-ligature-foundry.md) |
 | 13-bathyal-institute | 3 | Claude | Codex | not started | [note](notes/13-bathyal-institute.md) |

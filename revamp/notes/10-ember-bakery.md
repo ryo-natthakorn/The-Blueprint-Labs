@@ -2,8 +2,8 @@
 
 - **Vertical:** Artisan Bakery
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude reviews this site in T5.
+- **Stage:** changes requested
+- **Next step:** Codex works through every R item in T8 (Fix batch 2).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -30,5 +30,29 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
+motion on and off. Held "stoke" for 3 seconds and watched it settle,
+against `origin/v1-original` (CDN/font mirror). No console or page errors
+and no sideways scroll, and the body scroll reaches the back link on
+phones. Bringing the hearth into view is a real gain. The fire itself is
+the weak point.
+
+- [ ] R1 (must) The flames are drawn as separate sharp triangles. Close up
+  at 1440x900 and on mobile they read as paper cones or a crystal cluster,
+  not fire, and the charred logs (`script.js:146-155`) aren't visible
+  under them. Use soft, additive, noise-displaced flame (a shader, or
+  layered blurred gradients on the 2D canvas), glowing logs, and heat
+  shimmer.
+- [ ] R2 (must) The stoke button and meter sit on top of the flames. At
+  390x844 the "FIRE: ROARING / LIVELY" label is unreadable over the
+  brightest part of the fire, and the button hides the fire's core. Move
+  the controls under the oven mouth, or give them a solid field.
+- [ ] R3 (must) At 1024x640 the third card's price "— eight" overlaps the
+  footer line ("Ember is a fictional bakery…"), and the oven is cut off at
+  the bottom.
+- [ ] R4 (nice) The loaf illustrations are small identical ovals with two
+  stripes. Distinct silhouettes (round miche, rye tin loaf, scored batard,
+  a misshapen "mistake") would carry the still-life idea further.
 
 ## Fix log

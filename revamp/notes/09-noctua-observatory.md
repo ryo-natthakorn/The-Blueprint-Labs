@@ -2,8 +2,8 @@
 
 - **Vertical:** Public Observatory
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude reviews this site in T5.
+- **Stage:** changes requested
+- **Next step:** Codex works through every R item in T8 (Fix batch 2).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -30,5 +30,27 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
+motion on and off. Tested the target buttons (jump to The Kiln) and
+dragging the sky, against `origin/v1-original` (CDN/font mirror). No
+console or page errors and no sideways scroll. The finder targets and the
+seeded opening view fix v1's "empty sky" problem. The sky rendering itself
+is unchanged from v1.
+
+- [ ] R1 (must) The story card covers the constellation it describes. On
+  the opening view at 1440x900 and 1024x640 the card hides Noctua's lower
+  stars and legs. At 360x640 it covers the bottom star. Place the card
+  beside the figure (desktop) or offset the sky so the figure sits fully
+  above the card (mobile).
+- [ ] R2 (must) The Milky Way band shows a regular dot-grid (screen-door)
+  pattern at every size (crop at 1440x900, centre of screen). It's a v1
+  artifact that is still there, and it's the largest surface on the page.
+  Render the band as smooth noise, or dither at sub-pixel level.
+- [ ] R3 (nice) Beyond the finder, the sky is the same 2D canvas as v1.
+  Room to raise craft: star colour by temperature, real twinkle and
+  scintillation near the horizon, a dome/ridge silhouette with a slit of
+  warm light, and constellation art that fades in under the line figure
+  (the owl reads as a kite with legs right now).
 
 ## Fix log

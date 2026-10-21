@@ -2,8 +2,8 @@
 
 - **Vertical:** Premium Water
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude reviews this site in T5.
+- **Stage:** changes requested
+- **Next step:** Codex works through every R item in T8 (Fix batch 2).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -30,5 +30,34 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
+motion on and off. Stirred with the pointer across the vessel and compared
+against `origin/v1-original` (CDN/font mirror). No console or page errors
+and no sideways scroll. Turning the blobs into one bottle makes the
+product readable, which is a real gain. The material and the interaction
+are now weaker than v1, though.
+
+- [ ] R1 (must) The bottle reads as matte blue resin, not glass holding
+  water. There is no water line or meniscus inside, no wall thickness, and
+  no refraction of the light shafts behind it. The sides carry a sine
+  ripple (`script.js:51`, `0.018 * sin((y + 0.7) * 18.0)`) that looks like
+  a dented or melting bottle. The flat base has an aliased corner and no
+  contact shadow, so the bottle floats. Model glass walls around an inner
+  water body with its own surface, refract the backdrop through it, and
+  ground it (shadow or reflection on a surface).
+- [ ] R2 (must) The signature interaction is nearly gone. In v1 the cursor
+  became a body of water that merged into the form. Now the response is a
+  0.016-amplitude ripple (`script.js:54`) that is hard to see even while
+  you stir. The copy still says "Move a cursor or finger across the
+  spring. It remembers, briefly." Make the response obvious. For example,
+  the water inside tilts and sloshes toward the pointer, and a fading wake
+  shows in the backdrop caustics.
+- [ ] R3 (nice) At 360x640 the copy card covers everything but the bottle's
+  neck. Shrink the card or move the bottle on short phones.
+- [ ] R4 (nice) The "GLACIER 64° N · SOURCE 04" label is a DOM span laid
+  over the shader band. That's fine while the bottle is static, but it
+  will drift if R2 makes the vessel move. Draw it in the shader or a
+  texture instead.
 
 ## Fix log

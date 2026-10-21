@@ -2,8 +2,8 @@
 
 - **Vertical:** Horology
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude reviews this site in T5.
+- **Stage:** changes requested
+- **Next step:** Codex works through every R item in T8 (Fix batch 2).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -30,5 +30,40 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
+motion on and off, scrolled through all six chapters, against
+`origin/v1-original` (CDN/font mirror, headless SwiftShader). No console
+or page errors, no sideways scroll, back link reachable at every size.
+Clear gains: the copy is readable at every width, the mobile layout works
+now, and reduced motion gives a composed still for each chapter.
+The weak part is the watch itself. It is still built from untouched v1
+primitives, so the craft bar in PROTOCOL §5 isn't met yet.
+
+- [ ] R1 (must) Copy and model disagree. Chapter II says "Champagne,
+  brushed in one direction. Solid silver, sunray-brushed…"
+  (`index.html:57-58`), but the new dial is charcoal (`script.js` dial
+  canvas, `#393b3a → #111715`). Either go back to a champagne or silver
+  sunray dial (the dark one can stay as a variant), or rewrite the chapter.
+- [ ] R2 (must) The model doesn't hold up as a luxury watch. The lugs are
+  plain untapered boxes that float off the case: at 1440x900 scroll 100%
+  you can see gaps between the lugs and the case ring. The strap is two
+  flat brown slabs with stick stitches. Model a case with integrated,
+  tapered lugs (lathe or extruded profile, bevelled) and a strap that
+  curves away like it is on a wrist.
+- [ ] R3 (must) The exploded view doesn't show what the copy promises.
+  "Four wheels… four gold wheels" (`index.html:65-67`) shows one visible
+  gear. "Signed where only you will look… engraved with its assembler's
+  initials" (`index.html:81-82`) shows a plain grey caseback with dashes.
+  The rotor can't be told apart. At the final frame the dial sits behind
+  the case ring, so only "…IAN" of the wordmark shows, and the parts read
+  as overlapping discs. Lay the stack out so every part is fully visible
+  at its own chapter: a movement plate with bridges, jewels and four
+  toothed wheels, a skeleton rotor, and an engraved caseback with initials
+  and a serial.
+- [ ] R4 (nice) Turning the watch is pointer-only. Arrow keys on a
+  focusable canvas would match the other sites.
+- [ ] R5 (nice) Three.js logs "sigmaRadians… too large and will clip" twice
+  on load (PMREM blur). It's harmless, but a smaller blur sigma silences it.
 
 ## Fix log

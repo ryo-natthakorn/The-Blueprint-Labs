@@ -2,8 +2,8 @@
 
 - **Vertical:** Boutique Fitness
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude reviews this site in T5.
+- **Stage:** changes requested
+- **Next step:** Codex works through every R item in T8 (Fix batch 2).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -30,5 +30,33 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
+motion on and off. Tested Start/Pause, Reset, dragging the ring into REST
+and Tab focus, against `origin/v1-original` (CDN/font mirror). No console
+or page errors and no sideways scroll. The timer is honest and usable now,
+which is a real gain. Visually, though, the page is still the v1 layout
+with two buttons added, so the craft bar in PROTOCOL §5 isn't met.
+
+- [ ] R1 (must) At 1024x640 the phase word wraps: "WORK" breaks into
+  "WOR" / "K". `.phase-word` is `clamp(3.4rem, 13vw, 12rem)` in a narrow
+  grid column. At the same size the footer's back link runs into the
+  bottom marquee.
+- [ ] R2 (must) Dragging the ring selects the SVG text. After a drag to
+  REST at 1440x900 the "0:19" readout has a blue text-selection box on it.
+  Add `user-select: none` (and `-webkit-user-select`) to the dial SVG and
+  its text, and call `preventDefault` on pointerdown.
+- [ ] R3 (must) The plan in this note promised "visible work/rest timeline,
+  tactile phase changes and optional sound toggle". None of those three
+  are in the page (no timeline element, no `navigator.vibrate`, no audio).
+  Deliver them, and push the visual craft past v1. For example: a 3-2-1
+  slam before each phase, a WORK/REST word that fills or drains with the
+  remaining time, a round history strip, and a rest phase that changes
+  the whole room (colour and tempo), not just the accent colour.
+- [ ] R4 (nice) Labels are 0.55–0.62rem grey on black ("WORK : REST",
+  "DRAG THE RING…"). They're hard to read at 1440 and on phones. Go to at
+  least 0.7rem and raise the contrast.
+- [ ] R5 (nice) On desktop the right third of the screen is empty. The
+  stats column could grow, or the timeline from R3 could live there.
 
 ## Fix log
