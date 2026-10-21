@@ -15,6 +15,7 @@ Codex) and [`SPEC.md`](./SPEC.md).
 - [x] Phase 4 — Flagship site 26: The Tideline (multi-page restaurant site)
 - [x] Phase 5 — Hub flagship treatment for site 26
 - [ ] Phase 6 — "Work With Me" page (not yet specced)
+- [ ] Phase 7 — Revamp all 26 sites (see `revamp/BOARD.md`)
 
 Live: https://the-blueprint-labs.vercel.app
 
@@ -32,7 +33,8 @@ Live: https://the-blueprint-labs.vercel.app
 /DESIGN_NOTES.md       <- written at end of Phase 2, informs Hub polish
 /PRODUCT.md            <- positioning + belief-ladder copy (site 26, Hub)
 /CONTENT_BRIEF_SITE26.md <- content brief for The Tideline
-/scripts/              <- screenshot.js, verify-sites.js (Playwright)
+/scripts/              <- screenshot.js, verify-sites.js (Playwright), check-rules.js
+/revamp/               <- Phase 7 board, protocol and per-site notes (not deployed)
 ```
 
 ## Architecture
@@ -57,7 +59,6 @@ Each entry:
 | `livePath`   | string     | Path to the live site, e.g. `/sites/01-slug/index.html` |
 | `tech`       | string[]   | e.g. `["Three.js", "GSAP"]`                         |
 | `status`     | string     | `"planned"` \| `"in-progress"` \| `"complete"`      |
-| `builtBy`    | string     | Model that built it, e.g. `"Fable 5"`               |
 | `flagship`   | boolean    | Optional. `true` on site 26 only — rendered as the Hub hero feature and excluded from the grid |
 
 Currently 26 entries, all `"complete"`.
@@ -79,8 +80,14 @@ site changes.
 ## Deploy
 
 Zero-config static deploy on Vercel — see [`vercel.json`](./vercel.json).
+[`.vercelignore`](./.vercelignore) keeps the internal `.md` notes,
+`scripts/`, and `.claude/` out of the deployed site.
 
 ## Contact
 
-Placeholder contact info (email, Fastwork, LINE) lives in the Hub footer
-(`index.html`), marked `TODO` until real values are supplied.
+The Hub's "Start a project" section (`index.html`) holds the contact form
+and the direct channels (email, LINE Official Account, Facebook,
+Instagram), repeated in the footer. All are marked `TODO` until real
+values are supplied. The form posts to Formspree: set `data-endpoint` on
+`#contact-form` to the real form URL; until then it tells visitors to use
+the direct channels.

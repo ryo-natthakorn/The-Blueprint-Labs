@@ -51,3 +51,7 @@ Format: `- [id] title — vertical / style tags — built by <model>`
   footer contact wired for email, Fastwork, and LINE as visually inert
   TODO placeholders (no real values supplied); thumbnail regenerated via
   scripts/screenshot.js — built by Sonnet 5
+
+## Phase 7 — Revamp
+
+One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).

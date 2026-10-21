@@ -2,3 +2,5 @@ node_modules/
 .vercel/
 .DS_Store
 Thumbs.db
+scripts/.verify-shots/
+scripts/.verify-report.json

@@ -18,8 +18,7 @@
       "UnrealBloom",
       "Web Audio API"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "02-terra-atelier",
@@ -39,8 +38,7 @@
       "LatheGeometry morphing",
       "scroll choreography"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "03-nova-orbit",
@@ -60,8 +58,7 @@
       "custom GLSL sky/earth/flame",
       "camera keyframes"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "04-cipher-security",
@@ -81,8 +78,7 @@
       "command parser",
       "CSS CRT/glitch"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "05-flora-lab",
@@ -102,8 +98,7 @@
       "procedural plant growth",
       "recursive branching"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "06-meridian-watches",
@@ -123,8 +118,7 @@
       "PBR + RoomEnvironment",
       "staggered explode rig"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "07-pulse-athletics",
@@ -144,8 +138,7 @@
       "SVG dial slider",
       "kinetic typography"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "08-glacier-water",
@@ -165,8 +158,7 @@
       "SDF raymarching",
       "adaptive resolution"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "09-noctua-observatory",
@@ -186,8 +178,7 @@
       "seeded starfield",
       "parallax pan + inertia"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "10-ember-bakery",
@@ -206,8 +197,7 @@
       "Canvas 2D particle fire",
       "CSS variable lighting rig"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "11-vertex-architecture",
@@ -227,8 +217,7 @@
       "procedural line geometry",
       "drawRange reveal"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "12-ligature-foundry",
@@ -248,8 +237,7 @@
       "font-variation-settings",
       "zero-canvas DOM animation"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "13-bathyal-institute",
@@ -269,8 +257,7 @@
       "depth-keyed scene graph",
       "procedural creatures"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "14-suminaga-teahouse",
@@ -290,8 +277,7 @@
       "conformal-map marbling",
       "tine deformation"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "15-vector-drift",
@@ -311,8 +297,7 @@
       "game loop",
       "WebAudio synth"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "16-orrery-capital",
@@ -332,8 +317,7 @@
       "custom vertex-shader orbits",
       "UnrealBloom"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "17-maison-vela",
@@ -354,8 +338,7 @@
       "sheen PBR",
       "canvas-woven label"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "18-koppar-roastery",
@@ -375,8 +358,7 @@
       "thermodynamic lag model",
       "live roast logger"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "19-voltaic-moto",
@@ -397,8 +379,7 @@
       "clearcoat PBR",
       "RoomEnvironment"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "20-halftone-records",
@@ -418,8 +399,7 @@
       "WebAudio scheduler synth",
       "platter-drag rate bend"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "21-petrichor-atmos",
@@ -439,8 +419,7 @@
       "5-octave FBM clouds",
       "screen-space rain"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "22-grammage-paper",
@@ -460,8 +439,7 @@
       "Rodrigues fold engine",
       "scroll choreography"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "23-umbra-cacao",
@@ -481,8 +459,7 @@
       "domain-warped FBM",
       "stir-quality judge"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "24-pendula-works",
@@ -502,8 +479,7 @@
       "damped oscillator model",
       "persistent ink layer"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "25-somne-railways",
@@ -523,8 +499,7 @@
       "piecewise-eased timetable",
       "procedural parallax"
     ],
-    "status": "complete",
-    "builtBy": "Fable 5"
+    "status": "complete"
   },
   {
     "id": "26-the-tideline",
@@ -548,7 +523,6 @@
       "masonry lightbox"
     ],
     "status": "complete",
-    "builtBy": "Fable 5",
     "flagship": true
   }
 ]

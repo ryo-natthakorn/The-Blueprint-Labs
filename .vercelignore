@@ -1,0 +1,4 @@
+# Internal notes and dev tooling — kept in the repo, never deployed.
+*.md
+scripts/
+.claude/

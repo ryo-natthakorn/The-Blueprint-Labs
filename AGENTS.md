@@ -40,9 +40,17 @@ See `SPEC.md` for the phased, batch-by-batch task breakdown.
 | 4 | Flagship multi-page site (site 26, The Tideline) — see SPEC.md | **Fable 5** — full budget, no cost constraint |
 | 5 | Hub feature-card treatment for site 26, projects.json update | Sonnet 5 |
 | 6 | "Work With Me" page — not yet specced, see SPEC.md | Sonnet 5 |
+| 7 | Revamp all 26 sites in place — see `revamp/PROTOCOL.md` | **Claude Opus 5.5** (Claude Code) and **Codex (Astra / GPT 6)**, taking turns per `revamp/BOARD.md` |
 
-Fable 5 is used **only** in Phase 2 and Phase 4. Don't escalate to Opus by
-default elsewhere — per-task, only when Sonnet actually struggles.
+Fable 5 was used only in Phases 2 and 4. For Phases 1, 3, 5 and 6, don't
+escalate to Opus by default: escalate per task, and only when Sonnet
+actually struggles.
+
+**Revamp (Phase 7):** if you are asked to work on the revamp, or the user
+sends the revamp kickoff message, read `revamp/PROTOCOL.md` first and
+follow it exactly. `revamp/BOARD.md` is the single source of truth for
+whose turn it is and what's left. Never work a task the board assigns to
+the other agent.
 
 Each phase runs in its own fresh session. Don't carry a prior phase's
 conversation forward — read AGENTS.md and SPEC.md fresh each time instead.
@@ -70,8 +78,10 @@ conversation forward — read AGENTS.md and SPEC.md fresh each time instead.
   This avoids likeness/model-release ambiguity in self-hosted stock
   photography.
 - No mention of Codex, Fable 5, or AI authorship anywhere except `/guide`.
-- Contact info (placeholder email + placeholder Fastwork URL, marked
-  `TODO:`) lives on the Hub only. The 25 sites are single-scene capability
+- Contact info (email, LINE Official Account, Facebook, Instagram, plus
+  the Hub's contact form; placeholders marked `TODO:` until real values
+  exist) lives on the Hub only. Fastwork is shutting down — don't
+  reintroduce it. The 25 sites are single-scene capability
   showcases with no required section structure and no contact section.
 - Never embed more than 2-3 live WebGL `<iframe>`s at once on the Hub —
   browsers cap concurrent WebGL contexts around 16 and the page will
@@ -102,6 +112,8 @@ Name: **The Blueprint Labs**
 
 ## State files
 - `projects.json`: id, title, vertical, style tags, description, thumbnail
-  path, live path, tech used, status, built-by (model).
+  path, live path, tech used, status. It is served publicly (the Hub
+  fetches it), so it never records which model built a site — that
+  goes in `BUILD_LOG.md` only.
 - `BUILD_LOG.md`: append one line per completed site. If a session is
   interrupted, resume from here — don't restart.

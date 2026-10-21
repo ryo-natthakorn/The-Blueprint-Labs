@@ -14,7 +14,7 @@ Small and mid-size business owners deciding whether to hire Ryo for their own bu
 
 ## Product Purpose
 
-The Blueprint Labs exists to win freelance client work by proving code-driven design capability across a wide range of business verticals and aesthetic styles. Every one of the 26 sites is real, running code — not a mockup, comp, or template reskin — spanning genuinely different creative and technical directions so a visitor can find something that maps to their own kind of business. Success is a direct inquiry through the Hub's contact channels (email, Fastwork, and LINE — LINE matters here given the target market).
+The Blueprint Labs exists to win freelance client work by proving code-driven design capability across a wide range of business verticals and aesthetic styles. Every one of the 26 sites is real, running code — not a mockup, comp, or template reskin — spanning genuinely different creative and technical directions so a visitor can find something that maps to their own kind of business. Success is a direct inquiry through the Hub's contact channels (the contact form, email, LINE Official Account, Facebook, and Instagram — LINE matters here given the target market).
 
 ## Positioning
 
@@ -22,7 +22,7 @@ A portfolio where every demonstration is real, working code across deliberately 
 
 ## Conversion & proof
 
-- Primary CTA: direct contact — email, Fastwork profile, and LINE (placeholder values, marked `TODO:` in the Hub footer until real values are supplied).
+- Primary CTA: direct contact — the Hub's "Start a project" form, plus email, LINE Official Account, Facebook, and Instagram (placeholder values, marked `TODO:` on the Hub until real values are supplied). Fastwork was dropped because the platform is shutting down.
 - Secondary CTA: browse more of the 25+1 sites in the grid — a low-commitment next step for a visitor not ready to reach out yet.
 - The line a visitor remembers after 10 seconds: "This is way more polished than what I'd normally get for the price."
 - Belief ladder: (1) this is real, working capability, not mockups — (2) it covers a business like mine — (3) it's worth the price — (4) reaching out is easy.
