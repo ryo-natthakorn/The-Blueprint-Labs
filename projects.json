@@ -232,16 +232,16 @@
     "styleTags": [
       "kinetic type",
       "variable font",
-      "editorial"
+      "type specimen"
     ],
     "accent": "#d9ff44",
-    "description": "A specimen you conduct: pointer X bends weight, Y bends optical size, the wheel softens terminals, and a glyph waterfall ripples in your wake.",
+    "description": "A specimen you conduct: pointer and sliders bend weight, optical size, softness and wonk, then the whole sheet (optical-size waterfall, design-space grid, glyph inspector, a magazine spread) re-sets in your instance.",
     "thumbnail": "/sites/12-ligature-foundry/assets/thumb.jpg",
     "livePath": "/sites/12-ligature-foundry/",
     "tech": [
       "variable fonts",
       "font-variation-settings",
-      "zero-canvas DOM animation"
+      "DOM type specimen"
     ],
     "status": "complete"
   },

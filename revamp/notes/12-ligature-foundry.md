@@ -2,8 +2,8 @@
 
 - **Vertical:** Type Foundry
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews (T9).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -65,17 +65,57 @@ SOFT or WONK axes, so it now tries the real stylesheet first.
   strip.
 
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
+- Pass 1: Rebuilt as a scrolling specimen sheet. Hero: the word fitted to
+  its widest instance, metric guides measured from the face (ascender,
+  cap height, x-height, baseline, descender), weight and optical-size
+  rulers with live marks, a pointer crosshair, a named-instance readout,
+  sliders for wght/opsz/SOFT, Wonk and Italic chips, Next word, and an
+  editable word (one line, 16 characters, paste as plain text). The
+  instance eases toward its goal and breathes when idle. Sections: 02
+  optical-size waterfall (120→9 px, each at its own opsz) with an
+  Auto/Off comparison; 03 a 7 × 5 weight × optical-size matrix of
+  buttons with an acid "you" crosshair; 04 the Latin glyph set with a
+  sticky inspector (big glyph, guides, advance box, Unicode code and
+  name); 05 an "In use" magazine spread whose headline is your word,
+  with deck, two-column body, drop cap and pull quote, each at its own
+  optical size; then a colophon. Sections receive the instance only
+  while visible (throttled), and their type "sets" from hairline to
+  your weight as it arrives. Screen/Proof palette switch, stored per
+  viewer.
+- Pass 2: Polish from renders. Guide labels collided (ascender vs cap
+  height), so cap height now sits under its line and any colliding
+  label is dropped. Rulers are inset so their end values stay inside,
+  with the axis names in the corners and pointer mapping matched to the
+  inset. The waterfall scaled non-monotonically on phones (38, 27, 19,
+  13, then 30 px), so it now scales every size smoothly. Ragged body
+  text on narrow columns (justified rivers), a wrapping hint, a larger
+  word fit (widest weight at opsz 30–144), registration marks on the
+  stage corners, and a full-width supersoft colophon wordmark (it
+  overlapped the text).
+- Pass 3: Viewports, input and tooling. Checked 1024x640, 768x1024,
+  844x390 and 360x640: the nav hides under 900 px (it wrapped on
+  tablets), and on portrait screens the stage sizes to the word instead
+  of filling the window. Tested typing your own word (it flows into the
+  magazine headline), design-space clicks, the inspector by hover and
+  Tab, Italic/Wonk/Soft, Proof mode, and opsz Off. Added accessible
+  names to the sliders. `scripts/cdn-mirror.js` now prefers the real
+  Google Fonts stylesheet, falling back to Fontsource statics only when
+  it is blocked, because the statics have no opsz, SOFT or WONK axes and
+  every check of this site would otherwise be wrong.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects)
+- verify-sites: `--only 12 --cdn-mirror` → ok, console 0, page 0,
+  failed requests 0. Fonts came from the real Google Fonts service.
+- Visual check, desktop 1440x900: done. Hero idle and conducted (both
+  corners), italic + wonk + soft 100, Proof mode, every section, opsz
+  Off, typing, design-space click, inspector hover and focus.
+- Visual check, mobile 390x844: done. Hero, every section, Proof mode,
+  plus 360x640, 768x1024 and landscape 844x390.
+- Reduced motion: done. No breathing or set-in animation, the word swap
+  is instant, and every control still works directly.
+- Thumbnail regenerated: yes (`--wait 5000`, so the idle breathing has
+  started).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
