@@ -232,30 +232,42 @@ function startOcean() {
   scene.add(floodTarget);
   flood.target = floodTarget;
 
-  // a soft volumetric cone riding the floodlight
-  const beamGeo = new THREE.ConeGeometry(Math.tan(0.42) * 22, 22, 40, 1, true);
-  beamGeo.translate(0, -11, 0);
-  beamGeo.rotateX(-Math.PI / 2);
-  const beamMat = new THREE.ShaderMaterial({
-    uniforms: { uOn: U.beamOn },
-    vertexShader: /* glsl */`
-      varying float vLen; varying vec3 vN; varying vec3 vV;
-      void main(){ vLen = position.z / 22.0; vec4 mv = modelViewMatrix * vec4(position, 1.0); vV = -mv.xyz; vN = normalMatrix * normal; gl_Position = projectionMatrix * mv; }`,
+  // the floodlight's haze: a short raymarch through the beam for every pixel
+  const HAZE_STEPS = HIGH ? 22 : 11;
+  const hazeMat = new THREE.ShaderMaterial({
+    uniforms: {
+      uInvProj: { value: camera.projectionMatrixInverse }, uCamWorld: { value: camera.matrixWorld },
+      beamPos: U.beamPos, beamDir: U.beamDir, beamCos: U.beamCos, beamOn: U.beamOn, fog: U.fog, uDark: { value: 0 },
+    },
+    defines: { STEPS: HAZE_STEPS, STEP_L: (26 / HAZE_STEPS).toFixed(3) },
+    vertexShader: 'varying vec2 vNdc; void main(){ vNdc = position.xy; gl_Position = vec4(position.xy, 0.0, 1.0); }',
     fragmentShader: /* glsl */`
-      uniform float uOn; varying float vLen; varying vec3 vN; varying vec3 vV;
+      uniform mat4 uInvProj; uniform mat4 uCamWorld;
+      uniform vec3 beamPos; uniform vec3 beamDir; uniform float beamCos; uniform float beamOn; uniform float fog; uniform float uDark;
+      varying vec2 vNdc;
       void main(){
-        float edge = clamp(abs(dot(normalize(vN), normalize(vV))), 0.0, 1.0);
-        float L = clamp(vLen, 0.0, 1.0);
-        float a = pow(edge, 1.6) * pow(1.0 - L, 1.8) * smoothstep(0.0, 0.06, L) * 0.06 * uOn;
-        gl_FragColor = vec4(vec3(1.0, 0.95, 0.85) * a, a);
+        vec4 v = uInvProj * vec4(vNdc, 1.0, 1.0);
+        vec3 rd = normalize((uCamWorld * vec4(v.xyz / v.w, 0.0)).xyz);
+        float j = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+        float acc = 0.0;
+        for (int i = 0; i < STEPS; i++) {
+          float t = 0.8 + (float(i) + j) * STEP_L;
+          vec3 d = cameraPosition + rd * t - beamPos;
+          float L = length(d);
+          float c = dot(d / L, beamDir);
+          acc += smoothstep(beamCos - 0.01, beamCos + 0.1, c) * exp(-L * 0.16) * exp(-fog * fog * t * t * 0.6);
+        }
+        acc *= STEP_L * beamOn * uDark * 0.013;
+        gl_FragColor = vec4(vec3(0.82, 0.93, 1.0) * acc, 1.0);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
       }`,
-    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+    transparent: true, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending,
   });
-  const beam = new THREE.Mesh(beamGeo, beamMat);
-  beam.renderOrder = 8;
-  scene.add(beam);
+  const haze = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), hazeMat);
+  haze.frustumCulled = false;
+  haze.renderOrder = 9;
+  scene.add(haze);
 
   /* ---------- shared GLSL ---------- */
 
@@ -313,6 +325,56 @@ function startOcean() {
   const snow = new THREE.Points(snowGeo, snowMat);
   snow.frustumCulled = false;
   scene.add(snow);
+
+  /* ---------- the dark between stations: things that flash ---------- */
+
+  const BLINKS = HIGH ? 900 : 320;
+  const blinkGeo = new THREE.BufferGeometry();
+  {
+    const p = new Float32Array(BLINKS * 3), a = new Float32Array(BLINKS * 3);
+    for (let i = 0; i < BLINKS; i++) {
+      p[i * 3] = (Math.random() - 0.5) * 44;
+      p[i * 3 + 1] = Math.random() * 28;
+      p[i * 3 + 2] = -26 + Math.random() * 32;
+      a[i * 3] = Math.random() * 40;              // phase
+      a[i * 3 + 1] = 2.5 + Math.random() * 9;     // period
+      a[i * 3 + 2] = Math.random();               // species: blue, cyan, or a rare green
+    }
+    blinkGeo.setAttribute('position', new THREE.BufferAttribute(p, 3));
+    blinkGeo.setAttribute('aBlink', new THREE.BufferAttribute(a, 3));
+  }
+  const blinkMat = new THREE.ShaderMaterial({
+    uniforms: { time: U.time, fog: U.fog, uCamY: { value: 0 }, uPx: { value: 1 }, uDark: { value: 0 } },
+    vertexShader: FOG_GLSL + /* glsl */`
+      uniform float time; uniform float uCamY; uniform float uPx; uniform float uDark;
+      attribute vec3 aBlink; varying float vF; varying vec3 vC;
+      void main(){
+        vec3 p = position;
+        p.y = uCamY + mod(p.y - uCamY + time * 0.05, 28.0) - 14.0;
+        float k = mod(time + aBlink.x, aBlink.y);
+        float f = smoothstep(0.0, 0.07, k) * exp(-k * 1.5);
+        f += step(0.8, aBlink.z) * smoothstep(0.3, 0.37, k) * exp(-(k - 0.3) * 3.2) * 0.8;   // some answer twice
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        float dist = -mv.z;
+        vF = f * uDark * fogKeep(dist * 0.7) * smoothstep(1.5, 4.0, dist);
+        vC = aBlink.z < 0.55 ? vec3(0.3, 0.55, 1.0) : aBlink.z < 0.93 ? vec3(0.35, 0.95, 1.0) : vec3(0.45, 1.0, 0.55);
+        gl_PointSize = uPx * (5.0 + 12.0 * f) * (13.0 / max(1.0, dist));
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: /* glsl */`
+      varying float vF; varying vec3 vC;
+      void main(){
+        float d = length(gl_PointCoord - 0.5);
+        float a = (exp(-d * d * 40.0) + exp(-d * d * 9.0) * 0.35) * vF;
+        gl_FragColor = vec4(vC * a * 1.8, a);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`,
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  });
+  const blinks = new THREE.Points(blinkGeo, blinkMat);
+  blinks.frustumCulled = false;
+  scene.add(blinks);
 
   /* ---------- creatures ---------- */
 
@@ -1013,9 +1075,12 @@ function startOcean() {
         }
         tubes.instanceMatrix.needsUpdate = true;
         plumes.instanceMatrix.needsUpdate = true;
-        hab.position.set(FOCUS_X + 7.6, groundAt(7.6, -9) + 1.85, -9);
-        hab.rotation.y = -0.5;
-        habTarget.position.set(FOCUS_X + 1, floorY, -8);
+        // the lab sits in the foreground, clear of the HUD, its lamp on the worms
+        const hx = isSmall() ? 1.4 : 1.8, hz = isSmall() ? -3 : 1.2, hs = isSmall() ? 0.42 : 0.55;
+        hab.scale.setScalar(hs);
+        hab.position.set(FOCUS_X + hx, groundAt(hx, hz) + 1.85 * hs, hz);
+        hab.rotation.y = 0.38;
+        habTarget.position.set(FOCUS_X - 0.8, floorY, -6);
         beacon.material.opacity = 0.35 + 0.65 * Math.pow(0.5 + 0.5 * Math.sin(t * 2.2), 8);
         poi6.set(FOCUS_X + 0.4, groundAt(0.4, -10) + 4.5, -10);
       },
@@ -1079,7 +1144,7 @@ function startOcean() {
   scene.add(sparks);
   const sparkVel = new Float32Array(SPARKS * 3);
   let sparkIx = 0;
-  const pointMats = [snowMat, sparkMat, ...creatures.flatMap((c) => c.pointMats || [])];
+  const pointMats = [snowMat, sparkMat, blinkMat, ...creatures.flatMap((c) => c.pointMats || [])];
 
   /* ---------- input: aim the floodlight ---------- */
 
@@ -1193,9 +1258,13 @@ function startOcean() {
     const floorLook = THREE.MathUtils.smoothstep(uNow, 5.3, 6);
     const lift = isSmall() ? -1.7 : 0;
     camera.position.set(Math.sin(t * 0.21) * 0.25 * sway, camY + Math.sin(t * 0.33) * 0.15 * sway + floorLook * 0.5, 15 - floorLook * 1.5);
-    lookAt.set(FOCUS_X * 0.12, camY + lift - floorLook * 2.6, 0);
+    lookAt.set(FOCUS_X * 0.12, camY + lift - floorLook * (isSmall() ? 1.1 : 2.6), 0);
     camera.lookAt(lookAt);
+    camera.updateMatrixWorld();
     snowMat.uniforms.uCamY.value = camY;
+    blinkMat.uniforms.uCamY.value = camY;
+    blinkMat.uniforms.uDark.value = THREE.MathUtils.smoothstep(d, 450, 1100);
+    hazeMat.uniforms.uDark.value = THREE.MathUtils.smoothstep(d, 300, 1000);
 
     // floodlight: follows the pointer, or rests on the station's animal
     const lampActive = lampOn && sun < 0.35;
@@ -1220,9 +1289,7 @@ function startOcean() {
     beamDir.copy(aim).sub(lp).normalize();
     U.beamPos.value.copy(lp);
     U.beamDir.value.copy(beamDir);
-    beam.position.copy(lp);
-    beam.lookAt(aim);
-    beam.visible = beamOnNow > 0.01;
+    haze.visible = beamOnNow > 0.01;
     hud.aim.classList.toggle('on', lampActive && !aimSeen && d > 600);
 
     // animals near the camera only
