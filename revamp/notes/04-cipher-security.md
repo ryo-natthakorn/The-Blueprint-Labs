@@ -2,8 +2,8 @@
 
 - **Vertical:** Cybersecurity
 - **Batch:** 1 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 (rebuild)
+- **Stage:** awaiting review
+- **Next step:** Codex reviews (T2)
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -66,17 +66,66 @@ Rendered at 1440x900 and 390x844 (motion on/off) through boot,
   typing, and static rain; no WebGL shows the 2D canvas directly.
 
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
+- Pass 1: Rebuilt as a canvas terminal shown through a three.js CRT
+  tube: barrel curvature, rounded glass and bezel, light scanlines,
+  aperture-grille mask, chromatic fringe, bloom and afterimage
+  persistence on desktop (cheap 8-tap glow on phones), vignette, noise,
+  rolling refresh band and power-on. Text engine: monospace grid, word
+  wrap with hanging indents, typed reveals, live blocks, scrollback
+  (wheel, drag, PgUp/PgDn) with a "back to latest" link. Rain is drawn on
+  its own canvas at ~30 Hz behind a dimming panel. The scan is now
+  visual: a 1,024-cell grid of 8,192 ports sweeps, open ports flare
+  (risky ones in red), with a legend. The real input (16px, invisible)
+  sits over the prompt row, and every line is mirrored into a hidden
+  `role="log"`. The visual viewport sets the height so the prompt clears
+  the phone keyboard. `theme amber|green`, `history`, `date` and `exit`
+  added. Fixed on first render: widget progress went negative (rAF
+  timestamps can precede `performance.now()`), which made `repeat()`
+  throw.
+- Pass 2: Made it easy to understand and play, at the user's request.
+  The welcome says in one plain sentence what CIPHER is and that no
+  commands are needed, then shows a numbered menu (1–6). Number keys run
+  items without Enter. Commands in the output are tappable links,
+  hit-tested through the same barrel warp as the shader, with forgiving
+  row tolerance on touch. Dim ghost suggestions appear while typing
+  (Tab or → accepts) with a short description. Plain questions are routed
+  ("who are you" → team, "show me a demo" → scan, "how much" → a note
+  that CIPHER is fictional). Typos get "Did you mean …?" with the fix
+  prefilled for Enter. Every main command ends with "next →" picks plus
+  menu. A guided `tour` (services → scan → casework, narrated) is the
+  first button. Any tap or key fast-forwards a running animation, and a
+  command chosen mid-run is queued. Copy rewritten for non-specialists
+  (ports = "doors", findings explained in plain words, case files
+  without jargon). The button strip uses plain labels ("What we do",
+  "Live scan", "Case files"…) with the command beneath. Scanlines and the
+  mask were lightened for legibility, power-on is clock-based (at low
+  frame rates the raster never fully opened), and Tab only completes
+  when there is a suggestion, so keyboard users can still Tab out.
+- Pass 3: Viewports and fallbacks. Checked 844x390, 768x1024, 2560x1080
+  and the no-WebGL path (the 2D canvas is shown directly, without
+  curvature, and is fully usable). Very wide screens got larger type (up
+  to 22px). Phones on their side get a one-row button strip without
+  sub-labels and the disclaimer text hidden (the back link stays). Verified
+  that mouse hover highlights a tappable command and a click runs it. The
+  placeholder says "tap" on touch devices. Boot shortened to about 1.5 s.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects)
+- verify-sites: `--only 04 --cdn-mirror` → ok, console 0, page 0, failed
+  requests 0. Three.js came from local npm copies (cdn.jsdelivr.net is
+  blocked here); IBM Plex Mono loaded from Google Fonts.
+- Visual check, desktop 1440x900: done (welcome, ghost suggestion,
+  number key → scan mid-sweep and finished, typo → "did you mean",
+  plain question, full guided tour, link hover and click). High tier
+  (8 cores emulated); SwiftShader runs it at about 5 fps.
+- Visual check, mobile 390x844: done (same flows, plus the tour).
+- Reduced motion: done. No power-on, flicker, roll or typing, static
+  rain, instant widgets; the tour completes as a finished transcript.
+- No WebGL: 2D canvas fallback, all interactions work.
+- Keyboard: number keys, Tab/→ completion, ↑↓ history, PgUp/PgDn, and Tab
+  out to the buttons and back link (no trap). Screen readers: output
+  mirrored to a polite `role="log"`.
+- Thumbnail regenerated: yes (welcome menu, 1440x900).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

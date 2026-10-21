@@ -74,13 +74,14 @@
       "interactive fiction"
     ],
     "accent": "#39ff6a",
-    "description": "The whole site is a working terminal: navigate a red-team consultancy by typing commands, running a fake recon sweep, and reading redacted casework.",
+    "description": "A red-team firm whose whole site is a terminal on a phosphor CRT — anyone can play it: a numbered menu, tappable commands, plain-language questions, a live port-scan demo and a guided tour.",
     "thumbnail": "/sites/04-cipher-security/assets/thumb.jpg",
     "livePath": "/sites/04-cipher-security/",
     "tech": [
-      "Canvas 2D digital rain",
-      "command parser",
-      "CSS CRT/glitch"
+      "Three.js CRT post-processing",
+      "Canvas 2D text engine",
+      "UnrealBloom + afterimage",
+      "command parser with fuzzy matching"
     ],
     "status": "complete"
   },
