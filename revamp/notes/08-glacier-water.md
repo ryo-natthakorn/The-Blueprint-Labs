@@ -2,8 +2,8 @@
 
 - **Vertical:** Premium Water
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex works through every R item in T8 (Fix batch 2).
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -29,7 +29,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: yes, forced with `--cdn-mirror`; inspected against the opening scene.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
 motion on and off. Stirred with the pointer across the vessel and compared
@@ -38,7 +38,7 @@ and no sideways scroll. Turning the blobs into one bottle makes the
 product readable, which is a real gain. The material and the interaction
 are now weaker than v1, though.
 
-- [ ] R1 (must) The bottle reads as matte blue resin, not glass holding
+- [x] R1 (must) The bottle reads as matte blue resin, not glass holding
   water. There is no water line or meniscus inside, no wall thickness, and
   no refraction of the light shafts behind it. The sides carry a sine
   ripple (`script.js:51`, `0.018 * sin((y + 0.7) * 18.0)`) that looks like
@@ -46,18 +46,33 @@ are now weaker than v1, though.
   contact shadow, so the bottle floats. Model glass walls around an inner
   water body with its own surface, refract the backdrop through it, and
   ground it (shadow or reflection on a surface).
-- [ ] R2 (must) The signature interaction is nearly gone. In v1 the cursor
+- [x] R2 (must) The signature interaction is nearly gone. In v1 the cursor
   became a body of water that merged into the form. Now the response is a
   0.016-amplitude ripple (`script.js:54`) that is hard to see even while
   you stir. The copy still says "Move a cursor or finger across the
   spring. It remembers, briefly." Make the response obvious. For example,
   the water inside tilts and sloshes toward the pointer, and a fading wake
   shows in the backdrop caustics.
-- [ ] R3 (nice) At 360x640 the copy card covers everything but the bottle's
+- [x] R3 (nice) At 360x640 the copy card covers everything but the bottle's
   neck. Shrink the card or move the bottle on short phones.
-- [ ] R4 (nice) The "GLACIER 64° N · SOURCE 04" label is a DOM span laid
+- [x] R4 (nice) The "GLACIER 64° N · SOURCE 04" label is a DOM span laid
   over the shader band. That's fine while the bottle is static, but it
   will drift if R2 makes the vessel move. Draw it in the shader or a
   texture instead.
 
 ## Fix log
+
+- 2026-10-22 · Codex · T8 implementation: removed dented sine sides, rounded the base, added refracted light shafts, colourless glass-edge highlights, an inner water-level/meniscus treatment, gesture-driven slosh and fading caustic wake. Label is a canvas texture sampled in the shader; mobile product has its own stage before the copy and can scroll on short phones. Arrow-key and reduced-motion gestures redraw stills.
+
+- R1: fixed in cc4aa7b.
+- R1: fixed in cc4aa7b.
+- R2: fixed in cc4aa7b.
+- R3: fixed in cc4aa7b.
+- R4: fixed in cc4aa7b.
+
+### T8 verification — 2026-10-22
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: --only 06,07,08,09,10 --cdn-mirror: all ok; zero console errors, page errors and failed requests. Rechecked 06/07/09 after final visual adjustments.
+- Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
+- Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
+- Interaction checks: Mouse and arrow gestures tilt the water line and produce a visible wake; reduced motion redraws a still on input. The glass/water optics remain a raymarched surface with analytic interior shading, not a full physical fluid simulation. Mobile content and footer remain below the bottle.

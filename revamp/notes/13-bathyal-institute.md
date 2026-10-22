@@ -2,8 +2,8 @@
 
 - **Vertical:** Ocean Research
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T9).
+- **Stage:** done
+
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -120,6 +120,10 @@ Rendered at 1440x900 and 390x844 (motion on/off) at eight scroll depths.
 - Thumbnail regenerated: yes (the surface hero, `--wait 4000`).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
+
+No findings. The six encounters, continuous depth mapping, floodlight and final vent field are recognisably above the original 2D silhouettes. Default motion remains active; reduced motion holds formed animals while scroll and the lamp still respond.
+
+**Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. All six depth stations, lamp on/off, automatic dive log; normal-motion jelly, squid and vent scenes plus the complete reduced-motion dive. Depth labels settle within rounding of the station value. Thumbnail matches; focus/semantics and mobile/low-core limits inspected. All §5 checklist items pass. No people/faces. Stage: done.
 
 ## Fix log

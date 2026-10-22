@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Codex** ← the only line the user needs to read
+**Next up / ถัดไป: Claude** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -23,10 +23,10 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T4 | Fix batch 1 | Claude | skipped |
 | T5 | Review batch 2 | Claude | done |
 | T6 | Build batch 3 (11–15) | Claude | done |
-| T7 | Confirm batch 1 | Codex | todo |
-| T8 | Fix batch 2 | Codex | todo |
-| T9 | Review batch 3 | Codex | todo |
-| T10 | Build batch 4 (16–20) | Codex | todo |
+| T7 | Confirm batch 1 | Codex | skipped |
+| T8 | Fix batch 2 | Codex | done |
+| T9 | Review batch 3 | Codex | done |
+| T10 | Build batch 4 (16–20) | Codex | done |
 | T11 | Confirm batch 2 | Claude | todo |
 | T12 | Fix batch 3 | Claude | todo |
 | T13 | Review batch 4 | Claude | todo |
@@ -55,21 +55,21 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 03-nova-orbit | 1 | Claude | Codex | done | [note](notes/03-nova-orbit.md) |
 | 04-cipher-security | 1 | Claude | Codex | done | [note](notes/04-cipher-security.md) |
 | 05-flora-lab | 1 | Claude | Codex | done | [note](notes/05-flora-lab.md) |
-| 06-meridian-watches | 2 | Codex | Claude | changes requested | [note](notes/06-meridian-watches.md) |
-| 07-pulse-athletics | 2 | Codex | Claude | changes requested | [note](notes/07-pulse-athletics.md) |
-| 08-glacier-water | 2 | Codex | Claude | changes requested | [note](notes/08-glacier-water.md) |
-| 09-noctua-observatory | 2 | Codex | Claude | changes requested | [note](notes/09-noctua-observatory.md) |
-| 10-ember-bakery | 2 | Codex | Claude | changes requested | [note](notes/10-ember-bakery.md) |
-| 11-vertex-architecture | 3 | Claude | Codex | awaiting review | [note](notes/11-vertex-architecture.md) |
-| 12-ligature-foundry | 3 | Claude | Codex | awaiting review | [note](notes/12-ligature-foundry.md) |
-| 13-bathyal-institute | 3 | Claude | Codex | awaiting review | [note](notes/13-bathyal-institute.md) |
-| 14-suminaga-teahouse | 3 | Claude | Codex | awaiting review | [note](notes/14-suminaga-teahouse.md) |
-| 15-vector-drift | 3 | Claude | Codex | awaiting review | [note](notes/15-vector-drift.md) |
-| 16-orrery-capital | 4 | Codex | Claude | not started | [note](notes/16-orrery-capital.md) |
-| 17-maison-vela | 4 | Codex | Claude | not started | [note](notes/17-maison-vela.md) |
-| 18-koppar-roastery | 4 | Codex | Claude | not started | [note](notes/18-koppar-roastery.md) |
-| 19-voltaic-moto | 4 | Codex | Claude | not started | [note](notes/19-voltaic-moto.md) |
-| 20-halftone-records | 4 | Codex | Claude | not started | [note](notes/20-halftone-records.md) |
+| 06-meridian-watches | 2 | Codex | Claude | awaiting confirm | [note](notes/06-meridian-watches.md) |
+| 07-pulse-athletics | 2 | Codex | Claude | awaiting confirm | [note](notes/07-pulse-athletics.md) |
+| 08-glacier-water | 2 | Codex | Claude | awaiting confirm | [note](notes/08-glacier-water.md) |
+| 09-noctua-observatory | 2 | Codex | Claude | awaiting confirm | [note](notes/09-noctua-observatory.md) |
+| 10-ember-bakery | 2 | Codex | Claude | awaiting confirm | [note](notes/10-ember-bakery.md) |
+| 11-vertex-architecture | 3 | Claude | Codex | changes requested | [note](notes/11-vertex-architecture.md) |
+| 12-ligature-foundry | 3 | Claude | Codex | changes requested | [note](notes/12-ligature-foundry.md) |
+| 13-bathyal-institute | 3 | Claude | Codex | done | [note](notes/13-bathyal-institute.md) |
+| 14-suminaga-teahouse | 3 | Claude | Codex | changes requested | [note](notes/14-suminaga-teahouse.md) |
+| 15-vector-drift | 3 | Claude | Codex | changes requested | [note](notes/15-vector-drift.md) |
+| 16-orrery-capital | 4 | Codex | Claude | awaiting review | [note](notes/16-orrery-capital.md) |
+| 17-maison-vela | 4 | Codex | Claude | awaiting review | [note](notes/17-maison-vela.md) |
+| 18-koppar-roastery | 4 | Codex | Claude | awaiting review | [note](notes/18-koppar-roastery.md) |
+| 19-voltaic-moto | 4 | Codex | Claude | awaiting review | [note](notes/19-voltaic-moto.md) |
+| 20-halftone-records | 4 | Codex | Claude | awaiting review | [note](notes/20-halftone-records.md) |
 | 21-petrichor-atmos | 5 | Claude | Codex | not started | [note](notes/21-petrichor-atmos.md) |
 | 22-grammage-paper | 5 | Claude | Codex | not started | [note](notes/22-grammage-paper.md) |
 | 23-umbra-cacao | 5 | Claude | Codex | not started | [note](notes/23-umbra-cacao.md) |
@@ -90,3 +90,4 @@ One line per session: date · agent · tasks · last commit · handoff note.
 
 - 2026-10-21 · Codex · T2 done: 01–05 reviewed with no findings; T3 done: 06–10 rebuilt and awaiting review · c539b15 · T4 skipped (no R items). Claude: T5 review batch 2. Local checks used the CDN/font mirror.
 - 2026-10-22 · Claude · T5 done: 06–10 reviewed, all `changes requested` (R items in each note, for T8). T6 done: 11–15 rebuilt, all `awaiting review` · 496ad6a · Checks used `--cdn-mirror`, which now serves the real Google Fonts stylesheet first (the Fontsource fallback lacks variable axes, e.g. site 12's opsz/SOFT/WONK). `screenshot.js` takes `--wait ms` for sites that need time to compose (12, 13, 14, 15 used 4000–6500). Codex: T7 confirm batch 1, then T8 fix batch 2 and T9 review batch 3.
+- 2026-10-22 · Codex · T7 skipped (01–05 already done; no fixes to confirm). T8 done: 06–10 fixed in cc4aa7b and awaiting confirm. T9 done: 13 done; 11, 12, 14, 15 have must-fix R1 findings. T10 done: 16–20 rebuilt in three passes and awaiting review · 629bf0a (source) · Checks used the CDN/font mirror; Fraunces fallback now preserves all four axes. All scoped verify runs reported zero console/page/request failures; 16–20 checked at desktop/mobile with motion on/off plus short viewports and full-quality desktop. Thumbnails regenerated. Claude Code: T11 confirm batch 2, T12 fix batch 3, T13 review batch 4, then T14 build batch 5.

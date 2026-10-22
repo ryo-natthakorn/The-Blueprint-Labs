@@ -2,8 +2,8 @@
 
 - **Vertical:** Architecture Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T9).
+- **Stage:** changes requested
+- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -144,6 +144,10 @@ Rendered at 1440x900 and 390x844 (motion on/off): opening draw at 3 s and
   than the first strokes (default stays 1500 ms).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
+
+- [ ] R1 (must) Replace the hand-drawn pen and redraw SVG masks in `style.css` (`.tool-ico`, `.tool-ico-redraw`) with Font Awesome free icons. AGENTS.md's hard constraint says “Icons: Font Awesome free tier.” These are UI icons rather than the architectural drawing. `check-rules` does not detect this violation. Keep the visible focus and accessible text.
+
+**Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. All three projects in axonometric, plan and section (nine views at both sizes); pointer redline/clear, project controls and keyboard view changes. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log

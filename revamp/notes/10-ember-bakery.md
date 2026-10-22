@@ -2,8 +2,8 @@
 
 - **Vertical:** Artisan Bakery
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex works through every R item in T8 (Fix batch 2).
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -29,7 +29,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: yes, forced with `--cdn-mirror`; inspected against the opening scene.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
 motion on and off. Held "stoke" for 3 seconds and watched it settle,
@@ -38,21 +38,36 @@ and no sideways scroll, and the body scroll reaches the back link on
 phones. Bringing the hearth into view is a real gain. The fire itself is
 the weak point.
 
-- [ ] R1 (must) The flames are drawn as separate sharp triangles. Close up
+- [x] R1 (must) The flames are drawn as separate sharp triangles. Close up
   at 1440x900 and on mobile they read as paper cones or a crystal cluster,
   not fire, and the charred logs (`script.js:146-155`) aren't visible
   under them. Use soft, additive, noise-displaced flame (a shader, or
   layered blurred gradients on the 2D canvas), glowing logs, and heat
   shimmer.
-- [ ] R2 (must) The stoke button and meter sit on top of the flames. At
+- [x] R2 (must) The stoke button and meter sit on top of the flames. At
   390x844 the "FIRE: ROARING / LIVELY" label is unreadable over the
   brightest part of the fire, and the button hides the fire's core. Move
   the controls under the oven mouth, or give them a solid field.
-- [ ] R3 (must) At 1024x640 the third card's price "— eight" overlaps the
+- [x] R3 (must) At 1024x640 the third card's price "— eight" overlaps the
   footer line ("Ember is a fictional bakery…"), and the oven is cut off at
   the bottom.
-- [ ] R4 (nice) The loaf illustrations are small identical ovals with two
+- [x] R4 (nice) The loaf illustrations are small identical ovals with two
   stripes. Distinct silhouettes (round miche, rye tin loaf, scored batard,
   a misshapen "mistake") would carry the still-life idea further.
 
 ## Fix log
+
+- 2026-10-22 · Codex · T8 implementation: moved the canvas into the oven opening and controls underneath. Replaced sharp flame polygons with soft additive gradient lobes, brought fissured glowing logs in front, and added faint heat ribbons. Menu/footer use document flow for short screens. Loaves now have distinct round, tin, batard and irregular silhouettes.
+
+- R1: fixed in cc4aa7b.
+- R1: fixed in cc4aa7b.
+- R2: fixed in cc4aa7b.
+- R3: fixed in cc4aa7b.
+- R4: fixed in cc4aa7b.
+
+### T8 verification — 2026-10-22
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: --only 06,07,08,09,10 --cdn-mirror: all ok; zero console errors, page errors and failed requests. Rechecked 06/07/09 after final visual adjustments.
+- Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
+- Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
+- Interaction checks: Pointer/keyboard stoking raises the gauge; reduced-motion Space press raises 85% to 100%. Logs remain visible, controls are below the oven, all four prices and footer reachable on short screens.

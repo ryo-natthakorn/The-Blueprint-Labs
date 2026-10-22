@@ -2,8 +2,8 @@
 
 - **Vertical:** Game Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T9).
+- **Stage:** changes requested
+- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -125,6 +125,10 @@ after a steer, and 10 s in (on mobile, after the crash screen).
 - Thumbnail regenerated: yes (`--wait 4000`, attract with a gate).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
+
+- [ ] R1 (must) Remove the hidden attract controls from focus/navigation during a run. At 1440×900: Insert Coin focuses the canvas; the next Tab focuses an invisible `.dot` inside `#attract` with opacity 0, and further Tabs traverse the other invisible dots and Insert Coin. `.attract.off` only sets opacity and pointer-events. Use `inert`/hidden state or equivalent focus management, restore it on return to the cabinet, and verify Tab in play, pause and game-over states. This violates the checklist's visible-focus baseline and exposes controls from another game state to keyboard/screen-reader users.
+
+**Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Start, keyboard steering, P/Escape pause, resume and quit; touch context exposes a working pause button. Hidden-attract keyboard issue documented above. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log

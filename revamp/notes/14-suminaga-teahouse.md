@@ -2,8 +2,8 @@
 
 - **Vertical:** Tea House
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T9).
+- **Stage:** changes requested
+- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -137,6 +137,10 @@ taps and a drag, and after switching tea.
 - Thumbnail regenerated: yes (`--wait 6500`, after the overture).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
+
+- [ ] R1 (must) Replace the custom inline SVG Stylus and Comb button icons in `index.html` with Font Awesome free icons (or text-only controls). AGENTS.md requires “Icons: Font Awesome free tier.” This concerns the tool pictograms, not the procedural ink or paper texture. Preserve the existing accessible button labels.
+
+**Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Tea selection, stylus/comb, keyboard nib, print capture, tray/viewer, Escape return and real JPEG download on desktop/mobile. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log

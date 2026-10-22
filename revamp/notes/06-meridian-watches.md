@@ -2,8 +2,8 @@
 
 - **Vertical:** Horology
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex works through every R item in T8 (Fix batch 2).
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -29,7 +29,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: yes, forced with `--cdn-mirror`; inspected against the opening scene.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
 motion on and off, scrolled through all six chapters, against
@@ -40,18 +40,18 @@ now, and reduced motion gives a composed still for each chapter.
 The weak part is the watch itself. It is still built from untouched v1
 primitives, so the craft bar in PROTOCOL §5 isn't met yet.
 
-- [ ] R1 (must) Copy and model disagree. Chapter II says "Champagne,
+- [x] R1 (must) Copy and model disagree. Chapter II says "Champagne,
   brushed in one direction. Solid silver, sunray-brushed…"
   (`index.html:57-58`), but the new dial is charcoal (`script.js` dial
   canvas, `#393b3a → #111715`). Either go back to a champagne or silver
   sunray dial (the dark one can stay as a variant), or rewrite the chapter.
-- [ ] R2 (must) The model doesn't hold up as a luxury watch. The lugs are
+- [x] R2 (must) The model doesn't hold up as a luxury watch. The lugs are
   plain untapered boxes that float off the case: at 1440x900 scroll 100%
   you can see gaps between the lugs and the case ring. The strap is two
   flat brown slabs with stick stitches. Model a case with integrated,
   tapered lugs (lathe or extruded profile, bevelled) and a strap that
   curves away like it is on a wrist.
-- [ ] R3 (must) The exploded view doesn't show what the copy promises.
+- [x] R3 (must) The exploded view doesn't show what the copy promises.
   "Four wheels… four gold wheels" (`index.html:65-67`) shows one visible
   gear. "Signed where only you will look… engraved with its assembler's
   initials" (`index.html:81-82`) shows a plain grey caseback with dashes.
@@ -61,9 +61,25 @@ primitives, so the craft bar in PROTOCOL §5 isn't met yet.
   at its own chapter: a movement plate with bridges, jewels and four
   toothed wheels, a skeleton rotor, and an engraved caseback with initials
   and a serial.
-- [ ] R4 (nice) Turning the watch is pointer-only. Arrow keys on a
+- [x] R4 (nice) Turning the watch is pointer-only. Arrow keys on a
   focusable canvas would match the other sites.
-- [ ] R5 (nice) Three.js logs "sigmaRadians… too large and will clip" twice
+- [x] R5 (nice) Three.js logs "sigmaRadians… too large and will clip" twice
   on load (PMREM blur). It's harmless, but a smaller blur sigma silences it.
 
 ## Fix log
+
+- 2026-10-22 · Codex · T8 implementation: replaced box lugs with bevelled tapered shoulders, curved stitched straps, a skeletal rotor, open toothed wheels with bridges/ruby bearings, and a textured signed caseback. Chapter-centred exploded poses bring each named part forward with the others on a small parts rail. Updated dial copy; added arrow/Home orbit; reduced PMREM sigma. Visual pass removed bearings protruding through the dial and tightened mobile framing.
+
+- R1: fixed in cc4aa7b.
+- R1: fixed in cc4aa7b.
+- R2: fixed in cc4aa7b.
+- R3: fixed in cc4aa7b.
+- R4: fixed in cc4aa7b.
+- R5: fixed in cc4aa7b.
+
+### T8 verification — 2026-10-22
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: --only 06,07,08,09,10 --cdn-mirror: all ok; zero console errors, page errors and failed requests. Rechecked 06/07/09 after final visual adjustments.
+- Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
+- Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
+- Interaction checks: All six chapters inspected, arrow/Home orbit works. Dial, gear train, skeletal rotor and signed caseback each take the main stage; other components move onto a parts rail.

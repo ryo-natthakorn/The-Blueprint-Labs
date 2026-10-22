@@ -61,3 +61,5 @@ One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
 - [03-nova-orbit] Nova Orbit — revamped by Claude, reviewed by Codex
 - [04-cipher-security] CIPHER — revamped by Claude, reviewed by Codex
 - [05-flora-lab] Flora Lab — revamped by Claude, reviewed by Codex
+
+- [13-bathyal-institute] BATHYAL — revamped by Claude, reviewed by Codex

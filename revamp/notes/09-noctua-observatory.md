@@ -2,8 +2,8 @@
 
 - **Vertical:** Public Observatory
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex works through every R item in T8 (Fix batch 2).
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -29,7 +29,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: yes, forced with `--cdn-mirror`; inspected against the opening scene.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-21 by Claude at 1440x900, 1024x640, 390x844 and 360x640,
 motion on and off. Tested the target buttons (jump to The Kiln) and
@@ -38,19 +38,33 @@ console or page errors and no sideways scroll. The finder targets and the
 seeded opening view fix v1's "empty sky" problem. The sky rendering itself
 is unchanged from v1.
 
-- [ ] R1 (must) The story card covers the constellation it describes. On
+- [x] R1 (must) The story card covers the constellation it describes. On
   the opening view at 1440x900 and 1024x640 the card hides Noctua's lower
   stars and legs. At 360x640 it covers the bottom star. Place the card
   beside the figure (desktop) or offset the sky so the figure sits fully
   above the card (mobile).
-- [ ] R2 (must) The Milky Way band shows a regular dot-grid (screen-door)
+- [x] R2 (must) The Milky Way band shows a regular dot-grid (screen-door)
   pattern at every size (crop at 1440x900, centre of screen). It's a v1
   artifact that is still there, and it's the largest surface on the page.
   Render the band as smooth noise, or dither at sub-pixel level.
-- [ ] R3 (nice) Beyond the finder, the sky is the same 2D canvas as v1.
+- [x] R3 (nice) Beyond the finder, the sky is the same 2D canvas as v1.
   Room to raise craft: star colour by temperature, real twinkle and
   scintillation near the horizon, a dome/ridge silhouette with a slit of
   warm light, and constellation art that fades in under the line figure
   (the owl reads as a kite with legs right now).
 
 ## Fix log
+
+- 2026-10-22 · Codex · T8 implementation: moved desktop story to the left and mobile finder into the upper third, fitted long constellations on phones, replaced low-alpha blob gradients with per-pixel smooth fractal cloud noise and dither. Added temperature colours, horizon scintillation, owl engraving and a dome with a lit slit. Visual pass removed a wrapping seam in the cloud band.
+
+- R1: fixed in cc4aa7b.
+- R1: fixed in cc4aa7b.
+- R2: fixed in cc4aa7b.
+- R3: fixed in cc4aa7b.
+
+### T8 verification — 2026-10-22
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: --only 06,07,08,09,10 --cdn-mirror: all ok; zero console errors, page errors and failed requests. Rechecked 06/07/09 after final visual adjustments.
+- Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
+- Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
+- Interaction checks: Noctua, Kiln and Long Wave selectors inspected, including short phones. Story and stars no longer overlap, long figures fit, and the noise band has no regular dot pattern.

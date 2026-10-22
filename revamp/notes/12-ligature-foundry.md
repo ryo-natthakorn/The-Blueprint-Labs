@@ -2,8 +2,8 @@
 
 - **Vertical:** Type Foundry
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews (T9).
+- **Stage:** changes requested
+- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -118,6 +118,10 @@ SOFT or WONK axes, so it now tries the real stylesheet first.
   started).
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
+
+- [ ] R1 (must) Refresh the hero when it re-enters the viewport after a design-space selection. Reproduced at 1440×900 and 390×844 with reduced motion: scroll to the last matrix cell, wait until the hero is fully offscreen, choose weight 900 / opsz 9, then scroll back. The matrix marker says “you · 900 / 9”, but the hero, sliders and readout remain at weight 400 / opsz 72 indefinitely. `frame()` updates `shownKey` while `heroVisible` is false and the hero observer never invalidates that key on return. Publish the latest instance on re-entry (and verify normal motion before idle breathing masks the problem).
+
+**Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Matrix selection, glyph inspector by keyboard, Screen/Proof and real four-axis Fraunces. The blocked Google Fonts endpoint was replaced locally by @fontsource-variable/fraunces 5.3.0 full-axis WOFF2, not a static font. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log
