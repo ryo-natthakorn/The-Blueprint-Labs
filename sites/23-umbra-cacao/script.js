@@ -112,7 +112,9 @@ void main() {
 void main() {
   vec2 p = vUv * 7.0;
   float fine = fbm(p * 2.2 + 3.0);
-  float coarse = fbm(p * 0.7 + 11.0);
+  // broad, smooth undulation: three octaves only, so a still melt reads as liquid
+  vec2 c = p * 0.55 + 11.0;
+  float coarse = noise(c) * 0.62 + noise(c * 2.1 + 3.0) * 0.27 + noise(c * 4.3 + 7.0) * 0.11;
   float streak = 1.0 - abs(fbm(p * vec2(1.4, 0.5) + 5.0) * 2.0 - 1.0);
   gl_FragColor = vec4(fine, coarse, streak, 1.0);
 }`,
@@ -127,7 +129,7 @@ uniform vec2 uRes, uVatC; uniform float uVatR;
 uniform sampler2D uDye, uVel, uBar;
 uniform vec2 uDyeTexel;
 uniform float uTime, uGloss, uThick, uHeat, uSim;
-uniform float uPour, uFill, uSet, uQ, uBloom;
+uniform float uPour, uFill, uSet, uQ, uBloom, uHint;
 uniform vec2 uBarSize;
 uniform vec3 uSwirl[6];
 
@@ -179,7 +181,7 @@ vec3 chocolate(vec3 n, vec3 V, float h, float gloss, float thick, float bloom, f
   float diff = max(dot(n, normalize(vec3(-0.4, 0.5, 0.75))), 0.0);
   vec3 col = alb * (0.3 + 0.7 * diff);
   vec3 r = reflect(-V, n);
-  float soft = mix(0.3, 0.008, gloss * gloss);
+  float soft = mix(0.22, 0.008, gloss);
   float F = 0.045 + 0.955 * pow(1.0 - max(dot(n, V), 0.0), 5.0);
   col += env(r, soft) * vec3(1.0, 0.93, 0.84) * (F * 5.0 + 0.12) * mix(0.1, 1.0, gloss);
   // bloom: grey sugar and fat haze on a badly set bar
@@ -221,13 +223,19 @@ void main() {
         // the melt climbs the wall a little
         float men = smoothstep(0.86, 0.985, r);
         vec2 dir = d / max(length(d), 1.0);
-        float relief = mix(0.7, 1.5, uThick);
+        float relief = mix(0.8, 1.6, uThick);
         vec3 n = normalize(vec3(-hx * relief - dir.x * men * 0.5, -hy * relief - dir.y * men * 0.5, 1.0));
         vc = chocolate(n, viewAt(d / uVatR), h, uGloss, uThick, 0.0, 0.0);
         // a warm sheen on a hot batch
         vc += vec3(0.05, 0.02, 0.008) * uHeat * (1.0 - h);
         // the rim shades the edge
         vc *= mix(1.0, 0.45, smoothstep(0.9, 0.99, r) * (0.6 + 0.4 * max(dot(dir, vec2(-0.6, 0.8)), 0.0)));
+        // until the first stir: a faint dashed ring where to stir, turning the right way
+        if (uHint > 0.001) {
+          float a = atan(d.y, d.x);
+          float dash = step(0.55, fract(a * 9.0 / 3.14159 - uTime * 0.35));
+          vc += vec3(0.79, 0.59, 0.25) * smoothstep(0.012, 0.0, abs(r - 0.6)) * dash * uHint * 0.55;
+        }
       }
     }
     col = mix(col, vc, vatVis);
@@ -449,7 +457,7 @@ addEventListener('scroll', () => { placeVat(); requestDraw(); }, { passive: true
 
 /* ---------- the batch ---------- */
 const S = {
-  T: 48, C5: 0, CU: 0, A: 0, step: 0, hold: false, time: 0, warm: false, auto: false, autoAng: 0,
+  T: 48, C5: 0, CU: 0, A: 0, step: 0, hold: false, time: 0, warm: false, auto: false, autoAng: 0, hint: 1, stirred: 0,
   phase: 'vat', pour: 0, fill: 0, set: 0, Q: 0, bloom: 0, hist: [],
 };
 const pointer = { x: 0, y: 0, ang: null, lastT: 0, omega: 0, inVat: false };
@@ -566,7 +574,7 @@ function pour() {
   setTimeout(() => ui.again.focus({ preventScroll: true }), reduceMotion ? 0 : 2600);
 }
 function newBatch() {
-  Object.assign(S, { T: 48, C5: 0, CU: 0, A: 0, step: 0, hold: false, phase: 'vat', pour: 0, fill: 0, set: 0, hist: [] });
+  Object.assign(S, { T: 48, C5: 0, CU: 0, A: 0, step: 0, hold: false, phase: 'vat', pour: 0, fill: 0, set: 0, hist: [], stirred: 0, hint: 1 });
   ui.result.hidden = true;
   document.documentElement.classList.remove('poured');
   lastStep = -1;
@@ -771,7 +779,8 @@ function render(thick) {
   gl.uniform1i(R.u.uBar, bindTex(2, barTex));
   gl.uniform2f(R.u.uDyeTexel, 1 / DYE, 1 / DYE);
   gl.uniform1f(R.u.uTime, S.time);
-  gl.uniform1f(R.u.uGloss, 0.55 + 0.45 * quality());
+  // molten chocolate is always glossy; temper sharpens it further
+  gl.uniform1f(R.u.uGloss, 0.8 + 0.2 * quality());
   gl.uniform1f(R.u.uThick, thick);
   gl.uniform1f(R.u.uHeat, smooth(36, 48, S.T));
   gl.uniform1f(R.u.uSim, useSim ? 1 : 0);
@@ -780,6 +789,7 @@ function render(thick) {
   gl.uniform1f(R.u.uSet, S.set);
   gl.uniform1f(R.u.uQ, S.Q);
   gl.uniform1f(R.u.uBloom, S.bloom);
+  gl.uniform1f(R.u.uHint, S.hint);
   const bw = Math.min(vat.r * 2.05, innerWidth * 0.92) * k;
   gl.uniform2f(R.u.uBarSize, bw, bw * 0.5);
   gl.uniform3fv(R.u.uSwirl, swirls.flat());
@@ -798,6 +808,9 @@ function step(dt, still) {
     stirAt(x, y, x - x0, y - y0, dt);
   }
   if (S.phase === 'vat') tick(dt);
+  // the stirring hint fades once the batch has been stirred for a moment
+  if (S.A > 0.3) S.stirred = (S.stirred || 0) + dt;
+  S.hint = S.phase === 'vat' ? clamp(1 - (S.stirred || 0) / 1.5, 0, 1) : 0;
   else {
     // pour: the vat gives way, the mould fills, the bar sets
     const k = reduceMotion ? 1 : dt;
