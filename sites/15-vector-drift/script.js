@@ -787,6 +787,7 @@ function run() {
     ship.visible = true;
     trails.forEach((t) => { t.pts.length = 0; });
     el.attract.classList.add('off');
+    el.attract.inert = true; // faded out, so out of the tab order and the accessibility tree
     el.over.hidden = true;
     el.paused.hidden = true;
     setMode('play');
@@ -840,6 +841,7 @@ function run() {
     el.over.hidden = true;
     el.paused.hidden = true;
     el.attract.classList.remove('off');
+    el.attract.inert = false;
     clearEnts();
     shardsOfHull.hide();
     ship.visible = true;
