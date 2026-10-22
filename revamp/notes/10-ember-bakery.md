@@ -2,8 +2,8 @@
 
 - **Vertical:** Artisan Bakery
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -71,3 +71,11 @@ the weak point.
 - Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
 - Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
 - Interaction checks: Pointer/keyboard stoking raises the gauge; reduced-motion Space press raises 85% to 100%. Logs remain visible, controls are below the oven, all four prices and footer reachable on short screens.
+
+### Confirm — 2026-10-22 · Claude (T11)
+Checked cc4aa7b at 1440x900, 1024x640 and 390x844, top and bottom of the page (CDN/font mirror). verify-sites `--only 10` ok, zero failures; no sideways scroll.
+- R1 confirmed: soft additive flame lobes with heat ribbons; glowing fissured logs sit in front.
+- R2 confirmed: the stoke button and gauge sit under the oven mouth on a dark field.
+- R3 confirmed: at 1024x640 the menu and footer flow and scroll; the oven is whole.
+- R4 confirmed: round, tin, batard and irregular loaf silhouettes.
+Result: done.

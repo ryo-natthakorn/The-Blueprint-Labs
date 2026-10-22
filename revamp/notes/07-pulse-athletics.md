@@ -2,8 +2,8 @@
 
 - **Vertical:** Boutique Fitness
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -76,3 +76,12 @@ with two buttons added, so the craft bar in PROTOCOL §5 isn't met.
 - Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
 - Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
 - Interaction checks: Start across 40-second boundary enters REST; optional sound activates, Reset returns 0:40 and round 01. Scrubbing pauses without selecting text. Short layouts scroll; marquees no longer cover the footer. Vibration is feature-detected (no physical haptics in headless Chromium).
+
+### Confirm — 2026-10-22 · Claude (T11)
+Checked cc4aa7b at 1440x900, 1024x640 and 390x844 (CDN/font mirror). Scrubbed into REST from the keyboard and pressed Start. verify-sites `--only 07` ok, zero failures; no sideways scroll.
+- R1 confirmed: "WORK" stays on one line at 1024x640; the page scrolls and the footer sits below the bottom marquee.
+- R2 confirmed: `.dial, .dial *` are `user-select: none` and pointerdown calls `preventDefault`.
+- R3 confirmed: 40/20 timeline with playhead, six-round history, sound toggle (Web Audio), feature-detected `navigator.vibrate`, and REST turns the whole room blue with a draining word.
+- R4 confirmed: labels raised to 0.7rem, lighter grey.
+- R5 confirmed: the right column holds the timeline, history and sound toggle.
+Result: done.

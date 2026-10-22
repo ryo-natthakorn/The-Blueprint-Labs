@@ -2,8 +2,8 @@
 
 - **Vertical:** Premium Water
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -76,3 +76,12 @@ are now weaker than v1, though.
 - Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
 - Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
 - Interaction checks: Mouse and arrow gestures tilt the water line and produce a visible wake; reduced motion redraws a still on input. The glass/water optics remain a raymarched surface with analytic interior shading, not a full physical fluid simulation. Mobile content and footer remain below the bottle.
+
+### Confirm — 2026-10-22 · Claude (T11)
+Checked cc4aa7b at 1440x900, 390x844 and 360x640, plus a pointer sweep across the vessel (CDN/font mirror). verify-sites `--only 08` ok, zero failures; no sideways scroll.
+- R1 confirmed: sine-dented sides are gone; neck and shoulder show glass highlights over an inner water line, light shafts bend behind it, and the base sits on a soft glow.
+- R2 confirmed: a stir leaves a clear ring wake in the backdrop and tilts the water line.
+- R3 confirmed: on phones the bottle has its own stage above the copy; 360x640 scrolls to the footer.
+- R4 confirmed: the label is a canvas texture sampled in the shader.
+- Observation, not blocking: on phones the shader renders at 0.85× CSS pixels (`script.js:206`) and drops toward 0.55× when frames are slow, so the small "64° N / SOURCE 04" line on the label goes soft. A crisper label on mobile would be a nice follow-up.
+Result: done.

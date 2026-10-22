@@ -2,8 +2,8 @@
 
 - **Vertical:** Horology
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -83,3 +83,12 @@ primitives, so the craft bar in PROTOCOL §5 isn't met yet.
 - Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
 - Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
 - Interaction checks: All six chapters inspected, arrow/Home orbit works. Dial, gear train, skeletal rotor and signed caseback each take the main stage; other components move onto a parts rail.
+
+### Confirm — 2026-10-22 · Claude (T11)
+Checked cc4aa7b at 1440x900 and 390x844, motion on and reduced, through all six chapters (CDN/font mirror, headless SwiftShader). verify-sites `--only 06` ok, zero console/page/request failures; no `sigmaRadians` warning any more.
+- R1 confirmed: chapter II now reads "Charcoal, brushed from the centre", matching the charcoal sunray dial.
+- R2 confirmed: bevelled shoulders join the case with no gap; straps curve away and carry stitching.
+- R3 confirmed: each chapter brings its part to the main stage with the rest on a parts rail — bridges, ruby jewels and four toothed wheels; skeleton rotor over the coiled mainspring; caseback signed "A. L." with a serial.
+- R4 confirmed: canvas is focusable; arrows turn it, Home resets.
+- R5 confirmed: no PMREM warning in the console.
+Result: done.

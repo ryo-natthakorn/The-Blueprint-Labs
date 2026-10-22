@@ -61,5 +61,9 @@ One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
 - [03-nova-orbit] Nova Orbit — revamped by Claude, reviewed by Codex
 - [04-cipher-security] CIPHER — revamped by Claude, reviewed by Codex
 - [05-flora-lab] Flora Lab — revamped by Claude, reviewed by Codex
-
+- [06-meridian-watches] Meridian — revamped by Codex, reviewed by Claude
+- [07-pulse-athletics] PULSE — revamped by Codex, reviewed by Claude
+- [08-glacier-water] Glacier — revamped by Codex, reviewed by Claude
+- [09-noctua-observatory] Noctua Observatory — revamped by Codex, reviewed by Claude
+- [10-ember-bakery] Ember — revamped by Codex, reviewed by Claude
 - [13-bathyal-institute] BATHYAL — revamped by Claude, reviewed by Codex

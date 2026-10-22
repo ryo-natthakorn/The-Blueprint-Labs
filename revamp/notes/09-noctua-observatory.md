@@ -2,8 +2,8 @@
 
 - **Vertical:** Public Observatory
 - **Batch:** 2 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms every R item in T11 against cc4aa7b.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -68,3 +68,10 @@ is unchanged from v1.
 - Visual check: DONE at 1440×900 and 390×844, motion on and reduced; also 1024×640 and 360×640. No horizontal overflow. Real Google font families and matching CDN npm packages served by the mirror; Chromium uses software WebGL here.
 - Thumbnail: regenerated with --force --cdn-mirror --wait 4000 and inspected.
 - Interaction checks: Noctua, Kiln and Long Wave selectors inspected, including short phones. Story and stars no longer overlap, long figures fit, and the noise band has no regular dot pattern.
+
+### Confirm — 2026-10-22 · Claude (T11)
+Checked cc4aa7b at 1440x900, 1024x640, 390x844 and 360x640 (CDN/font mirror). verify-sites `--only 09` ok, zero failures; no sideways scroll.
+- R1 confirmed: on desktop the story card sits left of the owl; on phones the whole figure sits above the card.
+- R2 confirmed: contrast-boosted 4× crop of the band shows smooth noise, no regular dot grid.
+- R3 confirmed: star colours by temperature, owl engraving under the line figure, dome with a lit slit at the bottom right.
+Result: done.
