@@ -52,7 +52,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const BG = 0xf1ede3;
+const BG = 0xddd5c4;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(BG);
 scene.fog = new THREE.Fog(BG, 9, 30);
@@ -400,6 +400,7 @@ const paperMat = new THREE.MeshStandardMaterial({
   roughness: 0.9,
   side: THREE.DoubleSide,
   alphaTest: 0.5,
+  emissiveIntensity: 0.16,      // light through the fibres: paper reads brighter than the room
 });
 const sheet = new THREE.Mesh(sheetGeo, paperMat);
 sheet.castShadow = true;
@@ -502,6 +503,8 @@ function poseAt(s, t) {
   const prog = new Array(FOLDS.length).fill(0);
   const u1 = win(stepped, 1);
   angles[0] = u1 < 1 ? Math.sin(PI * ease(u1)) * PI * 0.985 + SPINE_REST * ease(u1) : SPINE_REST;
+  // on the opening page the left half breathes, as if a hand were about to take it
+  if (!reduceMotion && u1 === 0) angles[0] = (0.5 - 0.5 * Math.cos(t * 1.1)) * 7 * DEG * clamp(1 - s * 1.5, 0, 1);
   const u2 = ease(win(stepped, 2));
   angles[1] = angles[2] = u2 * PI;
   prog[1] = prog[2] = u2;
@@ -527,7 +530,9 @@ function poseAt(s, t) {
 /* ---------- camera framing (lens shift keeps the subject clear of the copy) ---------- */
 const CAM = {
   desk: { pos: new THREE.Vector3(0.05, 4.1, 3.15), look: new THREE.Vector3(0.05, 0, -0.1) },
-  air: { pos: new THREE.Vector3(3.9, 2.35, 4.6), look: new THREE.Vector3(0.1, 1.0, -0.15) },
+  air: { pos: new THREE.Vector3(5.7, 1.95, 2.9), look: new THREE.Vector3(0.1, 1.12, -0.65) },
+  // portrait: look along the dart's length so it fits a narrow screen
+  airTall: { pos: new THREE.Vector3(2.0, 2.4, 4.2), look: new THREE.Vector3(-0.3, 1.1, -0.8) },
   flight: { pos: new THREE.Vector3(3.6, 3.4, 5.2), look: new THREE.Vector3(0.4, 0.3, -4.4) },
 };
 const camPos = new THREE.Vector3(), camLook = new THREE.Vector3();
@@ -572,6 +577,7 @@ function setPaper(k) {
   sheet.customDepthMaterial.needsUpdate = true;
   old.dispose();
   document.querySelectorAll('.swatch').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.paper === k)));
+  paperMat.emissive.set(p.base).convertSRGBToLinear();
   ui.note.textContent = p.note;
   ui.sheetName.textContent = `${p.name} · ${p.gsm} gsm`;
   ui.dist.textContent = p.dist.toFixed(1);
@@ -657,9 +663,11 @@ function frame() {
 
   // camera between bench, hand and flight
   const air = lift, far = ease(clamp(fly * 1.4, 0, 1));
-  camPos.copy(CAM.desk.pos).lerp(CAM.air.pos, air).lerp(CAM.flight.pos, far);
-  camLook.copy(CAM.desk.look).lerp(CAM.air.look, air).lerp(CAM.flight.look, far);
-  if (small()) camPos.add(tmpV.set(0, 0.9, 1.6).multiplyScalar(1 - far * 0.5));
+  const A = small() ? CAM.airTall : CAM.air;
+  camPos.copy(CAM.desk.pos).lerp(A.pos, air).lerp(CAM.flight.pos, far);
+  camLook.copy(CAM.desk.look).lerp(A.look, air).lerp(CAM.flight.look, far);
+  // portrait screens are narrow: stand further back along the same line of sight
+  if (small()) camPos.sub(camLook).multiplyScalar(lerp(1.45, 1.25, far)).add(camLook);
   if (!reduceMotion) {
     pointer.sx += (pointer.x - pointer.sx) * 0.05;
     pointer.sy += (pointer.y - pointer.sy) * 0.05;
@@ -671,6 +679,7 @@ function frame() {
   key.target.position.copy(camLook).setY(0);
   // light from the bench's left while it lies flat; from the camera's side once it's lifted
   key.position.copy(key.target.position).add(tmpV.set(lerp(-3.2, 3.4, air), lerp(6.5, 5.6, air), lerp(3.4, 2.6, air)));
+  key.intensity = lerp(2.5, 3.3, air * (1 - far));
   // chapters fade near the top and bottom so they never pile up under the masthead
   for (const c of cards) {
     const r = c.getBoundingClientRect();

@@ -2,8 +2,8 @@
 
 - **Vertical:** Paper Goods
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews in T17.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -27,15 +27,17 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 ## Pass log
 - Pass 1: Rebuilt the fold engine as exact rigid origami. The dart is folded once in memory, splitting convex facets along each hinge in folded space and carrying flat UVs: 16 facets, area checked equal to the sheet. Each crease is a real mesh edge. At runtime each fold rotates its member facets about a hinge re-derived from anchor points that travel with the sheet, so later folds land exactly on earlier ones, including on the spine's 8° remembered valley. Layers are kept apart by a compacted stacking order, applied only once a facet is laid on another (no seams on the open sheet). New linen bench with soft shadows, a bone folder and a pencil. The sheet folds flat on the bench, lifts upright for the wings, opens its V and flies down the bench to a marked landing, with the dashed trail. Four papers (colour, fibre, tooth, watermark) set distance and hang time. Lens-shift framing, fold rail, paper picker; cards fade near the edges.
 - Pass 2: Checked 1024x640, 360x640, 844x390 and no-WebGL. The picker covered the sheet on smaller desktops: the subject now frames above the picker's top edge, and the picker is compact below 1200 wide or 760 tall. Short phones get a tighter card and a higher lens shift, so the sheet keeps the top of the screen. On short landscape the masthead scrolls away instead of sitting on the flight card. A tiny loader now checks for WebGL before importing the bench; without it the chapters stand alone, with no errors.
-- Pass 3:
+- Pass 3: Swept every chapter at both widths. The lifted dart was seen from above as a flat grey triangle, so desktop now looks at it side-on and portrait looks along its length (so it fits a narrow screen). Portrait cameras stand further back on the same sightline. Paper read too close to the room, so the background is warmer and darker, the paper has a faint fibre glow (emissive 0.16 of its own colour), and the lift light is brighter. The opening sheet breathes a few degrees on the spine, as if about to be picked up. Props were moved clear of the copy.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (97 files, 26 projects; the new file is the WebGL loader).
+- verify-sites: `--only 22 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served three@0.166.1 because this environment blocks cdn.jsdelivr.net.
+- Visual check, desktop 1440x900: done. Every chapter from flat sheet to landing, all four papers (Clay and Kozo also through the flight), plus 1024x640 and 844x390. No sideways scroll.
+- Visual check, mobile 390x844: done, every chapter, plus 360x640.
+- Reduced motion: done at both widths. Each chapter shows its finished fold, with no breathing or sway, and the flight chapter shows the landed dart with its full trail.
+- No WebGL: the loader skips the bench, and the chapters read on their own with no errors.
+- Fold engine check: crease pattern of 16 facets whose flat areas sum to the sheet (2.8000). Every crease is a mesh edge, with no tears or sawtooth at any fold.
+- Thumbnail regenerated: yes (`--wait 5000`), opening sheet, checked.
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

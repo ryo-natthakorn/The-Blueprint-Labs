@@ -444,12 +444,13 @@
       "editorial light"
     ],
     "accent": "#8a8272",
-    "description": "One sheet folds itself into a paper plane as you scroll — a real hinge-and-membership fold engine, crease by crease — then flies off the bench trailing a dashed line.",
+    "description": "Choose one of four handmade papers, then scroll: the sheet folds into a dart on a linen bench, crease by exact crease, lifts for its wings, and flies down the bench. The flight test reports distance and hang time by weight.",
     "thumbnail": "/sites/22-grammage-paper/assets/thumb.jpg",
     "livePath": "/sites/22-grammage-paper/",
     "tech": [
       "Three.js",
-      "Rodrigues fold engine",
+      "exact rigid-origami fold engine",
+      "soft shadows",
       "scroll choreography"
     ],
     "status": "complete"
