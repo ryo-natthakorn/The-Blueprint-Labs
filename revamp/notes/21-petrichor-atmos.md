@@ -2,8 +2,8 @@
 
 - **Vertical:** Weather Intelligence
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews in T17.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -28,16 +28,18 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Pass log
 - Pass 1: Rebuilt the shader. Single-scattering sky with aerosol reddening and twilight ozone blue, a raymarched cumulus deck (one-fetch 3D texture noise, Beer–Lambert, sun-shadow march, mass-above occlusion, powder, two-lobe phase), three ridges in aerial perspective, and a plain that soaks into sky-mirroring puddles with rain rings. Moon disc with phase, temperature-coloured stars and a faint Milky Way. Grain is removed with a constant-alpha history buffer (stills accumulate six passes). The station faces WSW, so the sun sets just right of centre and storms build in view. Lightning is a branched 2D-overlay bolt (dim inside the cloud, two pulses at most) that lights the cloud around its channel, with a distance → thunder countdown. New desk UI: condition word fitted to its column, a story line, six coherent readings, the scent index, a 24-hour sky-gradient hour track, a storm track and Play the forecast. Labels are ≥ 11.5px.
-- Pass 2:
-- Pass 3:
+- Pass 2: Checked 1024x640, 360x640, landscape 844x390, no-WebGL, keyboard and reduced motion. Amber kicker text sat on bright cloud at 1024x640 and on phones, so the desk now carries its own shade sized to its content (it isn't a fixed scrim any more). Sky clicks never reached the canvas under the UI layer; strikes now listen on the document and ignore the controls. Thunder now 'arrives' when the countdown ends. Reduced motion: storm 0 → 80 → 90 → 10 gives Fair → Petrichor (scent 90) → Thunder → After the rain, and Play steps an hour at a time.
+- Pass 3: Swept dawn, noon, golden hour, blue hour, night and thunder at both widths. Fixed a regression where the desk shade covered the whole viewport (the grid row was taller than the content), which made every scene dull. Front-lit dawn clouds got a phase floor so they read pink, not brown. Added the belt of Venus and earth shadow opposite a low sun, a 1.35× low-sun exposure lift, and a proper blue-hour band between sunset and night. Ridge silhouettes now composite far to near with a one-pixel soft edge (no more stair-steps). Bolts show through thin cloud above the base. The page opens at 17:30 golden hour, the strongest first frame.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: `--only 21 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served Google Fonts and the Font Awesome CSS because this environment blocks cdnjs and jsdelivr.
+- Visual check, desktop 1440x900: done. 06:30, 08:00, 11:30/40%, 13:00, 14:00, 17:30–17:45, 18:30, 21:30, 00:30, 16:00–16:30 at 60–96% (with a forced strike), and after-the-rain puddles. Also 1024x640. No sideways scroll.
+- Visual check, mobile 390x844: done, same states plus 360x640 and 844x390 (the page scrolls rather than overlaps).
+- Reduced motion: done at both widths. Composed stills (six accumulated passes) on every input. Rain streaks hold still, no lightning flashes, and Play steps hour by hour.
+- No WebGL: CSS sky gradient that follows the hour, and all readings still work.
+- Headless Chromium uses SwiftShader, so the adaptive scaler sits at its 0.55 px/CSS-px floor in these shots. Real GPUs run the tier scale (0.7 desktop, 0.5×dpr phones) with 40/26/18 cloud steps.
+- Thumbnail regenerated: yes (`--wait 6000`), golden-hour opening frame, checked.
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

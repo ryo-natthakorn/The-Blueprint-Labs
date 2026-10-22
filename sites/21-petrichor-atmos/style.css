@@ -82,6 +82,7 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
 .desk {
   position: relative;
   isolation: isolate;
+  align-self: end;               /* only as tall as its content, so the shade below follows it */
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(19rem, 23rem);
   align-items: end;

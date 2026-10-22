@@ -418,18 +418,19 @@
     "title": "PETRICHOR",
     "vertical": "Weather Intelligence",
     "styleTags": [
-      "procedural sky",
-      "shader",
+      "volumetric sky",
+      "raymarched clouds",
       "instrument panel"
     ],
     "accent": "#e8a23a",
-    "description": "One fragment shader as an entire sky: scrub the hour from dawn to starfield, raise a storm with a slider, and wait for the lightning it earns.",
+    "description": "One fragment shader as a whole weather station: raymarched cumulus over Kestrel Flats, a sunset you can scrub to, a storm that builds towers and earns its lightning, and a scent index that peaks when rain first meets dry ground.",
     "thumbnail": "/sites/21-petrichor-atmos/assets/thumb.jpg",
     "livePath": "/sites/21-petrichor-atmos/",
     "tech": [
       "raw WebGL",
-      "5-octave FBM clouds",
-      "screen-space rain"
+      "raymarched volumetric clouds",
+      "single-scattering atmosphere",
+      "temporal accumulation"
     ],
     "status": "complete"
   },

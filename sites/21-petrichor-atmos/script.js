@@ -146,6 +146,12 @@ vec3 skyColor(vec3 rd) {
   float tw = smoothstep(-0.2, 0.0, uSun.y) * (1.0 - smoothstep(0.05, 0.35, uSun.y));
   c += vec3(0.02, 0.07, 0.22) * tw * (0.4 + 0.6 * max(rd.y, 0.0)) * 1.4;
   c += vec3(0.012, 0.02, 0.045) * (1.0 - smoothstep(-0.1, 0.1, uSun.y)) * (0.6 + 0.4 * max(rd.y, 0.0)); // night air glow
+  // twilight opposite the sun: the pink belt of Venus over the blue-grey shadow of the earth
+  float anti = max(-dot(normalize(vec3(rd.x, 0.0, rd.z)), normalize(vec3(uSun.x, 0.0, uSun.z))), 0.0);
+  float lowSun = smoothstep(-0.2, -0.03, uSun.y) * (1.0 - smoothstep(0.06, 0.22, uSun.y));
+  float belt = exp(-pow((rd.y - 0.1) / 0.07, 2.0));
+  c += vec3(0.5, 0.26, 0.32) * belt * anti * lowSun * 1.4;
+  c *= 1.0 - 0.32 * exp(-pow(rd.y / 0.045, 2.0)) * anti * lowSun;
   // storms grey the sky out
   float g = dot(c, vec3(0.3, 0.5, 0.2));
   c = max(mix(vec3(g), c, 1.18), 0.0);                 // a touch more blue
@@ -186,7 +192,8 @@ vec4 marchClouds(vec3 rd, vec3 keyDir, vec3 keyCol, vec3 ambTop, vec3 ambBot, fl
   float T = 1.0;
   vec3 L = vec3(0.0);
   float mu = dot(rd, keyDir);
-  float ph = (phaseHG(mu, 0.62) * 0.72 + phaseHG(mu, -0.22) * 0.28) * 4.0 * PI;
+  // multiple scattering keeps back-lit (front-facing) cloud brighter than one HG lobe would
+  float ph = max((phaseHG(mu, 0.62) * 0.72 + phaseHG(mu, -0.22) * 0.28) * 4.0 * PI, 0.9);
   for (int i = 0; i < MAX_STEPS; i++) {
     if (float(i) >= uSteps) break;
     vec3 p = RO + rd * t;
@@ -289,6 +296,55 @@ float rainLayer(vec2 uv, float s, float speed, float len, float amt, float t) {
   return on * w * seg;
 }
 
+/* ---------- sky, stars, discs and the cloud deck along one ray ---------- */
+vec3 skyLayer(vec3 rd, float az, vec3 sunC, float day, vec3 keyDir, vec3 keyCol, vec3 ambTop, vec3 ambBot, float jitter, out float tSurf, out float vis) {
+    /* ---- sky ---- */
+    vec3 col = skyColor(rd);
+    float night = 1.0 - smoothstep(-0.16, -0.03, uSun.y);
+    // stars and the Milky Way
+    vec2 sc = vec2(az, asin(clamp(rd.y, -1.0, 1.0))) * 160.0;
+    vec2 id = floor(sc);
+    float h = hash12(id);
+    vec2 so = vec2(hash12(id + 1.3), hash12(id + 5.9)) - 0.5;
+    float sd = length(fract(sc) - 0.5 - so * 0.7);
+    float star = step(0.985, h) * smoothstep(0.16, 0.0, sd) * (0.4 + 2.4 * pow(hash12(id + 9.1), 6.0));
+    star *= 0.75 + 0.25 * sin(uTime * (2.0 + h * 3.0) + h * 60.0) * (1.0 - smoothstep(0.0, 0.3, rd.y) * 0.5);
+    vec3 starC = mix(vec3(1.0, 0.82, 0.68), vec3(0.75, 0.85, 1.0), hash12(id + 4.4));
+    float mw = exp(-pow(dot(rd, normalize(vec3(0.55, 0.62, -0.56))) * 5.0, 2.0));
+    float mwn = noise2(sc * 0.035) * 0.6 + noise2(sc * 0.09) * 0.4;
+    vec3 stars = starC * star * 0.9 + vec3(0.06, 0.065, 0.085) * mw * mwn * mwn;
+    // sun and moon discs
+    float sdot = dot(rd, uSun);
+    float sunDisc = smoothstep(0.99993, 0.99996, sdot);
+    vec3 disc = sunC * sunDisc * 1.2;
+    float mdot = dot(rd, uMoon);
+    if (mdot > 0.9997) {
+      vec3 mr = normalize(cross(vec3(0.0, 1.0, 0.0), uMoon));
+      vec3 mu = cross(uMoon, mr);
+      vec2 m = vec2(dot(rd, mr), dot(rd, mu)) / 0.0105;
+      float r2 = dot(m, m);
+      if (r2 < 1.0) {
+        vec3 nrm = vec3(m, sqrt(1.0 - r2));
+        float lit = smoothstep(-0.1, 0.25, dot(nrm, normalize(vec3(0.75, 0.15, 0.45))));
+        float maria = 0.75 + 0.25 * noise2(m * 3.0 + 2.0);
+        disc += vec3(0.95, 0.93, 0.88) * lit * maria * 0.9 * smoothstep(1.0, 0.92, r2) * (1.0 - day * 0.7);
+      }
+    }
+    col += (stars * night + disc) * (1.0 - smoothstep(0.2, 0.6, uStorm));
+    // moon halo
+    col += vec3(0.5, 0.56, 0.7) * pow(max(mdot, 0.0), 900.0) * 0.12 * night * (1.0 - uStorm);
+
+    /* ---- clouds ---- */
+    float tF;
+    vec4 cl = marchClouds(rd, keyDir, keyCol, ambTop, ambBot, jitter, tF);
+    // distance haze over the cloud layer
+    float fog = 1.0 - exp(-max(tF, 0.0) / (uFog * 2.2));
+    col = col * cl.a + mix(cl.rgb, fogColor(rd) * (1.0 - cl.a), fog);
+    tSurf = tF;
+    vis = cl.a;
+    return col;
+}
+
 vec3 aces(vec3 x) {
   return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0);
 }
@@ -355,60 +411,22 @@ void main() {
     col = mix(diff, refl, F * wetGloss);
     col = mix(col, fogColor(rd), 1.0 - exp(-t / uFog));
     tSurf = t;
-  } else if (rd.y < hA) {
-    col = hillColor(3.0, rd, keyCol, ambTop, 0.8);
-    tSurf = 3.0;
-  } else if (rd.y < hB) {
-    col = hillColor(8.0, rd, keyCol, ambTop, 0.8);
-    tSurf = 8.0;
-  } else if (rd.y < hC) {
-    col = hillColor(22.0, rd, keyCol, ambTop, 0.8);
-    tSurf = 22.0;
   } else {
-    /* ---- sky ---- */
-    col = skyColor(rd);
-    float night = 1.0 - smoothstep(-0.16, -0.03, uSun.y);
-    // stars and the Milky Way
-    vec2 sc = vec2(az, asin(clamp(rd.y, -1.0, 1.0))) * 160.0;
-    vec2 id = floor(sc);
-    float h = hash12(id);
-    vec2 so = vec2(hash12(id + 1.3), hash12(id + 5.9)) - 0.5;
-    float sd = length(fract(sc) - 0.5 - so * 0.7);
-    float star = step(0.985, h) * smoothstep(0.16, 0.0, sd) * (0.4 + 2.4 * pow(hash12(id + 9.1), 6.0));
-    star *= 0.75 + 0.25 * sin(uTime * (2.0 + h * 3.0) + h * 60.0) * (1.0 - smoothstep(0.0, 0.3, rd.y) * 0.5);
-    vec3 starC = mix(vec3(1.0, 0.82, 0.68), vec3(0.75, 0.85, 1.0), hash12(id + 4.4));
-    float mw = exp(-pow(dot(rd, normalize(vec3(0.55, 0.62, -0.56))) * 5.0, 2.0));
-    float mwn = noise2(sc * 0.035) * 0.6 + noise2(sc * 0.09) * 0.4;
-    vec3 stars = starC * star * 0.9 + vec3(0.06, 0.065, 0.085) * mw * mwn * mwn;
-    // sun and moon discs
-    float sdot = dot(rd, uSun);
-    float sunDisc = smoothstep(0.99993, 0.99996, sdot);
-    vec3 disc = sunC * sunDisc * 1.2;
-    float mdot = dot(rd, uMoon);
-    if (mdot > 0.9997) {
-      vec3 mr = normalize(cross(vec3(0.0, 1.0, 0.0), uMoon));
-      vec3 mu = cross(uMoon, mr);
-      vec2 m = vec2(dot(rd, mr), dot(rd, mu)) / 0.0105;
-      float r2 = dot(m, m);
-      if (r2 < 1.0) {
-        vec3 nrm = vec3(m, sqrt(1.0 - r2));
-        float lit = smoothstep(-0.1, 0.25, dot(nrm, normalize(vec3(0.75, 0.15, 0.45))));
-        float maria = 0.75 + 0.25 * noise2(m * 3.0 + 2.0);
-        disc += vec3(0.95, 0.93, 0.88) * lit * maria * 0.9 * smoothstep(1.0, 0.92, r2) * (1.0 - day * 0.7);
-      }
+    // ridges composited far to near with a one-pixel soft edge, so silhouettes don't stair-step
+    float px = 2.0 * uTanH / uRes.y;
+    float cA = 1.0 - smoothstep(hA - px, hA + px, rd.y);
+    float cB = 1.0 - smoothstep(hB - px, hB + px, rd.y);
+    float cC = 1.0 - smoothstep(hC - px, hC + px, rd.y);
+    vec3 back = vec3(0.0);
+    tSurf = 22.0;
+    if (cA < 0.999 && cB < 0.999 && cC < 0.999) {
+      float vis;
+      back = skyLayer(rd, az, sunC, day, keyDir, keyCol, ambTop, ambBot, jitter, tSurf, vis);
+      skyVis = vis * (1.0 - cA) * (1.0 - cB) * (1.0 - cC);
     }
-    col += (stars * night + disc) * (1.0 - smoothstep(0.2, 0.6, uStorm));
-    // moon halo
-    col += vec3(0.5, 0.56, 0.7) * pow(max(mdot, 0.0), 900.0) * 0.12 * night * (1.0 - uStorm);
-
-    /* ---- clouds ---- */
-    float tF;
-    vec4 cl = marchClouds(rd, keyDir, keyCol, ambTop, ambBot, jitter, tF);
-    // distance haze over the cloud layer
-    float fog = 1.0 - exp(-max(tF, 0.0) / (uFog * 2.2));
-    col = col * cl.a + mix(cl.rgb, fogColor(rd) * (1.0 - cl.a), fog);
-    tSurf = tF;
-    skyVis = cl.a;
+    if (cC > 0.0) back = mix(back, hillColor(22.0, rd, keyCol, ambTop, 0.8), cC);
+    if (cB > 0.0) back = mix(back, hillColor(8.0, rd, keyCol, ambTop, 0.8), cB);
+    col = cA > 0.0 ? mix(back, hillColor(3.0, rd, keyCol, ambTop, 0.8), cA) : back;
   }
 
   // glare: a tight warm halo where the sun is clear, a wide soft one through anything
@@ -431,6 +449,7 @@ void main() {
 
   // exposure: open up at night, then filmic
   float expo = mix(6.0, 1.0, smoothstep(-0.18, 0.12, uSun.y));
+  expo *= mix(1.35, 1.0, smoothstep(0.08, 0.35, uSun.y));     // open up for golden hour
   expo *= mix(1.0, 1.08, smoothstep(0.4, 1.0, uStorm));
   col = aces(col * expo * 0.12);
   col = pow(col, vec3(1.0 / 2.2));
@@ -621,7 +640,7 @@ function weather(h, s) {
 }
 
 function condition(w, rain) {
-  const night = w.sunY < -0.06;
+  const night = w.sunY < -0.13;
   const low = w.sunY < 0.2;
   if (S.scent > 0.42) return ['Petrichor', 'Rain on dry ground. Oils and geosmin lifting from the soil — the scent peaks now.'];
   if (S.stormNow > 0.72) return ['Thunder', 'A storm cell overhead. Count the seconds after each flash: three seconds is a kilometre.'];
@@ -630,7 +649,7 @@ function condition(w, rain) {
   if (S.wet > 0.22) return ['After the rain', 'The cell has moved on. Standing water is holding the sky.'];
   if (night && S.stormNow < 0.1) return ['Clear night', w.sunY < -0.25 ? 'Clear and cooling. Moonlight on the Flats.' : 'Last light gone. Stars out over the ridges.'];
   if (night) return ['Broken cloud', 'Moonlit cumulus drifting east. Stars in the gaps.'];
-  if (w.sunY < 0.02) return ['Blue hour', 'The sun is below the ridge. The cloud tops still hold the light.'];
+  if (w.sunY < 0.02) return ['Blue hour', w.sunY < -0.04 ? 'The sun is down. The last light hangs in a band over the ridges.' : 'The sun is behind the ridge. The cloud tops still hold the light.'];
   if (low) return ['Golden hour', 'Low sun under the cloud base. Every edge lit from the side.'];
   return ['Fair', `High cumulus, ${w.wind} kt ${COMPASS[Math.round(w.wdir / 22.5) % 16]}. Dry ground for ${S.dryDays} days.`];
 }
@@ -710,7 +729,7 @@ function drawBolt() {
     if (zone === 'cloud') bctx.rect(0, 0, W, bolt.baseY);
     else bctx.rect(0, bolt.baseY, W, H - bolt.baseY);
     bctx.clip();
-    const k = zone === 'cloud' ? 0.3 : 1;
+    const k = zone === 'cloud' ? 0.55 : 1;
     for (const pass of [{ lw: 14, a: 0.14, blur: 30 }, { lw: 4.2, a: 0.5, blur: 12 }, { lw: 1.9, a: 1, blur: 0 }]) {
       bctx.shadowBlur = pass.blur * s;
       bctx.shadowColor = 'rgba(170, 190, 255, 0.9)';
