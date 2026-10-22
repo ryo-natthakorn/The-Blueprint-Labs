@@ -2,8 +2,8 @@
 
 - **Vertical:** Tea House
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -139,8 +139,16 @@ taps and a drag, and after switching tea.
 ## Review
 Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 
-- [ ] R1 (must) Replace the custom inline SVG Stylus and Comb button icons in `index.html` with Font Awesome free icons (or text-only controls). AGENTS.md requires “Icons: Font Awesome free tier.” This concerns the tool pictograms, not the procedural ink or paper texture. Preserve the existing accessible button labels.
+- [x] R1 (must) Replace the custom inline SVG Stylus and Comb button icons in `index.html` with Font Awesome free icons (or text-only controls). AGENTS.md requires “Icons: Font Awesome free tier.” This concerns the tool pictograms, not the procedural ink or paper texture. Preserve the existing accessible button labels.
 
 **Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Tea selection, stylus/comb, keyboard nib, print capture, tray/viewer, Escape return and real JPEG download on desktop/mobile. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log
+
+- R1: fixed in 1539b97. Stylus and Comb now use Font Awesome 6.5.1 free solid icons: `fa-wand-magic` (a thin stick, the closest free glyph to a stylus) and `fa-ruler-horizontal` flipped so the teeth hang down like a comb. The inline SVGs are gone, and the text labels "Stylus" / "Comb" stay. Pressed state and focus ring checked at both widths.
+
+### Fix verification — 2026-10-22 · Claude (T12)
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
+- Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
+- Thumbnail: regenerated so the bench shows the new icons.

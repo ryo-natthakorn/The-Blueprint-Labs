@@ -2,8 +2,8 @@
 
 - **Vertical:** Game Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -127,8 +127,16 @@ after a steer, and 10 s in (on mobile, after the crash screen).
 ## Review
 Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 
-- [ ] R1 (must) Remove the hidden attract controls from focus/navigation during a run. At 1440×900: Insert Coin focuses the canvas; the next Tab focuses an invisible `.dot` inside `#attract` with opacity 0, and further Tabs traverse the other invisible dots and Insert Coin. `.attract.off` only sets opacity and pointer-events. Use `inert`/hidden state or equivalent focus management, restore it on return to the cabinet, and verify Tab in play, pause and game-over states. This violates the checklist's visible-focus baseline and exposes controls from another game state to keyboard/screen-reader users.
+- [x] R1 (must) Remove the hidden attract controls from focus/navigation during a run. At 1440×900: Insert Coin focuses the canvas; the next Tab focuses an invisible `.dot` inside `#attract` with opacity 0, and further Tabs traverse the other invisible dots and Insert Coin. `.attract.off` only sets opacity and pointer-events. Use `inert`/hidden state or equivalent focus management, restore it on return to the cabinet, and verify Tab in play, pause and game-over states. This violates the checklist's visible-focus baseline and exposes controls from another game state to keyboard/screen-reader users.
 
 **Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Start, keyboard steering, P/Escape pause, resume and quit; touch context exposes a working pause button. Hidden-attract keyboard issue documented above. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log
+
+- R1: fixed in c25c774. `startGame()` sets `#attract` to `inert` when it fades out, and `toCabinet()` clears it. Tab walk before the fix, in play: four invisible `.dot`s then an invisible Insert Coin. After the fix: play → canvas, Sound, back link (plus the visible Pause button on touch). Paused → Resume, Quit, Sound, link. Game over → Re-sync, Cabinet, Sound, link. Back on the cabinet the dots and Insert Coin are reachable again. Checked at 1440x900 and 390x844, no page errors.
+
+### Fix verification — 2026-10-22 · Claude (T12)
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
+- Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
+- Thumbnail: not regenerated (no visual change).

@@ -2,8 +2,8 @@
 
 - **Vertical:** Architecture Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -146,8 +146,16 @@ Rendered at 1440x900 and 390x844 (motion on/off): opening draw at 3 s and
 ## Review
 Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 
-- [ ] R1 (must) Replace the hand-drawn pen and redraw SVG masks in `style.css` (`.tool-ico`, `.tool-ico-redraw`) with Font Awesome free icons. AGENTS.md's hard constraint says “Icons: Font Awesome free tier.” These are UI icons rather than the architectural drawing. `check-rules` does not detect this violation. Keep the visible focus and accessible text.
+- [x] R1 (must) Replace the hand-drawn pen and redraw SVG masks in `style.css` (`.tool-ico`, `.tool-ico-redraw`) with Font Awesome free icons. AGENTS.md's hard constraint says “Icons: Font Awesome free tier.” These are UI icons rather than the architectural drawing. `check-rules` does not detect this violation. Keep the visible focus and accessible text.
 
 **Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. All three projects in axonometric, plan and section (nine views at both sizes); pointer redline/clear, project controls and keyboard view changes. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log
+
+- R1: fixed in d1d9a0a. Pen and Redraw now use Font Awesome 6.5.1 free solid `fa-pen-nib` and `fa-rotate-right` (fontawesome + solid CSS from cdnjs). The CSS-mask SVGs are gone. Labels stay as text on desktop and as visually-hidden text on phones; pressed state and focus ring checked at both widths.
+
+### Fix verification — 2026-10-22 · Claude (T12)
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
+- Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
+- Thumbnail: regenerated (`--wait 15000`, as before) so the toolbar shows the new icons; checked against the previous shot.

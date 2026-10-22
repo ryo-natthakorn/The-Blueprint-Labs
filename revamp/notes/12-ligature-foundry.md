@@ -2,8 +2,8 @@
 
 - **Vertical:** Type Foundry
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes the R item in T12, then Codex confirms in T15.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T15.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -120,8 +120,16 @@ SOFT or WONK axes, so it now tries the real stylesheet first.
 ## Review
 Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 
-- [ ] R1 (must) Refresh the hero when it re-enters the viewport after a design-space selection. Reproduced at 1440×900 and 390×844 with reduced motion: scroll to the last matrix cell, wait until the hero is fully offscreen, choose weight 900 / opsz 9, then scroll back. The matrix marker says “you · 900 / 9”, but the hero, sliders and readout remain at weight 400 / opsz 72 indefinitely. `frame()` updates `shownKey` while `heroVisible` is false and the hero observer never invalidates that key on return. Publish the latest instance on re-entry (and verify normal motion before idle breathing masks the problem).
+- [x] R1 (must) Refresh the hero when it re-enters the viewport after a design-space selection. Reproduced at 1440×900 and 390×844 with reduced motion: scroll to the last matrix cell, wait until the hero is fully offscreen, choose weight 900 / opsz 9, then scroll back. The matrix marker says “you · 900 / 9”, but the hero, sliders and readout remain at weight 400 / opsz 72 indefinitely. `frame()` updates `shownKey` while `heroVisible` is false and the hero observer never invalidates that key on return. Publish the latest instance on re-entry (and verify normal motion before idle breathing masks the problem).
 
 **Reviewer verification:** `check-rules` OK (96 files, 26 projects); scoped `verify-sites --cdn-mirror` console 0, page 0, failed requests 0. Visual check DONE at 1440×900 and 390×844, motion on/off; no horizontal overflow or blank canvas. Matrix selection, glyph inspector by keyboard, Screen/Proof and real four-axis Fraunces. The blocked Google Fonts endpoint was replaced locally by @fontsource-variable/fraunces 5.3.0 full-axis WOFF2, not a static font. Thumbnail inspected and matches the rebuilt scene. Procedural imagery contains no people/faces. Mobile/low-core quality limits inspected in code. All checklist items pass except the finding above.
 
 ## Fix log
+
+- R1: fixed in b804ccc. The hero observer now clears `shownKey` when the hero re-enters, so the next frame publishes the current instance. Reproduced first: scroll to the last matrix cell (hero offscreen), pick 900 / 9, scroll back. Before the fix the hero stayed at 400 / 72 with reduced motion and at ~455 / 77 with motion on. After the fix the specimen, readout and sliders show `wght 900 · opsz 9` at 1440x900 and 390x844, motion on and off.
+
+### Fix verification — 2026-10-22 · Claude (T12)
+- check-rules: OK (96 files, 26 projects).
+- verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
+- Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
+- Thumbnail: not regenerated (the hero's opening state is unchanged).
