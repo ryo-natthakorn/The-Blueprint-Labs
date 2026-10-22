@@ -41,7 +41,7 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
   pointer-events: none;
   background:
     linear-gradient(180deg, rgba(10, 14, 22, 0.42) 0%, rgba(10, 14, 22, 0) 22%),
-    linear-gradient(0deg, rgba(8, 11, 17, 0.72) 0%, rgba(8, 11, 17, 0.34) 30%, rgba(8, 11, 17, 0) 52%);
+    linear-gradient(0deg, rgba(8, 11, 17, 0.4) 0%, rgba(8, 11, 17, 0) 40%);
 }
 
 .frame {
@@ -80,6 +80,8 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
 
 /* ---------- desk ---------- */
 .desk {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(19rem, 23rem);
   align-items: end;
@@ -87,6 +89,15 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
   padding: 2rem 0 1.4rem;
 }
 
+/* a shade that follows the desk's real height, so text never sits on bright cloud */
+.desk::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -7rem calc(-1 * var(--gutter)) -5rem;
+  background: linear-gradient(0deg, rgba(8, 11, 17, 0.7) 0%, rgba(8, 11, 17, 0.5) 55%, rgba(8, 11, 17, 0) 100%);
+  pointer-events: none;
+}
 .now { min-width: 0; }
 .now-kicker {
   font-size: 0.8rem;
@@ -296,9 +307,11 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
 .strike i { color: var(--mist-3); }
 .strike.live { color: var(--mist); }
 .strike.live i { color: var(--signal); }
+.strike.rumble { color: var(--signal); }
 
 /* ---------- baseline ---------- */
 .baseline {
+  position: relative;            /* paints above the desk's shade */
   display: flex;
   justify-content: space-between;
   gap: 1.4rem;
@@ -338,7 +351,7 @@ body.no-gl { background: linear-gradient(180deg, var(--sky-top, #3b6ea5), var(--
   .scrim {
     background:
       linear-gradient(180deg, rgba(10, 14, 22, 0.4) 0%, rgba(10, 14, 22, 0) 16%),
-      linear-gradient(0deg, rgba(8, 11, 17, 0.86) 0%, rgba(8, 11, 17, 0.62) 42%, rgba(8, 11, 17, 0) 64%);
+      linear-gradient(0deg, rgba(8, 11, 17, 0.6) 0%, rgba(8, 11, 17, 0) 50%);
   }
   .scent-note { display: none; }
   .scent-bar { margin-top: 0.35rem; }

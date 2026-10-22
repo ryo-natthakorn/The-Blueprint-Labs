@@ -688,6 +688,7 @@ function strike(screenX) {
   bolt.life = 0.55;
   bolt.dist = D;
   bolt.countdown = D / 0.343;
+  bolt.rumble = 0;
   bolt.strikes = (bolt.strikes || 0) + 1;
 }
 function boltEnvelope(a) {
@@ -779,9 +780,12 @@ function updateUI() {
     fitCond();
   }
   ui.story.textContent = story;
+  ui.strike.classList.toggle('rumble', bolt.rumble > 0);
   if (bolt.countdown > 0) {
     ui.strike.classList.add('live');
     ui.strikeText.textContent = `${bolt.dist.toFixed(1)} km · thunder in ${Math.ceil(bolt.countdown)} s`;
+  } else if (bolt.rumble > 0) {
+    ui.strikeText.textContent = `Thunder now · ${bolt.dist.toFixed(1)} km away`;
   } else if (bolt.strikes) {
     ui.strike.classList.toggle('live', S.stormNow > 0.6);
     ui.strikeText.textContent = `Last strike ${bolt.dist.toFixed(1)} km`;
@@ -840,9 +844,10 @@ window.addEventListener('pointermove', (e) => {
   pointer.x = (e.clientX / innerWidth - 0.5) * 2;
   pointer.y = (e.clientY / innerHeight - 0.5) * 2;
 });
-// a click on the storm calls a strike there
-canvas.addEventListener('click', (e) => {
-  if (reduceMotion || S.stormNow < 0.6 || bolt.age < 0.9 && bolt.life > 0) return;
+// a click on the open sky calls a strike there (the controls sit above the canvas)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a, button, input, label, .console, .readings')) return;
+  if (reduceMotion || S.stormNow < 0.6 || (bolt.life > 0 && bolt.age < 0.9)) return;
   strike(e.clientX / innerWidth);
 });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) last = performance.now(); });
@@ -998,7 +1003,10 @@ function frame(now) {
     if (bolt.age > bolt.life) bolt.life = 0;
   }
   bolt.flash = bolt.life > 0 ? Math.min(1, boltEnvelope(bolt.age)) : 0;
-  if (bolt.countdown > 0) bolt.countdown = Math.max(0, bolt.countdown - dt);
+  if (bolt.countdown > 0) {
+    bolt.countdown = Math.max(0, bolt.countdown - dt);
+    if (bolt.countdown === 0) bolt.rumble = 3;          // the sound arrives
+  } else if (bolt.rumble > 0) bolt.rumble = Math.max(0, bolt.rumble - dt);
   drawBolt();
 
   // adaptive resolution
