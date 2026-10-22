@@ -86,6 +86,15 @@ async function installCdnMirror(target) {
       const css = families.flatMap((entry) => {
         const family = entry.split(':')[0].replace(/\+/g, ' ');
         const slug = family.toLowerCase().replace(/ /g, '-');
+        // Fraunces is an interactive four-axis specimen on site 12. Its
+        // static fallback cannot verify opsz/SOFT/WONK; keep every axis.
+        if (slug === 'fraunces') {
+          const dir = packageDir('@fontsource-variable/fraunces', '5.3.0');
+          return ['normal', 'italic'].map((style) => {
+            const data = fs.readFileSync(path.join(dir, 'files', `fraunces-latin-full-${style}.woff2`)).toString('base64');
+            return `@font-face{font-family:'${family}';font-style:${style};font-weight:100 900;font-display:swap;src:url(data:font/woff2;base64,${data}) format('woff2')}`;
+          });
+        }
         const version = slug === 'zen-kaku-gothic-new' ? '5.3.1' : '5.3.0';
         const dir = packageDir(`@fontsource/${slug}`, version);
         const files = fs.readdirSync(path.join(dir, 'files'));

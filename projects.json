@@ -318,13 +318,14 @@
       "data-luxe"
     ],
     "accent": "#d4a94e",
-    "description": "A quant fund as celestial mechanics: 40,000 instruments orbit in shader-integrated shells while a volatility dial degrades clockwork into storm.",
+    "description": "A market research desk built around a brass-core particle orrery: select five asset classes, compare four regimes, and turn volatility into an illustrated stress response.",
     "thumbnail": "/sites/16-orrery-capital/assets/thumb.jpg",
     "livePath": "/sites/16-orrery-capital/",
     "tech": [
       "Three.js",
-      "custom vertex-shader orbits",
-      "UnrealBloom"
+      "GPU particle orbits",
+      "adaptive UnrealBloom",
+      "interactive response chart"
     ],
     "status": "complete"
   },
@@ -338,14 +339,14 @@
       "luxury minimal"
     ],
     "accent": "#7a2e28",
-    "description": "The whole house is one length of simulated silk: 2,300 Verlet particles under gravity and breath, stirred by your hand, re-dyed for the season.",
+    "description": "A couture material room with gathered silk, woven detail and four seasonal dyes. Lift the cloth, change the breeze, or study a finished static drape.",
     "thumbnail": "/sites/17-maison-vela/assets/thumb.jpg",
     "livePath": "/sites/17-maison-vela/",
     "tech": [
       "Three.js",
       "Verlet cloth physics",
       "sheen PBR",
-      "canvas-woven label"
+      "procedural woven textile"
     ],
     "status": "complete"
   },
@@ -359,13 +360,14 @@
       "data-drawn"
     ],
     "accent": "#b5602f",
-    "description": "Roast the batch yourself: hold for heat, watch 140 beans darken through the true color stages, catch first crack on the live profile curve — or make charcoal.",
+    "description": "A copper roasting bench with tumbling beans, thermal lag and a live roast curve. Hold for heat, hear first crack, then drop the batch and keep its cupping receipt.",
     "thumbnail": "/sites/18-koppar-roastery/assets/thumb.jpg",
     "livePath": "/sites/18-koppar-roastery/",
     "tech": [
       "Canvas 2D",
       "thermodynamic lag model",
-      "live roast logger"
+      "live roast logger",
+      "Web Audio crack synthesis"
     ],
     "status": "complete"
   },
@@ -379,12 +381,12 @@
       "dark product"
     ],
     "accent": "#c8f549",
-    "description": "A motorcycle assembled from sixty raw primitives — no models loaded — idling on a lit plinth with live paint, ride modes, and Sport-mode light streaks.",
+    "description": "A detailed electric motorcycle built from geometry, with a finned battery, belt drive and machined suspension. Configure four finishes and three ride modes, then inspect the engineering.",
     "thumbnail": "/sites/19-voltaic-moto/assets/thumb.jpg",
     "livePath": "/sites/19-voltaic-moto/",
     "tech": [
       "Three.js",
-      "procedural vehicle build",
+      "procedural vehicle geometry",
       "clearcoat PBR",
       "RoomEnvironment"
     ],
@@ -400,13 +402,14 @@
       "generative audio"
     ],
     "accent": "#f2762e",
-    "description": "The catalogue is a working turntable: four records, each a generative WebAudio loop, with a draggable platter that bends tempo and pitch like the real thing.",
+    "description": "A walnut-and-alloy turntable with four illustrated records and original live synthesis. Drop the needle, bend pitch, change RPM, and shape the sound with volume and tone.",
     "thumbnail": "/sites/20-halftone-records/assets/thumb.jpg",
     "livePath": "/sites/20-halftone-records/",
     "tech": [
       "Canvas 2D",
-      "WebAudio scheduler synth",
-      "platter-drag rate bend"
+      "Web Audio clock scheduler",
+      "live voice retuning",
+      "procedural sleeve artwork"
     ],
     "status": "complete"
   },

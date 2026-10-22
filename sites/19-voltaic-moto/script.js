@@ -1,313 +1,738 @@
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-/* ============================================================
-   VOLTAIC — a motorcycle from raw geometry
-   No models are loaded. The SIGMA is assembled from ~60
-   primitives: torus wheels with instanced spokes, a lofted
-   frame of capsules, clearcoat body panels. It idles on a
-   turntable; Sport mode spins the wheels up, floods the
-   headlight, and streaks the air with light.
-   ============================================================ */
-
-const canvas = document.getElementById('showroom');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isMobile = window.matchMedia('(max-width: 780px)').matches;
-
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+const canvas = document.getElementById("showroom"),
+  stage = canvas.parentElement,
+  reduced = matchMedia("(prefers-reduced-motion: reduce)").matches,
+  low = innerWidth < 760 || (navigator.hardwareConcurrency || 8) <= 4;
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: !low,
+  alpha: true,
+});
+renderer.setPixelRatio(Math.min(devicePixelRatio, low ? 1.4 : 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0b0d10);
-scene.fog = new THREE.Fog(0x0b0d10, 14, 34);
-scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
-
-const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 100);
-
-/* ---------- materials ---------- */
-
+const scene = new THREE.Scene(),
+  camera = new THREE.PerspectiveCamera(34, 1, 0.1, 50);
+const pmrem = new THREE.PMREMGenerator(renderer),
+  room = new RoomEnvironment();
+scene.environment = pmrem.fromScene(room, 0.04).texture;
+room.dispose();
+pmrem.dispose();
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const paint = new THREE.MeshPhysicalMaterial({
-  color: 0xc8f549, metalness: 0.65, roughness: 0.32,
-  clearcoat: 1, clearcoatRoughness: 0.12,
+  color: 0xc8f549,
+  metalness: 0.6,
+  roughness: 0.3,
+  clearcoat: 1,
+  clearcoatRoughness: 0.15,
 });
-const dark = new THREE.MeshStandardMaterial({ color: 0x17191d, metalness: 0.4, roughness: 0.55 });
-const chrome = new THREE.MeshStandardMaterial({ color: 0xb9c2cc, metalness: 1, roughness: 0.18 });
-const rubber = new THREE.MeshStandardMaterial({ color: 0x101114, metalness: 0, roughness: 0.92 });
-const glow = new THREE.MeshBasicMaterial({ color: 0xc8f549 });
-const lampMat = new THREE.MeshBasicMaterial({ color: 0xfff6d8 });
-
-/* ---------- the bike ---------- */
-
+const frameMat = new THREE.MeshStandardMaterial({
+    color: 0x262d30,
+    metalness: 0.85,
+    roughness: 0.36,
+  }),
+  black = new THREE.MeshStandardMaterial({
+    color: 0x14181b,
+    metalness: 0.5,
+    roughness: 0.48,
+  }),
+  silver = new THREE.MeshStandardMaterial({
+    color: 0x99a7ad,
+    metalness: 1,
+    roughness: 0.28,
+  }),
+  rubber = new THREE.MeshStandardMaterial({ color: 0x15181b, roughness: 0.95 }),
+  leather = new THREE.MeshStandardMaterial({
+    color: 0x292b29,
+    roughness: 0.83,
+  }),
+  gold = new THREE.MeshStandardMaterial({
+    color: 0xa18c56,
+    metalness: 0.8,
+    roughness: 0.32,
+  }),
+  glow = new THREE.MeshBasicMaterial({ color: 0xc8f549 });
 const bike = new THREE.Group();
 scene.add(bike);
-
-function capsuleBetween(a, b, r, mat) {
-  const dir = new THREE.Vector3().subVectors(b, a);
-  const len = dir.length();
-  const mesh = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 14), mat);
-  mesh.position.copy(a).addScaledVector(dir, 0.5);
-  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
-  bike.add(mesh);
-  return mesh;
-}
-const V = (x, y, z) => new THREE.Vector3(x, y, z);
-
-const WHEEL_R = 0.62;
 const wheels = [];
+function mesh(geometry, material, x = 0, y = 0, z = 0, parent = bike) {
+  const m = new THREE.Mesh(geometry, material);
+  m.position.set(x, y, z);
+  parent.add(m);
+  return m;
+}
+function tube(a, b, r, mat = frameMat, parent = bike) {
+  const dir = b.clone().sub(a),
+    m = mesh(
+      new THREE.CylinderGeometry(r, r, dir.length(), low ? 10 : 16),
+      mat,
+      0,
+      0,
+      0,
+      parent,
+    );
+  m.position.copy(a).add(b).multiplyScalar(0.5);
+  m.quaternion.setFromUnitVectors(V(0, 1, 0), dir.normalize());
+  return m;
+}
+function box(w, h, d, mat, x, y, z = 0) {
+  return mesh(new THREE.BoxGeometry(w, h, d), mat, x, y, z);
+}
+function disc(r, depth, mat, x, y, z = 0, parent = bike) {
+  const m = mesh(
+    new THREE.CylinderGeometry(r, r, depth, 48),
+    mat,
+    x,
+    y,
+    z,
+    parent,
+  );
+  m.rotation.x = Math.PI / 2;
+  return m;
+}
+function panel(points, depth, mat, z = 0, bevel = 0.035) {
+  const shape = new THREE.Shape();
+  points.forEach(([x, y], i) => (i ? shape.lineTo(x, y) : shape.moveTo(x, y)));
+  shape.closePath();
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth,
+    bevelEnabled: true,
+    bevelThickness: bevel,
+    bevelSize: bevel,
+    bevelSegments: 3,
+    steps: 1,
+    curveSegments: 8,
+  });
+  geo.translate(0, 0, -depth / 2);
+  return mesh(geo, mat, 0, 0, z);
+}
 function wheel(x) {
   const g = new THREE.Group();
-  g.position.set(x, WHEEL_R, 0);
-  const tire = new THREE.Mesh(new THREE.TorusGeometry(WHEEL_R - 0.09, 0.11, 18, 44), rubber);
-  g.add(tire);
-  const rimOuter = new THREE.Mesh(new THREE.TorusGeometry(WHEEL_R - 0.19, 0.025, 10, 44), chrome);
-  g.add(rimOuter);
-  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.14, 20), chrome);
-  hub.rotation.x = Math.PI / 2;
-  g.add(hub);
-  // five paired spokes
-  for (let i = 0; i < 5; i++) {
-    const a = (i / 5) * Math.PI * 2;
-    for (const off of [-0.02, 0.02]) {
-      const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.035, WHEEL_R - 0.2, 0.02), dark);
-      spoke.position.set(Math.cos(a) * (WHEEL_R - 0.2) / 2, Math.sin(a) * (WHEEL_R - 0.2) / 2, off);
-      spoke.rotation.z = a - Math.PI / 2;
-      g.add(spoke);
-    }
-  }
-  // brake disc
-  const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.012, 32), chrome);
-  disc.rotation.x = Math.PI / 2;
-  disc.position.z = 0.08;
-  g.add(disc);
+  g.position.set(x, 0.48, 0);
   bike.add(g);
   wheels.push(g);
+  mesh(
+    new THREE.TorusGeometry(0.385, 0.095, low ? 12 : 24, low ? 48 : 80),
+    rubber,
+    0,
+    0,
+    0,
+    g,
+  );
+  for (const z of [-0.075, 0.075]) {
+    mesh(new THREE.TorusGeometry(0.325, 0.022, 10, 64), silver, 0, 0, z, g);
+    mesh(new THREE.TorusGeometry(0.407, 0.0025, 5, 72), frameMat, 0, 0, z, g);
+  }
+  disc(0.085, 0.2, silver, 0, 0, 0, g);
+  for (let i = 0; i < 7; i++) {
+    const a = (i / 7) * Math.PI * 2;
+    for (const z of [-0.05, 0.05]) {
+      tube(
+        V(Math.cos(a) * 0.075, Math.sin(a) * 0.075, z),
+        V(Math.cos(a + 0.18) * 0.315, Math.sin(a + 0.18) * 0.315, z),
+        0.014,
+        frameMat,
+        g,
+      );
+      tube(
+        V(Math.cos(a) * 0.075, Math.sin(a) * 0.075, z),
+        V(Math.cos(a - 0.12) * 0.315, Math.sin(a - 0.12) * 0.315, z),
+        0.009,
+        silver,
+        g,
+      );
+    }
+  }
+  const brake = mesh(
+    new THREE.RingGeometry(0.105, 0.255, 64),
+    silver,
+    0,
+    0,
+    0.105,
+    g,
+  );
+  brake.material = brake.material.clone();
+  brake.material.side = THREE.DoubleSide;
+  for (let i = 0; i < 22; i++) {
+    const a = (i / 22) * Math.PI * 2;
+    disc(
+      0.009,
+      0.003,
+      black,
+      Math.cos(a) * 0.218,
+      Math.sin(a) * 0.218,
+      0.108,
+      g,
+    );
+  }
+  // Instanced diagonal tread ribs follow the tyre crown.
+  const count = low ? 48 : 80,
+    geo = new THREE.BoxGeometry(0.035, 0.009, 0.14),
+    im = new THREE.InstancedMesh(geo, rubber, count),
+    d = new THREE.Object3D();
+  for (let i = 0; i < count; i++) {
+    const a = (i / count) * Math.PI * 2;
+    d.position.set(Math.cos(a) * 0.477, Math.sin(a) * 0.477, 0);
+    d.rotation.set(0, 0, a - Math.PI / 2);
+    d.rotateY((i % 2 ? 1 : -1) * 0.4);
+    d.updateMatrix();
+    im.setMatrixAt(i, d.matrix);
+  }
+  g.add(im);
   return g;
 }
-wheel(-0.95);          // rear
-wheel(0.98);           // front
-
-/* frame spine */
-capsuleBetween(V(-0.95, WHEEL_R, 0), V(-0.35, 0.98, 0), 0.05, dark);        // rear riser
-capsuleBetween(V(-0.35, 0.98, 0), V(0.62, 0.88, 0), 0.055, dark);           // top tube
-capsuleBetween(V(0.62, 0.88, 0), V(0.98, WHEEL_R, 0), 0.045, chrome);       // fork crown to axle
-capsuleBetween(V(0.72, 0.96, 0), V(0.99, WHEEL_R + 0.02, 0.09), 0.028, chrome); // fork leg r
-capsuleBetween(V(0.72, 0.96, 0), V(0.99, WHEEL_R + 0.02, -0.09), 0.028, chrome); // fork leg l
-capsuleBetween(V(-0.95, WHEEL_R, 0.07), V(-0.15, 0.52, 0.07), 0.035, dark); // swingarm r
-capsuleBetween(V(-0.95, WHEEL_R, -0.07), V(-0.15, 0.52, -0.07), 0.035, dark); // swingarm l
-
-/* battery + motor mass — the visual heart */
-const battery = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.5, 0.3), paint);
-battery.position.set(0.08, 0.66, 0);
-battery.rotation.z = -0.08;
-bike.add(battery);
-const batteryFin = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.06, 0.34), dark);
-batteryFin.position.set(0.08, 0.47, 0);
-batteryFin.rotation.z = -0.08;
-bike.add(batteryFin);
-const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.26, 24), chrome);
-motor.rotation.x = Math.PI / 2;
-motor.position.set(-0.3, 0.48, 0);
-bike.add(motor);
-const motorGlowRing = new THREE.Mesh(new THREE.TorusGeometry(0.175, 0.012, 8, 32), glow);
-motorGlowRing.position.copy(motor.position);
-bike.add(motorGlowRing);
-
-/* tank + seat + tail as one gesture */
-const tank = new THREE.Mesh(new THREE.SphereGeometry(0.3, 24, 18), paint);
-tank.scale.set(1.25, 0.62, 0.62);
-tank.position.set(0.32, 1.0, 0);
-bike.add(tank);
-const seat = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.09, 0.26), rubber);
-seat.position.set(-0.42, 0.99, 0);
-seat.rotation.z = 0.04;
-bike.add(seat);
-const tail = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.5, 4), paint);
-tail.rotation.z = Math.PI / 2 + 0.35;
-tail.rotation.y = Math.PI / 4;
-tail.position.set(-0.88, 1.04, 0);
-bike.add(tail);
-const tailLight = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.05, 0.14), new THREE.MeshBasicMaterial({ color: 0xff3b30 }));
-tailLight.position.set(-1.05, 1.06, 0);
-bike.add(tailLight);
-
-/* bars + headlight */
-capsuleBetween(V(0.66, 1.06, -0.3), V(0.66, 1.06, 0.3), 0.03, chrome);
-capsuleBetween(V(0.62, 0.9, 0), V(0.66, 1.06, 0), 0.035, dark);
-const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.11, 20, 14), lampMat);
-lamp.scale.z = 0.5;
-lamp.position.set(0.83, 0.98, 0);
-bike.add(lamp);
-const beam = new THREE.Mesh(
-  new THREE.ConeGeometry(1.5, 6, 24, 1, true),
-  new THREE.MeshBasicMaterial({ color: 0xfff6d8, transparent: true, opacity: 0.05, side: THREE.DoubleSide, depthWrite: false }),
-);
-beam.rotation.z = Math.PI / 2;
-beam.position.set(3.9, 0.85, 0);
-bike.add(beam);
-
-/* ---------- stage ---------- */
-
-const plinth = new THREE.Mesh(
-  new THREE.CylinderGeometry(2.1, 2.3, 0.14, 64),
-  new THREE.MeshStandardMaterial({ color: 0x14161a, metalness: 0.6, roughness: 0.3 }),
-);
-plinth.position.y = -0.07;
-scene.add(plinth);
-const plinthRing = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.015, 8, 96), glow);
-plinthRing.rotation.x = Math.PI / 2;
-plinthRing.position.y = 0.005;
-scene.add(plinthRing);
-
-// floor: big dark disc catching reflections
-const floor = new THREE.Mesh(
-  new THREE.CircleGeometry(16, 48),
-  new THREE.MeshStandardMaterial({ color: 0x0c0e11, metalness: 0.85, roughness: 0.42 }),
-);
-floor.rotation.x = -Math.PI / 2;
-floor.position.y = -0.14;
-scene.add(floor);
-
-/* lights */
-scene.add(new THREE.AmbientLight(0x30343c, 0.8));
-const keyLight = new THREE.SpotLight(0xffffff, 320, 40, 0.55, 0.4, 2);
-keyLight.position.set(6, 9, 4);
-keyLight.target = bike;
-scene.add(keyLight);
-const voltLight = new THREE.PointLight(0xc8f549, 26, 12, 2);
-voltLight.position.set(-3, 1.4, -3);
-scene.add(voltLight);
-
-/* speed streaks for sport mode */
-const STREAKS = isMobile ? 40 : 90;
-const streakGeo = new THREE.BufferGeometry();
-{
-  const p = new Float32Array(STREAKS * 6);
-  for (let i = 0; i < STREAKS; i++) {
-    const y = 0.2 + Math.random() * 2.2;
-    const z = (Math.random() - 0.5) * 9;
-    const x = (Math.random() - 0.5) * 22;
-    p[i * 6] = x; p[i * 6 + 1] = y; p[i * 6 + 2] = z;
-    p[i * 6 + 3] = x - 0.9; p[i * 6 + 4] = y; p[i * 6 + 5] = z;
-  }
-  streakGeo.setAttribute('position', new THREE.BufferAttribute(p, 3));
+wheel(-1.12);
+wheel(1.12);
+// A double cradle carries the battery between the wheels.
+for (const z of [-0.18, 0.18]) {
+  tube(V(-0.86, 1.16, z), V(0.5, 1.26, z), 0.035);
+  tube(V(0.5, 1.26, z), V(0.36, 0.48, z), 0.037);
+  tube(V(0.36, 0.48, z), V(-0.48, 0.43, z), 0.035);
+  tube(V(-0.48, 0.43, z), V(-0.86, 1.16, z), 0.034);
+  tube(V(-0.48, 0.43, z), V(-1.12, 0.48, z), 0.032);
+  tube(V(-0.45, 0.52, z), V(-1.12, 0.48, z), 0.024);
+  tube(V(-0.78, 1.15, z), V(-1.12, 0.55, z), 0.026, silver);
 }
-const streakMat = new THREE.LineBasicMaterial({ color: 0xc8f549, transparent: true, opacity: 0 });
-scene.add(new THREE.LineSegments(streakGeo, streakMat));
-
-/* ---------- configuration ---------- */
-
-const PAINTS = {
-  volt: 0xc8f549, graphite: 0x3d4148, glacier: 0xd7e4ec, signal: 0xe04a2f,
-};
-document.querySelectorAll('.paint').forEach((b) => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('.paint').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    paint.color.set(PAINTS[b.dataset.paint]);
-    glow.color.set(b.dataset.paint === 'graphite' || b.dataset.paint === 'glacier' ? 0xc8f549 : PAINTS[b.dataset.paint]);
-    streakMat.color.copy(glow.color);
-    voltLight.color.copy(glow.color);
+// Finned battery, cast end plates, fasteners, high-voltage inspection strip.
+panel(
+  [
+    [-0.5, 0.6],
+    [-0.4, 1.13],
+    [0.35, 1.17],
+    [0.48, 0.62],
+    [0.25, 0.5],
+    [-0.35, 0.5],
+  ],
+  0.36,
+  black,
+);
+for (let i = 0; i < 12; i++)
+  box(0.76, 0.015, 0.4, silver, -0.03, 0.58 + i * 0.042);
+for (const z of [-0.22, 0.22]) {
+  panel(
+    [
+      [-0.39, 0.6],
+      [-0.32, 1.07],
+      [0.27, 1.1],
+      [0.34, 0.63],
+    ],
+    0.025,
+    frameMat,
+    z,
+    0.012,
+  );
+  for (const [x, y] of [
+    [-0.32, 0.65],
+    [-0.27, 1.02],
+    [0.22, 1.05],
+    [0.27, 0.65],
+  ])
+    disc(0.012, 0.008, silver, x, y, z > 0 ? z + 0.02 : z - 0.02);
+  box(0.26, 0.025, 0.012, glow, -0.02, 0.92, z > 0 ? z + 0.022 : z - 0.022);
+}
+disc(0.19, 0.36, black, -0.48, 0.57);
+disc(0.14, 0.38, silver, -0.48, 0.57);
+mesh(new THREE.TorusGeometry(0.15, 0.009, 8, 48), glow, -0.48, 0.57, 0.202);
+for (let i = 0; i < 8; i++) {
+  const a = (i / 8) * Math.PI * 2;
+  disc(
+    0.009,
+    0.012,
+    black,
+    -0.48 + Math.cos(a) * 0.11,
+    0.57 + Math.sin(a) * 0.11,
+    0.202,
+  );
+}
+// Belt and toothed rear pulley on the visible side.
+mesh(new THREE.TorusGeometry(0.22, 0.016, 8, 64), frameMat, -1.12, 0.48, 0.15);
+mesh(new THREE.TorusGeometry(0.11, 0.014, 8, 48), frameMat, -0.48, 0.57, 0.15);
+for (let i = 0; i < 32; i++) {
+  const a = (i / 32) * Math.PI * 2;
+  const tooth = box(
+    0.023,
+    0.014,
+    0.025,
+    black,
+    -1.12 + Math.cos(a) * 0.224,
+    0.48 + Math.sin(a) * 0.224,
+    0.15,
+  );
+  tooth.rotation.z = a;
+}
+tube(V(-1.12, 0.7, 0.15), V(-0.48, 0.68, 0.15), 0.012, rubber);
+tube(V(-1.12, 0.26, 0.15), V(-0.48, 0.46, 0.15), 0.012, rubber);
+// Rear suspension: two machined coil-over springs.
+for (const z of [-0.25, 0.25]) {
+  const a = V(-1.01, 0.55, z),
+    b = V(-0.73, 1.14, z);
+  tube(a, b, 0.023, silver);
+  const points = [],
+    axis = b.clone().sub(a),
+    len = axis.length(),
+    q = new THREE.Quaternion().setFromUnitVectors(
+      V(0, 1, 0),
+      axis.clone().normalize(),
+    );
+  for (let i = 0; i <= 160; i++) {
+    const t = i / 160,
+      pt = V(
+        Math.cos(t * Math.PI * 22) * 0.046,
+        t * len,
+        Math.sin(t * Math.PI * 22) * 0.046,
+      )
+        .applyQuaternion(q)
+        .add(a);
+    points.push(pt);
+  }
+  mesh(
+    new THREE.TubeGeometry(
+      new THREE.CatmullRomCurve3(points),
+      160,
+      0.009,
+      6,
+      false,
+    ),
+    gold,
+  );
+}
+// Forks, yokes and front brake caliper.
+for (const z of [-0.16, 0.16]) {
+  tube(V(0.65, 1.43, z), V(1.12, 0.48, z), 0.031, silver);
+  tube(V(0.68, 1.37, z), V(0.87, 0.97, z), 0.046, gold);
+  tube(V(0.63, 1.43, z), V(0.72, 1.5, z), 0.025, frameMat);
+  box(0.1, 0.17, 0.07, black, 1.01, 0.63, z > 0 ? 0.14 : -0.14);
+}
+tube(V(0.65, 1.43, -0.19), V(0.65, 1.43, 0.19), 0.035, frameMat);
+tube(V(0.76, 1.2, -0.19), V(0.76, 1.2, 0.19), 0.026, frameMat);
+// A shallow sculpted cover, floating saddle and compact tail.
+panel(
+  [
+    [-0.28, 1.25],
+    [-0.22, 1.46],
+    [0.04, 1.54],
+    [0.39, 1.48],
+    [0.56, 1.29],
+    [0.18, 1.23],
+  ],
+  0.35,
+  paint,
+  0,
+  0.055,
+);
+panel(
+  [
+    [-1.04, 1.22],
+    [-0.95, 1.34],
+    [-0.35, 1.33],
+    [-0.25, 1.24],
+  ],
+  0.32,
+  leather,
+  0,
+  0.04,
+);
+panel(
+  [
+    [-1.15, 1.19],
+    [-1.07, 1.32],
+    [-0.92, 1.31],
+    [-0.8, 1.17],
+  ],
+  0.3,
+  paint,
+  0,
+  0.025,
+);
+for (let i = 0; i < 10; i++) {
+  const x = -0.98 + i * 0.065;
+  tube(V(x, 1.365, -0.13), V(x, 1.365, 0.13), 0.003, silver);
+}
+const tail = box(
+  0.018,
+  0.038,
+  0.22,
+  new THREE.MeshBasicMaterial({ color: 0xed523e }),
+  -1.17,
+  1.25,
+);
+// Curved mudguards hug the wheels rather than filling their silhouette.
+function fender(x, start, end, mat) {
+  const shape = new THREE.Shape();
+  shape.absarc(0, 0, 0.548, start, end, false);
+  shape.absarc(0, 0, 0.53, end, start, true);
+  shape.closePath();
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth: 0.23,
+    bevelEnabled: true,
+    bevelThickness: 0.004,
+    bevelSize: 0.004,
+    bevelSegments: 2,
+    steps: 1,
+    curveSegments: 48,
   });
-});
+  geo.translate(0, 0, -0.115);
+  return mesh(geo, mat, x, 0.48);
+}
 
+fender(1.12, 0.25, Math.PI - 0.28, paint);
+fender(-1.12, 0.6, Math.PI - 0.25, black);
+// Bars, grips, levers, display and circular LED with a machined bezel.
+tube(V(0.65, 1.48, -0.32), V(0.65, 1.48, 0.32), 0.024, silver);
+for (const z of [-1, 1]) {
+  tube(V(0.65, 1.48, z * 0.26), V(0.62, 1.47, z * 0.4), 0.033, rubber);
+  tube(V(0.7, 1.46, z * 0.27), V(0.73, 1.45, z * 0.41), 0.009, silver);
+  tube(V(0.63, 1.47, z * 0.3), V(0.58, 1.63, z * 0.33), 0.009, frameMat);
+  const mirror = mesh(
+    new THREE.SphereGeometry(0.06, 16, 12),
+    black,
+    0.57,
+    1.64,
+    z * 0.34,
+  );
+  mirror.scale.set(1.2, 0.5, 1);
+}
+const dash = box(0.1, 0.055, 0.15, black, 0.66, 1.54);
+dash.rotation.z = -0.3;
+const screen = box(
+  0.075,
+  0.007,
+  0.11,
+  new THREE.MeshBasicMaterial({ color: 0x7baba0 }),
+  0.662,
+  1.567,
+);
+screen.rotation.z = -0.3;
+const housing = disc(0.13, 0.12, black, 0.83, 1.3);
+housing.rotation.set(0, 0, Math.PI / 2);
+const lamp = disc(
+  0.108,
+  0.012,
+  new THREE.MeshBasicMaterial({ color: 0xe5eedb }),
+  0.9,
+  1.3,
+);
+lamp.rotation.set(0, 0, Math.PI / 2);
+const bezel = mesh(
+  new THREE.TorusGeometry(0.123, 0.012, 10, 48),
+  silver,
+  0.912,
+  1.3,
+);
+bezel.rotation.y = Math.PI / 2;
+for (const z of [-0.055, 0, 0.055])
+  box(0.008, 0.15, 0.009, frameMat, 0.919, 1.3, z);
+for (const z of [-0.32, 0.32]) {
+  tube(V(-0.38, 0.55, z * 0.6), V(-0.43, 0.55, z), 0.019, frameMat);
+  tube(
+    V(-0.43, 0.55, z),
+    V(-0.43, 0.55, z + Math.sign(z) * 0.09),
+    0.026,
+    rubber,
+  );
+}
+// Small applied marque on the tank is a procedural texture, not an external asset.
+function badge() {
+  const c = document.createElement("canvas");
+  c.width = 512;
+  c.height = 128;
+  const g = c.getContext("2d");
+  g.fillStyle = "#1d2910";
+  g.font = '28px "Michroma"';
+  g.textAlign = "center";
+  g.fillText("VOLTAIC", 256, 62);
+  g.font = '12px "Inter Tight"';
+  g.fillText("S I G M A   /   0 1", 256, 92);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const badgeMat = new THREE.MeshBasicMaterial({
+  map: badge(),
+  transparent: true,
+  depthWrite: false,
+});
+for (const z of [-0.236, 0.236]) {
+  const b = mesh(new THREE.PlaneGeometry(0.46, 0.115), badgeMat, 0.12, 1.37, z);
+  if (z < 0) b.rotation.y = Math.PI;
+}
+document.fonts.ready.then(() => {
+  badgeMat.map.dispose();
+  badgeMat.map = badge();
+});
+// Low, dark presentation disc and a baked soft contact shadow.
+const plinth = mesh(
+  new THREE.CylinderGeometry(1.88, 1.93, 0.07, low ? 64 : 100),
+  new THREE.MeshBasicMaterial({ color: 0x151b1e }),
+  0,
+  -0.05,
+  0,
+  scene,
+);
+const rim = mesh(
+  new THREE.TorusGeometry(1.91, 0.005, 6, 100),
+  new THREE.MeshBasicMaterial({ color: 0x59654b }),
+  0,
+  -0.015,
+  0,
+  scene,
+);
+rim.rotation.x = Math.PI / 2;
+const sc = document.createElement("canvas");
+sc.width = 256;
+sc.height = 256;
+const sg = sc.getContext("2d"),
+  gr = sg.createRadialGradient(128, 128, 8, 128, 128, 120);
+gr.addColorStop(0, "#000c");
+gr.addColorStop(1, "#0000");
+sg.fillStyle = gr;
+sg.fillRect(0, 0, 256, 256);
+const shadow = mesh(
+  new THREE.PlaneGeometry(3.9, 1.25),
+  new THREE.MeshBasicMaterial({
+    map: new THREE.CanvasTexture(sc),
+    transparent: true,
+    depthWrite: false,
+  }),
+  0,
+  -0.009,
+  0,
+  scene,
+);
+shadow.rotation.x = -Math.PI / 2;
+scene.add(new THREE.HemisphereLight(0xd8e7ed, 0x181e15, 1.3));
+const key = new THREE.DirectionalLight(0xf0f1e5, 3.5);
+key.position.set(2, 5, 4);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0x8ba6b5, 2.2);
+fill.position.set(-3, 2, -4);
+scene.add(fill);
+const PAINTS = {
+  volt: [
+    0xc8f549,
+    "Volt",
+    "A charged yellow-green. Impossible to pass quietly.",
+  ],
+  graphite: [
+    0x3d4148,
+    "Graphite",
+    "A satin charcoal. The details do the talking.",
+  ],
+  glacier: [
+    0xd7e4ec,
+    "Glacier",
+    "A cool porcelain white. Light across every contour.",
+  ],
+  signal: [0xe04a2f, "Signal", "A warm vermilion. Built to be seen."],
+};
+document.querySelectorAll("[data-paint]").forEach((b, i) =>
+  b.addEventListener("click", () => {
+    const [color, name, note] = PAINTS[b.dataset.paint];
+    paint.color.set(color);
+    document
+      .querySelectorAll("[data-paint]")
+      .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    document.getElementById("paint-name").textContent = name;
+    document.getElementById("paint-note").textContent = note;
+    document.querySelector(".config-heading b").textContent = `0${i + 1} / 04`;
+  }),
+);
 const MODES = {
-  street: { range: '280 km', torque: '140 Nm', accel: '3.4 s', wheelSpin: 2.4, beam: 0.05, streak: 0, exposure: 1.05 },
-  sport: { range: '190 km', torque: '190 Nm', accel: '2.7 s', wheelSpin: 14, beam: 0.14, streak: 0.5, exposure: 1.18 },
-  rain: { range: '310 km', torque: '95 Nm', accel: '4.8 s', wheelSpin: 1.1, beam: 0.1, streak: 0.12, exposure: 0.92 },
+  street: {
+    range: 280,
+    torque: 140,
+    accel: "3.4",
+    spin: 0.25,
+    note: "The everyday, amplified. Balanced delivery with room to explore.",
+    delivery: "BALANCED",
+    path: "M0 55C35 52 48 15 95 15H260",
+  },
+  sport: {
+    range: 190,
+    torque: 190,
+    accel: "2.7",
+    spin: 6,
+    note: "All the torque, right now. A sharper response for the open road.",
+    delivery: "IMMEDIATE",
+    path: "M0 55C7 50 12 5 35 5H260",
+  },
+  rain: {
+    range: 310,
+    torque: 95,
+    accel: "4.8",
+    spin: 0.12,
+    note: "A softer hand. Progressive delivery when the surface asks for care.",
+    delivery: "PROGRESSIVE",
+    path: "M0 55C100 55 130 29 210 29H260",
+  },
 };
 let mode = MODES.street;
-const sRange = document.getElementById('s-range');
-const sTorque = document.getElementById('s-torque');
-const sAccel = document.getElementById('s-accel');
-const sMode = document.getElementById('s-mode');
-document.querySelectorAll('.mode').forEach((b) => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('.mode').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+document.querySelectorAll("[data-mode]").forEach((b) =>
+  b.addEventListener("click", () => {
     mode = MODES[b.dataset.mode];
-    sRange.textContent = mode.range;
-    sTorque.textContent = mode.torque;
-    sAccel.textContent = mode.accel;
-    sMode.textContent = b.dataset.mode.toUpperCase();
-  });
+    document
+      .querySelectorAll("[data-mode]")
+      .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    document.getElementById("s-range").innerHTML =
+      `${mode.range} <small>km</small>`;
+    document.getElementById("s-torque").innerHTML =
+      `${mode.torque} <small>Nm</small>`;
+    document.getElementById("s-accel").innerHTML =
+      `${mode.accel} <small>s</small>`;
+    document.getElementById("s-mode").textContent =
+      b.dataset.mode.toUpperCase() + " MODE";
+    document.getElementById("mode-note").textContent = mode.note;
+    document.getElementById("delivery-name").textContent = mode.delivery;
+    document.getElementById("torque-line").setAttribute("d", mode.path);
+  }),
+);
+let yaw = 0.44,
+  pitch = 0.19,
+  yawGoal = yaw,
+  pitchGoal = pitch,
+  dist = 5.7,
+  distGoal = 5.7,
+  target = V(0, 0.78, 0),
+  targetGoal = target.clone(),
+  rotating = !reduced,
+  dragging = false,
+  lx = 0,
+  ly = 0,
+  currentView = "whole";
+const views = {
+  whole: {
+    yaw: 0.44,
+    pitch: 0.19,
+    dist: 5.7,
+    target: V(0, 0.78, 0),
+    label: "COMPLETE MACHINE / 01",
+    title: "Built around the feeling.",
+    copy: "A low battery mass, an exposed frame and a clean belt drive. Every part has a reason to be here.",
+  },
+  power: {
+    yaw: 0.06,
+    pitch: 0.07,
+    dist: 3.1,
+    target: V(-0.2, 0.83, 0),
+    label: "POWERTRAIN / 02",
+    title: "Quiet by construction.",
+    copy: "A finned 9.6 kWh pack sits inside the frame. The compact motor sends instant torque through a low-maintenance belt.",
+  },
+  front: {
+    yaw: 1.22,
+    pitch: 0.17,
+    dist: 4.8,
+    target: V(0.6, 0.94, 0),
+    label: "FRONT ASSEMBLY / 03",
+    title: "A clear line forward.",
+    copy: "Inverted forks, a compact LED lamp and a considered cockpit. The road stays at the centre of the experience.",
+  },
+};
+const rotate = document.getElementById("rotate");
+function syncRotate() {
+  rotate.textContent = rotating ? "Pause rotation" : "Rotate bike";
+  rotate.setAttribute("aria-pressed", String(rotating));
+}
+syncRotate();
+rotate.addEventListener("click", () => {
+  rotating = !rotating;
+  syncRotate();
 });
-
-/* ---------- orbit ---------- */
-
-let yaw = 0.7, pitch = 0.28, dist = 5.6;
-let yawGoal = yaw, pitchGoal = pitch, distGoal = dist;
-let dragging = false, lx = 0, ly = 0;
-canvas.addEventListener('pointerdown', (e) => {
-  dragging = true; lx = e.clientX; ly = e.clientY;
+function selectView(name) {
+  currentView = name;
+  const v = views[name];
+  yawGoal = v.yaw;
+  pitchGoal = v.pitch;
+  distGoal = v.dist;
+  targetGoal.copy(v.target);
+  rotating = false;
+  syncRotate();
+  document.getElementById("view-label").textContent = v.label;
+  document.getElementById("detail-no").textContent =
+    "ENGINEERING NOTE / " + v.label.slice(-2);
+  document.getElementById("detail-title").textContent = v.title;
+  document.getElementById("detail-copy").textContent = v.copy;
+  document
+    .querySelectorAll("[data-view]")
+    .forEach((b) =>
+      b.setAttribute("aria-pressed", String(b.dataset.view === name)),
+    );
+}
+document
+  .querySelectorAll("[data-view]")
+  .forEach((b) =>
+    b.addEventListener("click", () => selectView(b.dataset.view)),
+  );
+canvas.addEventListener("pointerdown", (e) => {
+  dragging = true;
+  rotating = false;
+  syncRotate();
+  lx = e.clientX;
+  ly = e.clientY;
   canvas.setPointerCapture(e.pointerId);
 });
-canvas.addEventListener('pointermove', (e) => {
+canvas.addEventListener("pointermove", (e) => {
   if (!dragging) return;
   yawGoal -= (e.clientX - lx) * 0.005;
-  pitchGoal = THREE.MathUtils.clamp(pitchGoal + (e.clientY - ly) * 0.003, 0.06, 0.9);
-  lx = e.clientX; ly = e.clientY;
-});
-canvas.addEventListener('pointerup', () => { dragging = false; });
-canvas.addEventListener('pointercancel', () => { dragging = false; });
-canvas.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  distGoal = THREE.MathUtils.clamp(distGoal + e.deltaY * 0.004, 3.4, 10);
-}, { passive: false });
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-/* ---------- loop ---------- */
-
-let wheelAngle = 0;
-let beamOpacity = 0.05, streakOpacity = 0;
-const clock = new THREE.Clock();
-
-function frame() {
-  const dt = Math.min(clock.getDelta(), 0.05);
-  const t = clock.elapsedTime;
-
-  if (!reduceMotion) {
-    if (!dragging) yawGoal += dt * 0.12;
-    wheelAngle -= dt * mode.wheelSpin;
-    for (const w of wheels) w.rotation.z = wheelAngle;
-    // the machine breathes at idle
-    bike.position.y = Math.sin(t * 1.4) * 0.008;
-    motorGlowRing.scale.setScalar(1 + Math.sin(t * 3) * 0.03);
-  }
-
-  beamOpacity += (mode.beam - beamOpacity) * 0.05;
-  beam.material.opacity = beamOpacity;
-  streakOpacity += (mode.streak - streakOpacity) * 0.04;
-  streakMat.opacity = streakOpacity * (0.5 + Math.sin(t * 9) * 0.2);
-  renderer.toneMappingExposure += (mode.exposure - renderer.toneMappingExposure) * 0.04;
-
-  if (streakOpacity > 0.01 && !reduceMotion) {
-    const p = streakGeo.attributes.position;
-    for (let i = 0; i < STREAKS; i++) {
-      let x = p.getX(i * 2) - dt * (14 + mode.wheelSpin);
-      if (x < -11) x = 11;
-      p.setX(i * 2, x);
-      p.setX(i * 2 + 1, x - 0.9);
-    }
-    p.needsUpdate = true;
-  }
-
-  yaw += (yawGoal - yaw) * 0.07;
-  pitch += (pitchGoal - pitch) * 0.07;
-  dist += (distGoal - dist) * 0.07;
-  camera.position.set(
-    Math.sin(yaw) * Math.cos(pitch) * dist,
-    0.9 + Math.sin(pitch) * dist,
-    Math.cos(yaw) * Math.cos(pitch) * dist,
+  pitchGoal = THREE.MathUtils.clamp(
+    pitchGoal + (e.clientY - ly) * 0.003,
+    0.02,
+    0.75,
   );
-  camera.lookAt(0, 0.72, 0);
-
-  renderer.render(scene, camera);
-  requestAnimationFrame(frame);
+  lx = e.clientX;
+  ly = e.clientY;
+});
+canvas.addEventListener("pointerup", () => (dragging = false));
+canvas.addEventListener("pointercancel", () => (dragging = false));
+canvas.addEventListener("keydown", (e) => {
+  if (
+    !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home"].includes(e.key)
+  )
+    return;
+  e.preventDefault();
+  rotating = false;
+  syncRotate();
+  if (e.key === "Home") {
+    selectView("whole");
+    return;
+  }
+  if (e.key === "ArrowLeft") yawGoal -= 0.16;
+  if (e.key === "ArrowRight") yawGoal += 0.16;
+  if (e.key === "ArrowUp") pitchGoal = Math.min(0.75, pitchGoal + 0.09);
+  if (e.key === "ArrowDown") pitchGoal = Math.max(0.02, pitchGoal - 0.09);
+});
+function resize() {
+  const w = stage.clientWidth,
+    h = stage.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
 }
-frame();
+resize();
+addEventListener("resize", resize);
+const clock = new THREE.Clock();
+let time = 0;
+function render() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  if (!document.hidden) {
+    time += dt;
+    if (rotating && !dragging) yawGoal += dt * 0.055;
+    if (!reduced) wheels.forEach((w) => (w.rotation.z -= dt * mode.spin));
+    const a = reduced ? 1 : 1 - Math.exp(-dt * 7);
+    yaw += (yawGoal - yaw) * a;
+    pitch += (pitchGoal - pitch) * a;
+    dist += (distGoal - dist) * a;
+    target.lerp(targetGoal, a);
+    const r = dist / Math.min(1, camera.aspect * 0.9);
+    camera.position.set(
+      target.x + Math.sin(yaw) * Math.cos(pitch) * r,
+      target.y + Math.sin(pitch) * r,
+      target.z + Math.cos(yaw) * Math.cos(pitch) * r,
+    );
+    camera.lookAt(target);
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(render);
+}
+render();

@@ -1,53 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAISON VELA — Couture in One Length of Silk</title>
-<meta name="description" content="Maison Vela — a couture house shown as a single length of simulated silk. Drag your hand through it; choose the season's dye.">
-<meta name="theme-color" content="#101012">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/sites/17-maison-vela/style.css">
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
-  }
-}
-</script>
-</head>
-<body>
-
-<canvas id="atelier" aria-label="A length of silk hanging in a dark atelier, moving in a simulated breeze. Drag across it to stir the fabric." role="img"></canvas>
-
-<header class="house">
-  <span class="house-name">MAISON&nbsp;VELA</span>
-  <span class="house-sub">couture · atelier nº 7</span>
-</header>
-
-<div class="manifesto">
-  <p>A collection is not forty looks.<br>
-  It is one decision about how cloth<br>
-  should behave, made forty times.</p>
-</div>
-
-<nav class="dyes" aria-label="The season's dyes">
-  <button class="dye" data-dye="ivory" aria-pressed="true"><span class="dye-chip" style="--dye:#e8e2d5"></span>Ivoire</button>
-  <button class="dye" data-dye="oxblood" aria-pressed="false"><span class="dye-chip" style="--dye:#5e1f24"></span>Sang-de-bœuf</button>
-  <button class="dye" data-dye="ink" aria-pressed="false"><span class="dye-chip" style="--dye:#1d2430"></span>Encre</button>
-  <button class="dye" data-dye="sage" aria-pressed="false"><span class="dye-chip" style="--dye:#8a9781"></span>Sauge</button>
-</nav>
-
-<p class="breath" id="breath">the silk answers the hand — drag through it</p>
-
-<footer class="hem">
-  <span>Maison Vela is a fictional house — a Blueprint Labs capability study.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
-
-<script type="module" src="/sites/17-maison-vela/script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAISON VELA — Couture in One Length of Silk</title>
+    <meta
+      name="description"
+      content="Maison Vela — a couture house shown as a single length of simulated silk. Drag your hand through it; choose the season's dye."
+    />
+    <meta name="theme-color" content="#101012" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/sites/17-maison-vela/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="mast">
+      <a class="wordmark" href="/sites/17-maison-vela/"
+        >MAISON VELA<span>COUTURE · ATELIER Nº 7</span></a
+      >
+      <p>Collection 07 / The quiet form</p>
+      <a class="back" href="/">The Blueprint Labs</a>
+    </header>
+    <main class="atelier-room">
+      <section class="introduction">
+        <p class="eyebrow">A study in touch</p>
+        <h1>Before<br />the dress,<br />the <em>drape.</em></h1>
+        <p class="lead">One length of silk.<br />A thousand ways to fall.</p>
+        <p class="manifesto">
+          A collection begins with a decision about how cloth should behave.
+          Here, the material has the first word.
+        </p>
+        <div class="signature">Vela</div>
+        <p class="edition">MATERIAL STUDY — 001</p>
+      </section>
+      <section class="fabric-stage" aria-label="Interactive fabric study">
+        <div class="stage-caption">
+          <span>01 / SILK CHARMEUSE</span><span>1 : 1 MATERIAL STUDY</span>
+        </div>
+        <canvas
+          id="atelier"
+          tabindex="0"
+          role="img"
+          aria-label="Pleated silk hanging from a brass rail. Drag to lift the cloth, or use the Lift silk button."
+        ></canvas>
+        <div class="stage-foot">
+          <span>Drag softly across the silk</span
+          ><span>Hand-finished selvedge</span>
+        </div>
+      </section>
+      <aside class="material-ledger">
+        <p class="eyebrow">The season’s palette</p>
+        <h2 id="dye-title">Ivoire</h2>
+        <p id="dye-note">
+          The warmth of unbleached silk. Light held in the weave.
+        </p>
+        <div class="dyes" role="group" aria-label="Choose the silk dye">
+          <button class="dye" data-dye="ivory" aria-pressed="true">
+            <span class="dye-chip" style="--dye: #e8e2d5"></span
+            ><span>Ivoire<small>01 / WARM WHITE</small></span
+            ><b>01</b>
+          </button>
+          <button class="dye" data-dye="oxblood" aria-pressed="false">
+            <span class="dye-chip" style="--dye: #5e1f24"></span
+            ><span>Sang-de-bœuf<small>02 / DEEP GARNET</small></span
+            ><b>02</b>
+          </button>
+          <button class="dye" data-dye="ink" aria-pressed="false">
+            <span class="dye-chip" style="--dye: #1d2430"></span
+            ><span>Encre<small>03 / MIDNIGHT BLUE</small></span
+            ><b>03</b>
+          </button>
+          <button class="dye" data-dye="sage" aria-pressed="false">
+            <span class="dye-chip" style="--dye: #8a9781"></span
+            ><span>Sauge<small>04 / SILVER GREEN</small></span
+            ><b>04</b>
+          </button>
+        </div>
+        <div class="handling">
+          <label for="breeze"
+            >Air in the atelier <output id="breeze-out">Gentle</output></label
+          ><input id="breeze" type="range" min="0" max="100" value="35" />
+          <div class="actions">
+            <button id="lift">Lift silk</button
+            ><button id="motion" aria-pressed="false">Pause</button>
+          </div>
+          <p id="motion-note">A quiet breeze, a living surface.</p>
+        </div>
+      </aside>
+      <section class="material-facts" aria-label="Textile specification">
+        <div><span>COMPOSITION</span><strong>100% silk</strong></div>
+        <div><span>WEIGHT</span><strong>82 g / m²</strong></div>
+        <div>
+          <span>FINISH</span><strong>Satin face · matte reverse</strong>
+        </div>
+        <p>“Nothing added.<br />Everything considered.”</p>
+      </section>
+    </main>
+    <footer>
+      <span
+        >Maison Vela is a fictional couture house. A study of material &
+        motion.</span
+      ><span>PARIS, IN SPIRIT · COLLECTION 07</span>
+    </footer>
+    <script type="module" src="/sites/17-maison-vela/script.js"></script>
+  </body>
 </html>

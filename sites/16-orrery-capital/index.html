@@ -1,56 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORRERY — Quantitative Asset Management</title>
-<meta name="description" content="Orrery Capital — a quantitative fund that models markets like celestial mechanics. 40,000 instruments in orbit; drag the sky, raise the volatility.">
-<meta name="theme-color" content="#050810">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/sites/16-orrery-capital/style.css">
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
-  }
-}
-</script>
-</head>
-<body>
-
-<canvas id="sky" aria-label="An orrery of forty thousand orbiting particles representing market instruments. Drag to rotate; the volatility dial disturbs the orbits." role="img"></canvas>
-
-<header class="wordmark">
-  <span class="wm-name">ORRERY</span>
-  <span class="wm-sub">quantitative asset management</span>
-</header>
-
-<div class="thesis">
-  <h1>Markets are not chaos.<br><em>They are mechanics<br>observed too closely.</em></h1>
-</div>
-
-<aside class="metrics" aria-hidden="true">
-  <div class="metric"><span class="m-key">INSTRUMENTS IN ORBIT</span><span class="m-val" id="m-count">40,000</span></div>
-  <div class="metric"><span class="m-key">REGIME</span><span class="m-val" id="m-regime">EQUILIBRIUM</span></div>
-  <div class="metric"><span class="m-key">REALIZED VOL</span><span class="m-val" id="m-vol">11.2%</span></div>
-</aside>
-
-<div class="dial-wrap">
-  <label class="dial-label" for="vol">VOLATILITY</label>
-  <input type="range" id="vol" min="0" max="100" value="16" aria-label="Volatility — disturbs the orbits">
-  <button class="regime-btn" id="regime">SHIFT REGIME</button>
-</div>
-
-<div class="tape" aria-hidden="true"><div class="tape-inner" id="tape"></div></div>
-
-<footer class="disclaimer">
-  <span>Orrery is a fictional fund — a Blueprint Labs capability study. Nothing here is advice; nothing here is even real.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
-
-<script type="module" src="/sites/16-orrery-capital/script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ORRERY — Quantitative Asset Management</title>
+    <meta
+      name="description"
+      content="Orrery Capital — a quantitative fund that models markets like celestial mechanics. 40,000 instruments in orbit; drag the sky, raise the volatility."
+    />
+    <meta name="theme-color" content="#050810" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=IBM+Plex+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/sites/16-orrery-capital/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="mast">
+      <a class="wordmark" href="/">ORRERY<span>CAPITAL</span></a>
+      <p>Research note 016 <span>·</span> Market mechanics</p>
+      <span class="edition">THE ORBITAL SERIES / 01</span>
+    </header>
+    <main class="desk">
+      <section class="thesis">
+        <p class="eyebrow">Order inside uncertainty</p>
+        <h1>Every market<br />has a <em>gravity.</em></h1>
+        <p class="intro">
+          The important question is not where an asset is. It is what holds it
+          there.
+        </p>
+        <p class="chapter">
+          Move the system from equilibrium to stress. Watch five asset classes
+          find a different balance.
+        </p>
+        <div class="small-rule"></div>
+        <p class="folio">
+          A study in risk, motion<br />&amp; the limits of prediction.
+        </p>
+      </section>
+      <section class="instrument" aria-label="Interactive market orrery">
+        <div class="instrument-top">
+          <span>FIG. 01 / THE MARKET SYSTEM</span>
+          <div>
+            <button class="view active" data-view="orbit" aria-pressed="true">
+              Orbit</button
+            ><button class="view" data-view="top" aria-pressed="false">
+              Plan
+            </button>
+          </div>
+        </div>
+        <canvas
+          id="sky"
+          tabindex="0"
+          role="application"
+          aria-label="Market orrery. Drag or use arrow keys to orbit. Home resets the view."
+        ></canvas>
+        <div class="instrument-bottom">
+          <span id="m-count">40,000 instruments</span
+          ><span>Drag to orbit · arrows to turn</span>
+        </div>
+        <p class="no-gl" hidden>
+          The orbital view needs WebGL. Explore the asset classes and scenarios
+          below.
+        </p>
+      </section>
+      <aside class="ledger">
+        <p class="eyebrow">Current regime</p>
+        <h2 id="m-regime">Equilibrium</h2>
+        <p id="regime-note">
+          Low dispersion. Independent paths around a common centre.
+        </p>
+        <div class="readouts">
+          <div>
+            <span>Model volatility</span><strong id="m-vol">12.9%</strong>
+          </div>
+          <div>
+            <span>Cross-asset coupling</span><strong id="coupling">0.24</strong>
+          </div>
+        </div>
+        <div class="chart-head">
+          <span>STRESS RESPONSE</span><span>− / +</span>
+        </div>
+        <svg
+          class="response"
+          viewBox="0 0 260 100"
+          role="img"
+          aria-label="Illustrative response to the current stress setting"
+        >
+          <path d="M0 25H260M0 50H260M0 75H260" class="grid" />
+          <path id="response-line" d="" />
+        </svg>
+        <p class="chart-foot">Illustrative model · no market feed</p>
+        <div class="selected">
+          <p class="eyebrow" id="asset-no">ORBIT 01 / 05</p>
+          <h3 id="asset-title">Sovereign rates</h3>
+          <p id="asset-note">
+            The inner clock. A reference point for the cost of time.
+          </p>
+        </div>
+      </aside>
+      <section class="command">
+        <div class="classes" role="group" aria-label="Inspect an asset class">
+          <button class="asset active" data-asset="0" aria-pressed="true">
+            <i style="--c: #d4a94e"></i><span>01</span>Rates</button
+          ><button class="asset" data-asset="1" aria-pressed="false">
+            <i style="--c: #d5c491"></i><span>02</span>Credit</button
+          ><button class="asset" data-asset="2" aria-pressed="false">
+            <i style="--c: #73b6ad"></i><span>03</span>Equities</button
+          ><button class="asset" data-asset="3" aria-pressed="false">
+            <i style="--c: #559ba5"></i><span>04</span>Real assets</button
+          ><button class="asset" data-asset="4" aria-pressed="false">
+            <i style="--c: #818aa5"></i><span>05</span>Currencies
+          </button>
+        </div>
+        <div class="controls">
+          <label for="vol"
+            >Disturb the system <output id="vol-out">16 / 100</output
+            ><input type="range" id="vol" min="0" max="100" value="16"
+          /></label>
+          <div class="scenarios" role="group" aria-label="Market regime">
+            <button data-regime="0" aria-pressed="true">01 Quiet</button
+            ><button data-regime="1" aria-pressed="false">02 Expansion</button
+            ><button data-regime="2" aria-pressed="false">03 Dislocation</button
+            ><button data-regime="3" aria-pressed="false">04 Reversion</button>
+          </div>
+          <button id="motion" aria-pressed="false">Pause motion</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span
+        >Orrery is a fictional fund. An illustrative study, not investment
+        advice.</span
+      ><a href="/">The Blueprint Labs</a>
+    </footer>
+    <script type="module" src="/sites/16-orrery-capital/script.js"></script>
+  </body>
 </html>

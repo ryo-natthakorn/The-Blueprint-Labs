@@ -1,62 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HALFTONE — Independent Record Label</title>
-<meta name="description" content="Halftone Records — the catalogue is a working turntable. Cue a record, drop the needle, drag the platter to bend the speed.">
-<meta name="theme-color" content="#171310">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/sites/20-halftone-records/style.css">
-</head>
-<body>
-
-<canvas id="deck" aria-label="A turntable. The selected record spins while a generative loop plays; drag the platter to bend the speed." role="img"></canvas>
-
-<header class="label-head">
-  <span class="label-name">HALFTONE</span>
-  <span class="label-sub">independent records — est. somewhere warm</span>
-</header>
-
-<nav class="crate" aria-label="Catalogue">
-  <button class="sleeve" data-rec="0" aria-pressed="true">
-    <span class="sleeve-cat">HT-001</span>
-    <span class="sleeve-title">Dust Loops, Vol. 2</span>
-    <span class="sleeve-artist">Cassette Ghost</span>
-  </button>
-  <button class="sleeve" data-rec="1" aria-pressed="false">
-    <span class="sleeve-cat">HT-002</span>
-    <span class="sleeve-title">Night Bus</span>
-    <span class="sleeve-artist">Mira Wells</span>
-  </button>
-  <button class="sleeve" data-rec="2" aria-pressed="false">
-    <span class="sleeve-cat">HT-003</span>
-    <span class="sleeve-title">Paper Moon</span>
-    <span class="sleeve-artist">The Interval</span>
-  </button>
-  <button class="sleeve" data-rec="3" aria-pressed="false">
-    <span class="sleeve-cat">HT-004</span>
-    <span class="sleeve-title">Static Bloom</span>
-    <span class="sleeve-artist">Foyer</span>
-  </button>
-</nav>
-
-<div class="transport">
-  <button class="needle-btn" id="play">DROP&nbsp;THE&nbsp;NEEDLE</button>
-  <div class="rpm" role="group" aria-label="Speed">
-    <button class="rpm-btn" data-rpm="33" aria-pressed="true">33⅓</button>
-    <button class="rpm-btn" data-rpm="45" aria-pressed="false">45</button>
-  </div>
-  <p class="transport-hint" id="hint">generative — no two plays identical · drag the platter to bend it</p>
-</div>
-
-<footer class="runout">
-  <span>Halftone is a fictional label — a Blueprint Labs capability study. All audio is synthesized live, royalty-free by birth.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
-
-<script type="module" src="/sites/20-halftone-records/script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HALFTONE — Independent Record Label</title>
+    <meta
+      name="description"
+      content="Halftone Records — the catalogue is a working turntable. Cue a record, drop the needle, drag the platter to bend the speed."
+    />
+    <meta name="theme-color" content="#171310" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/sites/20-halftone-records/style.css" />
+  </head>
+  <body>
+    <header class="mast">
+      <span>INDEPENDENT RECORDS · EST. SOMEWHERE WARM</span
+      ><a href="/">The Blueprint Labs</a>
+    </header>
+    <main>
+      <section class="label-intro">
+        <h1>HALFTONE<span>®</span></h1>
+        <p>Good records. <br />No hurry.</p>
+        <span class="edition"
+          >THE LISTENING ROOM<br />FOUR RECORDS / ONE DECK</span
+        >
+      </section>
+      <div class="listening-room">
+        <section class="player">
+          <div class="deck-top">
+            <span>HT / DIRECT DRIVE 01</span
+            ><span>STEREO · MADE TO BE PLAYED</span>
+          </div>
+          <div class="deck-stage">
+            <canvas
+              id="deck"
+              tabindex="0"
+              role="application"
+              aria-label="Turntable. Drag the record to bend its pitch. Arrow keys adjust pitch by one percent; Home resets pitch."
+            ></canvas>
+          </div>
+          <div class="now-playing">
+            <span class="status-dot" id="status-dot"></span>
+            <div>
+              <p id="track-title">Dust Loops, Vol. 2</p>
+              <span id="track-artist">Cassette Ghost · HT-001</span>
+            </div>
+            <span id="elapsed">00:00</span>
+          </div>
+          <div class="transport">
+            <button id="play" aria-pressed="false">
+              Drop the needle<span>START LISTENING</span>
+            </button>
+            <div class="rpm" role="group" aria-label="Record speed">
+              <button data-rpm="33" aria-pressed="true">
+                33⅓<span>RPM</span></button
+              ><button data-rpm="45" aria-pressed="false">
+                45<span>RPM</span>
+              </button>
+            </div>
+            <div class="pitch">
+              <label for="pitch"
+                >PITCH <output id="pitch-out">+0.0%</output></label
+              ><input
+                id="pitch"
+                type="range"
+                min="-8"
+                max="8"
+                value="0"
+                step="0.1"
+              /><button id="pitch-reset">Reset to centre</button>
+            </div>
+          </div>
+          <div class="mix">
+            <label for="volume"
+              >VOLUME <output id="volume-out">55</output
+              ><input
+                id="volume"
+                type="range"
+                min="0"
+                max="100"
+                value="55" /></label
+            ><label for="tone"
+              >TONE <output id="tone-out">Warm</output
+              ><input id="tone" type="range" min="0" max="100" value="55"
+            /></label>
+            <p id="audio-status" role="status">
+              Choose a record. Give it a little time.
+            </p>
+          </div>
+        </section>
+        <section class="catalogue">
+          <div class="catalogue-head">
+            <h2>From the crate</h2>
+            <span>001 — 004</span>
+          </div>
+          <div class="crate" role="group" aria-label="Choose a record">
+            <button class="sleeve" data-rec="0" aria-pressed="true">
+              <div class="art">
+                <canvas data-cover="0" aria-hidden="true"></canvas
+                ><span class="selected">ON THE DECK</span>
+              </div>
+              <span class="record-number">HT-001 · 82 BPM</span
+              ><strong>Dust Loops, Vol. 2</strong
+              ><span class="artist">Cassette Ghost</span>
+            </button>
+            <button class="sleeve" data-rec="1" aria-pressed="false">
+              <div class="art">
+                <canvas data-cover="1" aria-hidden="true"></canvas
+                ><span class="selected">ON THE DECK</span>
+              </div>
+              <span class="record-number">HT-002 · 70 BPM</span
+              ><strong>Night Bus</strong><span class="artist">Mira Wells</span>
+            </button>
+            <button class="sleeve" data-rec="2" aria-pressed="false">
+              <div class="art">
+                <canvas data-cover="2" aria-hidden="true"></canvas
+                ><span class="selected">ON THE DECK</span>
+              </div>
+              <span class="record-number">HT-003 · 96 BPM</span
+              ><strong>Paper Moon</strong
+              ><span class="artist">The Interval</span>
+            </button>
+            <button class="sleeve" data-rec="3" aria-pressed="false">
+              <div class="art">
+                <canvas data-cover="3" aria-hidden="true"></canvas
+                ><span class="selected">ON THE DECK</span>
+              </div>
+              <span class="record-number">HT-004 · 58 BPM</span
+              ><strong>Static Bloom</strong><span class="artist">Foyer</span>
+            </button>
+          </div>
+          <p class="crate-note">
+            Four small worlds. Every loop a little different.<br />All music
+            composed live by the instrument.
+          </p>
+        </section>
+      </div>
+      <div class="runout-note">
+        <span>DON’T JUST SCROLL. STAY FOR A SIDE.</span>
+        <p>
+          Drag the platter to bend the sound. Change the speed. Find the part
+          you want to hear again.
+        </p>
+        <span id="tempo">82 BPM / 33⅓ RPM</span>
+      </div>
+    </main>
+    <footer>
+      <span
+        >Halftone is a fictional label. Original synthesized audio, no
+        recordings or samples.</span
+      ><a href="/">The Blueprint Labs</a>
+    </footer>
+    <script type="module" src="/sites/20-halftone-records/script.js"></script>
+  </body>
 </html>

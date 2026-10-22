@@ -1,157 +1,597 @@
 :root {
-  --showroom: #0b0d10;
-  --steel: #e8ecf0;
-  --steel-dim: rgba(232, 236, 240, 0.45);
-  --volt: #c8f549;
-  --hair: rgba(232, 236, 240, 0.14);
-  --display: "Michroma", sans-serif;
-  --ui: "Inter Tight", sans-serif;
+  --bg: #0b0d10;
+  --ink: #e9edeb;
+  --muted: #8e9696;
+  --lime: #c8f549;
+  --line: #ffffff22;
+  --sans: "Inter Tight", sans-serif;
+  --wide: "Michroma", sans-serif;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-  background: var(--showroom);
-  color: var(--steel);
-  font-family: var(--ui);
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
-
-#showroom {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  touch-action: none;
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
 }
-#showroom:active { cursor: grabbing; }
-
-.marque {
-  position: fixed;
-  top: clamp(1.6rem, 4.5vh, 2.8rem);
-  left: clamp(1.6rem, 4.5vw, 3.2rem);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  pointer-events: none;
+a {
+  color: inherit;
+  text-decoration: none;
 }
-.marque-name {
-  font-family: var(--display);
-  font-size: clamp(1.05rem, 2.4vw, 1.5rem);
-  letter-spacing: 0.4em;
-  color: var(--steel);
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
 }
-.marque-sub {
-  font-weight: 200;
-  font-size: 0.62rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--steel-dim);
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
-
-.spec {
-  position: fixed;
-  top: 50%;
-  right: clamp(1.6rem, 4.5vw, 3.2rem);
-  transform: translateY(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  pointer-events: none;
+button:focus-visible,
+a:focus-visible,
+canvas:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 5px;
 }
-.spec-row {
+.mast {
+  height: 96px;
+  margin: 0 48px;
   display: flex;
   justify-content: space-between;
-  gap: 1.8rem;
-  min-width: 11rem;
-  border-bottom: 1px solid var(--hair);
-  padding-bottom: 0.45rem;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  gap: 20px;
 }
-.spec-key {
-  font-size: 0.58rem;
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  color: var(--steel-dim);
-  align-self: center;
-}
-.spec-val {
-  font-family: var(--display);
-  font-size: 0.85rem;
+.marque {
+  font: 22px var(--wide);
   letter-spacing: 0.08em;
-  font-variant-numeric: tabular-nums;
 }
-#s-mode { color: var(--volt); }
-
-.config {
-  position: fixed;
-  bottom: clamp(4.4rem, 11vh, 6.2rem);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+.mast > span,
+.mast > a:last-child {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+}
+main {
+  margin: 0 48px;
+}
+.model-intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  align-items: center;
+  padding: 33px 0 13px;
+}
+.eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--lime);
+}
+h1 {
+  font: clamp(64px, 7.3vw, 105px) / 1.2 var(--wide);
+  letter-spacing: -0.08em;
+  margin-top: 12px;
+}
+h1 span {
+  vertical-align: top;
+  font: 13px var(--sans);
+  letter-spacing: 0;
+  margin: 18px 0 0 18px;
+  display: inline-block;
+  color: var(--lime);
+}
+.model-copy {
   display: flex;
   align-items: center;
-  gap: clamp(1.4rem, 4vw, 3rem);
+  gap: 38px;
 }
-.paints { display: flex; gap: 0.7rem; }
-.paint {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: var(--p);
-  border: 2px solid transparent;
-  outline: 1px solid rgba(232, 236, 240, 0.25);
-  outline-offset: 3px;
-  cursor: pointer;
-  transition: transform 0.2s ease, outline-color 0.2s ease;
+.model-copy h2 {
+  font: 300 29px/1.1 var(--sans);
+  letter-spacing: -0.03em;
 }
-.paint:hover { transform: scale(1.12); }
-.paint[aria-pressed="true"] { outline: 2px solid var(--steel); transform: scale(1.08); }
-.paint:focus-visible { outline: 3px solid var(--volt); }
-.modes {
-  display: flex;
-  border: 1px solid var(--hair);
+.model-copy p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
 }
-.mode {
-  font-family: var(--display);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: var(--steel-dim);
-  background: none;
-  border: none;
-  padding: 0.7rem 1.1rem;
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease;
+.experience {
+  display: grid;
+  grid-template-columns: minmax(500px, 1fr) 280px;
+  gap: 40px;
 }
-.mode:hover { color: var(--steel); }
-.mode[aria-pressed="true"] { color: var(--showroom); background: var(--volt); }
-.mode:focus-visible { outline: 2px solid var(--volt); outline-offset: -2px; }
-
-.plate {
-  position: fixed;
-  bottom: 0.6rem;
+.studio {
+  height: 520px;
+  position: relative;
+  min-width: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 55%, #20272a66, transparent 65%);
+}
+#showroom {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+#showroom:focus-visible {
+  outline-offset: -7px;
+}
+.studio-top,
+.studio-bottom {
+  position: absolute;
   left: 0;
   right: 0;
-  z-index: 10;
   display: flex;
-  justify-content: center;
-  gap: 1.4rem;
-  font-weight: 300;
-  font-size: 0.58rem;
-  letter-spacing: 0.07em;
-  color: var(--steel-dim);
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+  pointer-events: none;
 }
-.plate a { color: var(--volt); text-decoration: none; }
-.plate a:hover { text-decoration: underline; }
-.plate a:focus-visible { outline: 2px solid var(--volt); outline-offset: 2px; }
-
-@media (max-width: 780px) {
-  .spec { top: auto; bottom: 9.4rem; right: 50%; transform: translateX(50%); flex-direction: row; gap: 1rem; }
-  .spec-row { min-width: 0; flex-direction: column; gap: 0.2rem; border-bottom: none; align-items: center; }
-  .spec-row:nth-child(2) { display: none; }
-  .config { bottom: 3.6rem; flex-direction: column; gap: 0.9rem; }
-  .plate span { display: none; }
+.studio-top {
+  top: 17px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.studio-top button {
+  pointer-events: auto;
+  font-size: 9px;
+  color: var(--muted);
+  padding: 8px;
+  border: 1px solid var(--line);
+}
+.studio-bottom {
+  bottom: 18px;
+}
+.studio-bottom > span {
+  font-size: 7px;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.views {
+  display: flex;
+  gap: 7px;
+  pointer-events: auto;
+}
+.views button {
+  font-size: 9px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.views [aria-pressed="true"] {
+  color: var(--lime);
+  border-color: var(--lime);
+}
+.configuration {
+  padding: 5px 0 0;
+}
+.config-heading {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+}
+.config-heading b {
+  font-weight: 400;
+  color: var(--lime);
+}
+.configuration h2 {
+  font: 300 38px var(--sans);
+  letter-spacing: -0.03em;
+  margin: 17px 0 9px;
+}
+.finish-note {
+  font-size: 11px;
+  line-height: 1.75;
+  color: var(--muted);
+  min-height: 40px;
+  max-width: 31ch;
+}
+.paints {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 22px 0 27px;
+}
+.paint {
+  padding: 9px;
+  border: 1px solid var(--line);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 10px;
+  color: var(--muted);
+  text-align: left;
+}
+.paint i {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(130deg, #fff6, transparent 55%, #0005), var(--p);
+  border-radius: 50%;
+}
+.paint[aria-pressed="true"] {
+  border-color: var(--lime);
+  color: var(--ink);
+}
+.ride {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin: 14px 0;
+}
+.modes button {
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 11px 4px;
+}
+.modes [aria-pressed="true"] {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: #18230b;
+}
+#mode-note {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+  min-height: 40px;
+}
+.delivery-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin-top: 22px;
+}
+.ride svg {
+  width: 100%;
+  height: 60px;
+  margin-top: 8px;
+}
+.ride .grid {
+  fill: none;
+  stroke: #ffffff12;
+  stroke-width: 1;
+}
+#torque-line {
+  fill: none;
+  stroke: var(--lime);
+  stroke-width: 1.4;
+}
+.config-foot {
+  font-size: 7px;
+  line-height: 1.8;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-top: 9px;
+}
+.specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  border-bottom: 1px solid var(--line);
+  padding: 27px 0 25px;
+  gap: 25px;
+}
+.specs > div:not(:first-child) {
+  border-left: 1px solid var(--line);
+  padding-left: 30px;
+}
+.specs span {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.specs strong {
+  display: block;
+  font: 300 50px/1.2 var(--sans);
+  letter-spacing: -0.03em;
+  margin-top: 10px;
+}
+.specs small {
+  font-size: 16px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.spec-note {
+  align-self: center;
+}
+.spec-note b {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  font-weight: 400;
+  color: var(--lime);
+}
+.spec-note p {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.detail-note {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 27px 0;
+}
+.detail-note > span {
+  font-size: 8px;
+  color: var(--lime);
+  letter-spacing: 0.1em;
+  min-width: 190px;
+}
+.detail-note h2 {
+  font-size: 21px;
+  letter-spacing: -0.02em;
+  font-weight: 300;
+  min-width: 280px;
+}
+.detail-note p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 65ch;
+}
+footer {
+  margin: 0 48px;
+  border-top: 1px solid var(--line);
+  padding: 19px 0 26px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 8px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+@media (max-width: 1100px) {
+  .mast,
+  main,
+  footer {
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+  .experience {
+    grid-template-columns: minmax(340px, 1fr) 240px;
+    gap: 25px;
+  }
+  .model-copy {
+    gap: 20px;
+  }
+  .model-copy p {
+    max-width: 22ch;
+  }
+  .studio {
+    height: 510px;
+  }
+  .studio-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .detail-note {
+    flex-wrap: wrap;
+    gap: 12px 25px;
+  }
+  .detail-note p {
+    max-width: none;
+  }
+  .specs > div:not(:first-child) {
+    padding-left: 20px;
+  }
+  .specs strong {
+    font-size: 42px;
+  }
+  .model-copy h2 {
+    font-size: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .mast {
+    height: 78px;
+    margin: 0 20px;
+  }
+  .marque {
+    font-size: 19px;
+  }
+  .mast > span {
+    font-size: 6px;
+    max-width: 85px;
+    text-align: right;
+    line-height: 1.8;
+  }
+  .mast > a:last-child {
+    display: none;
+  }
+  main {
+    margin: 0 20px;
+  }
+  .model-intro {
+    padding: 28px 0 23px;
+    display: block;
+  }
+  .eyebrow {
+    font-size: 7px;
+  }
+  h1 {
+    font-size: 59px;
+    letter-spacing: -0.08em;
+    margin: 10px 0 20px;
+  }
+  h1 span {
+    font-size: 10px;
+    margin-left: 9px;
+    margin-top: 12px;
+  }
+  .model-copy {
+    justify-content: space-between;
+    gap: 25px;
+  }
+  .model-copy h2 {
+    font-size: 25px;
+  }
+  .model-copy p {
+    font-size: 10px;
+    max-width: 22ch;
+  }
+  .experience {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .studio {
+    height: 350px;
+    width: 100%;
+  }
+  .studio-top {
+    font-size: 6px;
+    top: 14px;
+  }
+  .studio-top button {
+    font-size: 8px;
+  }
+  .studio-bottom {
+    bottom: 15px;
+    gap: 10px;
+    align-items: center;
+  }
+  .views {
+    gap: 8px;
+  }
+  .views button {
+    font-size: 8px;
+    padding: 10px;
+  }
+  .studio-bottom > span {
+    font-size: 6px;
+  }
+  .configuration {
+    padding: 0;
+  }
+  .config-heading {
+    font-size: 8px;
+  }
+  .configuration h2 {
+    margin: 12px 0 8px;
+    font-size: 35px;
+  }
+  .finish-note {
+    max-width: 100%;
+    font-size: 12px;
+    min-height: 0;
+  }
+  .paints {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin: 20px 0 25px;
+  }
+  .paint {
+    flex-direction: column;
+    gap: 9px;
+    padding: 12px 4px;
+    font-size: 9px;
+  }
+  .paint i {
+    width: 26px;
+    height: 26px;
+  }
+  .ride {
+    padding-top: 22px;
+  }
+  .modes {
+    margin: 15px 0;
+  }
+  .modes button {
+    font-size: 11px;
+    padding: 13px 8px;
+  }
+  #mode-note {
+    font-size: 12px;
+    min-height: 0;
+  }
+  .delivery-head {
+    margin-top: 20px;
+  }
+  .ride svg {
+    height: 58px;
+  }
+  .config-foot {
+    font-size: 7px;
+    margin: 6px 0 22px;
+  }
+  .specs {
+    border-top: 1px solid var(--line);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px 0;
+    padding: 23px 0;
+  }
+  .specs > div:not(:first-child) {
+    padding-left: 14px;
+  }
+  .specs span {
+    font-size: 6px;
+    letter-spacing: 0.06em;
+  }
+  .specs strong {
+    font-size: 34px;
+    margin-top: 8px;
+  }
+  .specs small {
+    font-size: 12px;
+  }
+  .specs .spec-note {
+    grid-column: 1/-1;
+    border: 0;
+    padding: 17px 0 0 !important;
+    border-top: 1px solid var(--line) !important;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .spec-note p {
+    margin-top: 0;
+    font-size: 9px;
+  }
+  .spec-note b {
+    font-size: 7px;
+    white-space: nowrap;
+  }
+  .detail-note {
+    display: block;
+    padding: 25px 0;
+  }
+  .detail-note > span {
+    font-size: 7px;
+  }
+  .detail-note h2 {
+    font-size: 23px;
+    min-width: 0;
+    margin: 12px 0;
+  }
+  .detail-note p {
+    font-size: 11px;
+  }
+  footer {
+    margin: 0 20px;
+    font-size: 7px;
+  }
+  footer span {
+    max-width: 28ch;
+  }
+  footer a {
+    white-space: nowrap;
+  }
 }

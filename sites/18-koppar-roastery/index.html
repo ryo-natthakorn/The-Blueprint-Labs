@@ -1,45 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KOPPAR — Micro Roastery</title>
-<meta name="description" content="Koppar — a micro roastery where you roast the batch yourself. Hold the heat, watch the curve, listen for first crack, try not to make charcoal.">
-<meta name="theme-color" content="#f6f0e4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/sites/18-koppar-roastery/style.css">
-</head>
-<body>
-
-<canvas id="roaster" aria-label="A rotating coffee roasting drum full of beans that darken as you apply heat. A live roast curve draws underneath." role="img"></canvas>
-
-<header class="shopmark">
-  <span class="shop-name">KOPPAR</span>
-  <span class="shop-sub">micro roastery — batch nº 217</span>
-</header>
-
-<aside class="cupping" aria-live="polite">
-  <p class="cup-roast" id="cup-roast">GREEN</p>
-  <p class="cup-temp"><span id="cup-temp">21</span>°C</p>
-  <ul class="cup-notes" id="cup-notes">
-    <li>grass</li><li>hay</li><li>raw pea</li>
-  </ul>
-  <p class="cup-advice" id="cup-advice">unroasted. hold the heat.</p>
-</aside>
-
-<div class="bench">
-  <button class="heat" id="heat">HOLD&nbsp;FOR&nbsp;HEAT</button>
-  <button class="batch" id="batch">NEW BATCH</button>
-  <p class="bench-hint">or hold <kbd>space</kbd> — release to coast</p>
-</div>
-
-<footer class="counterline">
-  <span>Koppar is a fictional roastery — a Blueprint Labs capability study.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
-
-<script type="module" src="/sites/18-koppar-roastery/script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KOPPAR — Micro Roastery</title>
+    <meta
+      name="description"
+      content="Koppar — a micro roastery where you roast the batch yourself. Hold the heat, watch the curve, find first crack, then drop a batch worth keeping."
+    />
+    <meta name="theme-color" content="#f6f0e4" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/sites/18-koppar-roastery/style.css" />
+  </head>
+  <body>
+    <header class="mast">
+      <a href="/" class="wordmark"
+        >KOPPAR<span>INDEPENDENT MICRO ROASTERY</span></a
+      >
+      <p>Good coffee is a matter of attention.</p>
+      <span class="batch-stamp">SMALL BATCH / Nº <b id="batch-no">217</b></span>
+    </header>
+    <main>
+      <section class="roast-bench">
+        <div class="story">
+          <p class="eyebrow">From green to something good</p>
+          <h1>A little heat.<br />A lot of<br /><em>feeling.</em></h1>
+          <p class="intro">
+            The difference between almost<br />and just right is in your hands.
+          </p>
+          <ol class="protocol">
+            <li>
+              <span>01</span>
+              <p>
+                <strong>Give it heat.</strong>Hold the burner. Let the beans
+                catch up.
+              </p>
+            </li>
+            <li>
+              <span>02</span>
+              <p>
+                <strong>Find the sweetness.</strong>Coast through first crack.
+              </p>
+            </li>
+            <li>
+              <span>03</span>
+              <p>
+                <strong>Trust your timing.</strong>Drop the batch when it feels
+                right.
+              </p>
+            </li>
+          </ol>
+          <p class="origin">
+            LOT 07 · HIGHLAND WASHED<br /><span
+              >Illustrative roast · accelerated time</span
+            >
+          </p>
+        </div>
+        <div class="machine">
+          <div class="machine-caption">
+            <span>THE COPPER DRUM / 02</span
+            ><button id="sound" aria-pressed="false">Crack sound: off</button>
+          </div>
+          <canvas
+            id="roaster"
+            role="img"
+            aria-label="A copper roasting machine with a window of tumbling beans, temperature gauge and cooling tray."
+          ></canvas>
+          <div class="machine-foot">
+            <span
+              ><i id="burner-light"></i
+              ><b id="burner-state">BURNER OFF</b></span
+            ><span>500 g · HAND ROASTED</span>
+          </div>
+        </div>
+        <aside class="cupping">
+          <p class="eyebrow">At the cupping table</p>
+          <p class="cup-roast" id="cup-roast">Green</p>
+          <div class="temp">
+            <span id="cup-temp">21</span><small>°C<br />BEAN TEMP</small>
+          </div>
+          <ul id="cup-notes">
+            <li>grass</li>
+            <li>hay</li>
+            <li>raw pea</li>
+          </ul>
+          <p id="cup-advice">Unroasted. Hold the heat.</p>
+          <div class="phase-readout">
+            <span id="phase-label">READY TO CHARGE</span
+            ><strong id="roast-time">00:00</strong>
+          </div>
+          <p id="result" role="status">Your next good cup starts here.</p>
+        </aside>
+      </section>
+      <section class="workbench">
+        <div class="profile">
+          <div class="profile-title">
+            <h2>The roast curve</h2>
+            <span>COPPER — BEAN TEMPERATURE</span>
+          </div>
+          <canvas
+            id="profile"
+            role="img"
+            aria-label="Live bean temperature over elapsed roast time. First and second crack are marked on the curve."
+          ></canvas>
+          <div class="profile-key">
+            <span>Drying</span><span>Maillard</span><span>Development</span>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="heat-row">
+            <button id="heat" aria-pressed="false">
+              Hold for heat<span>RELEASE TO COAST</span></button
+            ><button id="drop" disabled>
+              Drop batch<span>INTO THE COOLING TRAY</span>
+            </button>
+          </div>
+          <div class="secondary">
+            <p>
+              Hold <kbd>Space</kbd> on the page or heat button.<br />Watch the
+              temperature rise after release.
+            </p>
+            <button id="batch">New batch</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span
+        >Koppar is a fictional roastery. Made for the love of the process.</span
+      ><a href="/">The Blueprint Labs</a>
+    </footer>
+    <script type="module" src="/sites/18-koppar-roastery/script.js"></script>
+  </body>
 </html>
