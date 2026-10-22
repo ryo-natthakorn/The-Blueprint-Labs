@@ -4,40 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UMBRA — Single-Origin Chocolate</title>
-<meta name="description" content="Umbra — a chocolate maker's conching vat, live in a shader. Stir it steadily and bring the batch into temper.">
-<meta name="theme-color" content="#170e09">
+<meta name="description" content="Umbra — a chocolate maker's vat, live. Cool it, seed it, rewarm it, and pour the bar: its gloss and snap follow the temper you reached.">
+<meta name="theme-color" content="#120b07">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Outfit:wght@200;300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/23-umbra-cacao/style.css">
 </head>
 <body>
 
-<canvas id="vat" aria-label="A vat of molten chocolate. Stir it with slow circles of the pointer to bring it into temper." role="img"></canvas>
+<canvas id="vat" aria-hidden="true"></canvas>
 
-<header class="maker">
-  <span class="maker-name">UMBRA</span>
-  <span class="maker-sub">single-origin cacao — batch 34</span>
-</header>
+<div class="frame">
+  <header class="maker">
+    <span class="maker-name">UMBRA</span>
+    <span class="maker-sub">Single-origin cacao · Batch 34 · Sambirano 72%</span>
+  </header>
 
-<div class="verse">
-  <p>The vat has been turning<br>for three days. It is almost<br>ready to become a bar.<br><em>Stir — slow, steady circles.</em></p>
+  <div class="vat-spot" aria-hidden="true"></div>
+
+  <section class="ritual" aria-labelledby="ritual-title">
+    <p class="ritual-kicker" id="ritual-title">The temper, by hand</p>
+    <ol class="steps">
+      <li data-step="0"><span class="step-n">I</span><span class="step-t">Cool &amp; seed<small>Stir it down to 27–28°C</small></span></li>
+      <li data-step="1"><span class="step-n">II</span><span class="step-t">Rewarm<small>Warm it back to 31–32°C</small></span></li>
+      <li data-step="2"><span class="step-n">III</span><span class="step-t">Pour<small>While the gloss holds</small></span></li>
+    </ol>
+    <p class="cue" id="cue" aria-live="polite">Melted. Stir in slow, steady circles to cool it toward 27°C.</p>
+    <figure class="curve">
+      <canvas id="curve" width="560" height="200" aria-hidden="true"></canvas>
+      <figcaption>Tempering curve · last 90 s · bands: melt 45–50, seed 27–28, work 31–32 °C</figcaption>
+    </figure>
+  </section>
+
+  <aside class="gauge" aria-label="Batch readings">
+    <div class="temp">
+      <span class="temp-label">Batch temperature</span>
+      <span class="temp-val"><span id="temp">48.0</span><small>°C</small></span>
+      <span class="temp-trend" id="trend">holding</span>
+    </div>
+    <div class="crystals">
+      <div class="bar"><span>Form V crystals</span><b id="c5-val">0%</b><i><em id="c5"></em></i></div>
+      <div class="bar bar-u"><span>Unstable crystals</span><b id="cu-val">0%</b><i><em id="cu"></em></i></div>
+    </div>
+    <div class="actions">
+      <button type="button" class="act" id="stir" aria-pressed="false"><i class="fa-solid fa-rotate" aria-hidden="true"></i><span>Stir for me</span></button>
+      <button type="button" class="act" id="warm"><i class="fa-solid fa-fire-flame-simple" aria-hidden="true"></i><span>Hold to warm</span></button>
+      <button type="button" class="act act-pour" id="pour"><i class="fa-solid fa-droplet" aria-hidden="true"></i><span>Pour the bar</span></button>
+    </div>
+  </aside>
+
+  <section class="result" id="result" hidden aria-live="polite">
+    <p class="result-kicker">Batch 34 · bar one</p>
+    <h1 class="result-title" id="result-title">A clean snap.</h1>
+    <p class="result-body" id="result-body"></p>
+    <dl class="result-facts">
+      <div><dt>Gloss</dt><dd id="r-gloss">—</dd></div>
+      <div><dt>Snap</dt><dd id="r-snap">—</dd></div>
+      <div><dt>Bloom</dt><dd id="r-bloom">—</dd></div>
+    </dl>
+    <p class="result-notes" id="result-notes"></p>
+    <button type="button" class="act" id="again"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i><span>Melt a new batch</span></button>
+  </section>
+
+  <footer class="wrapper-line">
+    <span>Umbra is a fictional maker — a Blueprint Labs capability study. The melt is a live fluid simulation.</span>
+    <a href="/">← The Blueprint Labs</a>
+  </footer>
 </div>
-
-<aside class="temper" aria-live="polite">
-  <div class="temper-read">
-    <span class="temper-key">CRYSTAL V</span>
-    <span class="temper-val" id="temper-pct">0%</span>
-  </div>
-  <div class="temper-rail"><span id="temper-fill"></span></div>
-  <p class="temper-stage" id="temper-stage">molten · unstructured</p>
-  <p class="temper-note" id="temper-note"></p>
-</aside>
-
-<footer class="wrapper-line">
-  <span>Umbra is a fictional maker — a Blueprint Labs capability study.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
 
 <script type="module" src="/sites/23-umbra-cacao/script.js"></script>
 </body>

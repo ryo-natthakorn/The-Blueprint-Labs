@@ -24,7 +24,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Keyboard: Stir for me (toggle) and Warm the vat (hold by key or pointer). Readable type. Reduced motion: no ambient conching, and the melt only moves while you stir.
 
 ## Pass log
-- Pass 1:
+- Pass 1: Rebuilt as a live GPU stable-fluids vat (WebGL2 or WebGL1 half-float targets, with a procedural fallback): advect, splat, divergence, 14–22 Jacobi iterations, projection, a slow conching spin and a viscosity that rises with crystals. A dye field carries a broad relief and a fine colour pattern that stretch into ribbons and relax back. Shading uses a near-overhead camera, so the softbox and strip reflections land on the melt and bend with every wave. The copper vat has a rounded brushed lip and sits on a dark marble slab. Crystal model: unstable forms below 29 / melting above 29.5, Form V seeded below 28.5, growing to 32.2 and melting above. Once seeded and warmed, a thermostat holds 31.5°C. Thermometer, Form V / unstable bars, a live tempering curve with the three bands, and step-by-step cues in a quiet live region. Pour the bar shows a mould that fills and sets, with gloss, snap and bloom (grey streaks) from the temper actually reached, a verdict and tasting notes. Stir for me (toggle) and Hold to warm (pointer or Space/Enter) make it fully keyboard-playable. End-to-end runs: pouring straight away gives 'It will bloom' (fat bloom); the full curve gives 'A clean snap' at 31.2°C, Form V 97%.
 - Pass 2:
 - Pass 3:
 
