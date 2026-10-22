@@ -16,8 +16,9 @@
 
   let W = 0, H = 0;
   function size() {
-    W = window.innerWidth;
-    H = window.innerHeight;
+    const rect=canvas.getBoundingClientRect();
+    W = rect.width;
+    H = rect.height;
     canvas.width = W * DPR;
     canvas.height = H * DPR;
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -51,12 +52,15 @@
     if (e.key === ' ' || e.key === 'Enter') startStoke(e);
   });
   stokeBtn.addEventListener('keyup', () => { stoking = false; });
+  stokeBtn.addEventListener('blur',endStoke);
+  window.addEventListener('blur',endStoke);
 
   /* a hand waved near the hearth makes the flames lean */
   let wind = 0, windTarget = 0;
   window.addEventListener('pointermove', (e) => {
-    const dx = e.clientX - W / 2;
-    const dy = e.clientY - hearthY();
+    const rect=canvas.getBoundingClientRect();
+    const dx = e.clientX-rect.left-W/2;
+    const dy = e.clientY-rect.top-hearthY();
     const near = Math.hypot(dx, dy) < Math.min(420, W * 0.4);
     windTarget = near ? -Math.sign(dx) * Math.min(1.6, Math.abs(dx) / 130) : 0;
   });
@@ -67,9 +71,9 @@
   const embers = [];
   const smoke = [];
 
-  function hearthX() { return isSmallScreen ? W / 2 : W * 0.76; }
-  function hearthY() { return isSmallScreen ? Math.min(H * 0.47, 390) : H * 0.82; }
-  function hearthWidth() { return isSmallScreen ? Math.min(260, W * 0.68) : Math.min(470, W * 0.32); }
+  function hearthX() { return W / 2; }
+  function hearthY() { return H - 25; }
+  function hearthWidth() { return W * .72; }
 
   function spawnFlame() {
     const spread = hearthWidth() / 2;
@@ -165,19 +169,15 @@
       p.r *= Math.pow(0.985, dtScale);
       p.life -= p.decay * dtScale;
       if (p.life <= 0 || p.r < 0.6) { flames.splice(i, 1); continue; }
-      ctx.fillStyle = flameColor(p.life, p.y / H);
-      const breadth = Math.max(1.5, p.r * p.life);
-      const height = breadth * (2.9 + intensity);
-      ctx.beginPath();
-      ctx.moveTo(p.x - breadth, p.y + breadth * .45);
-      ctx.bezierCurveTo(p.x - breadth * 1.1, p.y - height * .3,
-        p.x - breadth * .1, p.y - height * .6,
-        p.x + wind * breadth * .45, p.y - height);
-      ctx.bezierCurveTo(p.x + breadth * .35, p.y - height * .72,
-        p.x + breadth * 1.15, p.y - height * .15,
-        p.x + breadth, p.y + breadth * .45);
-      ctx.closePath();
-      ctx.fill();
+      // Soft, advected lobes accumulate as luminous gas, without polygon tips.
+      const breadth=Math.max(2,p.r*1.7),height=breadth*(1.7+intensity*.7);
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(wind*.08+Math.sin(p.wobble)*.1);ctx.scale(1,height/breadth);
+      const flame=ctx.createRadialGradient(0,-breadth*.3,0,0,0,breadth);
+      flame.addColorStop(0,`rgba(255,${Math.round(120+p.life*95)},65,${p.life*.2})`);
+      flame.addColorStop(.35,`rgba(240,80,12,${p.life*.16})`);
+      flame.addColorStop(1,'rgba(150,24,0,0)');ctx.fillStyle=flame;
+      ctx.fillRect(-breadth,-breadth,breadth*2,breadth*2);ctx.restore();
+
     }
 
     /* embers */
@@ -197,13 +197,28 @@
     }
     ctx.globalCompositeOperation = 'source-over';
 
+    // Logs in front of the gas stay visible: black bark with orange fissures.
+    ctx.save();ctx.translate(hearthX(),hearthY());
+    for(let n=0;n<3;n++){
+      ctx.save();ctx.translate((n-1)*W*.12,n===1?-8:3);ctx.rotate((n-1)*.17);
+      const logW=W*.33,logH=W*.045;
+      const lg=ctx.createLinearGradient(0,-logH,0,logH);lg.addColorStop(0,'#37180c');lg.addColorStop(.5,'#100b09');lg.addColorStop(1,'#6b250b');
+      ctx.fillStyle=lg;ctx.beginPath();ctx.roundRect(-logW/2,-logH/2,logW,logH,8);ctx.fill();
+      ctx.strokeStyle=`rgba(255,108,25,${.4+intensity*.55})`;ctx.shadowColor='#ff4d0b';ctx.shadowBlur=5;ctx.lineWidth=1;
+      for(let j=0;j<7;j++){const x=-logW*.4+j*logW*.13;ctx.beginPath();ctx.moveTo(x,-logH*.3);ctx.lineTo(x+3,1);ctx.lineTo(x-2,logH*.4);ctx.stroke();}
+      ctx.restore();
+    }
+    ctx.restore();
+    // Thin refracted-looking warm ribbons above the fire, restrained on phones.
+    if(!prefersReducedMotion){ctx.strokeStyle=`rgba(255,180,100,${intensity*.035})`;ctx.lineWidth=3;for(let j=0;j<4;j++){const x=hearthX()+(j-1.5)*30;ctx.beginPath();ctx.moveTo(x,hearthY()-90);ctx.bezierCurveTo(x+Math.sin(flickerT+j)*20,hearthY()-140,x-18,hearthY()-200,x,hearthY()-230);ctx.stroke();}}
+
     /* glowing coal bed */
     const coalGrad = ctx.createRadialGradient(hearthX(), hearthY() + 10, 4, hearthX(), hearthY() + 10, hearthWidth() * 0.75);
     coalGrad.addColorStop(0, `rgba(255, 120, 30, ${0.5 * intensity + 0.15})`);
     coalGrad.addColorStop(0.5, `rgba(160, 50, 20, ${0.3 * intensity + 0.08})`);
     coalGrad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = coalGrad;
-    ctx.fillRect(hearthX() - hearthWidth(), hearthY() - 40, hearthWidth() * 2, 70);
+    ctx.globalAlpha=.4;ctx.fillRect(hearthX()-hearthWidth(),hearthY()-5,hearthWidth()*2,30);ctx.globalAlpha=1;
   }
 
   function paintStatic() {

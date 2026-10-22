@@ -204,3 +204,8 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .story-card { animation: none; }
 }
+
+@media(min-width:721px){.story-card{left:clamp(1.4rem,4vw,3rem);top:30%;bottom:auto;transform:none;width:clamp(235px,24vw,330px);text-align:left;animation:none}.story-kind{line-height:1.7}.targets{top:27%}}
+.targets button{min-height:40px}.targets::before,.finder-note{font-size:.7rem}
+@media(max-width:720px){.story-card{bottom:8rem}.targets button{min-height:44px}.story-kind{font-size:.58rem;letter-spacing:.14em}.story-text{line-height:1.5}.station-sub{font-size:.58rem}.tonight{top:5rem}}
+@media(max-width:720px) and (max-height:680px){.story-card{bottom:7.8rem;padding:.6rem .8rem}.story-text{font-size:.77rem}.story-kind{margin-bottom:.35rem}.story-name{font-size:1.2rem}}

@@ -49,10 +49,18 @@
       <p class="dial-hint" aria-hidden="true">DRAG THE RING TO PREVIEW · SPACE TO PAUSE</p>
     </div>
 
-    <div class="stats" aria-label="Workout status">
+    <div class="training-panel"><div class="stats" aria-label="Workout status">
       <div class="stat"><span class="stat-num" id="stat-bpm">40:20</span><span class="stat-label">WORK : REST</span></div>
       <div class="stat"><span class="stat-num" id="stat-round">01</span><span class="stat-label">ROUND</span></div>
       <div class="stat"><span class="stat-num" id="stat-effort">40s</span><span class="stat-label">UNTIL REST</span></div>
+    </div>
+      <div class="session-strip">
+        <p class="session-label">ONE MINUTE. ALL YOURS.</p>
+        <div class="timeline" aria-label="40 seconds of work followed by 20 seconds of rest"><span class="work-time">WORK / 40</span><span class="rest-time">REST / 20</span><i id="timeline-playhead"></i></div>
+        <div class="round-history" id="round-history" aria-label="Round history"></div>
+        <button id="sound-toggle" type="button" aria-pressed="false">SOUND OFF</button>
+        <p class="session-label" id="next-cue">FIND YOUR PACE. PRESS START.</p>
+      </div>
     </div>
   </section>
 

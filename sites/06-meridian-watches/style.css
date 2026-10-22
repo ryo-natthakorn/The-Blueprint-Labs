@@ -194,3 +194,6 @@ h1, h2 {
   }
   .gauge-fill { transition: none; }
 }
+
+#scene:focus-visible { outline: 2px solid var(--champagne); outline-offset: -8px; }
+@media(max-width:720px) and (max-height:700px){.plate{padding-bottom:2rem}.plate h1,.plate h2{font-size:1.8rem}.plate .copy{font-size:.83rem}.brand{top:1rem}}

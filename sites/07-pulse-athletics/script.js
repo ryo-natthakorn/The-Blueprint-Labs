@@ -70,6 +70,30 @@ let running = false;
 let round = 1;
 let lastPhase = 'work';
 
+const soundToggle=document.getElementById('sound-toggle');
+const playhead=document.getElementById('timeline-playhead');
+const history=document.getElementById('round-history');
+const nextCue=document.getElementById('next-cue');
+let audio=null,sound=false,lastCue='';
+function beep(frequency,duration=.12){
+  if(!sound||!audio)return;
+  const osc=audio.createOscillator(),gain=audio.createGain(),now=audio.currentTime;
+  osc.frequency.value=frequency;gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.12,now+.01);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  osc.connect(gain).connect(audio.destination);osc.start();osc.stop(now+duration);
+}
+soundToggle.addEventListener('click',async()=>{
+  sound=!sound;
+  if(sound){try{audio??=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();beep(660);}catch{sound=false;}}
+  soundToggle.textContent=sound?'SOUND ON':'SOUND OFF';soundToggle.setAttribute('aria-pressed',String(sound));
+});
+function updateHistory(){
+  history.replaceChildren();
+  const start=Math.max(1,round-5);
+  for(let n=start;n<start+6;n++){
+    const cell=document.createElement('span');cell.textContent=String(n).padStart(2,'0');cell.className=n<round?'complete':n===round?'current':'';cell.title=n<round?'Completed round '+n:n===round?'Current round '+n:'Upcoming round '+n;history.append(cell);
+  }
+}
+updateHistory();
 function phaseAt(s) { return s < WORK_END ? 'work' : 'rest'; }
 
 function setSeconds(s, { announce = true } = {}) {
@@ -92,6 +116,16 @@ function setSeconds(s, { announce = true } = {}) {
     onPhaseChange(phase, announce);
   }
 
+  const progress=(phase==='work'?seconds/WORK_END:(seconds-WORK_END)/(ROUND-WORK_END));
+  phaseWord.style.setProperty('--remaining',`${(1-progress)*100}%`);
+  playhead.style.left=`${seconds/ROUND*100}%`;
+  nextCue.textContent=running?(remaining<=3?`${remaining} · ${phase==='work'?'BREATHE NEXT':'GET READY'}`:phase==='work'?'PUSH WITH PURPOSE.':'DROP YOUR SHOULDERS. BREATHE.'):'PREVIEW OR PRESS START.';
+  const cue=`${round}-${phase}-${remaining}`;
+  if(running&&announce&&cue!==lastCue&&remaining<=3){
+    beep(phase==='work'?440:660);
+    if(!prefersReducedMotion)gsap.fromTo(dialTime,{opacity:.35},{opacity:1,duration:.22});
+  }
+  lastCue=cue;
   statBpm.textContent = '40:20';
   statEffort.textContent = `${remaining}s`;
   statEffort.nextElementSibling.textContent = phase === 'work' ? 'UNTIL REST' : 'UNTIL WORK';
@@ -101,6 +135,7 @@ function onPhaseChange(phase, announce) {
   document.body.classList.toggle('phase-rest', phase === 'rest');
   phaseWord.textContent = phase === 'work' ? 'WORK' : 'REST';
 
+  if(announce&&running){beep(phase==='work'?880:330,.32);if(navigator.vibrate)navigator.vibrate([70,40,70]);}
   if (prefersReducedMotion || !announce || !running) return;
 
   gsap.fromTo(flash, { opacity: 0.85 }, { opacity: 0, duration: 0.5, ease: 'power2.out' });
@@ -127,6 +162,8 @@ function eventToSeconds(e) {
 }
 
 dial.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  dial.focus();
   scrubbing = true;
   setRunning(false);
   dial.setPointerCapture(e.pointerId);
@@ -160,6 +197,9 @@ function setRunning(value) {
   runToggle.textContent = value ? 'Ⅱ PAUSE SESSION' : '▶ START SESSION';
   runToggle.setAttribute('aria-pressed', String(value));
   document.body.classList.toggle('is-running', value);
+  lastT=performance.now();
+  if(value&&audio)audio.resume().catch(()=>{});
+  setSeconds(seconds,{announce:false});
 }
 runToggle.addEventListener('click', () => setRunning(!running));
 resetButton.addEventListener('click', () => {
@@ -167,6 +207,7 @@ resetButton.addEventListener('click', () => {
   statRound.textContent = '01';
   document.body.classList.remove('phase-rest');
   phaseWord.textContent = 'WORK';
+  updateHistory();
   setSeconds(0, { announce: false });
 });
 
@@ -177,15 +218,17 @@ let mqOffset = 0;
 let lastT = performance.now();
 
 function loop(now) {
-  const dt = Math.min((now - lastT) / 1000, 0.1);
+  const elapsed = Math.max(0,(now-lastT)/1000);
+  const dt=Math.min(elapsed,.1);
   lastT = now;
 
   if (running && !scrubbing) {
-    if (seconds + dt >= ROUND) {
-      round += 1;
+    if (seconds + elapsed >= ROUND) {
+      round += Math.floor((seconds+elapsed)/ROUND);
+      updateHistory();
       statRound.textContent = String(round).padStart(2, '0');
     }
-    setSeconds(seconds + dt, { announce: true });
+    setSeconds(seconds + elapsed, { announce: true });
   }
 
   /* marquee speed follows the phase: sprint during WORK, jog during REST */

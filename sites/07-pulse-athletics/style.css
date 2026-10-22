@@ -86,14 +86,14 @@ body.phase-rest { --acid: #5ec8ff; }
 /* the giant phase word fills the left column */
 .phase-word {
   font-family: var(--font-display);
-  font-size: clamp(3.4rem, 13vw, 12rem);
+  font-size: clamp(3.4rem, 10.5vw, 10rem);
   line-height: 0.9;
   letter-spacing: 0.01em;
   color: var(--acid);
   transition: color 0.4s ease;
   text-align: right;
   user-select: none;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .dial-wrap {
@@ -254,3 +254,39 @@ body.phase-rest { --acid: #5ec8ff; }
   .logo-dot, .is-running .logo-dot { animation: none; }
   .timer-controls button { transition: none; }
 }
+
+/* The room is the clock: a draining word, timing rail and session marks. */
+html,body { min-height:100%; height:auto; overflow-x:clip; overflow-y:auto; }
+body { background:radial-gradient(ellipse at 72% 40%,#24300e 0%,var(--tar) 62%); transition:background-color .6s; }
+body.phase-rest { background:radial-gradient(ellipse at 72% 40%,#174b59 0%,#0a1b26 75%); }
+.arena { min-height:calc(100svh - 5rem); height:auto; padding-bottom:1.5rem; }
+.dial-zone { min-height:460px; grid-template-columns:minmax(0,1fr) minmax(260px,1fr) minmax(230px,.85fr); gap:2vw; }
+.phase-word { color:transparent; background:linear-gradient(to top,var(--acid) var(--remaining,100%),#444a39 var(--remaining,100%)); background-clip:text; -webkit-background-clip:text; }
+.dial,.dial * { user-select:none; -webkit-user-select:none; }
+.training-panel { align-self:center; padding-left:1.5rem; border-left:1px solid #5b6544; }
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:1.6rem 1rem; }
+.stat:first-child { grid-column:1/-1; }
+.stat:first-child .stat-num { font-size:clamp(3rem,5vw,5rem); }
+.club,.stat-label,.dial-hint,.session-label { font-size:.7rem; color:#c1c8b3; letter-spacing:.1em; }
+.dial-hint { text-align:center; max-width:26rem; line-height:1.6; }
+.dial-sub { fill:#d0d7c3; letter-spacing:.07em; }
+.session-strip { margin-top:2rem; }
+.session-label { line-height:1.7; }
+.timeline { display:flex; position:relative; margin:1rem 0 1.5rem; font-size:.7rem; color:var(--tar); }
+.work-time { width:66.667%; background:var(--acid); padding:.8rem .5rem; }
+.rest-time { width:33.333%; background:#98acb6; padding:.8rem .5rem; }
+#timeline-playhead { position:absolute; height:calc(100% + 12px); top:-6px; width:3px; background:white; box-shadow:0 0 0 2px #141911; }
+.round-history { display:flex; gap:6px; }
+.round-history span { flex:1; padding:.6rem .2rem; text-align:center; border:1px solid #535a48; color:#bbc3af; font-size:.75rem; }
+.round-history .current { color:var(--acid); border-color:var(--acid); }
+.round-history .complete { color:var(--tar); background:var(--acid); }
+#sound-toggle { font:700 .72rem var(--font-mono); color:var(--bone); background:transparent; border:1px solid #747c65; padding:.7rem 1rem; min-height:44px; margin:1rem 0; cursor:pointer; }
+#sound-toggle:focus-visible { outline:3px solid var(--acid); outline-offset:3px; }
+.baseline { position:relative; bottom:auto; right:auto; margin:0 4vw 4rem; font-size:.7rem; line-height:1.6; }
+@media(max-width:1100px) and (min-width:901px){.phase-word{font-size:9vw}.dial{width:250px}.dial-zone{gap:1vw;min-height:400px}.training-panel{padding-left:1rem}.club{max-width:26rem;text-align:right}.manifesto{margin-top:1rem}}
+@media(max-width:900px){
+ .arena{padding-bottom:1rem}.dial-zone{grid-template-columns:1fr;gap:1.4rem}.phase-word{font-size:20vw}.training-panel{width:min(100%,32rem);border-left:0;padding:1.3rem 0;border-top:1px solid #535a48}.stats{display:flex;justify-content:space-between}.stat:first-child .stat-num{font-size:2.1rem}.stat-num{font-size:2.1rem}.session-strip{margin-top:1.4rem}.manifesto{padding-bottom:1rem}.club{font-size:.7rem;line-height:1.6}.baseline{margin-bottom:4rem}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}.phase-word{transform:none!important}.flash{display:none}}
+
+.marquee-top{position:absolute}.marquee-bottom{position:relative;bottom:auto}.baseline{margin:1.5rem 4vw 2rem}

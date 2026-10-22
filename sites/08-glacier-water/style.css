@@ -178,3 +178,14 @@ h1 em { font-style: italic; }
     transform: none;
   }
 }
+
+#water:focus-visible { outline:2px solid var(--deep); outline-offset:-7px; }
+@media(max-width:720px){
+ html,body{height:auto;min-height:100%;overflow-x:clip;overflow-y:auto}
+ #water{position:absolute;height:430px;touch-action:pan-y}
+ .crest{position:absolute;top:1.3rem}
+ .voice{position:relative;left:auto;right:auto;bottom:auto;margin:420px 1rem 1.5rem;background:transparent;border:0;border-radius:0;backdrop-filter:none;padding:.5rem}
+ h1{font-size:3rem}.lede{font-size:.95rem}.analysis dt{font-size:.68rem;color:#36687d}
+ .baseline{position:relative;bottom:auto;padding:0 1.5rem 1.5rem;font-size:.68rem;gap:.6rem}
+ .vessel-fallback{position:absolute;top:125px;height:220px;width:135px;right:calc(50% - 67px)}
+}

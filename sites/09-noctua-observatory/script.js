@@ -41,7 +41,7 @@
       x: rand() * SKY_W,
       y: rand() * SKY_H,
       r: Math.pow(rand(), 2.3) * 2.0 + 0.35,
-      warm: rand() < 0.18,
+      color: ['#aabdff','#d6e4ff','#fff6e1','#ffe0b3','#ffc9a0'][Math.floor(rand()*5)],
       twinklePhase: rand() * Math.PI * 2,
       twinkleSpeed: 0.4 + rand() * 1.4,
       depth: 0.55 + rand() * 0.45, // parallax layer
@@ -103,6 +103,9 @@
   ];
 
   CONSTELLATIONS.forEach((c) => {
+    const span=Math.max(...c.pts.map(p=>p[0]))-Math.min(...c.pts.map(p=>p[0]));
+    const fit=Math.min(1,(isSmallScreen?W*.76:W*.4)/span);
+    c.pts=c.pts.map(([x,y])=>[x*fit,y*fit]);
     c.reveal = 0; // 0..1 line-draw progress
     c.centroid = c.pts.reduce((acc, p) => [acc[0] + p[0] / c.pts.length, acc[1] + p[1] / c.pts.length], [0, 0]);
     c.radius = Math.max(...c.pts.map((p) => Math.hypot(p[0] - c.centroid[0], p[1] - c.centroid[1]))) + 130;
@@ -112,25 +115,17 @@
   const mw = document.createElement('canvas');
   mw.width = 1050; mw.height = 600; // quarter-scale, drawn stretched
   {
-    const g = mw.getContext('2d');
-    g.fillStyle = '#040711';
-    g.fillRect(0, 0, mw.width, mw.height);
-    // band of soft blobs along a diagonal
-    for (let i = 0; i < 260; i++) {
-      const t = rand();
-      const bx = t * mw.width;
-      const by = mw.height * 0.62 - t * mw.height * 0.34 + (rand() - 0.5) * 90;
-      const r = 18 + rand() * 55;
-      const a = 0.012 + rand() * 0.03;
-      const grad = g.createRadialGradient(bx, by, 0, bx, by, r);
-      const warm = rand() < 0.3;
-      grad.addColorStop(0, warm ? `rgba(196, 178, 214, ${a})` : `rgba(148, 168, 220, ${a})`);
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      g.fillStyle = grad;
-      g.beginPath();
-      g.arc(bx, by, r, 0, Math.PI * 2);
-      g.fill();
+    const g=mw.getContext('2d'),img=g.createImageData(mw.width,mw.height);
+    const hash=(x,y)=>{const v=Math.sin(x*127.1+y*311.7)*43758.5453;return v-Math.floor(v);};
+    function noise(x,y){const ix=Math.floor(x),iy=Math.floor(y);let u=x-ix,v=y-iy;u=u*u*(3-2*u);v=v*v*(3-2*v);return (hash(ix,iy)*(1-u)+hash(ix+1,iy)*u)*(1-v)+(hash(ix,iy+1)*(1-u)+hash(ix+1,iy+1)*u)*v;}
+    for(let y=0;y<mw.height;y++)for(let x=0;x<mw.width;x++){
+      let n=0,amp=.55,f=.012;for(let k=0;k<5;k++){n+=noise(x*f,y*f)*amp;f*=2; amp*=.5;}
+      const d=(y-(mw.height*.62-x*.19+(n-.5)*85))/90;
+      const band=Math.exp(-d*d)*Math.pow(n,1.6)*Math.pow(Math.sin(Math.PI*x/mw.width),2),dust=Math.exp(-Math.pow((d+.16+n*.2)*5,2))*.45;
+      const j=(y*mw.width+x)*4,dither=(rand()-.5)*1.5;
+      img.data[j]=4+band*(1-dust)*55+dither;img.data[j+1]=7+band*(1-dust)*61+dither;img.data[j+2]=17+band*(1-dust)*88+dither;img.data[j+3]=255;
     }
+    g.putImageData(img,0,0);
   }
 
   /* ---------------- pan state -------------------------------------- */
@@ -140,9 +135,11 @@
   let dragging = false, lastX = 0, lastY = 0;
   let pointerSkyX = null, pointerSkyY = null;
 
+  const focusX=()=>W*(W<=720?.5:.57);
+  const focusY=()=>H*(W<=720?.33:.43);
   const clampY = (y) => Math.max(0, Math.min(SKY_H - H, y));
-  panX = CONSTELLATIONS[0].pos[0] + CONSTELLATIONS[0].centroid[0] - W / 2;
-  panY = clampY(CONSTELLATIONS[0].pos[1] + CONSTELLATIONS[0].centroid[1] - H / 2);
+  panX = CONSTELLATIONS[0].pos[0] + CONSTELLATIONS[0].centroid[0] - focusX();
+  panY = clampY(CONSTELLATIONS[0].pos[1] + CONSTELLATIONS[0].centroid[1] - focusY());
 
   const targetNav = document.getElementById('targets');
   CONSTELLATIONS.forEach((c, index) => {
@@ -151,8 +148,8 @@
     button.textContent = `${String(index + 1).padStart(2, '0')} ${c.name}`;
     button.setAttribute('aria-label', `Find ${c.name} constellation`);
     button.addEventListener('click', () => {
-      panX = c.pos[0] + c.centroid[0] - W / 2;
-      panY = clampY(c.pos[1] + c.centroid[1] - H / 2);
+      panX = c.pos[0] + c.centroid[0] - focusX();
+      panY = clampY(c.pos[1] + c.centroid[1] - focusY());
       velX = velY = 0;
       pointerSkyX = pointerSkyY = null;
       c.reveal = 1;
@@ -247,9 +244,9 @@
       const sx = ((s.x - panX * s.depth) % SKY_W + SKY_W) % SKY_W;
       const sy = s.y - panY * s.depth;
       if (sx < -10 || sx > W + 10 || sy < -10 || sy > H + 10) continue;
-      const tw = prefersReducedMotion ? 1 : 0.72 + 0.28 * Math.sin(t * s.twinkleSpeed + s.twinklePhase);
+      const tw = prefersReducedMotion ? 1 : 0.75 + .15*Math.sin(t*s.twinkleSpeed+s.twinklePhase)+.1*Math.sin(t*(2+sy/H*4)+s.twinklePhase);
       ctx.globalAlpha = Math.min(1, tw * (0.45 + s.r * 0.35));
-      ctx.fillStyle = s.warm ? '#ffe1b0' : '#e8edff';
+      ctx.fillStyle = s.color;
       ctx.beginPath();
       ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
       ctx.fill();
@@ -263,8 +260,8 @@
     ctx.globalAlpha = 1;
 
     // constellations
-    const probeX = pointerSkyX !== null && !isSmallScreen ? pointerSkyX : ((panX + W / 2) % SKY_W + SKY_W) % SKY_W;
-    const probeY = pointerSkyY !== null && !isSmallScreen ? pointerSkyY : panY + H / 2;
+    const probeX = pointerSkyX !== null && !isSmallScreen ? pointerSkyX : ((panX + focusX()) % SKY_W + SKY_W) % SKY_W;
+    const probeY = pointerSkyY !== null && !isSmallScreen ? pointerSkyY : panY + focusY();
     let nearest = null;
 
     for (const c of CONSTELLATIONS) {
@@ -282,6 +279,15 @@
       const anchorX = ((c.pos[0] - panX) % SKY_W + SKY_W) % SKY_W;
       const drawX = anchorX > W + 400 ? anchorX - SKY_W : anchorX;
       const drawY = c.pos[1] - panY;
+
+      // A quiet engraved owl under the six-star figure, built with curves.
+      if(c.name==='Noctua'){
+        ctx.save();ctx.translate(drawX+90,drawY+50);ctx.globalAlpha=c.reveal*.18;
+        ctx.strokeStyle='#d9b970';ctx.lineWidth=1.3;ctx.fillStyle='#a4a6b8';
+        ctx.beginPath();ctx.moveTo(-72,-63);ctx.quadraticCurveTo(-97,-100,-55,-77);ctx.quadraticCurveTo(0,-107,55,-77);ctx.quadraticCurveTo(97,-100,72,-63);ctx.bezierCurveTo(118,48,68,108,0,125);ctx.bezierCurveTo(-68,108,-118,48,-72,-63);ctx.closePath();ctx.stroke();
+        for(const sign of [-1,1]){ctx.beginPath();ctx.ellipse(sign*38,-30,33,37,sign*.3,0,Math.PI*2);ctx.stroke();for(let j=0;j<5;j++){ctx.beginPath();ctx.moveTo(sign*(72-j*6),0);ctx.quadraticCurveTo(sign*(80-j*7),70,sign*15,100-j*6);ctx.stroke();}}
+        ctx.beginPath();ctx.moveTo(-11,-12);ctx.lineTo(0,9);ctx.lineTo(11,-12);ctx.stroke();ctx.restore();
+      }
 
       // edges draw in sequence
       ctx.strokeStyle = `rgba(217, 185, 112, ${0.65 * c.reveal})`;
@@ -315,7 +321,7 @@
         ctx.globalAlpha = (c.reveal - 0.6) / 0.4;
         ctx.fillStyle = '#d9b970';
         ctx.font = 'italic 300 17px Spectral, serif';
-        ctx.fillText(c.name, drawX + c.centroid[0] - 30, drawY + c.centroid[1] - c.radius + 90);
+        ctx.fillText(c.name, drawX + c.centroid[0] - 30, Math.max(W<=720?140:120,drawY+Math.min(...c.pts.map(p=>p[1]))-24));
         ctx.globalAlpha = 1;
       }
     }
@@ -325,9 +331,9 @@
     // Finder crosshairs: the centre is the touch and keyboard probe.
     if (isSmallScreen || pointerSkyX === null) {
       ctx.strokeStyle = 'rgba(217,185,112,.48)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.arc(W/2, H/2, 13, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(W/2-24,H/2); ctx.lineTo(W/2-17,H/2);
-      ctx.moveTo(W/2+17,H/2); ctx.lineTo(W/2+24,H/2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(focusX(), focusY(), 13, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(focusX()-24,focusY()); ctx.lineTo(focusX()-17,focusY());
+      ctx.moveTo(focusX()+17,focusY()); ctx.lineTo(focusX()+24,focusY()); ctx.stroke();
     }
 
     // horizon silhouette
@@ -342,6 +348,12 @@
     ctx.lineTo(W, H);
     ctx.closePath();
     ctx.fill();
+
+    // Observatory dome with a warm observing slit on the dark ridge.
+    const domeX=W*.82,domeY=H-22,r=W<=720?35:62;
+    ctx.fillStyle='#02040a';ctx.beginPath();ctx.arc(domeX,domeY,r,Math.PI,0);ctx.lineTo(domeX+r,H);ctx.lineTo(domeX-r,H);ctx.fill();
+    ctx.strokeStyle='#222739';ctx.lineWidth=2;ctx.beginPath();ctx.arc(domeX,domeY,r,Math.PI,0);ctx.stroke();
+    ctx.strokeStyle='#b68544';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(domeX+5,domeY-r+4);ctx.quadraticCurveTo(domeX+20,domeY-r*.7,domeX+20,domeY-5);ctx.stroke();
 
     // RA readout from pan position
     const raH = Math.floor((panX % SKY_W + SKY_W) % SKY_W / SKY_W * 24);
