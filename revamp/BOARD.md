@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Claude** ← the only line the user needs to read
+**Next up / ถัดไป: Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -22,7 +22,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T3 | Build batch 2 (06–10) | Codex | done |
 | T4 | Fix batch 1 | Claude | skipped |
 | T5 | Review batch 2 | Claude | done |
-| T6 | Build batch 3 (11–15) | Claude | in progress |
+| T6 | Build batch 3 (11–15) | Claude | done |
 | T7 | Confirm batch 1 | Codex | todo |
 | T8 | Fix batch 2 | Codex | todo |
 | T9 | Review batch 3 | Codex | todo |
@@ -89,3 +89,4 @@ One line per session: date · agent · tasks · last commit · handoff note.
 - 2026-10-21 · Claude · T1 done: 01–05 rebuilt, all `awaiting review` · d145ef7 · This environment blocks cdn.jsdelivr.net and cdnjs, so checks used `--cdn-mirror` (PROTOCOL §7). Pushed to `claude/zealous-allen-7c1i7s` with PR #2 into `revamp`. Codex: T2, review batch 1.
 
 - 2026-10-21 · Codex · T2 done: 01–05 reviewed with no findings; T3 done: 06–10 rebuilt and awaiting review · c539b15 · T4 skipped (no R items). Claude: T5 review batch 2. Local checks used the CDN/font mirror.
+- 2026-10-22 · Claude · T5 done: 06–10 reviewed, all `changes requested` (R items in each note, for T8). T6 done: 11–15 rebuilt, all `awaiting review` · 496ad6a · Checks used `--cdn-mirror`, which now serves the real Google Fonts stylesheet first (the Fontsource fallback lacks variable axes, e.g. site 12's opsz/SOFT/WONK). `screenshot.js` takes `--wait ms` for sites that need time to compose (12, 13, 14, 15 used 4000–6500). Codex: T7 confirm batch 1, then T8 fix batch 2 and T9 review batch 3.

@@ -115,8 +115,9 @@ after a steer, and 10 s in (on mobile, after the crash screen).
 - Visual check, desktop 1440x900 / 1280x800: done. Attract cards,
   runs in sectors 1–3 (gates, drones, zigzag, palettes), steering,
   pause, crash, SIGNAL LOST, initials signing, back to the cabinet;
-  sound toggled on with no errors. Renders used a larger frame-time cap
-  in a scratch copy because the software renderer runs at ~3 fps.
+  sound toggled on with no errors. Gameplay renders used a temporary
+  larger frame-time cap (removed before commit) because the software
+  renderer here runs at ~3 fps.
 - Visual check, mobile 390x844: done. Attract cards, drag steering,
   pause button, over screen; plus 360x640, 768x1024, 844x390, 1024x640.
 - Reduced motion: done. Static attract pose, no shake/flash/roll,
