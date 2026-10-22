@@ -446,7 +446,12 @@ const io = new IntersectionObserver((entries) => {
 sections.forEach((s) => io.observe(s));
 
 let heroVisible = true;
-new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; }).observe($('.hero'));
+let shownKey = '';
+new IntersectionObserver(([e]) => {
+  heroVisible = e.isIntersecting;
+  // the hero skips updates while offscreen; publish the latest instance on return
+  if (heroVisible) shownKey = '';
+}).observe($('.hero'));
 
 const ease3 = (t) => 1 - Math.pow(1 - t, 3);
 let lastPush = 0;
@@ -469,7 +474,6 @@ function pushSections(t) {
 /* ---------- the loop ---------- */
 
 let prev = performance.now();
-let shownKey = '';
 function frame(t) {
   const dt = Math.min((t - prev) / 1000, 0.1);
   prev = t;
