@@ -259,8 +259,7 @@ html, body {
   text-decoration: none;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
 }
-.tool svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
-.tool svg circle { fill: currentColor; stroke: none; }
+.tool-ico { width: 1.1em; font-size: 0.9rem; line-height: 1; text-align: center; }
 .tool:hover, .act-still:hover { background: rgba(38, 38, 43, 0.06); }
 .tool[aria-pressed="true"] { background: var(--ink); color: var(--paper-2); }
 .act-print { background: var(--active); color: var(--paper-2); border-color: var(--active); }
@@ -502,7 +501,7 @@ html, body {
   }
   .tools { padding-right: 0.3rem; gap: 0.1rem; }
   .tool, .act { font-size: 0.56rem; letter-spacing: 0.1em; padding: 0.55rem 0.6rem; gap: 0.3rem; }
-  .tool svg { width: 0.85rem; height: 0.85rem; }
+  .tool-ico { font-size: 0.8rem; }
   .act-still .long { display: none; }
   .whisper {
     top: 4.1rem;

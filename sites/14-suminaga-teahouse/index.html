@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/14-suminaga-teahouse/style.css">
 <script type="importmap">
 {
@@ -79,8 +81,8 @@ Arrow keys draw the nib through the ink with the current tool; Shift and an arro
 
 <div class="bench" role="group" aria-label="Marbling tools">
   <div class="tools">
-    <button class="tool" type="button" id="tool-stylus" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 L19 5"/><circle cx="19.5" cy="4.5" r="1.4"/></svg>Stylus</button>
-    <button class="tool" type="button" id="tool-comb" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6 H21 M5 6 V19 M9 6 V19 M13 6 V19 M17 6 V19 M21 6 V19"/></svg>Comb</button>
+    <button class="tool" type="button" id="tool-stylus" aria-pressed="true"><i class="tool-ico fa-solid fa-wand-magic" aria-hidden="true"></i>Stylus</button>
+    <button class="tool" type="button" id="tool-comb" aria-pressed="false"><i class="tool-ico fa-solid fa-ruler-horizontal fa-flip-vertical" aria-hidden="true"></i>Comb</button>
   </div>
   <button class="act act-print" type="button" id="print">Take a print</button>
   <button class="act act-still" type="button" id="still">Still<span class="long"> the water</span></button>
