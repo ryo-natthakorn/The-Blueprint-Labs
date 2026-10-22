@@ -25,7 +25,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Lens-shift framing keeps the subject clear of the copy (right of it on desktop, above it on phones). Add a fold rail (I–VI) and a paper picker. Readable type. Reduced motion snaps to each chapter's finished fold and a landed flight.
 
 ## Pass log
-- Pass 1:
+- Pass 1: Rebuilt the fold engine as exact rigid origami. The dart is folded once in memory, splitting convex facets along each hinge in folded space and carrying flat UVs: 16 facets, area checked equal to the sheet. Each crease is a real mesh edge. At runtime each fold rotates its member facets about a hinge re-derived from anchor points that travel with the sheet, so later folds land exactly on earlier ones, including on the spine's 8° remembered valley. Layers are kept apart by a compacted stacking order, applied only once a facet is laid on another (no seams on the open sheet). New linen bench with soft shadows, a bone folder and a pencil. The sheet folds flat on the bench, lifts upright for the wings, opens its V and flies down the bench to a marked landing, with the dashed trail. Four papers (colour, fibre, tooth, watermark) set distance and hang time. Lens-shift framing, fold rail, paper picker; cards fade near the edges.
 - Pass 2:
 - Pass 3:
 

@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GRAMMAGE — Fine Paper Goods</title>
-<meta name="description" content="Grammage — a fine paper atelier. One sheet folds itself into a plane as you scroll, crease by honest crease, then flies.">
-<meta name="theme-color" content="#f3f0e7">
+<meta name="description" content="Grammage — a fine paper atelier. Choose a sheet, fold it into a dart crease by crease as you scroll, then fly it down the bench.">
+<meta name="theme-color" content="#f1ede3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/sites/22-grammage-paper/style.css">
 <script type="importmap">
 {
@@ -24,54 +24,90 @@
 <canvas id="bench" aria-hidden="true"></canvas>
 
 <header class="atelier">
-  <span class="atelier-name">GRAMMAGE</span>
-  <span class="atelier-sub">fine paper goods — 90 gsm and upward</span>
+  <a class="atelier-name" href="#fold-0">GRAMMAGE</a>
+  <span class="atelier-sub">Fine paper goods · 45 gsm and upward</span>
 </header>
 
+<nav class="rail" aria-label="Folds">
+  <ol>
+    <li><a href="#fold-0" data-step="0"><span>Sheet</span></a></li>
+    <li><a href="#fold-1" data-step="1"><span>I</span></a></li>
+    <li><a href="#fold-2" data-step="2"><span>II</span></a></li>
+    <li><a href="#fold-3" data-step="3"><span>III</span></a></li>
+    <li><a href="#fold-4" data-step="4"><span>IV</span></a></li>
+    <li><a href="#fold-5" data-step="5"><span>V</span></a></li>
+    <li><a href="#fold-6" data-step="6"><span>VI</span></a></li>
+  </ol>
+</nav>
+
+<aside class="picker" aria-label="Choose a sheet">
+  <p class="picker-label">The sheet</p>
+  <div class="swatches" role="group" aria-label="Paper">
+    <button type="button" class="swatch" data-paper="kozo" aria-pressed="false"><i style="--c:#efe5cf"></i><b>Kozo</b><small>45 gsm</small></button>
+    <button type="button" class="swatch" data-paper="rag" aria-pressed="true"><i style="--c:#f5f0e5"></i><b>Cotton rag</b><small>90 gsm</small></button>
+    <button type="button" class="swatch" data-paper="ash" aria-pressed="false"><i style="--c:#d6d3cb"></i><b>Ash</b><small>120 gsm</small></button>
+    <button type="button" class="swatch" data-paper="clay" aria-pressed="false"><i style="--c:#c57b58"></i><b>Clay</b><small>160 gsm</small></button>
+  </div>
+  <p class="picker-note" id="picker-note">Cotton rag, 90 gsm. Soft tooth, honest weight.</p>
+</aside>
+
 <main id="story">
-  <section class="crease">
-    <h1>Begin with a sheet<br>that deserves it.</h1>
-    <p>Cotton rag, 90 grams to the square metre. Scroll,
-    and fold along with us.</p>
-    <p class="cue">↓</p>
+  <section class="crease" id="fold-0">
+    <div class="card">
+      <p class="kicker">The atelier · chapter by crease</p>
+      <h1>Begin with a sheet<br>that deserves it.</h1>
+      <p>Four papers, made by hand, sold by the quire. Pick one, then scroll, and fold along with us.</p>
+      <p class="cue" aria-hidden="true">Scroll to fold</p>
+    </div>
   </section>
 
-  <section class="crease">
-    <h2>I. The spine</h2>
-    <p>Halve it and open it again. The first crease is the only one
-    the paper will remember forever — make it a promise, not a guess.</p>
+  <section class="crease" id="fold-1">
+    <div class="card">
+      <h2><span class="num">I.</span> The spine</h2>
+      <p>Halve it and open it again. The first crease is the only one the paper will remember forever — make it a promise, not a guess.</p>
+    </div>
   </section>
 
-  <section class="crease">
-    <h2>II. The shoulders</h2>
-    <p>Both corners bow to the centreline. Good paper resists
-    just enough to tell you where the fibre runs.</p>
+  <section class="crease" id="fold-2">
+    <div class="card">
+      <h2><span class="num">II.</span> The shoulders</h2>
+      <p>Both corners bow to the centreline. Good paper resists just enough to tell you where the fibre runs.</p>
+    </div>
   </section>
 
-  <section class="crease">
-    <h2>III. The taper</h2>
-    <p>Again, steeper. The sheet stops being a page here
-    and starts being an intention.</p>
+  <section class="crease" id="fold-3">
+    <div class="card">
+      <h2><span class="num">III.</span> The taper</h2>
+      <p>Again, steeper. The sheet stops being a page here and starts being an intention.</p>
+    </div>
   </section>
 
-  <section class="crease">
-    <h2>IV. The keel</h2>
-    <p>Close it on the first promise. Everything the paper
-    has learned is now stacked seven layers deep.</p>
+  <section class="crease" id="fold-4">
+    <div class="card">
+      <h2><span class="num">IV.</span> The keel</h2>
+      <p>Close it on the first promise and lift it off the bench. Everything the paper has learned is now stacked six layers deep.</p>
+    </div>
   </section>
 
-  <section class="crease">
-    <h2>V. The wings</h2>
-    <p>One fold each side, parallel to the keel.
-    Grammage is aerodynamics, if you're honest about it.</p>
+  <section class="crease" id="fold-5">
+    <div class="card">
+      <h2><span class="num">V.</span> The wings</h2>
+      <p>One fold each side, parallel to the keel. Grammage is aerodynamics, if you're honest about it.</p>
+    </div>
   </section>
 
-  <section class="crease crease-flight">
-    <h2>VI. Flight test</h2>
-    <p>Every sheet we sell has survived this exact ritual
-    at least once, somewhere in the studio, after hours.</p>
-    <p class="colophon-note">Grammage is a fictional atelier — a Blueprint Labs
-    capability study. <a href="/">← The Blueprint Labs</a></p>
+  <section class="crease crease-flight" id="fold-6">
+    <div class="card">
+      <h2><span class="num">VI.</span> Flight test</h2>
+      <p>Every sheet we sell has survived this exact ritual at least once, somewhere in the studio, after hours.</p>
+      <dl class="flight" aria-live="polite">
+        <div><dt>Sheet</dt><dd id="fl-sheet">Cotton rag · 90 gsm</dd></div>
+        <div><dt>Distance</dt><dd><span id="fl-dist">7.2</span> m</dd></div>
+        <div><dt>In the air</dt><dd><span id="fl-time">2.1</span> s</dd></div>
+      </dl>
+      <p class="flight-note" id="fl-note">Try a lighter sheet for a longer glide, or a heavier one for a dart.</p>
+      <p class="colophon-note">Grammage is a fictional atelier — a Blueprint Labs capability study. <a href="/">← The Blueprint Labs</a></p>
+    </div>
   </section>
 </main>
 
