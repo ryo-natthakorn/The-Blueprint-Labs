@@ -420,7 +420,7 @@ function run() {
   scene.add(ship);
 
   // wingtip ribbons, laid flat behind the hull
-  const TRAIL = 10;
+  const TRAIL = 8;
   const trails = [-0.94, 0.94].map((ox) => {
     const pos = new Float32Array(TRAIL * 2 * 3), a = new Float32Array(TRAIL * 2);
     const idx = [];
@@ -631,7 +631,7 @@ function run() {
   const S = {
     mode: 'attract', x: 0, goal: 0, steerVel: 0, speed: 34, dist: 0, gameT: 0,
     score: 0, chain: 0, mult: 1, chainT: 0, sector: 1, near: 0, shardsGot: 0,
-    nextSpawn: 50, timeScale: 1, shake: 0, autoT: 0,
+    nextSpawn: 50, timeScale: 1, shake: 0, autoT: 0, flash: 0,
   };
   const ents = [];
   const keys = {};
@@ -666,6 +666,7 @@ function run() {
     const w = {
       single: 3, pair: sec >= 1 ? 1.6 : 0, gate: 0.9 + sec * 0.35, shards: 1.3,
       drone: sec >= 2 ? 0.8 + sec * 0.3 : 0, slalom: sec >= 2 ? 1 : 0, wall: sec >= 3 ? 0.6 + sec * 0.15 : 0,
+      zigzag: sec >= 3 ? 0.5 + sec * 0.15 : 0,
     };
     let roll = Math.random() * Object.values(w).reduce((a, b) => a + b, 0);
     let pick = 'single';
@@ -702,9 +703,24 @@ function run() {
       return 16;
     }
     if (pick === 'slalom') {
-      const start = Math.floor(Math.random() * 2);
-      for (let k = 0; k < 4; k++) addEnt('pylon', LANES[(start + k) % 2 === 0 ? 1 : 3], z - k * 13);
-      return 52;
+      // a spine down the middle with gates of pylons stepping out to either side
+      const flip = Math.random() < 0.5 ? 1 : 3;
+      for (let k = 0; k < 4; k++) {
+        addEnt('pylon', LANES[2], z - k * 15);
+        addEnt('pylon', LANES[(k % 2) ? 4 - flip : flip], z - k * 15);
+      }
+      addEnt('shard', LANES[flip === 1 ? 0 : 4], z - 22);
+      return 60;
+    }
+    if (pick === 'zigzag') {
+      // rows of four with the gap swinging across: you have to move
+      const gaps = Math.random() < 0.5 ? [0, 3, 1] : [4, 1, 3];
+      const step = Math.max(30, S.speed * 0.5);
+      gaps.forEach((g, k) => {
+        LANES.forEach((x, i) => { if (i !== g) addEnt('pylon', x, z - k * step); });
+        addEnt('shard', LANES[g], z - k * step);
+      });
+      return step * 2 + 10;
     }
     // wall: four pylons abreast, one lane open
     const open = Math.floor(Math.random() * 5);
@@ -796,7 +812,7 @@ function run() {
     setMode('over');
     const sc = Math.floor(S.score);
     el.final.textContent = sc.toLocaleString('en-US');
-    el.finalMeta.textContent = `sector ${String(S.sector).padStart(2, '0')} · ${S.near} near misses · ${S.shardsGot} shards · best ${Math.max(sc, table[0].s).toLocaleString('en-US')}`;
+    el.finalMeta.textContent = `sector ${String(S.sector).padStart(2, '0')} · ${S.near} near misses · ${S.shardsGot} shards · cabinet record ${Math.max(sc, table[0].s).toLocaleString('en-US')}`;
     el.over.hidden = false;
     const qualifies = sc > table[4].s;
     el.initials.hidden = !qualifies;
@@ -972,6 +988,7 @@ function run() {
 
   const clock = new THREE.Clock();
   const look = new THREE.Vector3();
+  let roll = 0;
 
   function update(dt, realDt) {
     const playing = S.mode === 'play';
@@ -984,7 +1001,7 @@ function run() {
       let dir = 0;
       for (const k in STEER) if (keys[k]) dir += STEER[k];
       dir = Math.sign(dir);
-      if (dir) S.goal = THREE.MathUtils.clamp(S.goal + dir * 15 * dt, -LIM, LIM);
+      if (dir) S.goal = THREE.MathUtils.clamp(S.goal + dir * (14 + S.speed * 0.09) * dt, -LIM, LIM);
       S.speed = 42 + 56 * (1 - Math.exp(-S.dist / 7000)) + (S.sector - 1) * 2.5;
     } else if (attract) {
       if (!reduceMotion) autopilot(dt);
@@ -1020,8 +1037,9 @@ function run() {
       S.nextSpawn -= dz;
       if (S.nextSpawn <= 0) {
         const len = spawnPattern(attract);
-        const gap = Math.max(16, 40 - S.sector * 4) + Math.random() * 14;
-        S.nextSpawn = len + gap;
+        // breathing room is measured in time, so it survives the speed
+        const secs = Math.max(0.42, (attract ? 1.0 : 0.95) - S.sector * 0.07) + Math.random() * 0.3;
+        S.nextSpawn = len + secs * Math.max(S.speed, 30);
       }
     }
 
@@ -1069,6 +1087,7 @@ function run() {
             e.passed = true;
             if (dx < hitR + 1.1) {
               S.near++; addChain(1);
+              S.flash = 1;
               const pts = 100 * S.mult;
               S.score += pts;
               callout(`CLOSE +${pts}`, e.x, 2.6, 0, '#29e6ff');
@@ -1095,9 +1114,13 @@ function run() {
     for (const k of KEYS) P[k].lerp(PT[k], pk);
     hazardLines.color.copy(P.hazard);
     padMat.color.copy(P.hazard);
-    beamMat.color.copy(P.hazard).multiplyScalar(HIGH ? 2.4 : 1.6);
+    // lasers hum; the hull's edges flare on a near miss
+    const hum = reduceMotion ? 0 : Math.sin(U.time.value * 37) * 0.25 + Math.sin(U.time.value * 61) * 0.15;
+    beamMat.color.copy(P.hazard).multiplyScalar((HIGH ? 2.4 : 1.6) + hum);
+    S.flash = Math.max(0, S.flash - realDt * 3);
+    shipLines.material.linewidth = (HIGH ? 2.2 : 2.6) + S.flash * 2.5;
     railMat.color.copy(P.hazard);
-    shipLines.material.color.copy(P.accent);
+    shipLines.material.color.copy(P.accent).lerp(new THREE.Color(1, 1, 1), S.flash * 0.6);
     engineGlow.material.color.copy(P.accent);
     streakMat.color.copy(P.grid2).lerp(new THREE.Color(1, 1, 1), 0.55);
 
@@ -1121,7 +1144,7 @@ function run() {
         if (!head || head.z - 0.75 > 0.45) tr.pts.unshift({ x: wx, y: wy, z: 0.75 });
         else { head.x = wx; head.y = wy; }
       }
-      while (tr.pts.length > TRAIL || (tr.pts.length && tr.pts[tr.pts.length - 1].z > 3.2)) tr.pts.pop();
+      while (tr.pts.length > TRAIL || (tr.pts.length && tr.pts[tr.pts.length - 1].z > 2.2)) tr.pts.pop();
       const n = tr.pts.length;
       for (let i = 0; i < TRAIL; i++) {
         const p = tr.pts[Math.min(i, n - 1)] || { x: wx, y: wy, z: 0.75 };
@@ -1171,7 +1194,8 @@ function run() {
     camera.position.set(S.x * (portrait ? 0.82 : 0.52) + (Math.random() - 0.5) * sh, (portrait ? 3.7 : 2.45) + (Math.random() - 0.5) * sh, portrait ? 9.4 : 7.6);
     look.set(S.x * 0.32, portrait ? 0.4 : 0.95, -32);
     camera.lookAt(look);
-    if (!reduceMotion) camera.rotateZ(THREE.MathUtils.clamp(-S.steerVel * 0.011, -0.11, 0.11));
+    roll += ((reduceMotion ? 0 : THREE.MathUtils.clamp(-S.steerVel * 0.006, -0.07, 0.07)) - roll) * Math.min(1, realDt * 4);
+    camera.rotateZ(roll);
     sky.position.copy(camera.position);
     U.fogD.value = scene.fog.density;
 

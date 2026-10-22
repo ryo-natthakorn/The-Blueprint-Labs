@@ -64,7 +64,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 12-ligature-foundry | 3 | Claude | Codex | awaiting review | [note](notes/12-ligature-foundry.md) |
 | 13-bathyal-institute | 3 | Claude | Codex | awaiting review | [note](notes/13-bathyal-institute.md) |
 | 14-suminaga-teahouse | 3 | Claude | Codex | awaiting review | [note](notes/14-suminaga-teahouse.md) |
-| 15-vector-drift | 3 | Claude | Codex | building | [note](notes/15-vector-drift.md) |
+| 15-vector-drift | 3 | Claude | Codex | awaiting review | [note](notes/15-vector-drift.md) |
 | 16-orrery-capital | 4 | Codex | Claude | not started | [note](notes/16-orrery-capital.md) |
 | 17-maison-vela | 4 | Codex | Claude | not started | [note](notes/17-maison-vela.md) |
 | 18-koppar-roastery | 4 | Codex | Claude | not started | [note](notes/18-koppar-roastery.md) |

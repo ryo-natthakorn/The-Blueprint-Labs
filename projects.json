@@ -294,15 +294,16 @@
     "styleTags": [
       "synthwave",
       "playable",
-      "CRT"
+      "3D runner"
     ],
     "accent": "#ff2e88",
-    "description": "The studio site is the demo cabinet: a complete pseudo-3D neon lane runner with attract mode, WebAudio bleeps, and a best score that survives you.",
+    "description": "The studio site is the demo cabinet: a 3D neon runner with gates, sweepers and near-miss multipliers, sectors that repaint the night, an attract loop with a local high-score table, and an opt-in synth soundtrack.",
     "thumbnail": "/sites/15-vector-drift/assets/thumb.jpg",
     "livePath": "/sites/15-vector-drift/",
     "tech": [
-      "Canvas 2D pseudo-3D",
-      "game loop",
+      "Three.js",
+      "bloom + CRT post",
+      "GLSL terrain",
       "WebAudio synth"
     ],
     "status": "complete"

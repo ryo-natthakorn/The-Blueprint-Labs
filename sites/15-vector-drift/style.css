@@ -241,7 +241,7 @@ html, body {
   letter-spacing: 0.06em;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #b8fbff 0%, var(--chrome) 40%, var(--pink) 58%, #6d1462 100%);
+  background: linear-gradient(180deg, #b8fbff 0%, var(--chrome) 40%, var(--pink) 58%, #b0288a 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -393,7 +393,7 @@ html, body {
     radial-gradient(circle at 50% 50%, #ffd23d 0 9vmin, #ff3d9a 15vmin, transparent 15.2vmin),
     linear-gradient(180deg, #07010f 0%, #26043a 45%, #57104f 56%);
 }
-.no-webgl .coin, .no-webgl .press, .no-webgl .dots { display: none; }
+.no-webgl .coin, .no-webgl .press, .no-webgl .dots, .no-webgl .hud { display: none; }
 
 /* ---------- footer ---------- */
 
