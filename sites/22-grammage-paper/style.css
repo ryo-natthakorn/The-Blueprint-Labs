@@ -256,10 +256,35 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--stamp); outline
   .flight dd { font-size: 1.15rem; }
 }
 
+/* short phones: a tighter card, so the sheet keeps the top of the screen */
+@media (max-width: 760px) and (max-height: 700px) {
+  .crease { padding-bottom: 6.2rem; }
+  .card { padding: 0.85rem 0.95rem 0.9rem; }
+  .kicker { margin-bottom: 0.5rem; }
+  .crease h1 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .crease h2 { font-size: 1.45rem; margin-bottom: 0.5rem; }
+  .crease p { font-size: 0.95rem; line-height: 1.5; }
+  .cue { display: none; }
+  .flight { margin: 0.8rem 0 0.5rem; padding-top: 0.6rem; }
+  .flight-note { display: none; }
+  .colophon-note { margin-top: 0.8rem; }
+}
+
+/* smaller desktops: a more compact picker */
+@media (min-width: 761px) and (max-width: 1200px), (min-width: 761px) and (max-height: 760px) {
+  .picker { width: min(22rem, 38vw); padding: 0.75rem 0.8rem; }
+  .picker-note { display: none; }
+  .swatch i { height: 20px; }
+}
+
 /* short landscape screens */
 @media (max-height: 520px) and (min-width: 600px) {
+  .atelier { position: absolute; }
   .picker { width: 21rem; }
   .picker-note { display: none; }
   .swatch i { height: 18px; }
   .rail { display: none; }
 }
+
+/* no WebGL: the chapters stand alone */
+.no-gl #bench, .no-gl .picker, .no-gl .flight, .no-gl .flight-note { display: none; }
