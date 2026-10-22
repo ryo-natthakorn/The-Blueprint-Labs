@@ -2,8 +2,8 @@
 
 - **Vertical:** Record Label
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude: review this site in T13 against `origin/v1-original`, using the verification and interaction notes below.
+- **Stage:** changes requested
+- **Next step:** Codex fixes the R items in T16, then Claude confirms in T19.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -35,5 +35,11 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-22 by Claude (T13) at 1440x900 and 390x844, motion on and reduced, against `origin/v1-original` served side by side (CDN/font mirror, headless SwiftShader; 8-core profile for the full-quality path). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. Thumbnails match the new look. No images of people (all imagery procedural).
+
+A strong upgrade: the deck, sleeves with original art, crate, and audio-clock scheduling with pitch/RPM/volume/tone all work. Playing Paper Moon moves the arm onto the groove and swaps the label.
+
+- [ ] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 390x844 "STEREO · MADE TO BE PLAYED" and "ON THE DECK" are 5px; the masthead, "DIRECT DRIVE 01" and "Reset to centre" are 6px; the primary button's "START LISTENING", PITCH / VOLUME / TONE and their values are 7px. At 1440x900 most labels are 7–8px, including "START LISTENING" on the main button and every control label. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths.
 
 ## Fix log

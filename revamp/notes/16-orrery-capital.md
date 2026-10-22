@@ -2,8 +2,8 @@
 
 - **Vertical:** Quantitative Finance
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude: review this site in T13 against `origin/v1-original`, using the verification and interaction notes below.
+- **Stage:** changes requested
+- **Next step:** Codex fixes the R items in T16, then Claude confirms in T19.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -37,5 +37,13 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-22 by Claude (T13) at 1440x900 and 390x844, motion on and reduced, against `origin/v1-original` served side by side (CDN/font mirror, headless SwiftShader; 8-core profile for the full-quality path). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. Thumbnails match the new look. No images of people (all imagery procedural).
+
+A clear step up in structure: the research-desk layout, named shells, four regimes and the response curve answer v1's "what changed?" problem, and the 12,000-particle low path and keyboard orbit are in place.
+
+- [ ] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 1440x900 the explanatory copy (intro paragraph, regime note, orbit note) is 10px grey `#89928e` on near-black, and labels ("FIG. 01", "Model volatility", "12,000 instruments", "Drag to orbit…") are 8–9px. At 390x844 it drops to 7px ("Research note 016", "FIG. 01", instrument count) and 8–9px on the asset and regime buttons. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths, and keep the grey at a readable contrast.
+- [ ] R2 (must) The slider and the regime readout disagree. Drag "Disturb the system" to 100 while "01 Quiet" is selected: the panel still says "Equilibrium — Low dispersion. Independent paths around a common centre." and "01 Quiet" stays pressed, while model volatility reads 70.0%, coupling 0.92 and the shells have dissolved into a cloud. `vol`'s input handler (`script.js` ~line 317) only sets `volGoal`. Make the slider move the readout too (nearest regime, or a "Custom stress" state with its own note and no regime pressed). Also, the buttons and headings use different names ("01 Quiet" vs "Equilibrium", "04 Reversion" vs "Mean reversion"). Pick one name for each.
+- [ ] R3 (nice) On desktop the instrument is small next to v1's full-bleed galaxy: about 460px wide in a 1440 frame, and the brass core reads as a dot. Let the outer shells grow or bleed behind the columns, and give the core more presence (scale, bloom).
 
 ## Fix log

@@ -2,8 +2,8 @@
 
 - **Vertical:** Haute Couture
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting review
-- **Next step:** Claude: review this site in T13 against `origin/v1-original`, using the verification and interaction notes below.
+- **Stage:** changes requested
+- **Next step:** Codex fixes the R items in T16, then Claude confirms in T19.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -35,5 +35,12 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+Reviewed 2026-10-22 by Claude (T13) at 1440x900 and 390x844, motion on and reduced, against `origin/v1-original` served side by side (CDN/font mirror, headless SwiftShader; 8-core profile for the full-quality path). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. Thumbnails match the new look. No images of people (all imagery procedural).
+
+Big gain over v1's printed billboard: the gathered pleats, rail and dye ledger read as a real material study, and the static reduced-motion drape is composed.
+
+- [ ] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 390x844 the dye sub-labels ("01 / WARM WHITE"…) and "1 : 1 MATERIAL STUDY" are 6px, and "COUTURE · ATELIER Nº 7", "SILK CHARMEUSE", "Drag softly across the silk" and "Hand-finished selvedge" are 7px. At 1440x900 the same labels are 7–8px, and the dye note and controls ("Air in the atelier", "Pause", "Lift silk") are 10–11px. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths.
+- [ ] R2 (nice) The drape crosses through itself near the left selvedge, about halfway down. A 1:1 crop at 1440x900 shows a light/dark tear where one fold passes through another, in the same place for Ivoire and for Sang-de-bœuf at full breeze. Worth a look at the pleat-restoring force or self-collision there.
 
 ## Fix log

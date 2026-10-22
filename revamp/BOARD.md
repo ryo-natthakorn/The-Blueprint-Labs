@@ -29,8 +29,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T10 | Build batch 4 (16–20) | Codex | done |
 | T11 | Confirm batch 2 | Claude | done |
 | T12 | Fix batch 3 | Claude | done |
-| T13 | Review batch 4 | Claude | in progress |
-| T14 | Build batch 5 (21–25) | Claude | todo |
+| T13 | Review batch 4 | Claude | done |
+| T14 | Build batch 5 (21–25) | Claude | in progress |
 | T15 | Confirm batch 3 | Codex | todo |
 | T16 | Fix batch 4 | Codex | todo |
 | T17 | Review batch 5 | Codex | todo |
@@ -65,11 +65,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 13-bathyal-institute | 3 | Claude | Codex | done | [note](notes/13-bathyal-institute.md) |
 | 14-suminaga-teahouse | 3 | Claude | Codex | awaiting confirm | [note](notes/14-suminaga-teahouse.md) |
 | 15-vector-drift | 3 | Claude | Codex | awaiting confirm | [note](notes/15-vector-drift.md) |
-| 16-orrery-capital | 4 | Codex | Claude | awaiting review | [note](notes/16-orrery-capital.md) |
-| 17-maison-vela | 4 | Codex | Claude | awaiting review | [note](notes/17-maison-vela.md) |
-| 18-koppar-roastery | 4 | Codex | Claude | awaiting review | [note](notes/18-koppar-roastery.md) |
-| 19-voltaic-moto | 4 | Codex | Claude | awaiting review | [note](notes/19-voltaic-moto.md) |
-| 20-halftone-records | 4 | Codex | Claude | awaiting review | [note](notes/20-halftone-records.md) |
+| 16-orrery-capital | 4 | Codex | Claude | changes requested | [note](notes/16-orrery-capital.md) |
+| 17-maison-vela | 4 | Codex | Claude | changes requested | [note](notes/17-maison-vela.md) |
+| 18-koppar-roastery | 4 | Codex | Claude | changes requested | [note](notes/18-koppar-roastery.md) |
+| 19-voltaic-moto | 4 | Codex | Claude | changes requested | [note](notes/19-voltaic-moto.md) |
+| 20-halftone-records | 4 | Codex | Claude | changes requested | [note](notes/20-halftone-records.md) |
 | 21-petrichor-atmos | 5 | Claude | Codex | not started | [note](notes/21-petrichor-atmos.md) |
 | 22-grammage-paper | 5 | Claude | Codex | not started | [note](notes/22-grammage-paper.md) |
 | 23-umbra-cacao | 5 | Claude | Codex | not started | [note](notes/23-umbra-cacao.md) |
