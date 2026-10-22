@@ -4,47 +4,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PETRICHOR — Atmospheric Intelligence</title>
-<meta name="description" content="Petrichor — atmospheric intelligence. One procedural sky: scrub the hour, raise a storm, wait for the lightning.">
+<meta name="description" content="Petrichor — atmospheric intelligence. One procedural sky over Kestrel Flats: scrub the hour, raise a storm, and catch the moment rain first meets dry ground.">
 <meta name="theme-color" content="#0e131c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700&family=Manrope:wght@200;300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/21-petrichor-atmos/style.css">
 </head>
 <body>
 
-<canvas id="sky" aria-label="A procedural sky of drifting clouds. Controls scrub the time of day and raise a storm." role="img"></canvas>
+<canvas id="sky" tabindex="-1" aria-hidden="true"></canvas>
+<canvas id="bolts" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
 
-<header class="obs">
-  <span class="obs-name">PETRICHOR</span>
-  <span class="obs-sub">atmospheric intelligence</span>
-</header>
+<div class="frame">
+  <header class="masthead">
+    <div class="brand">
+      <span class="brand-name">PETRICHOR</span>
+      <span class="brand-sub">Atmospheric intelligence</span>
+    </div>
+    <div class="station">
+      <span class="station-name">Station 07 · Kestrel Flats</span>
+      <span class="station-meta">Illustrative model · not a live feed</span>
+    </div>
+  </header>
 
-<div class="reading" aria-live="polite">
-  <p class="reading-cond" id="cond">FAIR</p>
-  <div class="reading-grid">
-    <div class="rd"><span class="rd-key">LOCAL</span><span class="rd-val" id="rd-time">14:00</span></div>
-    <div class="rd"><span class="rd-key">TEMP</span><span class="rd-val" id="rd-temp">19°</span></div>
-    <div class="rd"><span class="rd-key">WIND</span><span class="rd-val" id="rd-wind">9 kt</span></div>
-    <div class="rd"><span class="rd-key">CEILING</span><span class="rd-val" id="rd-ceil">high</span></div>
-  </div>
+  <main class="desk">
+    <section class="now" aria-labelledby="cond">
+      <p class="now-kicker"><span id="now-time">14:00</span> · <span id="now-phase">afternoon</span></p>
+      <h1 class="cond" id="cond">Fair</h1>
+      <p class="story" id="story">High cumulus, light westerly. Dry ground for three days.</p>
+
+      <dl class="readings">
+        <div class="rd"><dt>Temp</dt><dd><span id="rd-temp">19</span><small>°C</small></dd></div>
+        <div class="rd"><dt>Humidity</dt><dd><span id="rd-hum">48</span><small>%</small></dd></div>
+        <div class="rd"><dt>Wind</dt><dd><i class="fa-solid fa-location-arrow wind-arrow" id="wind-arrow" aria-hidden="true"></i><span id="rd-wind">9</span><small>kt <span id="rd-wdir">WSW</span></small></dd></div>
+        <div class="rd"><dt>Pressure</dt><dd><span id="rd-pres">1016</span><small>hPa</small></dd></div>
+        <div class="rd"><dt>Cloud base</dt><dd><span id="rd-ceil">1,850</span><small>m</small></dd></div>
+        <div class="rd"><dt>Visibility</dt><dd><span id="rd-vis">40</span><small>km</small></dd></div>
+      </dl>
+    </section>
+
+    <section class="console" aria-label="Sky controls">
+      <div class="scent" aria-describedby="scent-note">
+        <div class="scent-head">
+          <span class="scent-label"><i class="fa-solid fa-droplet" aria-hidden="true"></i> Scent index</span>
+          <span class="scent-val" id="scent-val">0</span>
+        </div>
+        <div class="scent-bar"><i id="scent-fill"></i></div>
+        <p class="scent-note" id="scent-note">Peaks when rain first meets dry ground.</p>
+      </div>
+
+      <div class="ctl ctl-hour">
+        <label for="hour"><span>Hour</span><output id="hour-out" for="hour">14:00</output></label>
+        <input type="range" id="hour" min="0" max="24" step="0.25" value="14">
+        <div class="ticks" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+      </div>
+
+      <div class="ctl ctl-storm">
+        <label for="storm"><span>Storm</span><output id="storm-out" for="storm">calm</output></label>
+        <input type="range" id="storm" min="0" max="100" step="1" value="12">
+      </div>
+
+      <div class="console-foot">
+        <button type="button" class="play" id="play" aria-pressed="false"><i class="fa-solid fa-play" aria-hidden="true"></i><span>Play the forecast</span></button>
+        <p class="strike" id="strike" aria-live="polite"><i class="fa-solid fa-bolt" aria-hidden="true"></i><span id="strike-text">No lightning</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="baseline">
+    <span>Petrichor is a fictional service — a Blueprint Labs capability study. The sky, the clouds and the rain are one fragment shader.</span>
+    <a href="/">← The Blueprint Labs</a>
+  </footer>
 </div>
-
-<div class="console">
-  <div class="ctl">
-    <label for="hour">HOUR <span id="hour-out">14:00</span></label>
-    <input type="range" id="hour" min="0" max="24" step="0.1" value="14" aria-label="Time of day">
-  </div>
-  <div class="ctl">
-    <label for="storm">STORM <span id="storm-out">calm</span></label>
-    <input type="range" id="storm" min="0" max="100" value="12" aria-label="Storm intensity">
-  </div>
-</div>
-
-<footer class="baseline">
-  <span>Petrichor is a fictional service — a Blueprint Labs capability study. The sky is a fragment shader.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
 
 <script type="module" src="/sites/21-petrichor-atmos/script.js"></script>
 </body>

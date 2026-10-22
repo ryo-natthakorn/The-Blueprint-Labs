@@ -27,7 +27,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - The hour slider becomes a 24-hour sky strip. Readable type (labels ≥ 11px). Flow layout that scrolls on short screens. Quality tiers (steps, octaves, render scale) plus an adaptive resolution drop. Reduced motion renders composed stills on input, with no flashes. CSS sky fallback without WebGL.
 
 ## Pass log
-- Pass 1:
+- Pass 1: Rebuilt the shader. Single-scattering sky with aerosol reddening and twilight ozone blue, a raymarched cumulus deck (one-fetch 3D texture noise, Beer–Lambert, sun-shadow march, mass-above occlusion, powder, two-lobe phase), three ridges in aerial perspective, and a plain that soaks into sky-mirroring puddles with rain rings. Moon disc with phase, temperature-coloured stars and a faint Milky Way. Grain is removed with a constant-alpha history buffer (stills accumulate six passes). The station faces WSW, so the sun sets just right of centre and storms build in view. Lightning is a branched 2D-overlay bolt (dim inside the cloud, two pulses at most) that lights the cloud around its channel, with a distance → thunder countdown. New desk UI: condition word fitted to its column, a story line, six coherent readings, the scent index, a 24-hour sky-gradient hour track, a storm track and Play the forecast. Labels are ≥ 11.5px.
 - Pass 2:
 - Pass 3:
 
