@@ -807,10 +807,10 @@ function step(dt, still) {
     const x0 = vat.cx + Math.cos(S.autoAng - dt * (2 * Math.PI / 1.6)) * r, y0 = vat.cy + Math.sin(S.autoAng - dt * (2 * Math.PI / 1.6)) * r;
     stirAt(x, y, x - x0, y - y0, dt);
   }
-  if (S.phase === 'vat') tick(dt);
   // the stirring hint fades once the batch has been stirred for a moment
-  if (S.A > 0.3) S.stirred = (S.stirred || 0) + dt;
-  S.hint = S.phase === 'vat' ? clamp(1 - (S.stirred || 0) / 1.5, 0, 1) : 0;
+  if (S.A > 0.3) S.stirred += dt;
+  S.hint = S.phase === 'vat' ? clamp(1 - S.stirred / 1.5, 0, 1) : 0;
+  if (S.phase === 'vat') tick(dt);
   else {
     // pour: the vat gives way, the mould fills, the bar sets
     const k = reduceMotion ? 1 : dt;

@@ -2,8 +2,8 @@
 
 - **Vertical:** Chocolate Maker
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews in T17.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -26,15 +26,16 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 ## Pass log
 - Pass 1: Rebuilt as a live GPU stable-fluids vat (WebGL2 or WebGL1 half-float targets, with a procedural fallback): advect, splat, divergence, 14–22 Jacobi iterations, projection, a slow conching spin and a viscosity that rises with crystals. A dye field carries a broad relief and a fine colour pattern that stretch into ribbons and relax back. Shading uses a near-overhead camera, so the softbox and strip reflections land on the melt and bend with every wave. The copper vat has a rounded brushed lip and sits on a dark marble slab. Crystal model: unstable forms below 29 / melting above 29.5, Form V seeded below 28.5, growing to 32.2 and melting above. Once seeded and warmed, a thermostat holds 31.5°C. Thermometer, Form V / unstable bars, a live tempering curve with the three bands, and step-by-step cues in a quiet live region. Pour the bar shows a mould that fills and sets, with gloss, snap and bloom (grey streaks) from the temper actually reached, a verdict and tasting notes. Stir for me (toggle) and Hold to warm (pointer or Space/Enter) make it fully keyboard-playable. End-to-end runs: pouring straight away gives 'It will bloom' (fat bloom); the full curve gives 'A clean snap' at 31.2°C, Form V 97%.
 - Pass 2: Checked 1024x640, 1920x1080, 360x640, 844x390 and reduced motion. The unstirred melt read as milky foam: blurry, over-wide reflections from a crinkly relief. The rest relief is now a smooth three-octave undulation, molten chocolate stays glossy (temper only sharpens it), and the reflections are crisp. A poured untempered bar now reads dull and grey (softer, weaker reflections, bloom streaks). The tempered bar is darker with smoother bevels. The bar mould relief was re-blurred and its normals widened, so there are no jagged bevel lines. Advice in the live region no longer carries a changing temperature (no chatter); the thermometer has its own readout.
-- Pass 3:
+- Pass 3: Final sweep of the opening, stirred, seeded, in-temper and both pour outcomes at both widths. Added a faint dashed gold ring at the stirring radius that turns the right way and fades after 1.5 s of stirring, so a first-time visitor knows what to do. Fixed an if/else ordering slip from adding it (page error caught by the verify run). Removing pointer-stir timing assumptions keeps slow devices stirring correctly.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (97 files, 26 projects).
+- verify-sites: `--only 23 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the Font Awesome CSS because this environment blocks cdnjs.
+- Visual check, desktop 1440x900: done. Opening, hand-stirred, machine-stirred vortex, seeded at 26°C, in temper at 31.3°C, pour fill, and both bars (clean snap / fat bloom). Also 1024x640 and 1920x1080.
+- Visual check, mobile 390x844: done. The vat, readouts and buttons in the first screen, the ritual below, and the pour. Also 360x640 and 844x390. No sideways scroll.
+- Reduced motion: done. No conching spin; the melt only moves while you or the machine stir. The pour jumps straight to the set bar.
+- Ritual end to end (Stir for me + Space on Hold to warm, Playwright): seeded at 26.2°C (Form V 30%), rewarmed to 31.2°C, in temper with Form V 97%, poured → "A clean snap", Mirror / Clean, loud / None. Pouring at once → "It will bloom", Fat bloom.
+- Thumbnail regenerated: yes (`--wait 4000`), opening frame with the stirring ring, checked.
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

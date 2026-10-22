@@ -460,18 +460,19 @@
     "title": "UMBRA",
     "vertical": "Chocolate Maker",
     "styleTags": [
-      "viscous shader",
+      "fluid simulation",
       "stir-to-play",
       "dark luxury"
     ],
     "accent": "#c9963f",
-    "description": "A conching vat of molten chocolate in a domain-warped shader — stir it in slow, steady circles and the temper meter grows Form-V crystals until the gloss snaps in.",
+    "description": "A live fluid simulation of molten chocolate in a copper vat on marble. Stir it down to 27°C, rewarm it to 31.5, and pour: the bar's gloss, snap and bloom follow the temper you actually reached.",
     "thumbnail": "/sites/23-umbra-cacao/assets/thumb.jpg",
     "livePath": "/sites/23-umbra-cacao/",
     "tech": [
       "raw WebGL",
-      "domain-warped FBM",
-      "stir-quality judge"
+      "GPU stable fluids",
+      "tempering-curve crystal model",
+      "softbox reflections"
     ],
     "status": "complete"
   },
