@@ -2,27 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Private Dining — The Tideline · Harrow's Point</title>
-<meta name="description" content="The Tideline's private dining room seats up to fourteen, just off the main kitchen. Chef's tasting for parties of six or more; full restaurant buyouts on request.">
+<meta name="description" content="A private room off the kitchen for up to fourteen, chef's tasting for six or more, and full buyouts for forty at The Tideline, Harrow's Point.">
 <meta name="theme-color" content="#0f171a">
+<meta property="og:title" content="Private Dining — The Tideline · Harrow's Point">
+<meta property="og:description" content="A private room off the kitchen for up to fourteen, chef's tasting for six or more, and full buyouts for forty at The Tideline, Harrow's Point.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f171a'/%3E%3Cpath d='M5 19c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M5 24c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round' opacity='.5'/%3E%3Ccircle cx='23' cy='9' r='2.6' fill='%23d9a05b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/26-the-tideline/style.css">
+<link rel="stylesheet" href="/sites/26-the-tideline/css/private.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
-<body>
+<body class="page-private-dining">
 
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header solid">
   <div class="nav-bar">
-    <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
-      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+    <a class="brand" href="/sites/26-the-tideline/">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b"/></svg>
       <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
     </a>
-    <nav aria-label="Primary">
+    <nav class="nav-primary" aria-label="Primary">
       <ul class="nav-links">
         <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
         <li><a href="/sites/26-the-tideline/story">Story</a></li>
@@ -31,43 +37,45 @@
         <li><a href="/sites/26-the-tideline/contact">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn-amber nav-cta" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
-    <button class="nav-burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a class="btn btn-amber btn-sm nav-cta" href="/sites/26-the-tideline/reservations">Reserve<span class="cta-long">&nbsp;a Table</span></a>
+    <button class="nav-burger" type="button" aria-expanded="false" aria-controls="drawer"><i class="fa-solid fa-bars" aria-hidden="true"></i><span class="visually-hidden">Menu</span></button>
   </div>
 </header>
 
 <div class="drawer" id="drawer">
-  <nav aria-label="Mobile">
+  <nav class="drawer-nav" aria-label="Site">
     <ul>
-      <li><a class="d-link" href="/sites/26-the-tideline/"><span class="n">01</span>Home</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/menu"><span class="n">02</span>Menu</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/reservations"><span class="n">03</span>Reservations</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/story"><span class="n">04</span>Story</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/private-dining" aria-current="page"><span class="n">05</span>Private Dining</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/gallery"><span class="n">06</span>Gallery</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/contact"><span class="n">07</span>Contact</a></li>
+      <li><a href="/sites/26-the-tideline/"><span class="n">01</span>Home<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/menu"><span class="n">02</span>Menu<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/reservations"><span class="n">03</span>Reservations<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/story"><span class="n">04</span>Story<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/private-dining" aria-current="page"><span class="n">05</span>Private Dining<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/gallery"><span class="n">06</span>Gallery<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/contact"><span class="n">07</span>Contact<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
     </ul>
   </nav>
   <div class="drawer-foot">
-    <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
-    <p class="tide-pill"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+    <p class="pill"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
+    <a href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a>
+    <a href="/sites/26-the-tideline/contact"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>6 Quay Lane, Harrow's Point</a>
+    <p class="pill"><span class="dot live" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
   </div>
 </div>
 
 <main id="main">
 
-  <div class="wrap page-head">
-    <nav aria-label="Breadcrumb">
-      <ol class="crumbs">
-        <li><a href="/sites/26-the-tideline/">The Tideline</a></li>
-        <li class="sep" aria-hidden="true">/</li>
-        <li aria-current="page">Private Dining</li>
-      </ol>
-    </nav>
-    <p class="overline rv">Private dining &amp; events</p>
-    <h1 class="t-display rv" data-d="1">A room off the kitchen,<br>a night that's yours.</h1>
+  <div class="page-head">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="/sites/26-the-tideline/">The Tideline</a></li>
+          <li class="sep" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></li>
+          <li aria-current="page">Private Dining</li>
+        </ol>
+      </nav>
+      <p class="overline rv">Private dining &amp; events</p>
+      <h1 class="t-display rv" data-d="1">A room off the kitchen,<br>a night that's yours.</h1>
+    </div>
   </div>
 
   <!-- hero split -->
@@ -102,19 +110,19 @@
       <div class="pd-facts rv">
         <div class="pd-fact">
           <span class="num">14</span>
-          <span class="t-mono">Seats at the long table</span>
+          <span class="t-label">Seats at the long table</span>
           <p style="color:var(--bone-2);font-size:.95rem">The room holds one table, not three.
             Your night doesn't share the air with anyone else's.</p>
         </div>
         <div class="pd-fact">
           <span class="num">6+</span>
-          <span class="t-mono">Chef's tasting parties</span>
+          <span class="t-label">Chef's tasting parties</span>
           <p style="color:var(--bone-2);font-size:.95rem">Seven courses decided by the morning's
             landing. Dietary needs folded in, never bolted on.</p>
         </div>
         <div class="pd-fact">
           <span class="num">40</span>
-          <span class="t-mono">Seats on a full buyout</span>
+          <span class="t-label">Seats on a full buyout</span>
           <p style="color:var(--bone-2);font-size:.95rem">The whole dining room, the bar and both
             windows on the channel. Weddings, wakes and everything between.</p>
         </div>
@@ -162,7 +170,7 @@
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/contact?subject=private-dining">Enquire about a date</a>
       </div>
-      <p class="t-mono rv" data-d="3">Most weekends book 4–6 weeks out</p>
+      <p class="t-label rv" data-d="3">Most weekends book 4–6 weeks out</p>
     </div>
   </section>
 
@@ -171,16 +179,16 @@
 <footer class="site-footer">
   <div class="foot-grid">
     <div class="foot-brand">
-      <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
-        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+      <a class="brand" href="/sites/26-the-tideline/">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b"/></svg>
         <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
       </a>
       <p class="foot-tag">A modern coastal kitchen. Same-day sourcing off the town dock,
         and a menu that changes with the water.</p>
-      <p class="tide-pill foot-tide"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+      <p class="pill"><span class="dot live" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
     </div>
     <nav class="foot-col" aria-label="Footer">
-      <h3>Explore</h3>
+      <h2>Explore</h2>
       <ul>
         <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
         <li><a href="/sites/26-the-tideline/reservations">Reservations</a></li>
@@ -191,30 +199,33 @@
       </ul>
     </nav>
     <div class="foot-col">
-      <h3>Visit</h3>
+      <h2>Visit</h2>
       <p>6 Quay Lane<br>Harrow's Point</p>
-      <p style="margin-top:12px">
-        <a href="tel:+15550100178">(555) 010-0178</a><br>
-        <a href="mailto:hello@thetideline.example">hello@thetideline.example</a>
-      </p>
+      <div class="stack">
+        <a href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a>
+        <a href="mailto:hello@thetideline.example"><i class="fa-solid fa-envelope" aria-hidden="true"></i>hello@thetideline.example</a>
+        <a href="/sites/26-the-tideline/contact#directions"><i class="fa-solid fa-route" aria-hidden="true"></i>Directions &amp; parking</a>
+      </div>
     </div>
     <div class="foot-col">
-      <h3>Hours</h3>
-      <div class="foot-hours">
-        <div><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
-        <div><span>Bar opens</span><span>4:30 PM</span></div>
-        <div><span>Monday</span><span>Closed</span></div>
+      <h2>Hours</h2>
+      <div class="hours">
+        <div data-row="service"><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
+        <div data-row="bar"><span>Bar opens</span><span>4:30 PM</span></div>
+        <div data-row="monday"><span>Monday</span><span>Closed</span></div>
       </div>
+      <p class="pill" style="margin-top:18px"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
     </div>
   </div>
   <div class="foot-base">
     <div class="foot-base-in">
       <span>© <span data-year>2026</span> The Tideline · Harrow's Point</span>
-      <span>A concept kitchen in a fictional harbor town, built as a design study.</span>
+      <span>A concept kitchen in a fictional harbor town — a <a href="/">Blueprint Labs</a> design study.</span>
     </div>
   </div>
 </footer>
 
 <script src="/sites/26-the-tideline/main.js" defer></script>
+<script src="/sites/26-the-tideline/private.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,97 @@
+/* ============================================================
+   MENU PAGE
+   ============================================================ */
+.menu-toolbar {
+  position: sticky; top: var(--head); z-index: 40;
+  background: rgba(15,23,26,0.92);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-block: 1px solid var(--line);
+  margin-top: 54px;
+}
+@media (max-width: 720px) {
+  /* two sticky bars eat a fifth of a phone screen — let it scroll */
+  .menu-toolbar { position: static; }
+}
+.menu-toolbar-in {
+  max-width: var(--wide); margin: 0 auto; padding: 12px var(--pad);
+  display: flex; flex-wrap: wrap; gap: 12px 26px; align-items: center;
+}
+.m-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.m-nav a {
+  text-decoration: none; color: var(--bone-2);
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 9px 13px; border-radius: 100px;
+  transition: color .2s, background-color .2s;
+}
+.m-nav a:hover { color: var(--bone); }
+.m-nav a.active { color: var(--ink); background: var(--glass); }
+.menu-toolbar .spacer { flex: 1; }
+.diet-filter { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.diet-filter .lbl { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone-3); font-weight: 700; }
+.chip {
+  font-family: var(--sans);
+  background: none; cursor: pointer;
+  border: 1px solid var(--line-2); border-radius: 100px;
+  color: var(--bone-2); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 8px 14px;
+  transition: all .22s var(--ease);
+}
+.chip:hover { border-color: var(--glass); color: var(--glass); }
+.chip[aria-pressed="true"] { background: var(--glass); border-color: var(--glass); color: var(--ink); }
+
+.menu-sect { padding-top: clamp(64px, 8vw, 100px); scroll-margin-top: 150px; }
+.menu-sect-head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 10px; }
+.menu-sect-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.menu-sect-head .rule { flex: 1; height: 1px; background: var(--line); }
+.menu-sect-head .t-label { white-space: nowrap; }
+.menu-note { color: var(--bone-3); font-size: 0.9rem; font-style: italic; margin-bottom: 8px; }
+
+.dish {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 4px 30px; align-items: baseline;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+  transition: opacity .3s var(--ease);
+}
+.dish.dim { opacity: 0.25; }
+.dish-name {
+  font-family: var(--serif); font-weight: 400; font-size: 1.4rem; letter-spacing: -0.01em;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+}
+.dish-desc { grid-column: 1; color: var(--bone-2); font-weight: 300; max-width: 60ch; font-size: 0.99rem; }
+.dish-price {
+  grid-row: 1; grid-column: 2;
+  color: var(--amber); font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.tags { display: inline-flex; gap: 5px; transform: translateY(-2px); }
+.tag {
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+  border: 1px solid var(--line-2); border-radius: 3px;
+  color: var(--glass);
+  padding: 2.5px 6px 1.5px;
+  cursor: help;
+}
+.tag.warn { color: var(--amber); }
+
+.menu-legend {
+  margin-top: 60px; padding: 22px 26px;
+  border: 1px solid var(--line); border-radius: 3px;
+  display: flex; flex-wrap: wrap; gap: 10px 26px;
+  font-size: 0.82rem; color: var(--bone-2);
+  background: var(--ink-2);
+}
+.menu-legend b { color: var(--glass); font-weight: 700; margin-right: 6px; }
+
+.menu-aside {
+  margin-top: clamp(64px, 8vw, 100px);
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 3vw, 44px);
+}
+.menu-aside .ph { aspect-ratio: 16 / 11; }
+@media (max-width: 720px) { .menu-aside { grid-template-columns: 1fr; } }
+
+/* drinks columns */
+.drinks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 4vw, 56px); margin-top: 20px; }
+.drinks-grid h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; margin-bottom: 16px; }
+.drinks-grid ul { list-style: none; display: grid; gap: 12px; }
+.drinks-grid li { color: var(--bone-2); font-size: 0.97rem; display: grid; gap: 1px; }
+.drinks-grid li b { color: var(--bone); font-weight: 700; }
+@media (max-width: 860px) { .drinks-grid { grid-template-columns: 1fr; } }

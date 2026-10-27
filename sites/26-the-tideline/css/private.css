@@ -1,0 +1,29 @@
+/* ============================================================
+   PRIVATE DINING
+   ============================================================ */
+.pd-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+@media (max-width: 860px) { .pd-hero { grid-template-columns: 1fr; } }
+.pd-hero .ph { aspect-ratio: 4 / 5; }
+.pd-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.pd-fact { background: var(--ink-2); padding: clamp(24px, 3vw, 38px); display: grid; gap: 8px; }
+.pd-fact .num { font-family: var(--serif); font-weight: 340; font-size: clamp(2rem, 4vw, 3rem); color: var(--glass); font-variant-numeric: tabular-nums; }
+.pd-fact .t-label { color: var(--bone-3); }
+@media (max-width: 720px) { .pd-facts { grid-template-columns: 1fr; } }
+.pd-list { list-style: none; display: grid; gap: 14px; margin-top: 26px; }
+.pd-list li { display: flex; gap: 14px; color: var(--bone-2); }
+.pd-list li::before { content: "—"; color: var(--glass); flex: none; }
+
+/* generic two-column feature */
+.duo {
+  display: grid; gap: clamp(32px, 6vw, 84px);
+  grid-template-columns: repeat(2, 1fr); align-items: center;
+}
+@media (max-width: 860px) { .duo { grid-template-columns: 1fr; } }
+
+.two-col-note {
+  display: flex; gap: 14px; align-items: flex-start;
+  border: 1px solid var(--line); border-left: 2px solid var(--glass);
+  border-radius: 3px; padding: 18px 22px;
+  color: var(--bone-2); font-size: 0.92rem;
+  background: var(--ink-2);
+}

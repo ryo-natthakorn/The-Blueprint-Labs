@@ -2,8 +2,8 @@
 
 - **Vertical:** Restaurant — Modern Coastal Kitchen
 - **Batch:** 26 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** not started
-- **Next step:** Claude builds in T21 from the audit below, in five full passes. Keep all seven URLs and the facts in `CONTENT_BRIEF_SITE26.md`. T18 is complete; no site code was changed.
+- **Stage:** building
+- **Next step:** Claude continues T21 from the Pass log below.
 
 ## Original audit
 
@@ -149,6 +149,49 @@ Suggested allocation for Claude's five passes (not build work performed here):
 - Pass 5: hunt for missed design/interaction issues across all seven pages,
   at desktop/mobile/short widths, normal/reduced motion; run verification
   and regenerate thumbnails as required by the protocol.
+
+
+### Builder plan — Claude · 2026-10-27 · T21
+
+Reviewed the audit, every page and script, and captured all seven pages at
+1440×900 and 390×844 before changing code. I agree with all ten points. Two
+environment facts shape the plan: this container cannot reach any stock-photo
+host (Unsplash, Pexels, Pixabay, Wikimedia all refused), so new photography is
+not possible here; and the two bar photos carry a neon wordmark ("BASTA HERO",
+a script "B") and a "Pizza" neon plus readable bottle labels.
+
+- **Imagery:** replace the two bar photos with unbranded crops (the lit
+  counter and stools; the bulb canopy) and delete the originals so the
+  branded files no longer ship. Show the private room as a drawn floor plan
+  rather than a misleading platter photo. Add 800px variants and `srcset`
+  so phones stop downloading 1600px files.
+- **Shared system:** per-page CSS on top of one shared `style.css`; gutters
+  that can't be overwritten by a page header; a 12px label floor and 15–17px
+  controls; a compact Reserve button in the mobile header; drawer with focus
+  trap, `inert` background and focus return; Font Awesome free icons for every
+  UI control (calendar, viewer, burger, confirmation); one motion preference
+  read everywhere (no forced smooth scrolling).
+- **Home:** a new shoreline shader: depth-graded water, wave sets that run up
+  the beach and draw back, foam lace carried by the backwash, a wet-sand
+  sheen that dries behind it, caustics in the shallows, low-sun glints. The
+  tide gauge drives the water line: scrub through tonight's service and the
+  water moves to that hour's height. Static, composed frame for reduced
+  motion and no-WebGL.
+- **Menu:** a printed daily sheet: legend beside the filters, readable tag
+  names, matching dishes highlighted with a live count, prices inline.
+- **Story:** the dock-to-table day as a scroll sequence with a sticky clock
+  and tide, then an interactive sourcing map (pick a supplier, see its route).
+- **Private dining:** a floor-plan drawing of the room with a format chooser
+  (chef's tasting 6+, private room up to 14, full buyout 40) beside the
+  enquiry, routed to Contact with subject and format preselected.
+- **Reservations:** keep the engine; keep focus on the chosen day or slot,
+  move focus to each new step's heading, link errors with
+  `aria-describedby`, a sticky summary bar with Continue on phones, a
+  ticket-style confirmation.
+- **Gallery:** four chapters (landing, preparation, room, table), a 2-column
+  phone grid, consistent grading, the viewer kept with icon controls.
+- **Contact:** intent cards instead of a select, private-dining fields when
+  that intent is chosen, a success recap with reference and next steps.
 
 ## Pass log
 

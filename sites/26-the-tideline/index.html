@@ -2,29 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>The Tideline — Modern Coastal Kitchen · Harrow's Point</title>
 <meta name="description" content="A modern coastal kitchen in the harbor town of Harrow's Point. Same-day fish from the town dock, three coastal farms, and a menu rewritten every morning. Reserve a table.">
 <meta name="theme-color" content="#0f171a">
-<meta property="og:title" content="The Tideline — Modern Coastal Kitchen">
-<meta property="og:description" content="Cook what the tide gives you. Tue–Sun, 5–10 PM, Harrow's Point.">
+<meta property="og:title" content="The Tideline — Modern Coastal Kitchen · Harrow's Point">
+<meta property="og:description" content="A modern coastal kitchen in the harbor town of Harrow's Point. Same-day fish from the town dock, three coastal farms, and a menu rewritten every morning. Reserve a table.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f171a'/%3E%3Cpath d='M5 19c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M5 24c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 4 2.6' stroke='%2393bcae' stroke-width='1.7' fill='none' stroke-linecap='round' opacity='.5'/%3E%3Ccircle cx='23' cy='9' r='2.6' fill='%23d9a05b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/26-the-tideline/style.css">
+<link rel="stylesheet" href="/sites/26-the-tideline/css/home.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
-<body>
+<body class="page-home">
 
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <div class="nav-bar">
-    <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
-      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+    <a class="brand" href="/sites/26-the-tideline/" aria-current="page">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b"/></svg>
       <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
     </a>
-    <nav aria-label="Primary">
+    <nav class="nav-primary" aria-label="Primary">
       <ul class="nav-links">
         <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
         <li><a href="/sites/26-the-tideline/story">Story</a></li>
@@ -33,110 +37,129 @@
         <li><a href="/sites/26-the-tideline/contact">Contact</a></li>
       </ul>
     </nav>
-    <a class="btn btn-amber nav-cta" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
-    <button class="nav-burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a class="btn btn-amber btn-sm nav-cta" href="/sites/26-the-tideline/reservations">Reserve<span class="cta-long">&nbsp;a Table</span></a>
+    <button class="nav-burger" type="button" aria-expanded="false" aria-controls="drawer"><i class="fa-solid fa-bars" aria-hidden="true"></i><span class="visually-hidden">Menu</span></button>
   </div>
 </header>
 
 <div class="drawer" id="drawer">
-  <nav aria-label="Mobile">
+  <nav class="drawer-nav" aria-label="Site">
     <ul>
-      <li><a class="d-link" href="/sites/26-the-tideline/"><span class="n">01</span>Home</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/menu"><span class="n">02</span>Menu</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/reservations"><span class="n">03</span>Reservations</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/story"><span class="n">04</span>Story</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/private-dining"><span class="n">05</span>Private Dining</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/gallery"><span class="n">06</span>Gallery</a></li>
-      <li><a class="d-link" href="/sites/26-the-tideline/contact"><span class="n">07</span>Contact</a></li>
+      <li><a href="/sites/26-the-tideline/" aria-current="page"><span class="n">01</span>Home<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/menu"><span class="n">02</span>Menu<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/reservations"><span class="n">03</span>Reservations<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/story"><span class="n">04</span>Story<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/private-dining"><span class="n">05</span>Private Dining<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/gallery"><span class="n">06</span>Gallery<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
+      <li><a href="/sites/26-the-tideline/contact"><span class="n">07</span>Contact<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></li>
     </ul>
   </nav>
   <div class="drawer-foot">
-    <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
-    <p class="tide-pill"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+    <p class="pill"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
+    <a href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a>
+    <a href="/sites/26-the-tideline/contact"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>6 Quay Lane, Harrow's Point</a>
+    <p class="pill"><span class="dot live" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
   </div>
 </div>
 
 <main id="main">
 
   <!-- ======================= HERO ======================= -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="hero-fallback" aria-hidden="true"></div>
     <canvas id="tide-canvas" aria-hidden="true"></canvas>
     <div class="hero-in">
-      <p class="overline rv">Harrow's Point · Modern Coastal Kitchen</p>
-      <h1 class="t-display rv" data-d="1" style="margin-top:22px">Cook what the <em>tide</em> gives you.</h1>
-      <p class="t-lede rv" data-d="2">Same-day fish from the town dock. Three coastal farms within
-        twenty miles. A menu rewritten every morning around whatever the water decided to send.</p>
-      <div class="hero-cta rv" data-d="3">
-        <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
-        <a class="btn btn-ghost" href="/sites/26-the-tideline/menu">Tonight's Menu</a>
+      <div class="hero-copy">
+        <p class="overline rv">Harrow's Point · Modern coastal kitchen</p>
+        <h1 class="t-display rv" data-d="1" id="hero-title">Cook what the <em>tide</em> gives&nbsp;you.</h1>
+        <p class="t-lede rv" data-d="2">Same-day fish from the town dock, three coastal farms within twenty
+          miles, and a menu rewritten every morning around whatever the water decided to send.</p>
+        <div class="hero-cta rv" data-d="3">
+          <a class="btn btn-amber" href="/sites/26-the-tideline/reservations"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i>Reserve a Table</a>
+          <a class="btn btn-ghost" href="/sites/26-the-tideline/menu">Tonight's Menu</a>
+        </div>
       </div>
+
+      <aside class="gauge rv" data-d="4" aria-labelledby="gauge-title">
+        <div class="gauge-head">
+          <h2 class="t-label" id="gauge-title">The harbor tonight</h2>
+          <p class="gauge-now"><span class="gauge-h" id="gauge-h">2.4 m</span> <span class="gauge-dir" id="gauge-dir">rising</span></p>
+        </div>
+        <div class="gauge-scale" aria-hidden="true">
+          <svg class="gauge-curve" id="gauge-curve" viewBox="0 0 300 64" preserveAspectRatio="none"></svg>
+        </div>
+        <label class="gauge-label" for="gauge-range">See the water at <output id="gauge-at" for="gauge-range">now</output></label>
+        <input class="gauge-range" id="gauge-range" type="range" min="0" max="300" step="5" value="0" aria-describedby="gauge-note">
+        <div class="gauge-ticks" aria-hidden="true"><span>5 PM</span><span>7:30</span><span>10 PM</span></div>
+        <p class="gauge-note" id="gauge-note">High water <span data-tide="next-high">—</span> · low <span data-tide="next-low">—</span>.
+          The dining room looks straight down the channel.</p>
+      </aside>
     </div>
+
     <div class="hero-strip">
       <div class="hero-strip-in rv" data-d="4">
-        <span class="tide-pill"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></span>
-        <span class="t-mono">Tue – Sun · 5:00 – 10:00 PM</span>
-        <span class="t-mono">6 Quay Lane, Harrow's Point</span>
-        <span class="spacer"></span>
-        <span class="scroll-cue" aria-hidden="true">Scroll
-          <svg viewBox="0 0 12 18" fill="none"><path d="M6 1v14m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
+        <p class="pill"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
+        <p class="t-label"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>6 Quay Lane, Harrow's Point</p>
+        <p class="t-label"><i class="fa-solid fa-champagne-glasses" aria-hidden="true"></i>Bar from 4:30 · walk-ins welcome</p>
+        <a class="scroll-cue" href="#idea"><span>The idea</span><i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
   <!-- ======================= MANIFESTO ======================= -->
-  <section class="sect">
+  <section class="sect" id="idea" aria-labelledby="idea-title">
     <div class="wrap manifesto">
-      <p class="overline rv">The idea</p>
-      <svg class="tideline-rule rv" viewBox="0 0 88 10" fill="none" aria-hidden="true" style="margin:20px 0 26px"><path d="M1 5c7 0 7-3.5 14-3.5S22 5 29 5s7-3.5 14-3.5S50 5 57 5s7-3.5 14-3.5S78 5 87 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <p class="t-body-lg rv" data-d="1">No dish here is permanent. The boats decide the menu, the season
-        decides the boats, and the kitchen's job is to keep up.
-        <em>That's the point.</em></p>
-      <a class="btn-line rv" data-d="2" href="/sites/26-the-tideline/story">Read our story
-        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11m0 0L8.5 1.5M12 5 8.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <h2 class="overline rv" id="idea-title">The idea</h2>
+      <svg class="tide-rule rv" viewBox="0 0 92 12" fill="none" aria-hidden="true"><path d="M1 6c7.5 0 7.5-4 15-4s7.5 4 15 4 7.5-4 15-4 7.5 4 15 4 7.5-4 15-4 7.5 4 15 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <p class="t-serif-lg rv" data-d="1">No dish here is permanent. The boats decide the menu, the season
+        decides the boats, and the kitchen's job is to keep up. <em>That's the point.</em></p>
+      <a class="link-line rv" data-d="2" href="/sites/26-the-tideline/story">Read our story<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
     </div>
   </section>
 
   <!-- ======================= TONIGHT ======================= -->
-  <section class="sect">
+  <section class="sect" aria-labelledby="tonight-title">
     <div class="wrap">
       <div class="tonight-head rv">
         <div>
           <p class="overline">From tonight's menu</p>
-          <h2 class="t-title" style="margin-top:14px">What the water sent today</h2>
+          <h2 class="t-title" id="tonight-title">What the water sent today</h2>
         </div>
-        <p class="t-mono"><span data-today>Today</span> · menu changes daily</p>
+        <p class="t-label"><span data-today>Today</span> · changes daily</p>
       </div>
       <div class="tonight-grid">
         <div class="tonight-list rv" data-d="1">
           <article class="tonight-row">
             <h3>Charred Octopus</h3>
-            <p class="desc">White bean purée, chili oil, grilled lemon — off the dock this morning.</p>
             <p class="price">$19</p>
+            <p class="desc">White bean purée, chili oil, grilled lemon. Off the dock this morning.</p>
+            <ul class="diet" aria-label="Dietary"><li>Gluten-free</li></ul>
           </article>
           <article class="tonight-row">
             <h3>Whole Roasted Branzino</h3>
-            <p class="desc">Fennel two ways, citrus, olive. Filleted at the table if you like.</p>
             <p class="price">$34</p>
+            <p class="desc">Fennel two ways, citrus, olive. Filleted at the table if you like.</p>
+            <ul class="diet" aria-label="Dietary"><li>Gluten-free</li></ul>
           </article>
           <article class="tonight-row">
-            <h3>Butter-Poached Lobster</h3>
-            <p class="desc">Sweet corn, brown butter, chive — the last of the summer traps.</p>
-            <p class="price">$42</p>
+            <h3>Tide Vegetable Plate</h3>
+            <p class="price">$24</p>
+            <p class="desc">Whatever the three farms sent, given the same fire and salt as the fish.</p>
+            <ul class="diet" aria-label="Dietary"><li>Vegan</li><li>Gluten-free</li></ul>
           </article>
           <article class="tonight-row">
             <h3>Brown Butter Tart</h3>
-            <p class="desc">Sea salt caramel, crème fraîche. Save room, or don't — we'll wrap it.</p>
             <p class="price">$12</p>
+            <p class="desc">Sea salt caramel, crème fraîche. Save room, or don't; we'll wrap it.</p>
+            <ul class="diet" aria-label="Dietary"><li>Vegetarian</li></ul>
           </article>
-          <a class="btn-line" style="margin-top:34px" href="/sites/26-the-tideline/menu">See the full menu
-            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11m0 0L8.5 1.5M12 5 8.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="link-line" href="/sites/26-the-tideline/menu">See the full menu<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
-        <figure class="ph rv" data-d="2">
-          <img src="/sites/26-the-tideline/assets/dish-salmon.jpg" alt="A plated fish course with wine glasses in low light" loading="lazy" width="1600" height="2400">
+        <figure class="ph tonight-ph rv" data-d="2">
+          <img src="/sites/26-the-tideline/assets/dish-salmon-800.jpg"
+               srcset="/sites/26-the-tideline/assets/dish-salmon-800.jpg 800w, /sites/26-the-tideline/assets/dish-salmon.jpg 1600w"
+               sizes="(max-width: 860px) 100vw, 45vw"
+               alt="A plated fish course in a shallow bowl, wine glasses behind it in low light" loading="lazy" width="800" height="1200">
           <figcaption>Tonight's plates</figcaption>
         </figure>
       </div>
@@ -144,9 +167,11 @@
   </section>
 
   <!-- ======================= QUOTE BAND ======================= -->
-  <section class="quote-band">
+  <section class="quote-band" aria-label="Press">
     <div class="bg" aria-hidden="true">
-      <img src="/sites/26-the-tideline/assets/sea-dark.jpg" alt="" loading="lazy" width="1600" height="1067">
+      <img src="/sites/26-the-tideline/assets/sea-dark-800.jpg"
+           srcset="/sites/26-the-tideline/assets/sea-dark-800.jpg 800w, /sites/26-the-tideline/assets/sea-dark.jpg 1600w"
+           sizes="100vw" alt="" loading="lazy" width="1600" height="1067">
     </div>
     <blockquote class="rv">
       &ldquo;The kind of place you start planning your return visit before you've finished the first course.&rdquo;
@@ -155,67 +180,67 @@
   </section>
 
   <!-- ======================= PRESS ======================= -->
-  <section class="sect">
+  <section class="sect" aria-labelledby="press-title">
     <div class="wrap">
-      <p class="overline rv">What people say</p>
+      <h2 class="overline rv" id="press-title">What people say</h2>
       <div class="press-grid">
-        <article class="press-card rv" data-d="1">
+        <figure class="press-card rv" data-d="1">
           <blockquote>&ldquo;Confident, unfussy cooking that trusts the ingredient over the technique.&rdquo;</blockquote>
-          <cite>Coastal Table Quarterly</cite>
-        </article>
-        <article class="press-card rv" data-d="2">
+          <figcaption>Coastal Table Quarterly</figcaption>
+        </figure>
+        <figure class="press-card rv" data-d="2">
           <blockquote>&ldquo;Reservations book out weeks ahead for a reason.&rdquo;</blockquote>
-          <cite>The Local Fork</cite>
-        </article>
-        <article class="press-card rv" data-d="3">
+          <figcaption>The Local Fork</figcaption>
+        </figure>
+        <figure class="press-card rv" data-d="3">
           <blockquote>&ldquo;A tide clock hangs behind the bar and tells you what the kitchen already knows.&rdquo;</blockquote>
-          <cite>Salt &amp; Season</cite>
-        </article>
+          <figcaption>Salt &amp; Season</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ======================= PRACTICAL ======================= -->
-  <section class="sect">
+  <section class="sect" aria-label="Visiting">
     <div class="wrap practical">
       <article class="prac-card rv">
-        <h3>Visit</h3>
-        <ul>
-          <li><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></li>
-          <li><span>Bar opens</span><span>4:30 PM</span></li>
-          <li><span>Monday</span><span>Closed</span></li>
-        </ul>
-        <p>6 Quay Lane, Harrow's Point — two doors up from the town dock.</p>
-        <a class="btn-line" href="/sites/26-the-tideline/contact">Hours &amp; directions
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11m0 0L8.5 1.5M12 5 8.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <i class="fa-solid fa-clock prac-icon" aria-hidden="true"></i>
+        <h2>Visit</h2>
+        <div class="hours">
+          <div data-row="service"><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
+          <div data-row="bar"><span>Bar opens</span><span>4:30 PM</span></div>
+          <div data-row="monday"><span>Monday</span><span>Closed</span></div>
+        </div>
+        <p>6 Quay Lane, two doors up from the town dock.</p>
+        <a class="link-line" href="/sites/26-the-tideline/contact#directions">Hours &amp; directions<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </article>
       <article class="prac-card rv" data-d="1">
-        <h3>The Private Room</h3>
-        <p>A table for up to fourteen, just off the main kitchen. Same menu, same sourcing,
-           a room that's actually yours for the night. Chef's tasting for parties of six or more.</p>
-        <a class="btn-line" href="/sites/26-the-tideline/private-dining">Private dining
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11m0 0L8.5 1.5M12 5 8.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <i class="fa-solid fa-door-open prac-icon" aria-hidden="true"></i>
+        <h2>The private room</h2>
+        <p>One long table for up to fourteen, just off the kitchen. Same menu, same sourcing,
+          a room that's yours for the night. Chef's tasting for six or more.</p>
+        <a class="link-line" href="/sites/26-the-tideline/private-dining">Private dining<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </article>
       <article class="prac-card rv" data-d="2">
-        <h3>Tonight's Table</h3>
-        <p>The dining room seats forty. Tables are released sixty days out and the
-           weekend book moves quickly — the bar is held for walk-ins.</p>
-        <p class="t-mono" style="display:flex;gap:8px;align-items:center"><span class="dot" aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:var(--glass);display:inline-block"></span><span data-tide="short">Tide</span></p>
-        <a class="btn-line" href="/sites/26-the-tideline/reservations">Reserve a table
-          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h11m0 0L8.5 1.5M12 5 8.5 8.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <i class="fa-solid fa-chair prac-icon" aria-hidden="true"></i>
+        <h2>Tonight's table</h2>
+        <p>The dining room seats forty. Tables are released sixty days out and the weekend
+          book moves quickly; the bar is held for walk-ins.</p>
+        <a class="link-line" href="/sites/26-the-tideline/reservations">Reserve a table<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </article>
     </div>
   </section>
 
   <!-- ======================= CTA BAND ======================= -->
-  <section class="cta-band">
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="cta-band-in">
       <p class="overline rv">Reservations</p>
-      <h2 class="t-display rv" data-d="1">The dining room seats forty.<br>The tide books faster.</h2>
+      <h2 class="t-display rv" data-d="1" id="cta-title">The dining room seats forty. The tide books faster.</h2>
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
+        <a class="btn btn-ghost" href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a>
       </div>
-      <p class="t-mono rv" data-d="3">Released 60 days out · Walk-ins welcome at the bar</p>
+      <p class="t-label rv" data-d="3">Released 60 days out · walk-ins welcome at the bar</p>
     </div>
   </section>
 
@@ -224,16 +249,16 @@
 <footer class="site-footer">
   <div class="foot-grid">
     <div class="foot-brand">
-      <a class="brand" href="/sites/26-the-tideline/" aria-label="The Tideline — home">
-        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b" stroke="none"/></svg>
+      <a class="brand" href="/sites/26-the-tideline/">
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#d9a05b"/></svg>
         <span><span class="brand-name">The Tideline</span><span class="brand-town">Harrow's Point</span></span>
       </a>
       <p class="foot-tag">A modern coastal kitchen. Same-day sourcing off the town dock,
         and a menu that changes with the water.</p>
-      <p class="tide-pill foot-tide"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+      <p class="pill"><span class="dot live" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
     </div>
     <nav class="foot-col" aria-label="Footer">
-      <h3>Explore</h3>
+      <h2>Explore</h2>
       <ul>
         <li><a href="/sites/26-the-tideline/menu">Menu</a></li>
         <li><a href="/sites/26-the-tideline/reservations">Reservations</a></li>
@@ -244,26 +269,28 @@
       </ul>
     </nav>
     <div class="foot-col">
-      <h3>Visit</h3>
+      <h2>Visit</h2>
       <p>6 Quay Lane<br>Harrow's Point</p>
-      <p style="margin-top:12px">
-        <a href="tel:+15550100178">(555) 010-0178</a><br>
-        <a href="mailto:hello@thetideline.example">hello@thetideline.example</a>
-      </p>
+      <div class="stack">
+        <a href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a>
+        <a href="mailto:hello@thetideline.example"><i class="fa-solid fa-envelope" aria-hidden="true"></i>hello@thetideline.example</a>
+        <a href="/sites/26-the-tideline/contact#directions"><i class="fa-solid fa-route" aria-hidden="true"></i>Directions &amp; parking</a>
+      </div>
     </div>
     <div class="foot-col">
-      <h3>Hours</h3>
-      <div class="foot-hours">
-        <div><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
-        <div><span>Bar opens</span><span>4:30 PM</span></div>
-        <div><span>Monday</span><span>Closed</span></div>
+      <h2>Hours</h2>
+      <div class="hours">
+        <div data-row="service"><span>Tue – Sun</span><span>5:00 – 10:00 PM</span></div>
+        <div data-row="bar"><span>Bar opens</span><span>4:30 PM</span></div>
+        <div data-row="monday"><span>Monday</span><span>Closed</span></div>
       </div>
+      <p class="pill" style="margin-top:18px"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
     </div>
   </div>
   <div class="foot-base">
     <div class="foot-base-in">
       <span>© <span data-year>2026</span> The Tideline · Harrow's Point</span>
-      <span>A concept kitchen in a fictional harbor town, built as a design study.</span>
+      <span>A concept kitchen in a fictional harbor town — a <a href="/">Blueprint Labs</a> design study.</span>
     </div>
   </div>
 </footer>
