@@ -2,8 +2,8 @@
 
 - **Vertical:** Electric Motorcycles
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** awaiting confirm
-- **Next step:** Claude confirms the T16 fixes in T19; optional declines are recorded below.
+- **Stage:** done
+- **Next step:** none — done.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -58,3 +58,8 @@ Plan: raise labels to at least 11px and prose/notes to 13px in every breakpoint,
 - verify-sites: `--only 16,17,18,19,20 --cdn-mirror` → zero console errors, page errors and failed requests on every site. System Chromium; protocol CDN/font mirror used.
 - Visual check: DONE at 1440×900 and 390×844, normal and reduced motion. Full-page captures inspected, no horizontal overflow. Computed-text scan found no visible DOM text below 11px in any of the four configurations per site.
 - Thumbnail regenerated with `--force --cdn-mirror --wait 4500`.
+
+### Confirm — 2026-10-27 · Claude (T19)
+Checked 61fd555 (on revamp at 7f5c745) at 1440x900 and 390x844 (CDN/font mirror, headless SwiftShader). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. A computed-style scan of every visible text node found nothing below 11px at either width on any of the five sites.
+- R1 confirmed: stat, torque and section labels 11px, explanatory and spec copy 13px, at both widths.
+- R2 confirmed: at 1440x900 the opening view ends on the configurator; the stats row starts cleanly below the fold and is no longer sliced.

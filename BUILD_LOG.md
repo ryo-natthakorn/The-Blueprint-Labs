@@ -75,3 +75,7 @@ One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
 - [21-petrichor-atmos] PETRICHOR — revamped by Claude, reviewed by Codex
 - [23-umbra-cacao] UMBRA — revamped by Claude, reviewed by Codex
 - [25-somne-railways] SOMNE — revamped by Claude, reviewed by Codex
+- [16-orrery-capital] ORRERY — revamped by Codex, reviewed by Claude
+- [17-maison-vela] MAISON VELA — revamped by Codex, reviewed by Claude
+- [19-voltaic-moto] VOLTAIC — revamped by Codex, reviewed by Claude
+- [20-halftone-records] HALFTONE — revamped by Codex, reviewed by Claude

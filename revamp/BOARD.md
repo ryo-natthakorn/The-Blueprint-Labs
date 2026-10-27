@@ -35,12 +35,14 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T16 | Fix batch 4 | Codex | done |
 | T17 | Review batch 5 | Codex | done |
 | T18 | Audit site 26 (all 7 pages, no code changes) | Codex | done |
-| T19 | Confirm batch 4 | Claude | todo |
+| T19 | Confirm batch 4 | Claude | done |
 | T20 | Fix batch 5 | Claude | todo |
 | T21 | Build site 26 (5 passes, starting from the audit) | Claude | todo |
 | T22 | Hub and guide | Claude | todo |
+| T22a | Fix 18 (R3 from T19: mobile intro line) | Codex | todo |
 | T23 | Confirm batch 5 | Codex | todo |
 | T24 | Review site 26 + Hub + guide | Codex | todo |
+| T24a | Confirm 18 | Claude | todo |
 | T25 | Fix site 26 + Hub + guide | Claude | todo |
 | T26 | Final (full check, PR revamp → master) | Claude | todo |
 
@@ -65,11 +67,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 13-bathyal-institute | 3 | Claude | Codex | done | [note](notes/13-bathyal-institute.md) |
 | 14-suminaga-teahouse | 3 | Claude | Codex | done | [note](notes/14-suminaga-teahouse.md) |
 | 15-vector-drift | 3 | Claude | Codex | done | [note](notes/15-vector-drift.md) |
-| 16-orrery-capital | 4 | Codex | Claude | awaiting confirm | [note](notes/16-orrery-capital.md) |
-| 17-maison-vela | 4 | Codex | Claude | awaiting confirm | [note](notes/17-maison-vela.md) |
-| 18-koppar-roastery | 4 | Codex | Claude | awaiting confirm | [note](notes/18-koppar-roastery.md) |
-| 19-voltaic-moto | 4 | Codex | Claude | awaiting confirm | [note](notes/19-voltaic-moto.md) |
-| 20-halftone-records | 4 | Codex | Claude | awaiting confirm | [note](notes/20-halftone-records.md) |
+| 16-orrery-capital | 4 | Codex | Claude | done | [note](notes/16-orrery-capital.md) |
+| 17-maison-vela | 4 | Codex | Claude | done | [note](notes/17-maison-vela.md) |
+| 18-koppar-roastery | 4 | Codex | Claude | changes requested | [note](notes/18-koppar-roastery.md) |
+| 19-voltaic-moto | 4 | Codex | Claude | done | [note](notes/19-voltaic-moto.md) |
+| 20-halftone-records | 4 | Codex | Claude | done | [note](notes/20-halftone-records.md) |
 | 21-petrichor-atmos | 5 | Claude | Codex | done | [note](notes/21-petrichor-atmos.md) |
 | 22-grammage-paper | 5 | Claude | Codex | changes requested | [note](notes/22-grammage-paper.md) |
 | 23-umbra-cacao | 5 | Claude | Codex | done | [note](notes/23-umbra-cacao.md) |
