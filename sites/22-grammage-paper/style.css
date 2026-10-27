@@ -235,13 +235,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--stamp); outline
   .swatch i { height: 18px; }
   .swatch b { font-size: 0.8rem; }
   .swatch small { font-size: 0.72rem; }
+  /* the fixed picker's measured height (--picker-h, set in script.js) plus its gaps;
+     each card rests on it and sticks there while its chapter's fold plays */
   .crease {
+    --clear: calc(var(--picker-h, 5.3rem) + 1.2rem);
     min-height: 120vh;
     align-items: flex-end;
-    padding: 0 0.75rem 8.2rem;
+    padding: 0 0.75rem var(--clear);
   }
   .crease:first-child { min-height: 100vh; }
   .card {
+    position: sticky;
+    bottom: var(--clear);
     max-width: none;
     width: 100%;
     padding: 1.1rem 1.1rem 1.2rem;
@@ -258,7 +263,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--stamp); outline
 
 /* short phones: a tighter card, so the sheet keeps the top of the screen */
 @media (max-width: 760px) and (max-height: 700px) {
-  .crease { padding-bottom: 6.2rem; }
   .card { padding: 0.85rem 0.95rem 0.9rem; }
   .kicker { margin-bottom: 0.5rem; }
   .crease h1 { font-size: 1.8rem; margin-bottom: 0.6rem; }

@@ -10,3 +10,11 @@ const hasGL = (() => {
 
 if (hasGL) import('/sites/22-grammage-paper/bench.js');
 else document.documentElement.classList.add('no-gl');
+
+// phones: chapter cards rest just above the fixed paper picker, whatever height it wraps to
+const picker = hasGL && document.querySelector('.picker');
+if (picker && 'ResizeObserver' in window) {
+  new ResizeObserver(() => {
+    document.documentElement.style.setProperty('--picker-h', picker.offsetHeight + 'px');
+  }).observe(picker);
+}

@@ -482,6 +482,7 @@ function flightPos(q, p, out) {
 /* ---------- scroll → story ---------- */
 const sections = [...document.querySelectorAll('.crease')];
 const cards = [...document.querySelectorAll('.card')];
+const picker = document.querySelector('.picker');
 let centers = [];
 function measure() {
   centers = sections.map((s) => s.offsetTop + s.offsetHeight / 2 - innerHeight / 2);
@@ -549,7 +550,7 @@ function frameCamera() {
     const right = col ? Math.min(col.right + 40, w * 0.5) : w * 0.42;
     cx = right + (w - right) * 0.5;
     // keep the subject above the paper picker
-    const pickTop = document.querySelector('.picker')?.getBoundingClientRect().top ?? h;
+    const pickTop = picker?.getBoundingClientRect().top ?? h;
     cy = Math.min(h * 0.47, pickTop * 0.55);
     camera.fov = w / h < 1.3 ? 36 : 30;
   }
@@ -680,11 +681,17 @@ function frame() {
   // light from the bench's left while it lies flat; from the camera's side once it's lifted
   key.position.copy(key.target.position).add(tmpV.set(lerp(-3.2, 3.4, air), lerp(6.5, 5.6, air), lerp(3.4, 2.6, air)));
   key.intensity = lerp(2.5, 3.3, air * (1 - far));
-  // chapters fade near the top and bottom so they never pile up under the masthead
+  // chapters fade near the top and bottom so they never pile up under the masthead;
+  // on phones a card fades in as it rises clear of the picker, stays solid while it sticks,
+  // and fades out as it leaves its resting place so it never lingers over the next fold
+  const pickTop = small() ? picker.getBoundingClientRect().top : 0;
   for (const c of cards) {
     const r = c.getBoundingClientRect();
     const mid = (r.top + r.bottom) / 2 / innerHeight;
-    c.style.opacity = String(clamp(Math.min((mid - 0.08) / 0.2, (0.98 - mid) / 0.2), 0, 1));
+    const low = small()
+      ? Math.min((pickTop - r.top) / (r.height * 0.6), (0.36 - (pickTop - r.bottom) / innerHeight) / 0.2)
+      : (0.98 - mid) / 0.2;
+    c.style.opacity = String(clamp(Math.min((mid - 0.08) / 0.2, low), 0, 1));
   }
 
   renderer.render(scene, camera);
