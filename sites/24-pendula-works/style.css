@@ -260,6 +260,20 @@ button:focus-visible, input:focus-visible, .plaque a:focus-visible { outline: 2p
   .plaque { order: 4; }
   .plaque span { display: none; }
   .plaque { justify-content: center; padding-bottom: 0.4rem; }
+  /* looking at the drawing: the bench folds to a dock of its four actions at the foot of the screen */
+  .looking .bench {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    width: auto;
+    margin: 0 auto;
+    gap: 0.5rem;
+    padding: 0.7rem;
+  }
+  .looking .bench > :not(.actions):not(.note) { display: none; }
+  .looking .note { min-height: 0; }
+  .looking .plaque { visibility: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {

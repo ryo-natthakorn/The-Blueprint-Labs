@@ -461,32 +461,51 @@ addEventListener('pointermove', (e) => {
   pointer.x = e.clientX / innerWidth - 0.5;
   pointer.y = e.clientY / innerHeight - 0.5;
 }, { passive: true });
+// where the subject sits on screen (lens shift) for the room view and the drawing view
+const FR = { room: { cx: 0, cy: 0 }, top: { cx: 0, cy: 0 } };
+const distFor = (radius, room) => (radius * (innerHeight / 2)) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / (0.5 * room);
 function frameCamera() {
   const w = innerWidth, h = innerHeight;
   camera.aspect = w / h;
-  let cx, cy, room;
+  let room, look;
   const head = document.querySelector('.works')?.getBoundingClientRect();
   const top = head ? head.bottom + 8 : 60;
+  const bench = document.querySelector('.bench');
   if (small()) {
-    const bench = document.querySelector('.bench');
-    const bottom = bench ? bench.offsetTop - 8 : h * 0.6;
-    cx = w / 2; cy = (top + bottom) / 2; camera.fov = 36;
-    room = Math.min(w * 0.8, bottom - top);
+    camera.fov = 36;
+    // the room view frames the space above the bench where it sits in the page;
+    // while looking the bench is a dock, so keep the last room framing for the way back
+    if (!S.look || !FR.roomSize) {
+      const bottom = bench ? bench.offsetTop - 8 : h * 0.6;
+      FR.room.cx = w / 2; FR.room.cy = (top + bottom) / 2;
+      FR.roomSize = Math.min(w * 0.8, bottom - top);
+    }
+    room = FR.roomSize;
+    // looking: the bench folds to a dock at the foot of the screen and the sheet fills the space above it
+    const dock = S.look && bench ? bench.getBoundingClientRect().top - 12 : h * 0.72;
+    FR.top.cx = w / 2; FR.top.cy = Math.max(16, dock) / 2;
+    look = Math.min(w * 0.94, dock - 24);
   } else {
-    const bench = document.querySelector('.bench')?.getBoundingClientRect();
-    const right = bench && bench.width ? bench.left : w * 0.7;
-    cx = right * 0.57; cy = h * 0.53; camera.fov = 30;
-    room = Math.min(right * 0.66, h - top - 90);
+    const r = bench?.getBoundingClientRect();
+    const right = r && r.width ? r.left : w * 0.7;
+    FR.room.cx = FR.top.cx = right * 0.57; FR.room.cy = FR.top.cy = h * 0.53; camera.fov = 30;
+    room = look = Math.min(right * 0.66, h - top - 90);
   }
   // distance at which the machine's bounding sphere spans the free space
-  const d = (MACHINE_R * (h / 2)) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / (0.5 * room);
+  const d = distFor(MACHINE_R, room);
   VIEW.room.pos.copy(ROOM_DIR).multiplyScalar(d).add(ROOM_LOOK);
   // the floor fades out a little beyond the machine, whatever the distance
   scene.fog.near = d + 0.6;
   scene.fog.far = d + 5.5;
-  // looking down at the drawing: the sheet fills the same free space
-  const dt = (SHEET * 0.58 * (h / 2)) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / (0.5 * room);
+  // looking down at the drawing: the sheet fills its free space (with a margin on phones,
+  // where the sheet's circling swing would otherwise touch the screen edge)
+  const dt = distFor(SHEET * (small() ? 0.66 : 0.58), look);
   VIEW.top.pos.set(0, VIEW.top.look.y + dt, 0.002 * dt);
+  lensShift(ease(S.lookK));
+}
+function lensShift(k) {
+  const w = innerWidth, h = innerHeight;
+  const cx = FR.room.cx + (FR.top.cx - FR.room.cx) * k, cy = FR.room.cy + (FR.top.cy - FR.room.cy) * k;
   const fw = 2 * Math.max(cx, w - cx), fh = 2 * Math.max(cy, h - cy);
   camera.setViewOffset(fw, fh, fw / 2 - cx, fh / 2 - cy, w, h);
   camera.updateProjectionMatrix();
@@ -560,11 +579,17 @@ ui.lift.addEventListener('click', () => {
   ui.lift.querySelector('span').textContent = S.lifted ? 'Lower the pen' : 'Lift the pen';
   note(S.lifted ? 'Pen lifted. The pendulums keep swinging.' : 'Pen down.');
 });
+// on a phone the bench scrolls over the canvas, so looking folds it to a dock and brings the sheet
+// into view; coming back returns to where the reader was in the controls
+let lookScroll = 0;
 ui.look.addEventListener('click', () => {
   S.look = !S.look;
+  if (S.look) lookScroll = scrollY;
   document.body.classList.toggle('looking', S.look);
   ui.look.setAttribute('aria-pressed', String(S.look));
   ui.look.querySelector('span').textContent = S.look ? 'Back to the room' : 'Look at the drawing';
+  if (small()) scrollTo({ top: S.look ? 0 : lookScroll, behavior: reduceMotion ? 'instant' : 'smooth' });
+  frameCamera();
 });
 // the sheet as it is now, signed in the corner like a print
 function snapshot() {
@@ -636,6 +661,7 @@ function render(dt = 1) {
   S.lookK = reduceMotion ? goal : S.lookK + (goal - S.lookK) * (1 - Math.exp(-dt * 3.2));
   const room = VIEW.room;
   const k = ease(S.lookK);
+  if (small()) lensShift(k);
   camPos.copy(room.pos).lerp(VIEW.top.pos, k);
   camLook.copy(room.look).lerp(VIEW.top.look, k);
   if (!reduceMotion) {
