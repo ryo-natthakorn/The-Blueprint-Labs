@@ -75,98 +75,147 @@
       </nav>
       <p class="overline rv">Contact &amp; directions</p>
       <h1 class="t-display rv" data-d="1">Find us on the quay.</h1>
-      <p class="t-lede rv" data-d="2">Two doors up from the town dock — follow the harbor road past
-        the fish market and look for the low brick building with the tide clock in the window.</p>
+      <p class="t-lede rv" data-d="2">Two doors up from the town dock. Follow the harbor road past the fish market
+        and look for the low brick building with the tide clock in the window.</p>
     </div>
   </div>
 
-  <div class="wrap contact-grid rv" data-d="3">
+  <div class="wrap contact-grid">
 
     <!-- info column -->
     <div class="c-info">
-      <div class="c-block">
-        <h3>Address</h3>
+      <section class="c-block rv" id="directions" aria-labelledby="dir-title">
+        <h2 class="c-h" id="dir-title">Getting here</h2>
         <p class="big">6 Quay Lane<br>Harrow's Point</p>
-        <p style="margin-top:10px;font-size:.92rem;color:var(--bone-3)">Street parking on the harbor
-          road after 4 PM; the dock lot is free in the evenings.</p>
-      </div>
-      <div class="c-block">
-        <h3>Talk to us</h3>
-        <p><a class="big" href="tel:+15550100178">(555) 010-0178</a></p>
-        <p style="margin-top:6px"><a href="mailto:hello@thetideline.example">hello@thetideline.example</a></p>
-        <p style="margin-top:10px;font-size:.92rem;color:var(--bone-3)">We don't take bookings by
-          email — <a href="/sites/26-the-tideline/reservations" style="color:var(--glass)">reserve online</a>
+        <figure class="quay">
+          <svg viewBox="0 0 400 240" aria-hidden="true">
+            <path class="water" d="M0 170 C 80 160, 150 182, 230 174 S 350 160, 400 168 V240 H0 Z"/>
+            <path class="quayline" d="M0 170 C 80 160, 150 182, 230 174 S 350 160, 400 168"/>
+            <path class="dock" d="M232 174 V214 M226 214 H244"/>
+            <path class="road" d="M0 128 C 90 120, 170 136, 260 128 S 360 116, 400 120"/>
+            <path class="road small" d="M120 0 C 124 50, 118 90, 126 130"/>
+            <rect class="bldg" x="40" y="88" width="56" height="26" rx="2"/>
+            <rect class="bldg" x="150" y="140" width="38" height="20" rx="2"/>
+            <rect class="bldg home" x="204" y="136" width="40" height="24" rx="2"/>
+            <rect class="bldg" x="262" y="138" width="34" height="20" rx="2"/>
+            <circle class="pk" cx="330" cy="150" r="9"/>
+            <circle class="pk" cx="60" cy="140" r="9"/>
+          </svg>
+          <span class="q-tag" style="left:17%;top:30%">Fish market</span>
+          <span class="q-tag home" style="left:56%;top:50%">The Tideline</span>
+          <span class="q-tag" style="left:58%;top:94%">Town dock</span>
+          <span class="q-tag" style="left:84%;top:42%">Harbor Road</span>
+          <span class="q-tag dim" style="left:31%;top:8%">From the coast road</span>
+          <span class="q-tag pk" style="left:82.5%;top:62.5%">P</span>
+          <span class="q-tag pk" style="left:15%;top:58.3%">P</span>
+          <figcaption class="visually-hidden">Sketch of the quay: the harbor road runs along the water past the fish market;
+            The Tideline is two doors up from the town dock, with parking at both ends of the road.</figcaption>
+        </figure>
+        <ul class="c-list">
+          <li><i class="fa-solid fa-square-parking" aria-hidden="true"></i>Street parking on the harbor road after 4 PM; the dock lot is free in the evenings.</li>
+          <li><i class="fa-solid fa-person-walking" aria-hidden="true"></i>Six minutes on foot from the ferry steps along the quay.</li>
+          <li><i class="fa-solid fa-wheelchair" aria-hidden="true"></i>Step-free entrance and restroom; tell us when you book and we'll keep a table near the door.</li>
+        </ul>
+      </section>
+
+      <section class="c-block rv" aria-labelledby="talk-title">
+        <h2 class="c-h" id="talk-title">Talk to us</h2>
+        <p><a class="big" href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>(555) 010-0178</a></p>
+        <p><a href="mailto:hello@thetideline.example"><i class="fa-solid fa-envelope" aria-hidden="true"></i>hello@thetideline.example</a></p>
+        <p class="c-note">We don't take bookings by email: <a href="/sites/26-the-tideline/reservations">reserve online</a>
           or call and we'll find you a chair.</p>
-      </div>
-      <div class="c-block">
-        <h3>Hours</h3>
-        <div class="hours-tbl">
-          <div><span>Tuesday – Sunday</span><span>5:00 – 10:00 PM</span></div>
-          <div><span>Bar opens</span><span>4:30 PM</span></div>
-          <div class="closed"><span>Monday</span><span>Closed</span></div>
+      </section>
+
+      <section class="c-block rv" aria-labelledby="hours-title">
+        <h2 class="c-h" id="hours-title">Hours</h2>
+        <div class="hours">
+          <div data-row="service"><span>Tuesday – Sunday</span><span>5:00 – 10:00 PM</span></div>
+          <div data-row="bar"><span>Bar opens</span><span>4:30 PM</span></div>
+          <div data-row="monday"><span>Monday</span><span>Closed</span></div>
         </div>
-        <p class="t-label" style="margin-top:16px;display:flex;gap:8px;align-items:center">
-          <span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:var(--glass);display:inline-block"></span>
-          <span data-tide="short">Tide</span>
-        </p>
-      </div>
+        <p class="pill" style="margin-top:16px"><span class="dot" data-open-dot aria-hidden="true"></span><span data-open>Tue – Sun · 5 – 10 PM</span></p>
+      </section>
     </div>
 
     <!-- form column -->
-    <div class="c-form">
-      <h2>General enquiries</h2>
-      <p class="hint">Press, private dining, lost umbrellas, strong opinions about oysters —
-        all welcome. We answer within a day.</p>
-
-      <div class="form-ok" id="form-ok" aria-live="polite">
-        <h3>Message received.</h3>
-        <p>Thanks — we'll come back to you within a day. If it's about tonight,
-          call <a href="tel:+15550100178" style="color:var(--glass)">(555) 010-0178</a> instead.</p>
-      </div>
-
-      <!-- TODO: point this form at a real backend / form service.
-           It currently validates client-side and shows the success
-           state without sending anything anywhere. -->
+    <div class="c-form rv" data-d="1">
+      <!-- TODO: point this form at a real backend or form service. It validates
+           in the browser and shows the success recap without sending anything. -->
       <form id="c-form" novalidate>
+        <h2>Send us a note</h2>
+        <p class="hint">Press, private dining, lost umbrellas, strong opinions about oysters. We answer within a day.</p>
+
+        <fieldset class="intents">
+          <legend class="f-legend">What's it about?</legend>
+          <label class="intent"><input type="radio" name="subject" value="general" checked><span><i class="fa-solid fa-comment" aria-hidden="true"></i>A general question</span></label>
+          <label class="intent"><input type="radio" name="subject" value="private-dining"><span><i class="fa-solid fa-door-open" aria-hidden="true"></i>Private dining &amp; events</span></label>
+          <label class="intent"><input type="radio" name="subject" value="press"><span><i class="fa-solid fa-newspaper" aria-hidden="true"></i>Press</span></label>
+          <label class="intent"><input type="radio" name="subject" value="suppliers"><span><i class="fa-solid fa-fish" aria-hidden="true"></i>Selling us something you grew or caught</span></label>
+        </fieldset>
+
+        <div class="pd-fields" id="pd-fields" hidden>
+          <p class="pd-from" id="pd-from" hidden></p>
+          <div class="f-grid">
+            <div class="f-field">
+              <label for="c-format">Format</label>
+              <select id="c-format" name="format">
+                <option value="room">Private room (6–14)</option>
+                <option value="tasting">Chef's tasting (6–14)</option>
+                <option value="buyout">Full buyout (16–40)</option>
+              </select>
+            </div>
+            <div class="f-field">
+              <label for="c-guests">Guests</label>
+              <input id="c-guests" name="guests" type="number" min="6" max="40" inputmode="numeric" value="12">
+            </div>
+            <div class="f-field full">
+              <label for="c-date">Preferred date <span class="opt">(optional)</span></label>
+              <input id="c-date" name="date" type="date">
+            </div>
+          </div>
+        </div>
+
         <div class="f-grid">
           <div class="f-field">
             <label for="c-name">Name</label>
-            <input id="c-name" name="name" type="text" autocomplete="name" required>
-            <span class="f-err" id="c-err-name">Please tell us your name.</span>
+            <input id="c-name" name="name" type="text" autocomplete="name" required aria-describedby="c-err-name">
+            <p class="f-err" id="c-err-name"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>Please tell us your name.</p>
           </div>
           <div class="f-field">
             <label for="c-email">Email</label>
-            <input id="c-email" name="email" type="email" autocomplete="email" required>
-            <span class="f-err" id="c-err-email">That email doesn't look quite right.</span>
-          </div>
-          <div class="f-field full">
-            <label for="c-subject">What's it about?</label>
-            <select id="c-subject" name="subject">
-              <option value="general">A general question</option>
-              <option value="private-dining">Private dining &amp; events</option>
-              <option value="press">Press</option>
-              <option value="suppliers">Selling us something you grew or caught</option>
-            </select>
+            <input id="c-email" name="email" type="email" autocomplete="email" required aria-describedby="c-err-email">
+            <p class="f-err" id="c-err-email"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>That email doesn't look quite right.</p>
           </div>
           <div class="f-field full">
             <label for="c-msg">Message</label>
-            <textarea id="c-msg" name="message" required></textarea>
-            <span class="f-err" id="c-err-msg">A few words help us point you the right way.</span>
+            <textarea id="c-msg" name="message" required aria-describedby="c-err-msg"></textarea>
+            <p class="f-err" id="c-err-msg"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>A few words help us point you the right way.</p>
           </div>
         </div>
-        <div class="res-actions">
-          <span class="t-label" style="color:var(--bone-3)">Answered Tue – Sun</span>
-          <button type="submit" class="btn btn-amber">Send message</button>
+        <div class="c-actions">
+          <p class="t-label">Answered Tue – Sun</p>
+          <button type="submit" class="btn btn-amber"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Send message</button>
         </div>
       </form>
+
+      <div class="form-ok" id="form-ok" hidden>
+        <span class="ok-ring" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+        <h2 id="ok-title" tabindex="-1">Message received.</h2>
+        <p class="ok-lede" id="ok-lede">Thanks. We'll come back to you within a day.</p>
+        <dl class="ok-recap" id="ok-recap"></dl>
+        <ol class="ok-next" id="ok-next"></ol>
+        <p class="ok-note">If it's about tonight, call <a href="tel:+15550100178">(555) 010-0178</a> instead.
+          <em>This form is a front-end demonstration: nothing is sent anywhere.</em></p>
+        <button type="button" class="btn btn-ghost" id="ok-again"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Write another</button>
+      </div>
     </div>
   </div>
 
   <!-- CTA -->
-  <section class="cta-band">
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="cta-band-in">
       <p class="overline rv">Skip the inbox</p>
-      <h2 class="t-display rv" data-d="1">The fastest reply<br>is a table.</h2>
+      <h2 class="t-display rv" data-d="1" id="cta-title">The fastest reply is a table.</h2>
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
       </div>

@@ -1,34 +1,99 @@
 /* ============================================================
-   CONTACT
+   THE TIDELINE — contact & directions
    ============================================================ */
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(36px, 6vw, 90px);
-  margin-top: 56px; align-items: start;
-}
-@media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
-.c-info { display: grid; gap: 34px; }
-.c-block h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--bone-3); margin-bottom: 14px; }
-.c-block p, .c-block a { color: var(--bone-2); text-decoration: none; }
-.c-block a:hover { color: var(--glass); }
-.c-block .big { font-family: var(--serif); font-size: 1.4rem; color: var(--bone); font-weight: 400; }
-.hours-tbl { display: grid; gap: 8px; font-variant-numeric: tabular-nums; max-width: 340px; }
-.hours-tbl div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 8px; color: var(--bone-2); }
-.hours-tbl div span:last-child { color: var(--bone); }
-.hours-tbl div.closed span:last-child { color: var(--bone-3); font-style: italic; }
 
+.contact-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 6vw, 96px); align-items: start;
+  margin-top: clamp(40px, 6vw, 64px);
+}
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.c-info { display: grid; gap: clamp(36px, 5vw, 52px); }
+.c-block { scroll-margin-top: calc(var(--head) + 24px); }
+.c-h { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--glass-2); margin-bottom: 14px; }
+.c-block p { color: var(--bone-2); }
+.c-block p + p { margin-top: 6px; }
+.c-block a { color: var(--bone); text-decoration: none; display: inline-flex; gap: 10px; align-items: baseline; }
+.c-block a:hover { color: var(--glass-2); }
+.c-block a .fa-solid { color: var(--glass); font-size: .85em; }
+.c-block .big { font-family: var(--serif); font-size: 1.5rem; color: var(--bone); font-weight: 380; line-height: 1.3; }
+.c-note { margin-top: 12px !important; font-size: 0.9375rem; }
+.c-note a { color: var(--glass-2) !important; display: inline !important; text-decoration: underline !important; text-underline-offset: 3px; }
+
+.quay { position: relative; margin-top: 18px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #111c20; }
+.quay svg { width: 100%; height: auto; }
+.quay .water { fill: #16313a; }
+.quay .quayline { fill: none; stroke: var(--glass); stroke-width: 1.6; }
+.quay .dock { fill: none; stroke: var(--bone-3); stroke-width: 4; stroke-linecap: square; }
+.quay .road { fill: none; stroke: rgba(236, 229, 214, 0.18); stroke-width: 12; stroke-linecap: round; }
+.quay .road.small { stroke-width: 7; }
+.quay .bldg { fill: rgba(236, 229, 214, 0.08); stroke: rgba(236, 229, 214, 0.3); }
+.quay .bldg.home { fill: rgba(217, 160, 91, 0.35); stroke: var(--amber); stroke-width: 1.5; }
+.quay .pk { fill: #2b4c6f; }
+.q-tag { position: absolute; transform: translate(-50%, -50%); pointer-events: none; white-space: nowrap; font-size: 0.78rem; font-weight: 700; letter-spacing: .06em; color: var(--bone-2); }
+.q-tag.home { color: var(--amber-2); font-size: 0.8125rem; }
+.q-tag.dim { color: var(--bone-3); }
+.q-tag.pk { color: #fff; font-size: 0.75rem; }
+.c-list { list-style: none; display: grid; gap: 10px; margin-top: 18px; }
+.c-list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--bone-2); font-size: 0.9375rem; }
+.c-list .fa-solid { color: var(--glass); margin-top: 4px; }
+.c-block .hours { max-width: 380px; }
+.c-block .hours div { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+
+/* ---- form -------------------------------------------------------- */
 .c-form {
-  border: 1px solid var(--line); border-radius: 4px;
-  background: var(--ink-2);
-  padding: clamp(26px, 4vw, 44px);
+  border: 1px solid var(--line-2); border-radius: 6px; background: var(--ink-2);
+  padding: clamp(22px, 4vw, 44px);
+  position: sticky; top: calc(var(--head) + 28px);
 }
-.c-form h2 { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; margin-bottom: 4px; }
-.c-form .hint { color: var(--bone-3); font-size: 0.92rem; margin-bottom: 26px; }
-.form-ok {
-  display: none;
-  border: 1px solid rgba(147,188,174,0.4); border-radius: 3px;
-  background: rgba(147,188,174,0.07);
-  padding: 26px; text-align: center;
+@media (max-width: 900px) { .c-form { position: static; } }
+.c-form h2 { font-family: var(--serif); font-weight: 380; font-size: 1.85rem; margin-bottom: 4px; }
+.c-form .hint { color: var(--bone-2); font-size: 0.9375rem; margin-bottom: 24px; }
+.c-form form { display: grid; gap: 22px; }
+.c-form form[hidden] { display: none; }
+.c-form form > .hint { margin-bottom: 0; margin-top: -18px; }
+.intents { border: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.intents legend { margin-bottom: 10px; }
+.intent { position: relative; cursor: pointer; }
+.intent input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.intent span {
+  display: flex; gap: 10px; align-items: center; height: 100%;
+  padding: 12px 14px; min-height: 52px;
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-size: 0.9375rem; color: var(--bone-2);
+  transition: border-color .2s, background-color .2s, color .2s;
 }
-.form-ok.show { display: block; }
-.form-ok h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-bottom: 8px; }
-.form-ok p { color: var(--bone-2); font-size: 0.95rem; }
+.intent .fa-solid { color: var(--bone-3); width: 1.1em; flex: none; }
+.intent:hover span { border-color: var(--line-3); }
+.intent input:checked + span { border-color: var(--glass); background: rgba(147, 188, 174, 0.08); color: var(--bone); }
+.intent input:checked + span .fa-solid { color: var(--glass-2); }
+.intent input:focus-visible + span { outline: 2px solid var(--glass-2); outline-offset: 2px; }
+@media (max-width: 520px) { .intents { grid-template-columns: 1fr; } }
+.pd-fields { border-left: 2px solid var(--amber); padding-left: 16px; }
+.pd-fields[hidden] { display: none; }
+.pd-from { display: flex; gap: 10px; align-items: baseline; margin-bottom: 14px; font-size: 0.9375rem; color: var(--amber-2); }
+.c-form select { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--bone-2) 50%), linear-gradient(135deg, var(--bone-2) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+.c-form input[type="date"] { color-scheme: dark; }
+.c-actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+.c-actions .t-label { color: var(--bone-3); }
+
+/* success recap */
+.form-ok { display: grid; gap: 16px; justify-items: start; }
+.form-ok[hidden] { display: none; }
+.form-ok .ok-ring { width: 56px; height: 56px; display: grid; place-items: center; border: 1px solid var(--glass); border-radius: 50%; color: var(--glass-2); font-size: 1.2rem; }
+.form-ok h2:focus { outline: none; }
+.ok-lede { color: var(--bone-2); }
+.ok-recap { width: 100%; display: grid; gap: 10px; }
+.ok-recap .row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.ok-recap dt { font-size: 0.78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--bone-3); padding-top: 3px; }
+.ok-recap dd { text-align: right; }
+.ok-recap .row:last-child dd { color: var(--amber-2); font-weight: 700; letter-spacing: .1em; }
+.ok-next { list-style: none; counter-reset: n; display: grid; gap: 8px; }
+.ok-next li { counter-increment: n; display: grid; grid-template-columns: 28px 1fr; gap: 8px; color: var(--bone-2); }
+.ok-next li::before { content: counter(n); font-family: var(--serif); color: var(--amber-2); font-size: 1.15rem; line-height: 1.4; }
+.ok-note { font-size: 0.9375rem; color: var(--bone-3); }
+.ok-note a { color: var(--glass-2); }
+.ok-note em { display: block; margin-top: 6px; }
+
+@media (prefers-reduced-motion: reduce) { .intent span { transition: none; } }

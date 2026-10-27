@@ -270,6 +270,36 @@ No build passes performed by Codex in T18. Claude owns the five T21 passes.
   JavaScript. The platter photo is now captioned as what it is; the bar
   canopy crop shows the room's light.
 
+### Pass 4 — reservations, gallery, contact (Claude, T21)
+- **Reservations** (P1.3, P1.4): the engine (seeded availability, closed
+  Mondays, 60-day window, same-day 90-minute cutoff, downstream reset, .ics)
+  is kept. Focus now moves deliberately: party → "Choose a date"; each new
+  step focuses its heading; choosing a day or a time keeps focus on that
+  button after the grid redraws; the calendar has a roving tabindex with
+  arrow keys, Home/End and Page Up/Down; errors are linked with
+  `aria-describedby` and the first invalid field takes focus; the
+  confirmation heading takes focus. Calendar days show "few left" (≤3 times)
+  and "full"/"closed" in words; times are grouped Early/Peak/Late, and times
+  within 45 minutes of high water carry a boat icon. Phones get a sticky bar
+  with the running summary and the step's Continue button. The confirmation
+  is a ticket with name, party, date, time, the tide when you sit down,
+  reference, .ics, directions and "book another". 8+ routes to the private
+  room planner or a pre-filled enquiry. Controls are 15–17px; Font Awesome
+  for every arrow and the check.
+- **Gallery** (P2.10): four chapters (landing, preparation, room, table) with
+  a chapter nav and an editorial mosaic; phones get a two-column grid
+  (5,700px instead of ~9,400px). Captions now match the pictures (no more
+  "branzino" on a salmon plate or "duck" on a steak). The viewer keeps
+  arrows/swipe/Escape, adds Font Awesome controls, shows the chapter, loads
+  the full picture over the thumbnail, makes the rest of the page inert,
+  cycles Tab inside and returns focus to the picture last viewed.
+- **Contact** (P2.10): intent cards instead of a select; choosing private
+  dining reveals format, guests and preferred date, all pre-filled from the
+  planner (with a note saying so). A drawn quay sketch with parking and the
+  dock sits under "Getting here", which the footer links to. The success
+  state is a recap (about, from, format, date, reference) with what happens
+  next for that kind of enquiry, and takes focus. Backend TODO comments kept.
+
 ## Verification
 
 - check-rules: **OK** (99 files, 26 projects).

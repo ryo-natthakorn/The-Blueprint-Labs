@@ -74,123 +74,123 @@
         </ol>
       </nav>
       <p class="overline rv">Reservations</p>
-      <h1 class="t-display rv" data-d="1">A table by the water,<br>held in your name.</h1>
-      <p class="t-lede rv" data-d="2">Four quick steps. Tables are released sixty days out,
-        the dining room seats forty, and the bar is always kept free for walk-ins.
-        Parties of eight or more head to our private room instead.</p>
+      <h1 class="t-display rv" data-d="1">A table by the water, held in your&nbsp;name.</h1>
+      <p class="t-lede rv" data-d="2">Four quick steps. Tables are released sixty days out, the dining room
+        seats forty, and the bar is always kept free for walk-ins. Parties of eight or more head to our
+        private room instead.</p>
     </div>
   </div>
 
   <div class="wrap">
-    <div class="res-layout rv" data-d="3">
+    <div class="res-layout" id="res-layout">
 
       <!-- ==================== STEPPER ==================== -->
-      <section class="res-steps" id="res-steps" aria-label="Reservation form">
+      <section class="res-steps" id="res-steps" aria-label="Reservation">
 
-        <div class="res-progress">
-          <button type="button" data-step="1" aria-current="step"><span class="n">1</span>Party</button>
-          <button type="button" data-step="2" disabled><span class="n">2</span>Date</button>
-          <button type="button" data-step="3" disabled><span class="n">3</span>Time</button>
-          <button type="button" data-step="4" disabled><span class="n">4</span>Details</button>
-        </div>
+        <nav class="res-progress" aria-label="Reservation steps">
+          <button type="button" data-step="1" aria-current="step"><span class="n">1</span><span class="l">Party</span></button>
+          <button type="button" data-step="2" disabled><span class="n">2</span><span class="l">Date</span></button>
+          <button type="button" data-step="3" disabled><span class="n">3</span><span class="l">Time</span></button>
+          <button type="button" data-step="4" disabled><span class="n">4</span><span class="l">Details</span></button>
+        </nav>
 
         <!-- STEP 1 — party size -->
         <div class="res-pane" id="pane-1">
-          <h2>How many of you?</h2>
-          <p class="hint">Tables in the dining room seat up to seven. Eight or more is a
-            private-room night — a better night, honestly.</p>
+          <h2 tabindex="-1">How many of you?</h2>
+          <p class="hint">Tables in the dining room seat up to seven. Eight or more is a private-room night,
+            and a better night, honestly.</p>
           <div class="party-grid" role="group" aria-label="Party size">
-            <button class="party-btn" data-party="1" aria-pressed="false">1<small>guest</small></button>
-            <button class="party-btn" data-party="2" aria-pressed="false">2<small>guests</small></button>
-            <button class="party-btn" data-party="3" aria-pressed="false">3<small>guests</small></button>
-            <button class="party-btn" data-party="4" aria-pressed="false">4<small>guests</small></button>
-            <button class="party-btn" data-party="5" aria-pressed="false">5<small>guests</small></button>
-            <button class="party-btn" data-party="6" aria-pressed="false">6<small>guests</small></button>
-            <button class="party-btn" data-party="7" aria-pressed="false">7<small>guests</small></button>
-            <button class="party-btn" data-party="8" aria-pressed="false">8+<small>private</small></button>
+            <button type="button" class="party-btn" data-party="1" aria-pressed="false"><span class="pn">1</span><small>guest</small></button>
+            <button type="button" class="party-btn" data-party="2" aria-pressed="false"><span class="pn">2</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="3" aria-pressed="false"><span class="pn">3</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="4" aria-pressed="false"><span class="pn">4</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="5" aria-pressed="false"><span class="pn">5</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="6" aria-pressed="false"><span class="pn">6</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="7" aria-pressed="false"><span class="pn">7</span><small>guests</small></button>
+            <button type="button" class="party-btn" data-party="8" aria-pressed="false"><span class="pn">8+</span><small>private room</small></button>
           </div>
-          <div class="private-route" id="private-route">
-            <h3>Eight or more — let's do this properly.</h3>
-            <p>Our private dining room sits just off the main kitchen and seats up to fourteen —
-              same menu, same sourcing, a table that's actually yours for the night.
-              Chef's tasting available for six and up; full buyouts for larger events.</p>
-            <a class="btn btn-ghost" href="/sites/26-the-tideline/private-dining">See private dining</a>
+          <div class="private-route" id="private-route" hidden>
+            <i class="fa-solid fa-door-open" aria-hidden="true"></i>
+            <div>
+              <h3>Eight or more: let's do this properly.</h3>
+              <p>Our private dining room sits just off the main kitchen and seats up to fourteen: same menu,
+                same sourcing, a table that's actually yours for the night. Chef's tasting for six and up;
+                full buyouts for larger events.</p>
+              <div class="row">
+                <a class="btn btn-amber" href="/sites/26-the-tideline/private-dining">Plan a private-room night</a>
+                <a class="btn btn-ghost" href="/sites/26-the-tideline/contact?subject=private-dining&amp;guests=8">Send an enquiry</a>
+              </div>
+            </div>
           </div>
           <div class="res-actions">
             <span></span>
-            <button class="btn btn-amber" id="next-1" disabled>Choose a date</button>
+            <button type="button" class="btn btn-amber" id="next-1" disabled>Choose a date<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           </div>
         </div>
 
         <!-- STEP 2 — date -->
         <div class="res-pane" id="pane-2" hidden>
-          <h2>Pick your evening.</h2>
-          <p class="hint">We're open Tuesday through Sunday. Tables are released sixty days out.</p>
+          <h2 tabindex="-1">Pick your evening.</h2>
+          <p class="hint">Open Tuesday to Sunday, tables released sixty days out.<span class="kbd-hint"> Use the arrow keys to move between days.</span></p>
           <div class="cal-head">
-            <button class="cal-nav" id="cal-prev" aria-label="Previous month">
-              <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M13 6H1m0 0 4.5-4.5M1 6l4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <span class="m" id="cal-month" aria-live="polite">Month</span>
-            <button class="cal-nav" id="cal-next" aria-label="Next month">
-              <svg width="14" height="12" viewBox="0 0 14 12" fill="none"><path d="M1 6h12m0 0L8.5 1.5M13 6l-4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+            <p class="cal-month" id="cal-month" aria-live="polite">Month</p>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="Next month"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
           </div>
-          <div class="cal-grid" id="cal-grid" role="grid" aria-label="Choose a date"></div>
-          <div class="cal-foot">
-            <span class="k"><span class="sw" style="background:var(--amber)"></span>today</span>
-            <span class="k"><span class="sw" style="border:1px dashed var(--line-2)"></span>closed Mondays</span>
-            <span class="k"><span class="sw" style="background:var(--danger);opacity:.7"></span>fully booked</span>
-          </div>
+          <div class="cal-dows" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div class="cal-grid" id="cal-grid" role="group" aria-labelledby="cal-month"></div>
+          <ul class="cal-key" aria-label="Key">
+            <li><span class="sw today" aria-hidden="true"></span>Today</li>
+            <li><span class="sw few" aria-hidden="true"></span>Few tables left</li>
+            <li><span class="sw full" aria-hidden="true"></span>Fully booked</li>
+            <li><span class="sw shut" aria-hidden="true"></span>Closed Mondays</li>
+          </ul>
           <div class="res-actions">
-            <button class="btn btn-ghost" data-back="1">Back</button>
-            <button class="btn btn-amber" id="next-2" disabled>Choose a time</button>
+            <button type="button" class="btn btn-ghost" data-back="1"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</button>
+            <button type="button" class="btn btn-amber" id="next-2" disabled>Choose a time<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           </div>
         </div>
 
         <!-- STEP 3 — time -->
         <div class="res-pane" id="pane-3" hidden>
-          <h2>What time suits?</h2>
+          <h2 tabindex="-1">What time suits?</h2>
           <p class="hint" id="time-hint">Service runs 5:00 to 10:00 PM.</p>
-          <p class="slot-note" id="slot-tide-note">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 10c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2 13.5c2 0 2-1.8 4-1.8s2 1.8 4 1.8 2-1.8 4-1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".5"/><circle cx="11.5" cy="4" r="1.6" fill="currentColor"/></svg>
-            <span id="slot-tide-text">Window tables watch the tide come in.</span>
-          </p>
-          <div class="slot-grid" id="slot-grid" role="group" aria-label="Available times"></div>
+          <p class="slot-note"><i class="fa-solid fa-water" aria-hidden="true"></i><span id="slot-tide-text">Window tables watch the tide come in.</span></p>
+          <div id="slot-groups"></div>
           <div class="res-actions">
-            <button class="btn btn-ghost" data-back="2">Back</button>
-            <button class="btn btn-amber" id="next-3" disabled>Your details</button>
+            <button type="button" class="btn btn-ghost" data-back="2"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</button>
+            <button type="button" class="btn btn-amber" id="next-3" disabled>Your details<i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           </div>
         </div>
 
         <!-- STEP 4 — details -->
         <div class="res-pane" id="pane-4" hidden>
-          <h2>Who's the table for?</h2>
-          <p class="hint">We'll hold the table for fifteen minutes past your time —
-            call if the harbor road is slow.</p>
+          <h2 tabindex="-1">Who's the table for?</h2>
+          <p class="hint">We hold the table for fifteen minutes past your time. Call if the harbor road is slow.</p>
           <form id="res-form" novalidate>
             <div class="f-grid">
               <div class="f-field">
                 <label for="f-name">Name</label>
-                <input id="f-name" name="name" type="text" autocomplete="name" required>
-                <span class="f-err" id="err-name">Please give us a name for the table.</span>
+                <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="err-name">
+                <p class="f-err" id="err-name"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>Please give us a name for the table.</p>
               </div>
               <div class="f-field">
                 <label for="f-phone">Phone</label>
-                <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
-                <span class="f-err" id="err-phone">A phone number helps if anything changes.</span>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="err-phone">
+                <p class="f-err" id="err-phone"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>A phone number helps if anything changes.</p>
               </div>
               <div class="f-field full">
                 <label for="f-email">Email</label>
-                <input id="f-email" name="email" type="email" autocomplete="email" required>
-                <span class="f-err" id="err-email">That email doesn't look quite right.</span>
+                <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="err-email">
+                <p class="f-err" id="err-email"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>That email doesn't look quite right.</p>
               </div>
               <div class="f-field full">
-                <label for="f-note">Allergies or occasion <span class="opt">— optional</span></label>
-                <textarea id="f-note" name="note" placeholder="Shellfish allergy at the table · celebrating ten years · window seat if the tide's in…"></textarea>
+                <label for="f-note">Allergies or occasion <span class="opt">(optional)</span></label>
+                <textarea id="f-note" name="note" placeholder="Shellfish allergy at the table · celebrating ten years · window seat if the tide's in"></textarea>
               </div>
             </div>
             <div class="res-actions">
-              <button type="button" class="btn btn-ghost" data-back="3">Back</button>
+              <button type="button" class="btn btn-ghost" data-back="3"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>Back</button>
               <button type="submit" class="btn btn-amber" id="confirm-btn">Confirm reservation</button>
             </div>
           </form>
@@ -198,48 +198,58 @@
       </section>
 
       <!-- ==================== SUMMARY ==================== -->
-      <aside class="res-side" id="res-side">
-        <div class="res-sum" aria-live="polite">
-          <h3>Your reservation</h3>
+      <aside class="res-side" id="res-side" aria-label="Your reservation">
+        <div class="res-sum">
+          <h2>Your reservation</h2>
           <dl>
-            <div class="row"><dt>Party</dt><dd id="sum-party" class="unset">—</dd></div>
-            <div class="row"><dt>Date</dt><dd id="sum-date" class="unset">—</dd></div>
-            <div class="row"><dt>Time</dt><dd id="sum-time" class="unset">—</dd></div>
+            <div class="row"><dt>Party</dt><dd id="sum-party" class="unset">Not chosen</dd></div>
+            <div class="row"><dt>Date</dt><dd id="sum-date" class="unset">Not chosen</dd></div>
+            <div class="row"><dt>Time</dt><dd id="sum-time" class="unset">Not chosen</dd></div>
           </dl>
         </div>
         <div class="tide-card">
-          <span class="t-label" data-tide="short">Tide</span>
-          <p>The dining room looks straight down the harbor channel — at high water
-            the boats come past the windows at eye level.</p>
-          <p style="font-size:.8rem;color:var(--bone-3)">Can't find a table? The bar seats twelve,
-            first come first served, full menu.</p>
+          <p class="t-label"><i class="fa-solid fa-water" aria-hidden="true"></i><span data-tide="short">Tide</span></p>
+          <p>The dining room looks straight down the harbor channel. At high water the boats come past the
+            windows at eye level.</p>
+          <p class="small">No table? The bar seats twelve, first come first served, full menu.</p>
         </div>
       </aside>
     </div>
 
+    <!-- phones: the running summary and the step's next action stay in reach -->
+    <div class="res-bar" id="res-bar" hidden>
+      <p class="res-bar-sum" id="res-bar-sum">Choose a party size</p>
+      <button type="button" class="btn btn-amber btn-sm" id="res-bar-next" disabled>Continue</button>
+    </div>
+
     <!-- ==================== CONFIRMATION ==================== -->
-    <section class="res-confirm" id="res-confirm" aria-live="polite">
-      <div class="confirm-card">
-        <div class="ok-ring">
-          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13.5 10 19.5 22 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- TODO: front-end simulation only. Replace with the booking platform's
+         confirmation once a real reservation backend is connected. -->
+    <section class="res-confirm" id="res-confirm" hidden aria-labelledby="confirm-title">
+      <div class="ticket">
+        <div class="ticket-top">
+          <span class="ok-ring" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+          <h2 id="confirm-title" tabindex="-1">See you at the tideline.</h2>
+          <p class="big-line" id="confirm-line">Table for 4, Saturday, July 18 at 7:30 PM</p>
         </div>
-        <h2>See you at the tideline.</h2>
-        <p class="big-line" id="confirm-line">Table for 4 — Saturday, July 18 at 7:30 PM</p>
-        <div class="confirm-details">
-          <div class="row"><span>Name</span><span id="cf-name">—</span></div>
-          <div class="row"><span>Party</span><span id="cf-party">—</span></div>
-          <div class="row"><span>Date</span><span id="cf-date">—</span></div>
-          <div class="row"><span>Time</span><span id="cf-time">—</span></div>
-          <div class="row"><span>Confirmation</span><span class="confirm-code" id="cf-code">—</span></div>
-          <div class="row" id="cf-note-row" hidden><span>Notes</span><span id="cf-note">—</span></div>
-        </div>
-        <p class="confirm-note">We hold tables for fifteen minutes past the hour. Plans change?
-          Call <a href="tel:+15550100178" style="color:var(--glass)">(555) 010-0178</a> and we'll move things around.
-          <em>(This page is a front-end demonstration — no live booking system is attached and no email is sent.)</em></p>
+        <div class="ticket-tear" aria-hidden="true"></div>
+        <dl class="confirm-details">
+          <div class="row"><dt>Name</dt><dd id="cf-name">—</dd></div>
+          <div class="row"><dt>Party</dt><dd id="cf-party">—</dd></div>
+          <div class="row"><dt>Date</dt><dd id="cf-date">—</dd></div>
+          <div class="row"><dt>Time</dt><dd id="cf-time">—</dd></div>
+          <div class="row"><dt>Tide</dt><dd id="cf-tide">—</dd></div>
+          <div class="row"><dt>Reference</dt><dd class="confirm-code" id="cf-code">—</dd></div>
+          <div class="row" id="cf-note-row" hidden><dt>Notes</dt><dd id="cf-note">—</dd></div>
+        </dl>
         <div class="confirm-cta">
-          <button class="btn btn-amber" id="ics-btn">Add to calendar</button>
-          <button class="btn btn-ghost" id="again-btn">Make another reservation</button>
+          <button type="button" class="btn btn-amber" id="ics-btn"><i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>Add to calendar</button>
+          <a class="btn btn-ghost" href="/sites/26-the-tideline/contact#directions"><i class="fa-solid fa-route" aria-hidden="true"></i>Directions</a>
+          <button type="button" class="btn btn-ghost" id="again-btn"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Book another table</button>
         </div>
+        <p class="confirm-note">We hold tables for fifteen minutes past the hour. Plans change? Call
+          <a href="tel:+15550100178">(555) 010-0178</a> and we'll move things around.
+          <em>This page is a front-end demonstration: no booking system is attached and no email is sent.</em></p>
       </div>
     </section>
   </div>

@@ -75,92 +75,191 @@
       </nav>
       <p class="overline rv">Gallery</p>
       <h1 class="t-display rv" data-d="1">One tide, in pictures.</h1>
-      <p class="t-lede rv" data-d="2">The landing, the prep, the room, the plates.
-        Click anything to look closer.</p>
+      <p class="t-lede rv" data-d="2">A day at The Tideline in four parts: the landing, the prep, the room and the table.
+        Open any picture to look closer; arrow keys or a swipe move through the day.</p>
+      <nav class="chapters rv" data-d="3" aria-label="Gallery chapters">
+        <a class="chip" href="#landing"><span class="cn">01</span>The landing</a>
+        <a class="chip" href="#prep"><span class="cn">02</span>Preparation</a>
+        <a class="chip" href="#room"><span class="cn">03</span>The room</a>
+        <a class="chip" href="#table"><span class="cn">04</span>The table</a>
+      </nav>
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="masonry rv" data-d="3" id="masonry">
-      <button class="m-item" data-cap="The morning landing, 4:45 AM">
-        <img src="/sites/26-the-tideline/assets/raw-catch-ice.jpg" alt="The morning's fish and shellfish on crushed ice" loading="lazy" width="1600" height="1200">
-      </button>
-      <button class="m-item" data-cap="Branzino, fennel, citrus">
-        <img src="/sites/26-the-tideline/assets/dish-salmon.jpg" alt="A plated fish course in low light" loading="lazy" width="1600" height="2400">
-      </button>
-      <button class="m-item" data-cap="Prep, 2 PM">
-        <img src="/sites/26-the-tideline/assets/proc-chopping.jpg" alt="Hands slicing vegetables and fish on a prep board" loading="lazy" width="1400" height="2100">
-      </button>
-      <button class="m-item" data-cap="The bar, 4:30 PM">
-        <img src="/sites/26-the-tideline/assets/bar-warm-tall.jpg" alt="The bar under warm filament bulbs" loading="lazy" width="1400" height="1867">
-      </button>
-      <button class="m-item" data-cap="Saltmeadow's boxes, 3 PM">
-        <img src="/sites/26-the-tideline/assets/produce-dark.jpg" alt="Root vegetables and greens in low light" loading="lazy" width="1600" height="1120">
-      </button>
-      <button class="m-item" data-cap="High water, seen from table 9">
-        <img src="/sites/26-the-tideline/assets/sea-dark.jpg" alt="Dark teal sea surface at dusk" loading="lazy" width="1600" height="1067">
-      </button>
-      <button class="m-item" data-cap="Dry-aged duck, charred plum">
-        <img src="/sites/26-the-tideline/assets/dish-steak.jpg" alt="Sliced seared meat with roasted potatoes on dark wood" loading="lazy" width="1400" height="2100">
-      </button>
-      <button class="m-item" data-cap="First plates, 5:20 PM">
-        <img src="/sites/26-the-tideline/assets/proc-plating-hands.jpg" alt="A cook's hands finishing a plate under warm light" loading="lazy" width="1600" height="2400">
-      </button>
-      <button class="m-item" data-cap="Brown butter tart, salted caramel">
-        <img src="/sites/26-the-tideline/assets/dessert-caramel.jpg" alt="Caramel pouring over a plated dessert against a black background" loading="lazy" width="1600" height="2000">
-      </button>
-      <button class="m-item" data-cap="The long table's first course">
-        <img src="/sites/26-the-tideline/assets/platter-slate.jpg" alt="A shared platter of figs, cheese and olives on slate" loading="lazy" width="1400" height="2100">
-      </button>
-      <button class="m-item" data-cap="Driftwood Old Fashioned">
-        <img src="/sites/26-the-tideline/assets/cocktail-dark.jpg" alt="A dark cocktail with charred citrus garnish" loading="lazy" width="1600" height="1067">
-      </button>
-      <button class="m-item" data-cap="The day's whole fish">
-        <img src="/sites/26-the-tideline/assets/trout-plate.jpg" alt="Two whole fish on a pale blue plate on weathered wood" loading="lazy" width="1400" height="1867">
-      </button>
-      <button class="m-item" data-cap="Saltmeadow tomatoes">
-        <img src="/sites/26-the-tideline/assets/tomatoes-dark.jpg" alt="Vine tomatoes against a dark background" loading="lazy" width="1400" height="2100">
-      </button>
-      <button class="m-item" data-cap="Low water at dusk">
-        <img src="/sites/26-the-tideline/assets/tide-foam.jpg" alt="Soft surf foam crossing wet sand at sunset" loading="lazy" width="1600" height="1065">
-      </button>
-      <button class="m-item" data-cap="Baked at 3 PM daily">
-        <img src="/sites/26-the-tideline/assets/bread-dark.jpg" alt="Seeded sourdough loaves dusted with flour" loading="lazy" width="1600" height="1063">
-      </button>
-      <button class="m-item" data-cap="Strained, not shaken">
-        <img src="/sites/26-the-tideline/assets/cocktail-pour.jpg" alt="A cocktail being strained into a rocks glass" loading="lazy" width="1600" height="1068">
-      </button>
-      <button class="m-item" data-cap="Raspberry &amp; pistachio, for the table">
-        <img src="/sites/26-the-tideline/assets/dessert-cake-berry.jpg" alt="A slice of layered cake topped with raspberries on a dark plate" loading="lazy" width="1600" height="2000">
-      </button>
-      <button class="m-item" data-cap="The welcome pour">
-        <img src="/sites/26-the-tideline/assets/wine-pour-dusk.jpg" alt="Red wine poured into glasses at golden hour" loading="lazy" width="1600" height="2400">
-      </button>
-    </div>
+  <div class="wrap gallery">
+    <section class="chapter" id="landing" aria-labelledby="h-landing">
+      <header class="chapter-head rv">
+        <span class="chapter-n">01</span>
+        <h2 id="h-landing">The landing</h2>
+        <p>Before light, at the town dock.</p>
+      </header>
+      <div class="mosaic n4">
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/raw-catch-ice.jpg" data-w="1600" data-h="1200" data-cap="The morning landing, 4:45 AM" data-ch="The landing" aria-label="Open: The morning landing, 4:45 AM">
+            <img src="/sites/26-the-tideline/assets/raw-catch-ice-800.jpg" alt="The morning's whole fish, crab and shellfish laid out on crushed ice" loading="lazy" width="800" height="600">
+          </button>
+          <figcaption>The morning landing, 4:45 AM</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/trout-plate.jpg" data-w="1200" data-h="1600" data-cap="The day's whole fish" data-ch="The landing" aria-label="Open: The day's whole fish">
+            <img src="/sites/26-the-tideline/assets/trout-plate-800.jpg" alt="Two whole fish on a pale blue plate on weathered boards" loading="lazy" width="800" height="1067">
+          </button>
+          <figcaption>The day's whole fish</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/tide-foam.jpg" data-w="1600" data-h="1065" data-cap="Low water at dusk" data-ch="The landing" aria-label="Open: Low water at dusk">
+            <img src="/sites/26-the-tideline/assets/tide-foam-800.jpg" alt="Surf foam running over wet sand under a low sun" loading="lazy" width="800" height="532">
+          </button>
+          <figcaption>Low water at dusk</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/sea-dark.jpg" data-w="1600" data-h="1067" data-cap="High water, seen from table 9" data-ch="The landing" aria-label="Open: High water, seen from table 9">
+            <img src="/sites/26-the-tideline/assets/sea-dark-800.jpg" alt="Dark teal swell close to the water surface at dusk" loading="lazy" width="800" height="534">
+          </button>
+          <figcaption>High water, seen from table 9</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="chapter" id="prep" aria-labelledby="h-prep">
+      <header class="chapter-head rv">
+        <span class="chapter-n">02</span>
+        <h2 id="h-prep">Preparation</h2>
+        <p>Prep lists no longer than the day.</p>
+      </header>
+      <div class="mosaic n5">
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/proc-chopping.jpg" data-w="1200" data-h="1800" data-cap="Prep, 2 PM" data-ch="Preparation" aria-label="Open: Prep, 2 PM">
+            <img src="/sites/26-the-tideline/assets/proc-chopping-800.jpg" alt="Hands slicing vegetables and fish on a white prep board" loading="lazy" width="800" height="1200">
+          </button>
+          <figcaption>Prep, 2 PM</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/produce-dark.jpg" data-w="1600" data-h="1103" data-cap="Saltmeadow's boxes, 3 PM" data-ch="Preparation" aria-label="Open: Saltmeadow's boxes, 3 PM">
+            <img src="/sites/26-the-tideline/assets/produce-dark-800.jpg" alt="Radishes, tomatoes, carrots, cabbage and beetroot in low light" loading="lazy" width="800" height="552">
+          </button>
+          <figcaption>Saltmeadow's boxes, 3 PM</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/tomatoes-dark.jpg" data-w="1400" data-h="2014" data-cap="Saltmeadow tomatoes" data-ch="Preparation" aria-label="Open: Saltmeadow tomatoes">
+            <img src="/sites/26-the-tideline/assets/tomatoes-dark-800.jpg" alt="Vine tomatoes against a black background" loading="lazy" width="800" height="1151">
+          </button>
+          <figcaption>Saltmeadow tomatoes</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/bread-dark.jpg" data-w="1600" data-h="1064" data-cap="Baked at 3 PM daily" data-ch="Preparation" aria-label="Open: Baked at 3 PM daily">
+            <img src="/sites/26-the-tideline/assets/bread-dark-800.jpg" alt="Dark seeded sourdough loaves dusted with flour" loading="lazy" width="800" height="532">
+          </button>
+          <figcaption>Baked at 3 PM daily</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/proc-plating-hands.jpg" data-w="1600" data-h="2400" data-cap="First plates, 5:20 PM" data-ch="Preparation" aria-label="Open: First plates, 5:20 PM">
+            <img src="/sites/26-the-tideline/assets/proc-plating-hands-800.jpg" alt="A cook's hands finishing a plate at the pass under warm light" loading="lazy" width="800" height="1200">
+          </button>
+          <figcaption>First plates, 5:20 PM</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="chapter" id="room" aria-labelledby="h-room">
+      <header class="chapter-head rv">
+        <span class="chapter-n">03</span>
+        <h2 id="h-room">The room</h2>
+        <p>Low light, the bar, the channel outside.</p>
+      </header>
+      <div class="mosaic n5">
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/bar-canopy.jpg" data-w="1400" data-h="595" data-cap="Over the bar, 4:30 PM" data-ch="The room" aria-label="Open: Over the bar, 4:30 PM">
+            <img src="/sites/26-the-tideline/assets/bar-canopy-800.jpg" alt="Warm filament bulbs hanging under a steel and timber canopy over the bar" loading="lazy" width="800" height="340">
+          </button>
+          <figcaption>Over the bar, 4:30 PM</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/wine-pour-dusk.jpg" data-w="1600" data-h="2400" data-cap="The welcome pour" data-ch="The room" aria-label="Open: The welcome pour">
+            <img src="/sites/26-the-tideline/assets/wine-pour-dusk-800.jpg" alt="Red wine poured into two glasses at golden hour" loading="lazy" width="800" height="1200">
+          </button>
+          <figcaption>The welcome pour</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/bar-counter.jpg" data-w="1120" data-h="560" data-cap="Twelve seats for walk-ins" data-ch="The room" aria-label="Open: Twelve seats for walk-ins">
+            <img src="/sites/26-the-tideline/assets/bar-counter-800.jpg" alt="The bar counter glowing amber with its stools pulled in" loading="lazy" width="800" height="400">
+          </button>
+          <figcaption>Twelve seats for walk-ins</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/cocktail-pour.jpg" data-w="1600" data-h="1069" data-cap="Strained, not shaken" data-ch="The room" aria-label="Open: Strained, not shaken">
+            <img src="/sites/26-the-tideline/assets/cocktail-pour-800.jpg" alt="A cocktail strained over a large ice cube" loading="lazy" width="800" height="534">
+          </button>
+          <figcaption>Strained, not shaken</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/cocktail-dark.jpg" data-w="1600" data-h="1067" data-cap="Driftwood Old Fashioned" data-ch="The room" aria-label="Open: Driftwood Old Fashioned">
+            <img src="/sites/26-the-tideline/assets/cocktail-dark-800.jpg" alt="A dark cocktail with a charred citrus garnish on a wooden board" loading="lazy" width="800" height="534">
+          </button>
+          <figcaption>Driftwood Old Fashioned</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="chapter" id="table" aria-labelledby="h-table">
+      <header class="chapter-head rv">
+        <span class="chapter-n">04</span>
+        <h2 id="h-table">The table</h2>
+        <p>What the day turned into.</p>
+      </header>
+      <div class="mosaic n5">
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/dish-salmon.jpg" data-w="1600" data-h="2400" data-cap="Tonight's fish course" data-ch="The table" aria-label="Open: Tonight's fish course">
+            <img src="/sites/26-the-tideline/assets/dish-salmon-800.jpg" alt="A plated fish course in a shallow bowl, wine glasses behind it" loading="lazy" width="800" height="1200">
+          </button>
+          <figcaption>Tonight's fish course</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/platter-slate.jpg" data-w="1200" data-h="1800" data-cap="A shared first course" data-ch="The table" aria-label="Open: A shared first course">
+            <img src="/sites/26-the-tideline/assets/platter-slate-800.jpg" alt="A shared platter of figs, cheese, olives and eggs on dark slate" loading="lazy" width="800" height="1200">
+          </button>
+          <figcaption>A shared first course</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/dish-steak.jpg" data-w="1400" data-h="1867" data-cap="From the wood grill" data-ch="The table" aria-label="Open: From the wood grill">
+            <img src="/sites/26-the-tideline/assets/dish-steak-800.jpg" alt="Sliced seared meat with roasted potatoes on dark wood" loading="lazy" width="800" height="1067">
+          </button>
+          <figcaption>From the wood grill</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/dessert-caramel.jpg" data-w="1600" data-h="2000" data-cap="Salted caramel, poured at the table" data-ch="The table" aria-label="Open: Salted caramel, poured at the table">
+            <img src="/sites/26-the-tideline/assets/dessert-caramel-800.jpg" alt="Caramel poured over a plated dessert against a black background" loading="lazy" width="800" height="1000">
+          </button>
+          <figcaption>Salted caramel, poured at the table</figcaption>
+        </figure>
+        <figure class="m-item rv">
+          <button class="m-open" type="button" data-full="/sites/26-the-tideline/assets/dessert-cake-berry.jpg" data-w="1600" data-h="2000" data-cap="Raspberry cake, for the table" data-ch="The table" aria-label="Open: Raspberry cake, for the table">
+            <img src="/sites/26-the-tideline/assets/dessert-cake-berry-800.jpg" alt="A slice of layered cake topped with raspberries on a dark plate" loading="lazy" width="800" height="1000">
+          </button>
+          <figcaption>Raspberry cake, for the table</figcaption>
+        </figure>
+      </div>
+    </section>
   </div>
 
-  <!-- lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button class="lb-btn lb-close" id="lb-close" aria-label="Close viewer">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous image">
-      <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M17 7H1m0 0 5.5-5.5M1 7l5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+  <!-- viewer -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-cap-text" hidden>
+    <div class="lb-top">
+      <p class="lb-count" id="lb-count">1 / 19</p>
+      <button class="lb-btn" id="lb-close" type="button"><i class="fa-solid fa-xmark" aria-hidden="true"></i><span class="visually-hidden">Close viewer</span></button>
+    </div>
     <div class="lb-stage">
       <img id="lb-img" alt="">
-      <div class="lb-cap"><span id="lb-cap-text"></span><span id="lb-count"></span></div>
     </div>
-    <button class="lb-btn lb-next" id="lb-next" aria-label="Next image">
-      <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M1 7h16m0 0-5.5-5.5M17 7l-5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+    <div class="lb-foot">
+      <button class="lb-btn" id="lb-prev" type="button"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span class="visually-hidden">Previous picture</span></button>
+      <p class="lb-cap"><span class="lb-ch" id="lb-ch"></span><span id="lb-cap-text"></span></p>
+      <button class="lb-btn" id="lb-next" type="button"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span class="visually-hidden">Next picture</span></button>
+    </div>
   </div>
 
   <!-- CTA -->
-  <section class="cta-band">
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="cta-band-in">
       <p class="overline rv">Better in person</p>
-      <h2 class="t-display rv" data-d="1">Photographs don't smell<br>like the wood grill.</h2>
+      <h2 class="t-display rv" data-d="1" id="cta-title">Photographs don't smell like the wood grill.</h2>
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
       </div>
