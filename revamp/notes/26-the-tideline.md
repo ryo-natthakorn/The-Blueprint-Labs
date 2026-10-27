@@ -3,33 +3,191 @@
 - **Vertical:** Restaurant — Modern Coastal Kitchen
 - **Batch:** 26 · **Builder:** Claude · **Reviewer:** Codex
 - **Stage:** not started
-- **Next step:** Codex writes the audit and improvement list below (Queue T18, PROTOCOL §4 Audit). Claude builds from it in T21.
+- **Next step:** Claude builds in T21 from the audit below, in five full passes. Keep all seven URLs and the facts in `CONTENT_BRIEF_SITE26.md`. T18 is complete; no site code was changed.
 
 ## Original audit
-_Written before changing any code. Compare against branch `origin/v1-original`._
+
+Codex · 2026-10-27 · T18. Read the content brief, every page, shared CSS/JS,
+shoreline shader, menu filters, reservation flow, gallery and contact scripts.
+Explored `/`, `/menu/`, `/reservations/`, `/story/`, `/private-dining/`,
+`/gallery/` and `/contact/` at 1440×900 and 390×844, normal and reduced motion.
+Also walked every viewport of each page for full-page captures at both widths.
 
 **Keep:**
+- The fictional kitchen, Harrow's Point, $$$ positioning, tide-to-table voice,
+  slate / bone / sea-glass / amber palette and Fraunces / Karla pairing.
+- The first-screen home reservation/menu choices, persistent desktop nav,
+  shared footer, useful hours and coherent seven-page routing.
+- The full inline menu, visible dietary tags, course navigation and working
+  filters. Preserve the menu facts/prices and the 14 / 6+ / 40 event capacities.
+- The sourcing-day timeline and illustrated supplier map: they tell a specific
+  story without a chef headshot or a real location/map-service dependency.
+- The reservation product: 1–7 parties and 8+ private-room route, calendar,
+  closed Mondays, 60-day release window, varied seeded slots, downstream reset,
+  invalid-field handling, real confirmation summary, restart and .ics download.
+  Keep it a front-end demonstration and retain the integration TODO seams.
+- The 18-image keyboard/swipe lightbox, correct caption/alt updates, Escape,
+  focus return, and working contact validation/private-dining subject route.
+- Existing motion fallbacks, offscreen hero pause, limited mobile shader
+  resolution/octaves, self-hosted images and semantic navigation.
 
-**Weak points (with evidence):**
+**Weak points and prioritized improvement list:**
+
+### P1 — fix while establishing the shared system
+
+1. **Restore the subpage gutters.** All six subpage intros use
+   `class="wrap page-head"`. In `style.css`, `.page-head`'s later
+   `padding: calc(...) 0 0` overwrites `.wrap`'s side padding. At 390px the
+   breadcrumb, headline and lede start at x=0, while the sections below start
+   at x=20. At 1440px the intro is likewise 48px left of the content below.
+   Preserve the shared horizontal inset when setting the top spacing, and
+   check long headings on every subpage. A zero overflow measurement does
+   not catch this visual defect.
+
+2. **Keep a reservation action in the mobile header.** At widths ≤920px,
+   `.nav-cta` is hidden alongside the desktop links. On Menu, Story, Gallery,
+   Private Dining and Contact a visitor must open the drawer or find a later
+   CTA to book. The brief explicitly calls for a header reservation CTA on
+   every page. Fit a compact, readable Reserve action beside the brand/menu
+   control, with sufficient touch/focus space; keep the home hero actions.
+
+3. **Finish the keyboard paths in the drawer and booking flow.** On a
+   390px home page, open the drawer and Tab from its first link. After its
+   Reserve link, focus goes to the covered home Reserve button, Tonight's
+   Menu and the page below; body scroll locking is not a focus trap. Keep
+   background content inert while open, contain focus, and restore it on
+   Escape/close (Escape already returns to the burger). On both widths and
+   motion preferences, choosing a calendar day or an available slot leaves
+   `document.activeElement` as `BODY`: `renderCal()` / `renderSlots()` and
+   `goto()` replace the focused button. Preserve the selected control's
+   focus or move it deliberately to the next action/step heading. Associate
+   validation text with its inputs, and focus the contact success heading
+   after hiding its form. The gallery's existing focus-return behaviour is
+   a useful pattern to keep.
+
+4. **Raise the small interface type.** Measured sizes at both widths:
+   brand town 8.96px, reservation progress labels 9.92px, party-unit labels
+   9.6px, photo captions 10.24px and several tide/footer labels 10.88px.
+   Keep the quiet hierarchy, but give explanatory copy a readable size and
+   contrast, labels a floor around 12px, and primary booking controls around
+   14–16px. Reflow the mobile menu filter/step controls as needed instead of
+   shrinking them. Don't brighten deliberately disabled calendar days as
+   though they were available.
+
+5. **Replace custom UI pictograms and cover the remaining reduced-motion
+   paths.** Calendar arrows, lightbox arrows/close, the menu toggle and
+   confirmation check use hand-made SVG/CSS UI icons; the hard constraint
+   requires Font Awesome free icons or text controls. The fictional wave
+   logo, supplier-map drawing and shoreline artwork can stay artwork.
+   Reduced-motion CSS handles reveals, tide pulse and page wash, but leaves
+   drawer link transforms/fades in place; `reserve.js` and `contact.js`
+   explicitly request smooth scrolling even with the preference enabled.
+   Use a consistent motion preference for those paths and show a complete
+   static shoreline. Recheck focus visibility through page changes.
+
+6. **Remove third-party branding from the interior photography.**
+   `assets/bar-warm-wide.jpg` visibly contains another venue's neon wordmark
+   at the right and branded bottle labels; the related tall bar crop should
+   be checked too. These are self-hosted photographs, but the brand rule
+   still applies. Choose unbranded framing/replacement imagery and inspect
+   the full-resolution result, including the lightbox. No identifiable
+   faces were found in the current photo set; preserve the allowed process
+   crops of hands while keeping faces out.
+
+### P2 — give the flagship its own visual and product depth
+
+7. **Make the shoreline a convincing signature moment.** The current hero
+   is one soft FBM band with a bright blurry edge, little foam structure and
+   no clear water/sand material distinction. Keep the calm, story-first
+   first screen and readable CTA, but add legible arriving/retreating sets,
+   carried foam/residue, wet-sand sheen and light/refraction detail. Let the
+   tide instrument have a visible relationship to the water. Keep mobile
+   quality tiers and the static fallback; do not make visitors wait through
+   a reveal before they can reserve.
+
+8. **Use a coherent editorial system across the content pages.** Most
+   subpages open with the same text-only header and then long stretches of
+   equally weighted dark blocks. Give Menu, Story and Private Dining
+   distinct compositions within the shared system: a readable menu sheet,
+   a dock-to-table day, and a room/occasion presentation. In particular,
+   Private Dining's first photograph is a food platter captioned as the
+   long table; it never establishes the room a guest is enquiring about.
+   Show the space/materials with unbranded, face-free imagery and put the
+   capacities beside the enquiry choice. Keep the subject-preselected
+   contact route.
+
+9. **Make menu discovery easier.** The V / VG / GF / SH / R legend sits
+   near the end of a long menu. Bring the explanation close to the filters
+   or expose readable tag names where guests need them. Vegan correctly
+   highlights three dishes, but the dim-the-rest treatment leaves a long
+   scan; give clear matching-state feedback while preserving the menu and
+   inline prices. Keep active course/selected diet understandable on phones
+   after increasing label sizes.
+
+10. **Edit Gallery and Contact as the end of the same visit.** The gallery
+    mixes bright studio food, warm bar, raw ingredients and sunset stock
+    with little narrative order; on phones it is roughly 9,445px long.
+    Sequence it around landing → preparation → room → table, improve crop
+    and colour consistency, and keep the already-working 18-image viewer
+    controls/focus/swipe. Contact has useful hours/parking and working
+    validation; make the enquiry intent and private-dining preselection
+    clear, keep the fictional practical details consistent, and make its
+    success state as considered as the reservation summary. Keep backend
+    integration TODOs and the existing demo context accurate.
 
 ## Revamp plan
 
+Suggested allocation for Claude's five passes (not build work performed here):
+- Pass 1: shared responsive grid, gutters, type, navigation, mobile Reserve,
+  focus/motion system and compliant UI icons.
+- Pass 2: home shoreline, material/light detail and first-screen composition;
+  unbranded image selection/crops and finished static/no-WebGL fallback.
+- Pass 3: Menu, sourcing Story and Private Dining editorial treatment,
+  preserving facts, prices, dietary tags and enquiry routing.
+- Pass 4: reservation/calendar/slot keyboard continuity, validation and
+  confirmation; Gallery sequencing/viewer and Contact success flow.
+- Pass 5: hunt for missed design/interaction issues across all seven pages,
+  at desktop/mobile/short widths, normal/reduced motion; run verification
+  and regenerate thumbnails as required by the protocol.
+
 ## Pass log
-- Pass 1:
-- Pass 2:
-- Pass 3:
-- Pass 4:
-- Pass 5:
+
+No build passes performed by Codex in T18. Claude owns the five T21 passes.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+
+- check-rules: **OK** (99 files, 26 projects).
+- verify-sites: `--only 26 --cdn-mirror` → home OK, console 0, page 0,
+  failed requests 0. This script alone does not cover the nested pages.
+- All-page browser audit: **28 configurations**, all seven pages at
+  1440×900 / 390×844 and normal/reduced motion; **zero console/page/request
+  failures**. No sideways document overflow. Full-page walks at both widths
+  loaded every content image without a broken image.
+- Visual check, desktop 1440×900: **DONE**, all seven pages and relevant
+  interaction states; current weaknesses are recorded above.
+- Visual check, mobile 390×844: **DONE**, all seven pages, drawer, menu
+  filters, booking steps/confirmation, gallery viewer and contact success.
+- Reduced motion: **DONE**, all pages render; remaining drawer/explicit
+  smooth-scroll paths are audit findings, not a claim of full compliance.
+- Reservations at both widths/modes: 8+ route visible; party 4 → date →
+  available slot → details; empty submit marks all three required fields;
+  valid local fixture gives a matching summary and a downloadable calendar
+  event; restart returns to party selection. Calendar/slot focus loss was
+  reproduced in all four configurations.
+- Gallery: Next/ArrowRight shows 2 / 18, Escape returns focus to the opened
+  `.m-item`. Contact: three invalid fields on empty submit, then local
+  success with valid fixture data. Vegan filter: three matching dishes in
+  all four configurations.
+- Browser: system Chromium / SwiftShader, Asia/Bangkok timezone, protocol
+  CDN/font mirror. No site code or assets modified during the audit.
+- Thumbnail regenerated: **No — audit only.** Existing thumbnail inspected;
+  Claude regenerates it after the T21 rebuild/T22 Hub work.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+
+T18 audit above is the input for T21. Formal review of the rebuilt site,
+Hub and guide belongs to Codex in T24.
 
 ## Fix log
+
+_No code changes in T18._
