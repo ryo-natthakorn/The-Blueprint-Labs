@@ -4,46 +4,95 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PENDULA — Kinetic Sculpture Works</title>
-<meta name="description" content="Pendula Works — a kinetic sculpture studio. Two damped pendulums, one pen: strike the machine and watch it think in ink.">
-<meta name="theme-color" content="#f4f1ea">
+<meta name="description" content="Pendula Works — a kinetic sculpture studio. A walnut and brass harmonograph draws in ink as its pendulums swing: strike it, tune it, keep the sheet.">
+<meta name="theme-color" content="#e9e3d7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css">
 <link rel="stylesheet" href="/sites/24-pendula-works/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
 
-<canvas id="table" aria-label="A harmonograph drawing: two damped pendulums move a pen that traces slowly decaying curves in ink." role="img"></canvas>
+<canvas id="gallery" aria-hidden="true"></canvas>
 
-<header class="works">
-  <span class="works-name">PENDULA</span>
-  <span class="works-sub">kinetic sculpture works</span>
-</header>
+<div class="frame">
+  <header class="works">
+    <span class="works-name">PENDULA</span>
+    <span class="works-sub">Kinetic sculpture works</span>
+  </header>
 
-<aside class="bench">
-  <div class="knob">
-    <label for="ratio">INTERVAL <span id="ratio-out">3 : 2</span></label>
-    <input type="range" id="ratio" min="0" max="5" step="1" value="2" aria-label="Frequency interval between the two pendulums">
-  </div>
-  <div class="knob">
-    <label for="phase">PHASE <span id="phase-out">90°</span></label>
-    <input type="range" id="phase" min="0" max="180" step="1" value="90" aria-label="Phase offset">
-  </div>
-  <div class="knob">
-    <label for="decay">DECAY <span id="decay-out">gentle</span></label>
-    <input type="range" id="decay" min="2" max="20" value="7" aria-label="Pendulum decay">
-  </div>
-  <div class="strikes">
-    <button class="strike" id="strike">STRIKE</button>
-    <button class="lift" id="lift">LIFT THE PEN</button>
-  </div>
-  <p class="bench-note" id="bench-note">the machine is drawing — étude nº <span id="etude">1</span></p>
-</aside>
+  <section class="label" aria-labelledby="piece">
+    <p class="label-kicker">On the floor</p>
+    <h1 id="piece">Harmonograph Nº 3</h1>
+    <p class="label-meta">Walnut, brass, gravity. Two pendulums, one pen.</p>
+    <p class="label-body">The sheet rides a pendulum that swings in circles; the pen rides another. Where their rhythms almost agree, the drawing turns slowly on itself until the energy runs out.</p>
+  </section>
 
-<footer class="plaque">
-  <span>Pendula is a fictional studio — a Blueprint Labs capability study. Every drawing is unrepeatable.</span>
-  <a href="/">← The Blueprint Labs</a>
-</footer>
+  <aside class="bench" aria-label="The machine">
+    <div class="readout">
+      <span class="etude">Étude nº <b id="etude">1</b></span>
+      <span class="freq" id="freq">3 : 2.012</span>
+      <span class="energy"><span>Energy</span><i><em id="energy"></em></i></span>
+    </div>
+
+    <fieldset class="intervals">
+      <legend>Interval</legend>
+      <div class="seg" role="group" aria-label="Interval">
+        <button type="button" data-ratio="0" aria-pressed="false">Unison<small>1 : 1</small></button>
+        <button type="button" data-ratio="1" aria-pressed="false">Octave<small>2 : 1</small></button>
+        <button type="button" data-ratio="2" aria-pressed="true">Fifth<small>3 : 2</small></button>
+        <button type="button" data-ratio="3" aria-pressed="false">Fourth<small>4 : 3</small></button>
+        <button type="button" data-ratio="4" aria-pressed="false">Third<small>5 : 4</small></button>
+        <button type="button" data-ratio="5" aria-pressed="false">Sixth<small>5 : 3</small></button>
+      </div>
+    </fieldset>
+
+    <div class="knob">
+      <label for="detune"><span>Detune</span><output id="detune-out" for="detune">+0.60%</output></label>
+      <input type="range" id="detune" min="-100" max="100" step="1" value="30">
+    </div>
+    <div class="knob">
+      <label for="phase"><span>Phase</span><output id="phase-out" for="phase">90°</output></label>
+      <input type="range" id="phase" min="0" max="180" step="1" value="90">
+    </div>
+    <div class="knob">
+      <label for="decay"><span>Decay</span><output id="decay-out" for="decay">gentle</output></label>
+      <input type="range" id="decay" min="1" max="10" step="1" value="4">
+    </div>
+
+    <fieldset class="inks">
+      <legend>Ink</legend>
+      <div class="ink-row" role="group" aria-label="Ink">
+        <button type="button" data-ink="sepia" aria-pressed="true"><i style="--c:#3b2a1f"></i>Sepia</button>
+        <button type="button" data-ink="indigo" aria-pressed="false"><i style="--c:#25305a"></i>Indigo</button>
+        <button type="button" data-ink="vermilion" aria-pressed="false"><i style="--c:#b23a24"></i>Vermilion</button>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="act act-strike" id="strike"><i class="fa-solid fa-hand-back-fist" aria-hidden="true"></i><span>Strike</span></button>
+      <button type="button" class="act" id="lift" aria-pressed="false"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i><span>Lift the pen</span></button>
+      <button type="button" class="act" id="look" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i><span>Look at the drawing</span></button>
+      <button type="button" class="act" id="keep"><i class="fa-solid fa-download" aria-hidden="true"></i><span>Keep the sheet</span></button>
+    </div>
+    <p class="note" id="note" aria-live="polite">The machine is drawing.</p>
+  </aside>
+
+  <footer class="plaque">
+    <span>Pendula is a fictional studio — a Blueprint Labs capability study. Every drawing is unrepeatable.</span>
+    <a href="/">← The Blueprint Labs</a>
+  </footer>
+</div>
 
 <script type="module" src="/sites/24-pendula-works/script.js"></script>
 </body>

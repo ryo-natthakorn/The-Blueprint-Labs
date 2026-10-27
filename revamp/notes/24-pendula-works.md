@@ -3,7 +3,7 @@
 - **Vertical:** Kinetic Sculpture
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
 - **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Next step:** Pass 2 (kept-sheet drawer, ink texture, polish).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -24,7 +24,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Readable type. Reduced motion: the machine rests and the sheet shows a finished étude, redrawn instantly on each change. Lower RT and shadow resolution on phones.
 
 ## Pass log
-- Pass 1:
+- Pass 1: Rebuilt in Three.js. Walnut table with a well; the centre pendulum carries the sheet platform level on its top while its bob swings below, and the pen arm is hinged on the top of a second pendulum at the far-right corner. Both are tilted exactly so the platform and hinge follow the same equations as the ink. Ink is a feathered ribbon drawn each frame into a 2048² (1024² on phones) sheet target that never clears. It's stored and blended in sRGB so it looks like ink on paper, and the sheet material decodes it. The model is two counter-rotating damped circular motions at the interval ratio with fine detune, which makes rosettes; I checked all six intervals offline before choosing. The camera fits the machine into the free space beside the bench, the fog scales with distance, and the label clears the sculpture. There's a top-down Look view, the PNG Keep works, reduced motion shows a finished étude, and the sheet opens with 14 s already drawn.
 - Pass 2:
 - Pass 3:
 
