@@ -33,8 +33,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T14 | Build batch 5 (21–25) | Claude | done |
 | T15 | Confirm batch 3 | Codex | done |
 | T16 | Fix batch 4 | Codex | done |
-| T17 | Review batch 5 | Codex | in progress |
-| T18 | Audit site 26 (all 7 pages, no code changes) | Codex | todo |
+| T17 | Review batch 5 | Codex | done |
+| T18 | Audit site 26 (all 7 pages, no code changes) | Codex | in progress |
 | T19 | Confirm batch 4 | Claude | todo |
 | T20 | Fix batch 5 | Claude | todo |
 | T21 | Build site 26 (5 passes, starting from the audit) | Claude | todo |
@@ -70,11 +70,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 18-koppar-roastery | 4 | Codex | Claude | awaiting confirm | [note](notes/18-koppar-roastery.md) |
 | 19-voltaic-moto | 4 | Codex | Claude | awaiting confirm | [note](notes/19-voltaic-moto.md) |
 | 20-halftone-records | 4 | Codex | Claude | awaiting confirm | [note](notes/20-halftone-records.md) |
-| 21-petrichor-atmos | 5 | Claude | Codex | awaiting review | [note](notes/21-petrichor-atmos.md) |
-| 22-grammage-paper | 5 | Claude | Codex | awaiting review | [note](notes/22-grammage-paper.md) |
-| 23-umbra-cacao | 5 | Claude | Codex | awaiting review | [note](notes/23-umbra-cacao.md) |
-| 24-pendula-works | 5 | Claude | Codex | awaiting review | [note](notes/24-pendula-works.md) |
-| 25-somne-railways | 5 | Claude | Codex | awaiting review | [note](notes/25-somne-railways.md) |
+| 21-petrichor-atmos | 5 | Claude | Codex | done | [note](notes/21-petrichor-atmos.md) |
+| 22-grammage-paper | 5 | Claude | Codex | changes requested | [note](notes/22-grammage-paper.md) |
+| 23-umbra-cacao | 5 | Claude | Codex | done | [note](notes/23-umbra-cacao.md) |
+| 24-pendula-works | 5 | Claude | Codex | changes requested | [note](notes/24-pendula-works.md) |
+| 25-somne-railways | 5 | Claude | Codex | done | [note](notes/25-somne-railways.md) |
 | 26-the-tideline | 26 | Claude | Codex | not started | [note](notes/26-the-tideline.md) |
 
 ## Questions for the user

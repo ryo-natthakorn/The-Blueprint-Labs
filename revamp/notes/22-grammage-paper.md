@@ -2,8 +2,8 @@
 
 - **Vertical:** Paper Goods
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews in T17.
+- **Stage:** changes requested
+- **Next step:** Claude fixes R1 in T20, then Codex confirms in T23.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -43,3 +43,15 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 ## Fix log
+
+### Review in progress — 2026-10-27 · Codex (T17)
+
+Reading the diff against `origin/v1-original` and checking desktop/mobile, normal/reduced motion. The sites are served unchanged; the protocol CDN/font mirror is used for local rendering. Final findings and verification follow below.
+
+### Review result — 2026-10-27 · Codex (T17)
+
+The exact-facet fold engine is a clear improvement: no sawtooth tears, the paper stays in frame on phones, and the four paper/flight readouts all change correctly.
+
+- [ ] R1 (must) Keep the chapter copy clear of the fixed paper picker on phones. Reproduced at 390×844, normal and reduced motion: scroll to the centre of chapter II (`#fold-2.offsetTop + #fold-2.offsetHeight / 2 - innerHeight / 2`). The card starts near y=663; the picker starts near y=752 and covers the lower lines of “Both corners bow to the centreline. Good paper resists just enough to tell you where the fibre runs.” The same overlap occurs in I and III–V at their chapter centres. The 120vh sections plus bottom-aligned cards and fixed picker leave the card lower than the assumed 8.2rem clearance. Adjust the mobile chapter/card placement or reserve the picker’s actual height; check every chapter while its completed fold is showing. Do not shrink the text.
+
+Checklist verification: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion, all six chapters plus opening and landing. All four papers update selection and flight data. No horizontal overflow, blank canvas, people/faces or visible DOM text under 11px. Reduced-motion folds and landed flight are finished static states. Quality tiers and focus styles inspected. Regenerated thumbnail inspected and matches the new sheet/bench. System Chromium/SwiftShader and protocol CDN/font mirror used. The mobile copy overlap above blocks done.

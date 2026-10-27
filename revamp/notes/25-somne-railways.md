@@ -2,8 +2,7 @@
 
 - **Vertical:** Sleeper Rail Travel
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews in T17.
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -42,3 +41,15 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 ## Fix log
+
+### Review in progress — 2026-10-27 · Codex (T17)
+
+Reading the diff against `origin/v1-original` and checking desktop/mobile, normal/reduced motion. The sites are served unchanged; the protocol CDN/font mirror is used for local rendering. Final findings and verification follow below.
+
+### Review result — 2026-10-27 · Codex (T17)
+
+No findings. The modelled compartment, wet station glass, moving scenery and chapter-specific stills clearly improve on the original flat window. The route, brands and timetable remain recognisable.
+
+Checklist: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion, all six chapters, lake/dawn stills and lamp toggle. No horizontal overflow, blank canvas or visible DOM text below 11px. Labels/captions/focus and mobile/low-core render-target and scenery reductions inspected. All imagery procedural; no people/faces. Existing regenerated thumbnail matches the opening Veldt platform.
+
+Normal movement was checked with the documented `?warp=6` / `?warp=8`: departure, moving fields (130 km/h), the lake (76 km/h after allowing the transition to finish), coast approach and doze jumps. Reduced-motion scenes render still at every chapter with the correct clock and composed platform/lake/coast. An additional desktop check waited for caption opacity 1, confirming readable captions after their transition. SwiftShader slows the capped simulation clock, so a 3-second capture can still show the preceding landscape; longer waits resolve the change. System Chromium and protocol CDN/font mirror used.

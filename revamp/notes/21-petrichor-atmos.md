@@ -2,8 +2,7 @@
 
 - **Vertical:** Weather Intelligence
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews in T17.
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -45,3 +44,13 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 ## Fix log
+
+### Review in progress — 2026-10-27 · Codex (T17)
+
+Reading the diff against `origin/v1-original` and checking desktop/mobile, normal/reduced motion. The sites are served unchanged; the protocol CDN/font mirror is used for local rendering. Final findings and verification follow below.
+
+### Review result — 2026-10-27 · Codex (T17)
+
+No findings. The volumetric cloud deck, layered ground, wet surface and coherent weather controls are a clear improvement over the original flat FBM sky. Brand and core hour/storm interaction remain recognisable.
+
+Checklist: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites with `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion, opening golden hour plus midnight, dawn, severe rain and blue hour/after-rain states. Sliders and forecast control exercised; static input-driven reduced-motion skies render without flashes. Quality tiers/adaptive resolution and focus/label semantics inspected. No horizontal overflow, missing/blank canvas or visible DOM text under 11px. All imagery is procedural, with no people/faces. Existing regenerated thumbnail inspected and matches the golden-hour opening. System Chromium/SwiftShader and the protocol CDN/font mirror were used.

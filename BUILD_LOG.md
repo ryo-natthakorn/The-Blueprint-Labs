@@ -72,3 +72,6 @@ One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
 - [12-ligature-foundry] LIGATURE — revamped by Claude, reviewed by Codex
 - [14-suminaga-teahouse] SUMINAGA — revamped by Claude, reviewed by Codex
 - [15-vector-drift] VECTOR DRIFT — revamped by Claude, reviewed by Codex
+- [21-petrichor-atmos] PETRICHOR — revamped by Claude, reviewed by Codex
+- [23-umbra-cacao] UMBRA — revamped by Claude, reviewed by Codex
+- [25-somne-railways] SOMNE — revamped by Claude, reviewed by Codex

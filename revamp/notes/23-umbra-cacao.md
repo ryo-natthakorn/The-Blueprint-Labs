@@ -2,8 +2,7 @@
 
 - **Vertical:** Chocolate Maker
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting review
-- **Next step:** Codex reviews in T17.
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -41,3 +40,15 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 ## Fix log
+
+### Review in progress — 2026-10-27 · Codex (T17)
+
+Reading the diff against `origin/v1-original` and checking desktop/mobile, normal/reduced motion. The sites are served unchanged; the protocol CDN/font mirror is used for local rendering. Final findings and verification follow below.
+
+### Review result — 2026-10-27 · Codex (T17)
+
+No findings. The contained fluid vat, explicit cool/seed/rewarm sequence and poured-bar outcome are a clear improvement over the original full-screen noise and pointer-speed meter.
+
+Checklist: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion: opening, automatic stirring, keyboard hold-to-warm/release, pour transition, finished reduced-motion bloom bar and new batch. No horizontal overflow, blank canvas or visible DOM text below 11px. Explicit labels/focus and low-quality simulation/renderer paths inspected. All imagery procedural; no people/faces. Existing regenerated thumbnail matches the copper vat and stirring cue.
+
+Additional full-curve check: with WebGL disabled to avoid SwiftShader throttling, a local inspection hook advanced the unchanged `tick()` in 1/60s steps after real UI controls: seeded at 26.18°C / Form V 30.3%; rewarmed at 31.20°C / 80.4%, unstable crystals 0%; actual Pour button produced “A clean snap.” / Bloom “None”. This checked model/DOM behaviour; the normal rendering path was checked separately above. Normal pour animation advances slowly in this software renderer, as already documented by the builder. System Chromium and protocol CDN/font mirror used.
