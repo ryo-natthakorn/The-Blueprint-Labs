@@ -2,8 +2,8 @@
 
 - **Vertical:** Kinetic Sculpture
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes R1 in T20, then Codex confirms in T23.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T23.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -49,6 +49,16 @@ Reading the diff against `origin/v1-original` and checking desktop/mobile, norma
 
 A substantial improvement over the original bare curve: the walnut/brass mechanism follows the pen, the drawing is readable, and Keep downloads an actual signed PNG.
 
-- [ ] R1 (must) Make “Look at the drawing” reveal the sheet on phones. At 390×844 (normal and reduced motion), scroll down to the action buttons and click Look. The button becomes “Back to the room”, but the controls cover the sheet: reproduced at scrollY 611 with the bench spanning y=−107 to 550. The drawing is framed around the upper part of the fixed canvas, behind that panel; only wood/floor remain visible below it. `frameCamera()` uses the bench’s document `offsetTop`, while the mobile bench scrolls, and Look only toggles the camera/body class. Scroll the scene into view on entry, provide an unobstructed drawing view, or adjust the control/scene placement; keep the return control accessible and honour reduced motion. Verify using a real touch/keyboard journey from the controls, not only a top-of-page render.
+- [x] R1 (must) Make “Look at the drawing” reveal the sheet on phones. At 390×844 (normal and reduced motion), scroll down to the action buttons and click Look. The button becomes “Back to the room”, but the controls cover the sheet: reproduced at scrollY 611 with the bench spanning y=−107 to 550. The drawing is framed around the upper part of the fixed canvas, behind that panel; only wood/floor remain visible below it. `frameCamera()` uses the bench’s document `offsetTop`, while the mobile bench scrolls, and Look only toggles the camera/body class. Scroll the scene into view on entry, provide an unobstructed drawing view, or adjust the control/scene placement; keep the return control accessible and honour reduced motion. Verify using a real touch/keyboard journey from the controls, not only a top-of-page render.
 
 Checklist verification: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion: room, top-down drawing, ink change and lift. Finished reduced-motion étude is composed and static; normal ink advances. Keep downloaded a valid 1024² signed PNG (opened and inspected); source ratio/detune/phase/decay/archive handlers inspected. No horizontal overflow, blank canvas, people/faces or visible DOM text below 11px. Quality tiers, labelled controls and focus styles inspected. Regenerated thumbnail matches the machine. System Chromium/SwiftShader and protocol CDN/font mirror used. The mobile Look obstruction above blocks done.
+
+### Fix work — 2026-10-27 · Claude (T20)
+- R1: fixed in 0f4088b. On phones, Look now folds the bench into a fixed dock at the foot of the screen holding only its four actions (Strike, Lift, Back to the room, Keep) and the live note, scrolls the page to the top (instantly under reduced motion), and frames the top-down sheet in the free space above the dock. Back to the room restores the reader's scroll position in the controls. The lens shift between the room view and the drawing view is now interpolated with the camera move (`lensShift()` in `script.js`), so the framing doesn't jump; the room framing is cached while the bench is a dock. On phones the drawing view keeps a margin round the sheet (radius 0.66 × sheet instead of 0.58) so its circling swing doesn't touch the screen edge. Desktop is unchanged: the bench stays in its column and the drawing view is the same as before.
+
+### Fix verification — 2026-10-27 · Claude (T20)
+- check-rules: OK (99 files, 26 projects).
+- verify-sites `--only 24 --cdn-mirror`: ok, zero console/page/request failures.
+- Journey at 390×844 (touch, normal and reduced motion) and 375×667 (reduced): scrolled to the actions (scrollY 611 / 699), tapped Look → scrollY 0, dock at y 690–832 (495–655), "Back to the room" pressed and visible, whole sheet and drawing in view above the dock. Then focused the button and pressed Enter → back to scrollY 611 / 699 with "Look at the drawing" and its focus ring.
+- Visual check: DONE at 390×844, 375×667 and 1440×900 (desktop Look by mouse, unchanged), motion on and reduced. In headless SwiftShader (2–6 fps) the motion capture is mid-flight because the camera eases on frame time; the reduced-motion capture shows the final framing.
+- Thumbnail: not regenerated; the fix is phone-only and the 1440×900 thumbnail view is unchanged.

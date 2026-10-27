@@ -2,8 +2,8 @@
 
 - **Vertical:** Paper Goods
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** changes requested
-- **Next step:** Claude fixes R1 in T20, then Codex confirms in T23.
+- **Stage:** awaiting confirm
+- **Next step:** Codex confirms R1 in T23.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -52,6 +52,16 @@ Reading the diff against `origin/v1-original` and checking desktop/mobile, norma
 
 The exact-facet fold engine is a clear improvement: no sawtooth tears, the paper stays in frame on phones, and the four paper/flight readouts all change correctly.
 
-- [ ] R1 (must) Keep the chapter copy clear of the fixed paper picker on phones. Reproduced at 390×844, normal and reduced motion: scroll to the centre of chapter II (`#fold-2.offsetTop + #fold-2.offsetHeight / 2 - innerHeight / 2`). The card starts near y=663; the picker starts near y=752 and covers the lower lines of “Both corners bow to the centreline. Good paper resists just enough to tell you where the fibre runs.” The same overlap occurs in I and III–V at their chapter centres. The 120vh sections plus bottom-aligned cards and fixed picker leave the card lower than the assumed 8.2rem clearance. Adjust the mobile chapter/card placement or reserve the picker’s actual height; check every chapter while its completed fold is showing. Do not shrink the text.
+- [x] R1 (must) Keep the chapter copy clear of the fixed paper picker on phones. Reproduced at 390×844, normal and reduced motion: scroll to the centre of chapter II (`#fold-2.offsetTop + #fold-2.offsetHeight / 2 - innerHeight / 2`). The card starts near y=663; the picker starts near y=752 and covers the lower lines of “Both corners bow to the centreline. Good paper resists just enough to tell you where the fibre runs.” The same overlap occurs in I and III–V at their chapter centres. The 120vh sections plus bottom-aligned cards and fixed picker leave the card lower than the assumed 8.2rem clearance. Adjust the mobile chapter/card placement or reserve the picker’s actual height; check every chapter while its completed fold is showing. Do not shrink the text.
 
 Checklist verification: diff against `origin/v1-original` read; check-rules OK (99 files, 26 projects); scoped verify-sites `--cdn-mirror` has zero console/page errors and failed requests. Visual check DONE at 1440×900 and 390×844, normal/reduced motion, all six chapters plus opening and landing. All four papers update selection and flight data. No horizontal overflow, blank canvas, people/faces or visible DOM text under 11px. Reduced-motion folds and landed flight are finished static states. Quality tiers and focus styles inspected. Regenerated thumbnail inspected and matches the new sheet/bench. System Chromium/SwiftShader and protocol CDN/font mirror used. The mobile copy overlap above blocks done.
+
+### Fix work — 2026-10-27 · Claude (T20)
+- R1: fixed in 07c9bdc. On phones each chapter card is now `position: sticky` at the bottom of its section, resting exactly above the fixed picker: `script.js` measures the picker with a ResizeObserver into `--picker-h`, and both the section's bottom padding and the card's sticky offset use `--picker-h + 1.2rem`, so the clearance follows whatever height the picker wraps to. Text size unchanged. The scroll-linked card fade (`bench.js`) now treats the picker as the floor on phones: a card fades in as it rises clear of the picker, stays solid while it sticks, and fades out once it has risen about a third of the screen, so the outgoing card never sits over the next fold. Desktop CSS and fade are unchanged.
+
+### Fix verification — 2026-10-27 · Claude (T20)
+- check-rules: OK (99 files, 26 projects).
+- verify-sites `--only 22 --cdn-mirror`: ok, zero console/page/request failures.
+- Card vs picker measured at every chapter centre (`#fold-k.offsetTop + offsetHeight/2 − innerHeight/2`, k = 0…6): card bottom 741 / picker top 751 at 390×844 (normal and reduced motion), 564 / 574 at 375×667. Before the fix chapters I–VI overlapped by 46px (390×844) and 61px (375×667).
+- Visual check: DONE at 390×844 and 375×667 (every chapter centre, plus three frames across the II→III hand-over) and 1440×900, motion on and reduced. The completed fold shows above each card in every chapter; desktop layout unchanged. CDN/font mirror, headless SwiftShader.
+- Thumbnail: not regenerated; the fix is phone-only and the thumbnail is the 1440×900 view, which is unchanged.
