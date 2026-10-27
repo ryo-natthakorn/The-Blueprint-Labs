@@ -242,6 +242,34 @@ No build passes performed by Codex in T18. Claude owns the five T21 passes.
   prep, first plates), dietary tags on tonight's dishes, practical cards with
   live hours, and a calmer CTA band.
 
+### Pass 3 — menu, story, private dining (Claude, T21)
+- **Menu** (P2.8, P2.9): the menu is now a printed daily sheet (paper, dated
+  masthead, inline prices) under a "this morning's landing" card. Dietary
+  legend sits beside the filters; tags are written out (Vegetarian, Vegan,
+  Gluten-free, Shellfish, Served raw). Choosing a diet marks matching dishes,
+  fills their matching tag, folds the rest down to name and price, says how
+  many match ("3 of 14 dishes tonight are vegan") and explains empty courses.
+  Phones: the toolbar scrolls away, so a floating "Showing vegan · Change" pill
+  returns to it and focuses the active chip. Scrollspy keeps the active course
+  visible in the phone's scrolling course nav.
+- **Story** (P2.8): opening with the brief's bio beside the landing photo; the
+  dock-to-table day is a scroll sequence with a sticky 24-hour dial (noon at
+  the top, daylight arc) that follows the stop in view and reads today's tide
+  at that hour; a chalk-wall card for 7 AM; a compact sticky bar on phones.
+  The sourcing map was redrawn: Ledgerow Orchard was in the sea and Bright
+  Hollow's 19 miles didn't match the scale bar, so the farms now sit on land
+  at plausible distances. Pins and list entries are buttons that trace their
+  route; labels are HTML so they stay readable on phones (only the chosen one
+  is labelled there).
+- **Private dining** (P2.8): the room is shown as a drawn floor plan that
+  redraws for the chosen format (private room 6–14, chef's tasting 6–14 with the
+  chef at the pass, full buyout 16–40 showing the whole restaurant and the
+  seats the party fills) and the guest count. Capacities sit on the format
+  cards and in a facts row; the planner is a plain GET form, so "Enquire" opens
+  Contact with subject, format and guests already set, with or without
+  JavaScript. The platter photo is now captioned as what it is; the bar
+  canopy crop shows the room's light.
+
 ## Verification
 
 - check-rules: **OK** (99 files, 26 projects).

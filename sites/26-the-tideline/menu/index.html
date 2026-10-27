@@ -65,255 +65,260 @@
 <main id="main">
 
   <div class="page-head">
-    <div class="wrap">
-      <nav aria-label="Breadcrumb">
-        <ol class="crumbs">
-          <li><a href="/sites/26-the-tideline/">The Tideline</a></li>
-          <li class="sep" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></li>
-          <li aria-current="page">Menu</li>
-        </ol>
-      </nav>
-      <p class="overline rv">Tonight's menu · <span data-today>today</span></p>
-      <h1 class="t-display rv" data-d="1">Written this morning,<br>gone by midnight.</h1>
-      <p class="t-lede rv" data-d="2">The menu is rewritten daily around the morning's landing and
-        what the farms cut this week. What you see below is tonight; tomorrow the water decides again.
-        Dietary tags sit beside every dish — and tell us about any allergy, we take it seriously.</p>
+    <div class="wrap menu-head">
+      <div>
+        <nav aria-label="Breadcrumb">
+          <ol class="crumbs">
+            <li><a href="/sites/26-the-tideline/">The Tideline</a></li>
+            <li class="sep" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></li>
+            <li aria-current="page">Menu</li>
+          </ol>
+        </nav>
+        <p class="overline rv">Tonight's menu · <span data-today>today</span></p>
+        <h1 class="t-display rv" data-d="1">Written this morning, gone by midnight.</h1>
+        <p class="t-lede rv" data-d="2">Rewritten daily around the morning's landing and whatever the farms
+          cut this week. Dietary notes sit beside every dish, and the kitchen will cook around any allergy
+          you tell us about.</p>
+      </div>
+      <aside class="landing-card rv" data-d="3" aria-labelledby="landing-title">
+        <h2 class="t-label" id="landing-title"><i class="fa-solid fa-anchor" aria-hidden="true"></i>This morning's landing</h2>
+        <ul>
+          <li><span>Day-boat octopus</span><span>Town Dock</span></li>
+          <li><span>Branzino, two crates</span><span>Town Dock</span></li>
+          <li><span>The season's last lobster</span><span>Town Dock</span></li>
+          <li><span>Heirloom tomatoes</span><span>Saltmeadow</span></li>
+          <li><span>Plums for the duck</span><span>Ledgerow</span></li>
+        </ul>
+        <p class="landing-tide"><span class="dot" aria-hidden="true"></span><span data-tide="short">Tide</span></p>
+      </aside>
     </div>
   </div>
 
-  <div class="menu-toolbar rv" data-d="3">
+  <div class="menu-toolbar" id="menu-toolbar">
     <div class="menu-toolbar-in">
       <nav class="m-nav" aria-label="Menu sections">
-        <a href="#starters" class="active">Starters</a>
+        <a href="#starters" aria-current="true">Starters</a>
         <a href="#mains">Mains</a>
         <a href="#sides">Sides</a>
         <a href="#dessert">Dessert</a>
         <a href="#drinks">Drinks</a>
       </nav>
-      <span class="spacer"></span>
-      <div class="diet-filter" role="group" aria-label="Dietary filter">
-        <span class="lbl">Show</span>
-        <button class="chip" aria-pressed="true"  data-diet="all">Everything</button>
-        <button class="chip" aria-pressed="false" data-diet="V">Vegetarian</button>
-        <button class="chip" aria-pressed="false" data-diet="VG">Vegan</button>
-        <button class="chip" aria-pressed="false" data-diet="GF">Gluten-free</button>
+      <div class="diet-filter" role="group" aria-labelledby="diet-label">
+        <span class="lbl" id="diet-label">Dietary</span>
+        <button class="chip" type="button" aria-pressed="true" data-diet="all">Everything</button>
+        <button class="chip" type="button" aria-pressed="false" data-diet="V"><span class="ab" aria-hidden="true">V</span>Vegetarian</button>
+        <button class="chip" type="button" aria-pressed="false" data-diet="VG"><span class="ab" aria-hidden="true">VG</span>Vegan</button>
+        <button class="chip" type="button" aria-pressed="false" data-diet="GF"><span class="ab" aria-hidden="true">GF</span>Gluten-free</button>
       </div>
+    </div>
+    <div class="menu-status">
+      <p class="menu-count" id="menu-count" aria-live="polite">All 16 dishes tonight.</p>
+      <p class="menu-key"><span class="w">Shellfish</span><span class="w">Served raw</span><span>are marked on the dish. Allergy? Tell your server; we cook around it.</span></p>
     </div>
   </div>
 
   <div class="wrap">
+    <article class="sheet rv" aria-label="Tonight's menu">
+      <header class="sheet-mast">
+        <svg class="sheet-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 19.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 24.5c3 0 3-2.6 6-2.6s3 2.6 6 2.6 3-2.6 6-2.6 3 2.6 5 2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".5"/><circle cx="23" cy="9" r="2.6" fill="#b5762f"/></svg>
+        <p class="sheet-name">The Tideline</p>
+        <p class="sheet-date"><span data-today>Today</span> · Harrow's Point</p>
+      </header>
 
-    <!-- ================= STARTERS ================= -->
-    <section class="menu-sect" id="starters" aria-labelledby="h-starters">
-      <div class="menu-sect-head rv">
-        <h2 id="h-starters">Starters</h2>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="t-label">To begin</span>
-      </div>
-
-      <article class="dish rv" data-tags="GF">
-        <h3 class="dish-name">Charred Octopus
-          <span class="tags"><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">White bean purée, chili oil, grilled lemon. Off the town dock this morning,
-          charred over the wood grill.</p>
-        <p class="dish-price">$19</p>
-      </article>
-
-      <article class="dish rv" data-tags="GF SH R">
-        <h3 class="dish-name">Raw Bar Selection
-          <span class="tags"><span class="tag" title="Gluten-free">GF</span><span class="tag warn" title="Contains shellfish">SH</span><span class="tag warn" title="Served raw">R</span></span></h3>
-        <p class="dish-desc">Oysters on the half shell, market fish crudo, house mignonette.
-          The board changes with the landing — ask what's freshest.</p>
-        <p class="dish-price">MP</p>
-      </article>
-
-      <article class="dish rv" data-tags="V">
-        <h3 class="dish-name">Grilled Sourdough
-          <span class="tags"><span class="tag" title="Vegetarian">V</span></span></h3>
-        <p class="dish-desc">Cultured butter from Bright Hollow Dairy, flaked sea salt.
-          Baked in-house every afternoon.</p>
-        <p class="dish-price">$9</p>
-      </article>
-
-      <article class="dish rv" data-tags="V GF">
-        <h3 class="dish-name">Heirloom Tomato
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Stracciatella, basil oil, cracked pepper. Saltmeadow Farm's late-summer rows,
-          picked the same day.</p>
-        <p class="dish-price">$16</p>
-      </article>
-    </section>
-
-    <!-- ================= MAINS ================= -->
-    <section class="menu-sect" id="mains" aria-labelledby="h-mains">
-      <div class="menu-sect-head rv">
-        <h2 id="h-mains">Mains</h2>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="t-label">From the tide &amp; the fields</span>
-      </div>
-
-      <article class="dish rv" data-tags="GF">
-        <h3 class="dish-name">Whole Roasted Branzino
-          <span class="tags"><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Fennel two ways, citrus, olive. Roasted whole on the bone —
-          filleted at the table if you like.</p>
-        <p class="dish-price">$34</p>
-      </article>
-
-      <article class="dish rv" data-tags="GF SH">
-        <h3 class="dish-name">Butter-Poached Lobster
-          <span class="tags"><span class="tag" title="Gluten-free">GF</span><span class="tag warn" title="Contains shellfish">SH</span></span></h3>
-        <p class="dish-desc">Sweet corn, brown butter, chive. Poached gently and finished
-          with the last of the summer traps.</p>
-        <p class="dish-price">$42</p>
-      </article>
-
-      <article class="dish rv" data-tags="GF">
-        <h3 class="dish-name">Dry-Aged Duck Breast
-          <span class="tags"><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Charred plum, bitter greens, pan jus. Aged three weeks in our own locker.</p>
-        <p class="dish-price">$36</p>
-      </article>
-
-      <article class="dish rv" data-tags="V GF">
-        <h3 class="dish-name">Seasonal Risotto
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Rotates weekly with the farm boxes — ask your server what the rice is
-          holding tonight.</p>
-        <p class="dish-price">$26</p>
-      </article>
-
-      <article class="dish rv" data-tags="V VG GF">
-        <h3 class="dish-name">Tide Vegetable Plate
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Vegan">VG</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Fully seasonal and fully vegan — whatever the three farms sent,
-          treated with the same fire and salt as everything else.</p>
-        <p class="dish-price">$24</p>
-      </article>
-    </section>
-
-    <!-- ================= SIDES ================= -->
-    <section class="menu-sect" id="sides" aria-labelledby="h-sides">
-      <div class="menu-sect-head rv">
-        <h2 id="h-sides">Sides</h2>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="t-label">$8 each</span>
-      </div>
-
-      <article class="dish rv" data-tags="V VG GF">
-        <h3 class="dish-name">Charred Broccolini
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Vegan">VG</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Lemon, chili, olive oil.</p>
-        <p class="dish-price">$8</p>
-      </article>
-      <article class="dish rv" data-tags="V GF">
-        <h3 class="dish-name">Roasted Fingerlings
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Crème fraîche, chive, smoked salt.</p>
-        <p class="dish-price">$8</p>
-      </article>
-      <article class="dish rv" data-tags="V VG GF">
-        <h3 class="dish-name">Market Greens
-          <span class="tags"><span class="tag" title="Vegetarian">V</span><span class="tag" title="Vegan">VG</span><span class="tag" title="Gluten-free">GF</span></span></h3>
-        <p class="dish-desc">Sherry vinaigrette, shaved radish.</p>
-        <p class="dish-price">$8</p>
-      </article>
-    </section>
-
-    <!-- ================= DESSERT ================= -->
-    <section class="menu-sect" id="dessert" aria-labelledby="h-dessert">
-      <div class="menu-sect-head rv">
-        <h2 id="h-dessert">Dessert</h2>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="t-label">Stay a while</span>
-      </div>
-
-      <article class="dish rv" data-tags="V">
-        <h3 class="dish-name">Brown Butter Tart
-          <span class="tags"><span class="tag" title="Vegetarian">V</span></span></h3>
-        <p class="dish-desc">Sea salt caramel, crème fraîche. The one thing on this menu we're
-          never allowed to take off.</p>
-        <p class="dish-price">$12</p>
-      </article>
-      <article class="dish rv" data-tags="V">
-        <h3 class="dish-name">Citrus Olive Oil Cake
-          <span class="tags"><span class="tag" title="Vegetarian">V</span></span></h3>
-        <p class="dish-desc">Candied peel, soft cream, first-press oil from the coast road grove.</p>
-        <p class="dish-price">$11</p>
-      </article>
-    </section>
-
-    <!-- ================= DRINKS ================= -->
-    <section class="menu-sect" id="drinks" aria-labelledby="h-drinks">
-      <div class="menu-sect-head rv">
-        <h2 id="h-drinks">Drinks</h2>
-        <span class="rule" aria-hidden="true"></span>
-        <span class="t-label">Coastal-leaning</span>
-      </div>
-      <p class="menu-note rv">Twelve wines by the glass, six house cocktails, and a non-alcoholic
-        pairing flight built for the tasting menu.</p>
-
-      <div class="drinks-grid">
-        <div class="rv">
-          <h3>By the glass</h3>
-          <ul>
-            <li><b>House White — "Low Water"</b>crisp, saline, built for oysters · $12</li>
-            <li><b>Skin-Contact — "Amber Set"</b>dried apricot, sea air · $14</li>
-            <li><b>House Red — "Night Boat"</b>coastal pinot, cool and quiet · $13</li>
-            <li><b>Sparkling — "First Light"</b>lees-aged, baked apple · $15</li>
-            <li>…and eight more that rotate with the menu — ask for the slate.</li>
-          </ul>
+      <!-- ================= STARTERS ================= -->
+      <section class="menu-sect" id="starters" aria-labelledby="h-starters">
+        <div class="menu-sect-head">
+          <h2 id="h-starters">Starters</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="note">to begin</span>
         </div>
-        <div class="rv" data-d="1">
-          <h3>House cocktails</h3>
-          <ul>
-            <li><b>Driftwood Old Fashioned</b>smoked demerara, bitters · $15</li>
-            <li><b>Low Tide Negroni</b>dry vermouth, salted orange · $14</li>
-            <li><b>Salt Line Martini</b>oyster-shell brine, lemon oil · $16</li>
-            <li><b>Harbor Light</b>aperitivo, grapefruit, rosemary · $13</li>
-            <li><b>Green Flash</b>gin, sea herbs, lime flower · $14</li>
-            <li><b>The 4:45</b>espresso, rum, dark chocolate · $15</li>
-          </ul>
+        <div class="dish" data-tags="GF">
+          <h3 class="dish-name">Charred Octopus</h3>
+          <p class="dish-price">$19</p>
+          <p class="dish-desc">White bean purée, chili oil, grilled lemon. Off the town dock this morning, charred over the wood grill.</p>
+          <ul class="tags" aria-label="Dietary"><li>Gluten-free</li></ul>
         </div>
-        <div class="rv" data-d="2">
-          <h3>Zero proof</h3>
-          <ul>
-            <li><b>NA pairing flight</b>five pours matched to the menu · $38</li>
-            <li><b>Sea-buckthorn soda</b>bright, tart, house-made · $7</li>
-            <li><b>Cold garden tisane</b>verbena, mint, honey · $6</li>
-          </ul>
+        <div class="dish" data-tags="GF SH R">
+          <h3 class="dish-name">Raw Bar Selection</h3>
+          <p class="dish-price">MP</p>
+          <p class="dish-desc">Oysters on the half shell, market fish crudo, house mignonette. The board changes with the landing; ask what's freshest.</p>
+          <ul class="tags" aria-label="Dietary"><li>Gluten-free</li><li class="warn">Shellfish</li><li class="warn">Served raw</li></ul>
         </div>
-      </div>
-    </section>
+        <div class="dish" data-tags="V">
+          <h3 class="dish-name">Grilled Sourdough</h3>
+          <p class="dish-price">$9</p>
+          <p class="dish-desc">Cultured butter from Bright Hollow Dairy, flaked sea salt. Baked in-house every afternoon.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li></ul>
+        </div>
+        <div class="dish" data-tags="V GF">
+          <h3 class="dish-name">Heirloom Tomato</h3>
+          <p class="dish-price">$16</p>
+          <p class="dish-desc">Stracciatella, basil oil, cracked pepper. Saltmeadow Farm's late-summer rows, picked the same day.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Gluten-free</li></ul>
+        </div>
+        <p class="none-note" hidden></p>
+      </section>
 
-    <div class="menu-legend rv">
-      <span><b>V</b> Vegetarian</span>
-      <span><b>VG</b> Vegan</span>
-      <span><b>GF</b> Gluten-free</span>
-      <span><b>SH</b> Contains shellfish</span>
-      <span><b>R</b> Served raw</span>
-      <span style="flex-basis:100%;font-style:italic;color:var(--bone-3)">Consuming raw or undercooked seafood may increase your risk of foodborne illness.
-        Kitchens are small and tides are unpredictable — flag any allergy and we'll cook around it.</span>
-    </div>
+      <!-- ================= MAINS ================= -->
+      <section class="menu-sect" id="mains" aria-labelledby="h-mains">
+        <div class="menu-sect-head">
+          <h2 id="h-mains">Mains</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="note">from the tide &amp; the fields</span>
+        </div>
+        <div class="dish" data-tags="GF">
+          <h3 class="dish-name">Whole Roasted Branzino</h3>
+          <p class="dish-price">$34</p>
+          <p class="dish-desc">Fennel two ways, citrus, olive. Roasted whole on the bone and filleted at the table if you like.</p>
+          <ul class="tags" aria-label="Dietary"><li>Gluten-free</li></ul>
+        </div>
+        <div class="dish" data-tags="GF SH">
+          <h3 class="dish-name">Butter-Poached Lobster</h3>
+          <p class="dish-price">$42</p>
+          <p class="dish-desc">Sweet corn, brown butter, chive. Poached gently and finished with the last of the summer traps.</p>
+          <ul class="tags" aria-label="Dietary"><li>Gluten-free</li><li class="warn">Shellfish</li></ul>
+        </div>
+        <div class="dish" data-tags="GF">
+          <h3 class="dish-name">Dry-Aged Duck Breast</h3>
+          <p class="dish-price">$36</p>
+          <p class="dish-desc">Charred plum, bitter greens, pan jus. Aged three weeks in our own locker.</p>
+          <ul class="tags" aria-label="Dietary"><li>Gluten-free</li></ul>
+        </div>
+        <div class="dish" data-tags="V GF">
+          <h3 class="dish-name">Seasonal Risotto</h3>
+          <p class="dish-price">$26</p>
+          <p class="dish-desc">Rotates weekly with the farm boxes. Ask your server what the rice is holding tonight.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Gluten-free</li></ul>
+        </div>
+        <div class="dish" data-tags="V VG GF">
+          <h3 class="dish-name">Tide Vegetable Plate</h3>
+          <p class="dish-price">$24</p>
+          <p class="dish-desc">Fully seasonal and fully vegan: whatever the three farms sent, treated with the same fire and salt as everything else.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Vegan</li><li>Gluten-free</li></ul>
+        </div>
+        <p class="none-note" hidden></p>
+      </section>
+
+      <!-- ================= SIDES ================= -->
+      <section class="menu-sect" id="sides" aria-labelledby="h-sides">
+        <div class="menu-sect-head">
+          <h2 id="h-sides">Sides</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="note">$8 each</span>
+        </div>
+        <div class="dish" data-tags="V VG GF">
+          <h3 class="dish-name">Charred Broccolini</h3>
+          <p class="dish-price">$8</p>
+          <p class="dish-desc">Lemon, chili, olive oil.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Vegan</li><li>Gluten-free</li></ul>
+        </div>
+        <div class="dish" data-tags="V GF">
+          <h3 class="dish-name">Roasted Fingerlings</h3>
+          <p class="dish-price">$8</p>
+          <p class="dish-desc">Crème fraîche, chive, smoked salt.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Gluten-free</li></ul>
+        </div>
+        <div class="dish" data-tags="V VG GF">
+          <h3 class="dish-name">Market Greens</h3>
+          <p class="dish-price">$8</p>
+          <p class="dish-desc">Sherry vinaigrette, shaved radish.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li><li>Vegan</li><li>Gluten-free</li></ul>
+        </div>
+        <p class="none-note" hidden></p>
+      </section>
+
+      <!-- ================= DESSERT ================= -->
+      <section class="menu-sect" id="dessert" aria-labelledby="h-dessert">
+        <div class="menu-sect-head">
+          <h2 id="h-dessert">Dessert</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="note">stay a while</span>
+        </div>
+        <div class="dish" data-tags="V">
+          <h3 class="dish-name">Brown Butter Tart</h3>
+          <p class="dish-price">$12</p>
+          <p class="dish-desc">Sea salt caramel, crème fraîche. The one thing on this menu we're never allowed to take off.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li></ul>
+        </div>
+        <div class="dish" data-tags="V">
+          <h3 class="dish-name">Citrus Olive Oil Cake</h3>
+          <p class="dish-price">$11</p>
+          <p class="dish-desc">Candied peel, soft cream, first-press oil from the coast road grove.</p>
+          <ul class="tags" aria-label="Dietary"><li>Vegetarian</li></ul>
+        </div>
+        <p class="none-note" hidden></p>
+      </section>
+
+      <!-- ================= DRINKS ================= -->
+      <section class="menu-sect" id="drinks" aria-labelledby="h-drinks">
+        <div class="menu-sect-head">
+          <h2 id="h-drinks">Drinks</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="note">coastal-leaning</span>
+        </div>
+        <p class="drinks-intro">Twelve wines by the glass, six house cocktails, and a zero-proof pairing flight built for the tasting menu.</p>
+        <div class="drinks-grid">
+          <div>
+            <h3>By the glass</h3>
+            <ul>
+              <li><b>House White, “Low Water”</b><span>crisp, saline, built for oysters</span><em>$12</em></li>
+              <li><b>Skin-Contact, “Amber Set”</b><span>dried apricot, sea air</span><em>$14</em></li>
+              <li><b>House Red, “Night Boat”</b><span>coastal pinot, cool and quiet</span><em>$13</em></li>
+              <li><b>Sparkling, “First Light”</b><span>lees-aged, baked apple</span><em>$15</em></li>
+              <li class="more">…and eight more that rotate with the menu. Ask for the slate.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>House cocktails</h3>
+            <ul>
+              <li><b>Driftwood Old Fashioned</b><span>smoked demerara, bitters</span><em>$15</em></li>
+              <li><b>Low Tide Negroni</b><span>dry vermouth, salted orange</span><em>$14</em></li>
+              <li><b>Salt Line Martini</b><span>oyster-shell brine, lemon oil</span><em>$16</em></li>
+              <li><b>Harbor Light</b><span>aperitivo, grapefruit, rosemary</span><em>$13</em></li>
+              <li><b>Green Flash</b><span>gin, sea herbs, lime flower</span><em>$14</em></li>
+              <li><b>The 4:45</b><span>espresso, rum, dark chocolate</span><em>$15</em></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Zero proof</h3>
+            <ul>
+              <li><b>Pairing flight</b><span>five pours matched to the menu</span><em>$38</em></li>
+              <li><b>Sea-buckthorn soda</b><span>bright, tart, house-made</span><em>$7</em></li>
+              <li><b>Cold garden tisane</b><span>verbena, mint, honey</span><em>$6</em></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="sheet-foot">
+        <p><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Consuming raw or undercooked seafood may increase your risk of foodborne illness.
+          Kitchens are small and tides are unpredictable: flag any allergy when you book or sit down, and we'll cook around it.</p>
+      </footer>
+    </article>
 
     <div class="menu-aside">
       <figure class="ph rv">
-        <img src="/sites/26-the-tideline/assets/raw-catch-ice.jpg" alt="The morning's whole fish, shellfish and crab on crushed ice" loading="lazy" width="1600" height="1200">
+        <img src="/sites/26-the-tideline/assets/raw-catch-ice-800.jpg"
+             srcset="/sites/26-the-tideline/assets/raw-catch-ice-800.jpg 800w, /sites/26-the-tideline/assets/raw-catch-ice.jpg 1600w"
+             sizes="(max-width: 720px) 100vw, 50vw"
+             alt="The morning's whole fish, shellfish and crab on crushed ice" loading="lazy" width="800" height="600">
         <figcaption>The morning landing</figcaption>
       </figure>
       <figure class="ph rv" data-d="1">
-        <img src="/sites/26-the-tideline/assets/bread-dark.jpg" alt="Dark seeded sourdough loaves dusted with flour" loading="lazy" width="1600" height="1063">
+        <img src="/sites/26-the-tideline/assets/bread-dark-800.jpg"
+             srcset="/sites/26-the-tideline/assets/bread-dark-800.jpg 800w, /sites/26-the-tideline/assets/bread-dark.jpg 1600w"
+             sizes="(max-width: 720px) 100vw, 50vw"
+             alt="Dark seeded sourdough loaves dusted with flour" loading="lazy" width="800" height="532">
         <figcaption>Baked at 3 PM daily</figcaption>
       </figure>
     </div>
-
   </div>
 
   <!-- ======================= CTA BAND ======================= -->
-  <section class="cta-band">
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="cta-band-in">
       <p class="overline rv">Seen enough?</p>
-      <h2 class="t-display rv" data-d="1">Tonight's menu is best<br>read at the table.</h2>
+      <h2 class="t-display rv" data-d="1" id="cta-title">Tonight's menu is best read at the table.</h2>
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/reservations">Reserve a Table</a>
         <a class="btn btn-ghost" href="/sites/26-the-tideline/private-dining">Private Dining</a>

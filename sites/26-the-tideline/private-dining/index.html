@@ -74,99 +74,143 @@
         </ol>
       </nav>
       <p class="overline rv">Private dining &amp; events</p>
-      <h1 class="t-display rv" data-d="1">A room off the kitchen,<br>a night that's yours.</h1>
+      <h1 class="t-display rv" data-d="1">A room off the kitchen, a night that's&nbsp;yours.</h1>
+      <p class="t-lede rv" data-d="2">Our private dining room sits just off the main kitchen: same menu, same sourcing,
+        a table that's actually yours for the night. You'll hear the pass, smell the wood grill, and watch
+        your dishes leave the kitchen first.</p>
+      <dl class="pd-facts rv" data-d="3">
+        <div><dt>Private room</dt><dd><span class="num">14</span> seats at one long table</dd></div>
+        <div><dt>Chef's tasting</dt><dd><span class="num">6+</span> guests, seven courses</dd></div>
+        <div><dt>Full buyout</dt><dd><span class="num">40</span> seats, bar and both windows</dd></div>
+      </dl>
     </div>
   </div>
 
-  <!-- hero split -->
-  <section class="sect" style="padding-top:clamp(48px,7vw,80px)">
-    <div class="wrap pd-hero">
-      <div>
-        <p class="t-lede rv">Our private dining room sits just off the main kitchen — same menu,
-          same sourcing, a table that's actually yours for the night. You'll hear the pass,
-          smell the wood grill, and watch your dishes leave the kitchen first.</p>
-        <ul class="pd-list rv" data-d="1">
-          <li>A welcome pour at the bar while your table is finished.</li>
-          <li>The night's menu chalked on your own wall — dishes named for the occasion, if you like.</li>
-          <li>Chef's tasting for parties of six or more: seven courses, decided that morning at the dock.</li>
-          <li>Wine pairings or the zero-proof flight, matched course by course.</li>
-          <li>One long table, up to fourteen — no room fee Tuesday through Thursday.</li>
-        </ul>
-        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px" class="rv" data-d="2">
-          <a class="btn btn-amber" href="/sites/26-the-tideline/contact?subject=private-dining">Enquire about a date</a>
-          <a class="btn btn-ghost" href="tel:+15550100178">Call (555) 010-0178</a>
-        </div>
-      </div>
-      <figure class="ph rv" data-d="1">
-        <img src="/sites/26-the-tideline/assets/platter-slate.jpg" alt="A shared platter of figs, cheese and olives on dark slate" loading="lazy" width="1400" height="2100">
-        <figcaption>The long table, first course</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- facts -->
-  <section class="sect">
+  <!-- plan your night: the room, drawn, follows the format and headcount -->
+  <section class="sect plan-sect" aria-labelledby="plan-title">
     <div class="wrap">
-      <div class="pd-facts rv">
-        <div class="pd-fact">
-          <span class="num">14</span>
-          <span class="t-label">Seats at the long table</span>
-          <p style="color:var(--bone-2);font-size:.95rem">The room holds one table, not three.
-            Your night doesn't share the air with anyone else's.</p>
-        </div>
-        <div class="pd-fact">
-          <span class="num">6+</span>
-          <span class="t-label">Chef's tasting parties</span>
-          <p style="color:var(--bone-2);font-size:.95rem">Seven courses decided by the morning's
-            landing. Dietary needs folded in, never bolted on.</p>
-        </div>
-        <div class="pd-fact">
-          <span class="num">40</span>
-          <span class="t-label">Seats on a full buyout</span>
-          <p style="color:var(--bone-2);font-size:.95rem">The whole dining room, the bar and both
-            windows on the channel. Weddings, wakes and everything between.</p>
-        </div>
+      <p class="overline rv">Plan your night</p>
+      <h2 class="t-title rv" data-d="1" id="plan-title">See the room before you book it</h2>
+      <div class="plan-grid">
+        <figure class="plan rv" aria-labelledby="plan-caption">
+          <div class="plan-stage">
+            <svg class="plan-svg" id="plan-svg" viewBox="0 0 600 400" role="img" aria-labelledby="plan-caption"></svg>
+            <div class="plan-tags" id="plan-tags" aria-hidden="true"></div>
+          </div>
+          <figcaption id="plan-caption" class="plan-caption">The private room set for 14: one long table, the kitchen pass
+            along the top wall and windows onto the channel.</figcaption>
+        </figure>
+
+        <!-- Works without JavaScript as a plain form into the contact page. -->
+        <form class="planner rv" data-d="1" id="planner" action="/sites/26-the-tideline/contact" method="get">
+          <input type="hidden" name="subject" value="private-dining">
+          <fieldset class="formats">
+            <legend class="f-legend">Format</legend>
+            <label class="fmt">
+              <input type="radio" name="format" value="room" checked>
+              <span class="fmt-card">
+                <span class="fmt-top"><span class="fmt-name">Private room</span><span class="fmt-cap">6–14</span></span>
+                <span class="fmt-desc">One long table off the kitchen. Tonight's menu, à la carte or family style.</span>
+              </span>
+            </label>
+            <label class="fmt">
+              <input type="radio" name="format" value="tasting">
+              <span class="fmt-card">
+                <span class="fmt-top"><span class="fmt-name">Chef's tasting</span><span class="fmt-cap">6–14</span></span>
+                <span class="fmt-desc">Seven courses decided by the morning's landing, plated at the pass beside you.</span>
+              </span>
+            </label>
+            <label class="fmt">
+              <input type="radio" name="format" value="buyout">
+              <span class="fmt-card">
+                <span class="fmt-top"><span class="fmt-name">Full buyout</span><span class="fmt-cap">up to 40</span></span>
+                <span class="fmt-desc">The dining room, the bar and both windows on the channel. Weddings, wakes and everything between.</span>
+              </span>
+            </label>
+          </fieldset>
+
+          <div class="guests">
+            <label class="f-legend" for="guests">Guests</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-step="-1" aria-label="One fewer guest"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+              <input type="number" id="guests" name="guests" value="12" min="6" max="14" inputmode="numeric" aria-describedby="guests-note">
+              <button type="button" class="step-btn" data-step="1" aria-label="One more guest"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+            </div>
+            <p class="f-hint" id="guests-note">The private room seats 6 to 14.</p>
+          </div>
+
+          <div class="plan-sum" aria-live="polite">
+            <p class="plan-line" id="plan-line">12 guests in the private room</p>
+            <p class="plan-price" id="plan-price">No room fee Tuesday to Thursday · a simple per-head figure with your menu sketch</p>
+          </div>
+
+          <div class="planner-cta">
+            <button type="submit" class="btn btn-amber"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Enquire about a date</button>
+            <a class="btn btn-ghost" href="tel:+15550100178"><i class="fa-solid fa-phone" aria-hidden="true"></i>Call us</a>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- imagery -->
-  <section class="sect">
-    <div class="wrap duo">
-      <figure class="ph rv" style="aspect-ratio:16/11">
-        <img src="/sites/26-the-tideline/assets/bar-warm-wide.jpg" alt="The bar under warm filament light, glassware stacked and waiting" loading="lazy" width="1600" height="1200">
-        <figcaption>The bar, 4:30 PM</figcaption>
-      </figure>
-      <figure class="ph rv" data-d="1" style="aspect-ratio:16/11">
-        <img src="/sites/26-the-tideline/assets/wine-pour-dusk.jpg" alt="Red wine being poured at golden hour" loading="lazy" width="1600" height="2400">
-        <figcaption>The welcome pour</figcaption>
-      </figure>
+  <!-- what the night includes -->
+  <section class="sect" aria-labelledby="inc-title">
+    <div class="wrap inc-grid">
+      <div>
+        <p class="overline rv">What's included</p>
+        <h2 class="t-title rv" data-d="1" id="inc-title">Same kitchen, your table</h2>
+        <ul class="pd-list rv" data-d="2">
+          <li><i class="fa-solid fa-champagne-glasses" aria-hidden="true"></i>A welcome pour at the bar while your table is finished.</li>
+          <li><i class="fa-solid fa-pen-nib" aria-hidden="true"></i>The night's menu chalked on your own wall, dishes named for the occasion if you like.</li>
+          <li><i class="fa-solid fa-fish" aria-hidden="true"></i>Chef's tasting for six or more: seven courses, decided that morning at the dock.</li>
+          <li><i class="fa-solid fa-wine-glass" aria-hidden="true"></i>Wine pairings or the zero-proof flight, matched course by course.</li>
+          <li><i class="fa-solid fa-leaf" aria-hidden="true"></i>Dietary needs folded into the menu, never bolted on.</li>
+        </ul>
+      </div>
+      <div class="inc-photos">
+        <figure class="ph rv">
+          <img src="/sites/26-the-tideline/assets/bar-canopy-800.jpg"
+               srcset="/sites/26-the-tideline/assets/bar-canopy-800.jpg 800w, /sites/26-the-tideline/assets/bar-canopy.jpg 1400w"
+               sizes="(max-width: 860px) 100vw, 45vw"
+               alt="Warm filament bulbs hanging under a steel and timber canopy over the bar" loading="lazy" width="800" height="340">
+          <figcaption>Over the bar, 4:30 PM</figcaption>
+        </figure>
+        <figure class="ph rv" data-d="1">
+          <img src="/sites/26-the-tideline/assets/wine-pour-dusk-800.jpg" alt="Red wine poured into two glasses at golden hour" loading="lazy" width="800" height="1200">
+          <figcaption>The welcome pour</figcaption>
+        </figure>
+        <figure class="ph rv" data-d="2">
+          <img src="/sites/26-the-tideline/assets/platter-slate-800.jpg" alt="A shared platter of figs, cheese, olives and eggs on dark slate" loading="lazy" width="800" height="1200">
+          <figcaption>A shared first course</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   <!-- how it works -->
-  <section class="sect">
-    <div class="wrap" style="max-width:820px">
+  <section class="sect" aria-labelledby="how-title">
+    <div class="wrap">
       <p class="overline rv">How it works</p>
-      <h2 class="t-title rv" data-d="1" style="margin:16px 0 34px">Three emails, no contracts-by-the-pound</h2>
-      <div class="rv" data-d="2" style="display:grid;gap:22px">
-        <div class="two-col-note"><p><b style="color:var(--bone)">1 · Tell us the occasion.</b>&ensp;Date, headcount,
-          and anything the table needs to know about — allergies, anniversaries, someone who claims
-          they hate fish. Use the enquiry form or just call.</p></div>
-        <div class="two-col-note"><p><b style="color:var(--bone)">2 · We hold the room.</b>&ensp;You'll hear back
-          within a day with a menu sketch for the season and a simple per-head figure.
-          One deposit holds the night.</p></div>
-        <div class="two-col-note"><p><b style="color:var(--bone)">3 · The tide does the rest.</b>&ensp;The final menu
-          is written the morning of, same as the dining room. That's not a caveat — it's the reason to come.</p></div>
-      </div>
+      <h2 class="t-title rv" data-d="1" id="how-title">Three emails, no contracts by the pound</h2>
+      <ol class="how">
+        <li class="rv"><span class="how-n">1</span><h3>Tell us the occasion</h3>
+          <p>Date, headcount and anything the table needs to know: allergies, anniversaries, someone who
+            claims they hate fish. Use the enquiry form or just call.</p></li>
+        <li class="rv" data-d="1"><span class="how-n">2</span><h3>We hold the room</h3>
+          <p>You'll hear back within a day with a menu sketch for the season and a simple per-head figure.
+            One deposit holds the night.</p></li>
+        <li class="rv" data-d="2"><span class="how-n">3</span><h3>The tide does the rest</h3>
+          <p>The final menu is written the morning of, same as the dining room. That's not a caveat; it's
+            the reason to come.</p></li>
+      </ol>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta-band">
+  <section class="cta-band" aria-labelledby="cta-title">
     <div class="cta-band-in">
       <p class="overline rv">The private room</p>
-      <h2 class="t-display rv" data-d="1">Fourteen chairs,<br>one very good night.</h2>
+      <h2 class="t-display rv" data-d="1" id="cta-title">Fourteen chairs, one very good night.</h2>
       <div class="row rv" data-d="2">
         <a class="btn btn-amber" href="/sites/26-the-tideline/contact?subject=private-dining">Enquire about a date</a>
       </div>
