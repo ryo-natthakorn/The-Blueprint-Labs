@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Claude** ← the only line the user needs to read
+**Next up / ถัดไป: Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -30,7 +30,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T11 | Confirm batch 2 | Claude | done |
 | T12 | Fix batch 3 | Claude | done |
 | T13 | Review batch 4 | Claude | done |
-| T14 | Build batch 5 (21–25) | Claude | in progress |
+| T14 | Build batch 5 (21–25) | Claude | done |
 | T15 | Confirm batch 3 | Codex | todo |
 | T16 | Fix batch 4 | Codex | todo |
 | T17 | Review batch 5 | Codex | todo |
@@ -70,11 +70,11 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 18-koppar-roastery | 4 | Codex | Claude | changes requested | [note](notes/18-koppar-roastery.md) |
 | 19-voltaic-moto | 4 | Codex | Claude | changes requested | [note](notes/19-voltaic-moto.md) |
 | 20-halftone-records | 4 | Codex | Claude | changes requested | [note](notes/20-halftone-records.md) |
-| 21-petrichor-atmos | 5 | Claude | Codex | not started | [note](notes/21-petrichor-atmos.md) |
-| 22-grammage-paper | 5 | Claude | Codex | not started | [note](notes/22-grammage-paper.md) |
-| 23-umbra-cacao | 5 | Claude | Codex | not started | [note](notes/23-umbra-cacao.md) |
-| 24-pendula-works | 5 | Claude | Codex | not started | [note](notes/24-pendula-works.md) |
-| 25-somne-railways | 5 | Claude | Codex | not started | [note](notes/25-somne-railways.md) |
+| 21-petrichor-atmos | 5 | Claude | Codex | awaiting review | [note](notes/21-petrichor-atmos.md) |
+| 22-grammage-paper | 5 | Claude | Codex | awaiting review | [note](notes/22-grammage-paper.md) |
+| 23-umbra-cacao | 5 | Claude | Codex | awaiting review | [note](notes/23-umbra-cacao.md) |
+| 24-pendula-works | 5 | Claude | Codex | awaiting review | [note](notes/24-pendula-works.md) |
+| 25-somne-railways | 5 | Claude | Codex | awaiting review | [note](notes/25-somne-railways.md) |
 | 26-the-tideline | 26 | Claude | Codex | not started | [note](notes/26-the-tideline.md) |
 
 ## Questions for the user
@@ -91,3 +91,4 @@ One line per session: date · agent · tasks · last commit · handoff note.
 - 2026-10-21 · Codex · T2 done: 01–05 reviewed with no findings; T3 done: 06–10 rebuilt and awaiting review · c539b15 · T4 skipped (no R items). Claude: T5 review batch 2. Local checks used the CDN/font mirror.
 - 2026-10-22 · Claude · T5 done: 06–10 reviewed, all `changes requested` (R items in each note, for T8). T6 done: 11–15 rebuilt, all `awaiting review` · 496ad6a · Checks used `--cdn-mirror`, which now serves the real Google Fonts stylesheet first (the Fontsource fallback lacks variable axes, e.g. site 12's opsz/SOFT/WONK). `screenshot.js` takes `--wait ms` for sites that need time to compose (12, 13, 14, 15 used 4000–6500). Codex: T7 confirm batch 1, then T8 fix batch 2 and T9 review batch 3.
 - 2026-10-22 · Codex · T7 skipped (01–05 already done; no fixes to confirm). T8 done: 06–10 fixed in cc4aa7b and awaiting confirm. T9 done: 13 done; 11, 12, 14, 15 have must-fix R1 findings. T10 done: 16–20 rebuilt in three passes and awaiting review · 629bf0a (source) · Checks used the CDN/font mirror; Fraunces fallback now preserves all four axes. All scoped verify runs reported zero console/page/request failures; 16–20 checked at desktop/mobile with motion on/off plus short viewports and full-quality desktop. Thumbnails regenerated. Claude Code: T11 confirm batch 2, T12 fix batch 3, T13 review batch 4, then T14 build batch 5.
+- 2026-10-27 · Claude · T11 done: 06–10 confirmed, all `done` (176cce8). T12 done: R1 fixed in 11 (d1d9a0a), 12 (b804ccc), 14 (1539b97) and 15 (c25c774), now `awaiting confirm`. T13 done: 16–20 reviewed, all `changes requested`, with R items in each note (d4c06b0). T14 done: 21–25 rebuilt in three passes, all `awaiting review` · 8921178 · Checks used `--cdn-mirror`. Headless Chromium here is SwiftShader at 2–6 fps, so simulated time runs slow in captures. Site 25 takes `?warp=2–8` to speed up its train clock for checking motion (off unless asked), and the thumbnail used `--wait 7000`. Codex: T15 confirm batch 3, T16 fix batch 4, T17 review batch 5, T18 audit site 26.
