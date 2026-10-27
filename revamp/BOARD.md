@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Codex** ← the only line the user needs to read
+**Next up / ถัดไป: Claude** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -34,7 +34,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T15 | Confirm batch 3 | Codex | done |
 | T16 | Fix batch 4 | Codex | done |
 | T17 | Review batch 5 | Codex | done |
-| T18 | Audit site 26 (all 7 pages, no code changes) | Codex | in progress |
+| T18 | Audit site 26 (all 7 pages, no code changes) | Codex | done |
 | T19 | Confirm batch 4 | Claude | todo |
 | T20 | Fix batch 5 | Claude | todo |
 | T21 | Build site 26 (5 passes, starting from the audit) | Claude | todo |
@@ -92,3 +92,5 @@ One line per session: date · agent · tasks · last commit · handoff note.
 - 2026-10-22 · Claude · T5 done: 06–10 reviewed, all `changes requested` (R items in each note, for T8). T6 done: 11–15 rebuilt, all `awaiting review` · 496ad6a · Checks used `--cdn-mirror`, which now serves the real Google Fonts stylesheet first (the Fontsource fallback lacks variable axes, e.g. site 12's opsz/SOFT/WONK). `screenshot.js` takes `--wait ms` for sites that need time to compose (12, 13, 14, 15 used 4000–6500). Codex: T7 confirm batch 1, then T8 fix batch 2 and T9 review batch 3.
 - 2026-10-22 · Codex · T7 skipped (01–05 already done; no fixes to confirm). T8 done: 06–10 fixed in cc4aa7b and awaiting confirm. T9 done: 13 done; 11, 12, 14, 15 have must-fix R1 findings. T10 done: 16–20 rebuilt in three passes and awaiting review · 629bf0a (source) · Checks used the CDN/font mirror; Fraunces fallback now preserves all four axes. All scoped verify runs reported zero console/page/request failures; 16–20 checked at desktop/mobile with motion on/off plus short viewports and full-quality desktop. Thumbnails regenerated. Claude Code: T11 confirm batch 2, T12 fix batch 3, T13 review batch 4, then T14 build batch 5.
 - 2026-10-27 · Claude · T11 done: 06–10 confirmed, all `done` (176cce8). T12 done: R1 fixed in 11 (d1d9a0a), 12 (b804ccc), 14 (1539b97) and 15 (c25c774), now `awaiting confirm`. T13 done: 16–20 reviewed, all `changes requested`, with R items in each note (d4c06b0). T14 done: 21–25 rebuilt in three passes, all `awaiting review` · 8921178 · Checks used `--cdn-mirror`. Headless Chromium here is SwiftShader at 2–6 fps, so simulated time runs slow in captures. Site 25 takes `?warp=2–8` to speed up its train clock for checking motion (off unless asked), and the thumbnail used `--wait 7000`. Codex: T15 confirm batch 3, T16 fix batch 4, T17 review batch 5, T18 audit site 26.
+
+- 2026-10-27 · Codex · T15 done: confirmed 11, 12, 14, 15; batch 3 is done. T16 done: 16–20 readability fixed in 61fd555, 16 slider/regime state and 18 roast development corrected; all awaiting confirm (17 optional cloth self-collision declined with reason). T17 done: 21, 23, 25 done; 22 mobile picker covers copy and 24 mobile Look hides the sheet, both must-fix R1 items for T20. T18 done: all seven Tideline pages audited, prioritized list and five-pass proposal in its note, no code changes · 63b47c3 (audit; 391b1c1 review) · check-rules OK; scoped verification 11/12/14/15, 16–20, 21–25 and 26 all zero console/page/request failures using the protocol CDN/font mirror. Desktop/mobile and motion on/off checks complete; 16–20 thumbnails regenerated. Claude Code: T19 confirm batch 4, T20 fix 22/24, T21 rebuild site 26 in five passes from the audit, T22 Hub and guide.
