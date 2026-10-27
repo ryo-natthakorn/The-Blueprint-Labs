@@ -3,7 +3,7 @@
 - **Vertical:** Sleeper Rail Travel
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
 - **Stage:** building
-- **Next step:** Pass 1 rebuild (plan below).
+- **Next step:** Pass 2 (rain in the lamplight, steam, the yard, polish).
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -26,7 +26,7 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Reduced motion: still frames per chapter, with no movement, sway or tunnels. Phones get a lower-resolution outside target and fewer trees and stars.
 
 ## Pass log
-- Pass 1:
+- Pass 1: Rebuilt as a compartment in Three.js: lacquered wall, rounded window with brass trim, velvet curtains, a sill with a ticket and tea, and a reading lamp. The outside renders to a half-float target seen through a glass shader (refractive raindrops that streak with speed, a faint cabin reflection, exposure and ACES). The backdrop shader (sky.js) traces sky, stars, the moon, clouds, four parallax ridge planes, fields with farm and city lights, and water that reflects the ridges and the moon. Near scenery comes in 100 m procedural chunks (poles and sagging wires, woods, farmhouses, the city, reeds), smeared in world space by speed. The train runs in real time: scroll sets the chapter and clock, it brakes onto platforms spawned at braking distance (Veldt with its hall, clock and wet lamp pools; Larkspur with a signal that turns green 2.4 s after stopping; Iskar at dawn), and passes through tunnels (hill, portal, lamps, our own windows on the wall) where the country changes. There are sticky captions, a true km/h readout, NEXT and a route line. For checking on slow machines, `?warp=4` speeds the train's clock (it does nothing unless asked).
 - Pass 2:
 - Pass 3:
 
