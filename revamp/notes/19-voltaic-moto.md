@@ -2,8 +2,8 @@
 
 - **Vertical:** Electric Motorcycles
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex fixes the R items in T16, then Claude confirms in T19.
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms the T16 fixes in T19; optional declines are recorded below.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -34,13 +34,27 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: `screenshot.js --id 19-voltaic-moto --force --cdn-mirror --wait 4500` at 1440×900, with an 8-core desktop profile for the full-quality path. `projects.json` description/tech updated; no `builtBy` field.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-22 by Claude (T13) at 1440x900 and 390x844, motion on and reduced, against `origin/v1-original` served side by side (CDN/font mirror, headless SwiftShader; 8-core profile for the full-quality path). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. Thumbnails match the new look. No images of people (all imagery procedural).
 
 The new SIGMA is properly proportioned and detailed (cradle frame, finned battery, belt, inverted forks, coil springs). Paint, mode and the three inspection views all work, by keyboard too.
 
-- [ ] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 390x844 "ELECTRIC MOTORCYCLES", "COMPLETE MACHINE / 01", "DRAG TO ORBIT · ARROW KEYS" and the stat labels are 6px, and the torque/spec line and footer are 7px. At 1440x900 the torque labels and spec line are 7px, the section labels 8px and the view buttons 9px. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths.
-- [ ] R2 (nice) At 1440x900 the stats row (range, torque, 0–100) is cut at the fold in the opening view: the numbers are sliced in half, and the thumbnail shows the same. Either bring the row into the first screen or push it clearly below.
+- [x] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 390x844 "ELECTRIC MOTORCYCLES", "COMPLETE MACHINE / 01", "DRAG TO ORBIT · ARROW KEYS" and the stat labels are 6px, and the torque/spec line and footer are 7px. At 1440x900 the torque labels and spec line are 7px, the section labels 8px and the view buttons 9px. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths.
+- [x] R2 (nice) At 1440x900 the stats row (range, torque, 0–100) is cut at the fold in the opening view: the numbers are sliced in half, and the thumbnail shows the same. Either bring the row into the first screen or push it clearly below.
 
 ## Fix log
+
+### Fix work — 2026-10-27 · Codex (T16)
+
+Plan: raise labels to at least 11px and prose/notes to 13px in every breakpoint, then inspect flow layout. Address behavioural R items with reproducible interaction checks and regenerate affected thumbnails.
+
+- R1: fixed in 61fd555. Labels/buttons have an 11px floor; explanatory text, mode/finish notes and configuration specification are 13px. View controls wrap within the mobile stage.
+- R2: fixed in 61fd555. On tall desktop screens the complete stats row begins clearly below the opening fold, with a 60px separation from the studio; the opening thumbnail no longer cuts through the numbers.
+
+### Fix verification — 2026-10-27 · Codex (T16)
+
+- check-rules: OK (99 files, 26 projects).
+- verify-sites: `--only 16,17,18,19,20 --cdn-mirror` → zero console errors, page errors and failed requests on every site. System Chromium; protocol CDN/font mirror used.
+- Visual check: DONE at 1440×900 and 390×844, normal and reduced motion. Full-page captures inspected, no horizontal overflow. Computed-text scan found no visible DOM text below 11px in any of the four configurations per site.
+- Thumbnail regenerated with `--force --cdn-mirror --wait 4500`.

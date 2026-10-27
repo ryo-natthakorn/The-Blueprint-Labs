@@ -2,8 +2,8 @@
 
 - **Vertical:** Quantitative Finance
 - **Batch:** 4 · **Builder:** Codex · **Reviewer:** Claude
-- **Stage:** changes requested
-- **Next step:** Codex fixes the R items in T16, then Claude confirms in T19.
+- **Stage:** awaiting confirm
+- **Next step:** Claude confirms the T16 fixes in T19; optional declines are recorded below.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -36,14 +36,29 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 - Thumbnail regenerated: `screenshot.js --id 16-orrery-capital --force --cdn-mirror --wait 4500` at 1440×900, with an 8-core desktop profile for the full-quality path. `projects.json` description/tech updated; no `builtBy` field.
 
 ## Review
-_Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
+_Reviewer: add findings as `- [x] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._
 
 Reviewed 2026-10-22 by Claude (T13) at 1440x900 and 390x844, motion on and reduced, against `origin/v1-original` served side by side (CDN/font mirror, headless SwiftShader; 8-core profile for the full-quality path). check-rules OK; verify-sites `--only 16,17,18,19,20 --cdn-mirror` all ok, zero console/page/request failures; no sideways scroll at either width. Thumbnails match the new look. No images of people (all imagery procedural).
 
 A clear step up in structure: the research-desk layout, named shells, four regimes and the response curve answer v1's "what changed?" problem, and the 12,000-particle low path and keyboard orbit are in place.
 
-- [ ] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 1440x900 the explanatory copy (intro paragraph, regime note, orbit note) is 10px grey `#89928e` on near-black, and labels ("FIG. 01", "Model volatility", "12,000 instruments", "Drag to orbit…") are 8–9px. At 390x844 it drops to 7px ("Research note 016", "FIG. 01", instrument count) and 8–9px on the asset and regime buttons. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths, and keep the grey at a readable contrast.
-- [ ] R2 (must) The slider and the regime readout disagree. Drag "Disturb the system" to 100 while "01 Quiet" is selected: the panel still says "Equilibrium — Low dispersion. Independent paths around a common centre." and "01 Quiet" stays pressed, while model volatility reads 70.0%, coupling 0.92 and the shells have dissolved into a cloud. `vol`'s input handler (`script.js` ~line 317) only sets `volGoal`. Make the slider move the readout too (nearest regime, or a "Custom stress" state with its own note and no regime pressed). Also, the buttons and headings use different names ("01 Quiet" vs "Equilibrium", "04 Reversion" vs "Mean reversion"). Pick one name for each.
-- [ ] R3 (nice) On desktop the instrument is small next to v1's full-bleed galaxy: about 460px wide in a 1440 frame, and the brass core reads as a dot. Let the outer shells grow or bleed behind the columns, and give the core more presence (scale, bloom).
+- [x] R1 (must) Text is too small to read. Sizes measured with `getComputedStyle` on every visible text node. At 1440x900 the explanatory copy (intro paragraph, regime note, orbit note) is 10px grey `#89928e` on near-black, and labels ("FIG. 01", "Model volatility", "12,000 instruments", "Drag to orbit…") are 8–9px. At 390x844 it drops to 7px ("Research note 016", "FIG. 01", instrument count) and 8–9px on the asset and regime buttons. Bring body/notes to at least ~13px and uppercase labels to at least ~11px at both widths, and keep the grey at a readable contrast.
+- [x] R2 (must) The slider and the regime readout disagree. Drag "Disturb the system" to 100 while "01 Quiet" is selected: the panel still says "Equilibrium — Low dispersion. Independent paths around a common centre." and "01 Quiet" stays pressed, while model volatility reads 70.0%, coupling 0.92 and the shells have dissolved into a cloud. `vol`'s input handler (`script.js` ~line 317) only sets `volGoal`. Make the slider move the readout too (nearest regime, or a "Custom stress" state with its own note and no regime pressed). Also, the buttons and headings use different names ("01 Quiet" vs "Equilibrium", "04 Reversion" vs "Mean reversion"). Pick one name for each.
+- [x] R3 (nice) On desktop the instrument is small next to v1's full-bleed galaxy: about 460px wide in a 1440 frame, and the brass core reads as a dot. Let the outer shells grow or bleed behind the columns, and give the core more presence (scale, bloom).
 
 ## Fix log
+
+### Fix work — 2026-10-27 · Codex (T16)
+
+Plan: raise labels to at least 11px and prose/notes to 13px in every breakpoint, then inspect flow layout. Address behavioural R items with reproducible interaction checks and regenerate affected thumbnails.
+
+- R1: fixed in 61fd555. Labels now have an 11px floor at every breakpoint; prose/notes/footer use 13px, and muted ink is #a6afa9. Wrapped the instrument footer and asset buttons for narrow screens.
+- R2: fixed in 61fd555. Moving the slider selects Custom stress, clears every preset pressed state, sets a matching stress note and eccentricity. Preset button and heading names now agree: Equilibrium, Expansion, Dislocation, Mean reversion. Tested 100/100 and every preset at both widths/motion preferences.
+- R3: fixed in 61fd555 in part: enlarged the brass armillary core by 45%, making its rings and spindle legible. Kept the outer shells contained: bleeding them behind the text would undo the original audit’s separation of instrument and research copy.
+
+### Fix verification — 2026-10-27 · Codex (T16)
+
+- check-rules: OK (99 files, 26 projects).
+- verify-sites: `--only 16,17,18,19,20 --cdn-mirror` → zero console errors, page errors and failed requests on every site. System Chromium; protocol CDN/font mirror used.
+- Visual check: DONE at 1440×900 and 390×844, normal and reduced motion. Full-page captures inspected, no horizontal overflow. Computed-text scan found no visible DOM text below 11px in any of the four configurations per site.
+- Thumbnail regenerated with `--force --cdn-mirror --wait 4500`.
