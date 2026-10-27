@@ -105,7 +105,7 @@ ${p.css.map((c) => `<link rel="stylesheet" href="${SITE}/css/${c}.css">`).join('
 ${NAV.map((n) => `        <li><a href="${n.href}"${cur(p, n.key)}>${n.label}</a></li>`).join('\n')}
       </ul>
     </nav>
-    <a class="btn btn-amber btn-sm nav-cta" href="${SITE}/reservations"${cur(p, 'reservations')}>Reserve<span class="cta-long">&nbsp;a Table</span></a>
+    <a class="btn btn-amber btn-sm nav-cta" href="${SITE}/reservations"${cur(p, 'reservations')}>Reserve<span class="cta-long"> a Table</span></a>
     <button class="nav-burger" type="button" aria-expanded="false" aria-controls="drawer"><i class="fa-solid fa-bars" aria-hidden="true"></i><span class="visually-hidden">Menu</span></button>
   </div>
 </header>

@@ -382,7 +382,7 @@ button { cursor: pointer; }
   position: relative; margin-top: var(--sect);
   border-top: 1px solid var(--line);
   background:
-    radial-gradient(80% 140% at 50% 120%, rgba(147, 188, 174, 0.16), transparent 62%),
+    radial-gradient(60% 90% at 50% 100%, rgba(147, 188, 174, 0.15), rgba(147, 188, 174, 0) 100%),
     var(--ink-2);
   overflow: hidden;
 }

@@ -197,6 +197,51 @@ a script "B") and a "Pizza" neon plus readable bottle labels.
 
 No build passes performed by Codex in T18. Claude owns the five T21 passes.
 
+### Pass 1 — shared system (Claude, T21)
+- New `style.css` (shared only) plus one stylesheet per page in `css/`. Gutters
+  sit on an inner `.wrap` inside `.page-head`, so a page header can no longer
+  overwrite them (audit P1.1). Labels have a 12px+ floor (12.5–13px), body 17px,
+  buttons 14px; muted text raised to 62–78% bone for contrast (P1.4).
+- Header: compact **Reserve** button stays beside the menu button at every
+  width (P1.2). Drawer: focus goes to its first link, Tab cycles through header
+  and drawer only, `inert` on skip link/main/footer, Escape and the button
+  close it and return focus (P1.3, checked by keyboard at 390px).
+- Font Awesome 6.5.1 free for every UI icon (burger/close, arrows,
+  breadcrumbs, contact icons); the wave logo stays artwork (P1.5). One motion
+  switch in `main.js` (`Tideline.scrollToEl`) and one reduced-motion block in
+  CSS covering reveals, wash, drawer and pulses.
+- `scripts/tideline-partials.js` now owns the head, header, drawer and footer
+  of all seven pages (run it after editing a partial). Footer gains live
+  open/closed status and today's hours row; tide model gains spring/neap range
+  and heights in metres.
+- Photography (P1.6): `bar-warm-wide.jpg` and `bar-warm-tall.jpg` deleted;
+  replaced by unbranded crops `bar-counter.jpg` (lit counter and stools) and
+  `bar-canopy.jpg` (bulb canopy), checked at full resolution. Every photo got
+  the same mild grade (mid-tone curve, slate shadows, warm highlights) and an
+  800px variant for `srcset`.
+
+### Pass 2 — home shoreline and first screen (Claude, T21)
+- New shoreline shader (`tide-hero.js`): an overhead swash zone at dusk on a
+  diagonal beach, so the copy sits on calm sand and the waves work through the
+  middle and right. Three wave sets run up and drain back; the bore, a foam
+  sheet whose holes open as it ages and drains with the water, swash marks at
+  the top of each run, wet sand that dries behind it, curved caustics in the
+  shallows, offshore breakers and low-sun glitter are all derived from each
+  wave's phase (nothing stored). Checked as a sped-up frame sequence.
+- The tide gauge drives the water (P2.7): the live height sets the waterline;
+  the slider scrubs tonight's service (5–10 PM) and the water moves to that
+  hour's level (eased; instant under reduced motion). The panel shows the
+  evening's curve, the high and low water around service, and an
+  `aria-valuetext` reading. Monday or after 10 PM it shows the next service
+  evening.
+- Fallbacks: one composed frame under reduced motion (re-rendered when the
+  gauge moves), a diagonal CSS shoreline without WebGL, lower resolution and
+  cheaper shader on phones and ≤4-core devices, adaptive resolution if the
+  first frames are slow, paused offscreen.
+- Home below the fold: a three-photo "day on the tideline" strip (landing,
+  prep, first plates), dietary tags on tonight's dishes, practical cards with
+  live hours, and a calmer CTA band.
+
 ## Verification
 
 - check-rules: **OK** (99 files, 26 projects).
