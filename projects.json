@@ -481,18 +481,19 @@
     "title": "PENDULA",
     "vertical": "Kinetic Sculpture",
     "styleTags": [
-      "harmonograph",
+      "kinetic sculpture",
       "generative ink",
       "gallery light"
     ],
-    "accent": "#a4874a",
-    "description": "A four-arm damped harmonograph drawing live in accumulating ink, with its pendulum bobs visible at the table's edge — strike it and no two études repeat.",
+    "accent": "#b8913f",
+    "description": "A walnut-and-brass rotary harmonograph on a gallery floor. Both pendulums swing on working gimbals, and the pen leaves a live, pooling ink rosette. Tune the interval, detune and decay, strike it, look down at the sheet, and keep the étude as a print.",
     "thumbnail": "/sites/24-pendula-works/assets/thumb.jpg",
     "livePath": "/sites/24-pendula-works/",
     "tech": [
-      "Canvas 2D",
-      "damped oscillator model",
-      "persistent ink layer"
+      "Three.js",
+      "persistent ink render target",
+      "damped rotary harmonograph model",
+      "two-axis gimbals"
     ],
     "status": "complete"
   },

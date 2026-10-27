@@ -187,7 +187,28 @@ input[type="range"]::-moz-range-thumb {
 .act-strike:hover { background: #45352a; }
 .note { font-size: 0.88rem; line-height: 1.45; color: var(--ink-2); min-height: 2.9em; }
 
+.drawer { display: flex; flex-direction: column; gap: 0.45rem; padding-top: 0.75rem; border-top: 1px solid var(--hair); }
+.drawer[hidden] { display: none; }
+.drawer-label { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+.drawer-row { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+.drawer-row button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.drawer-row img { display: block; width: 100%; aspect-ratio: 1; border: 1px solid var(--hair); box-shadow: 0 1px 3px rgba(46, 34, 25, 0.12); transition: transform 0.2s ease; }
+.drawer-row button:hover img { transform: translateY(-2px); }
+
 button:focus-visible, input:focus-visible, .plaque a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.drawer-row button:focus-visible { outline-offset: 2px; }
 
 /* ---------- the plaque ---------- */
 .plaque {
@@ -228,6 +249,9 @@ button:focus-visible, input:focus-visible, .plaque a:focus-visible { outline: 2p
     max-height: none;
     overflow: visible;
     background: rgba(244, 240, 232, 0.9);
+    width: 100%;
+    max-width: 34rem;
+    justify-self: center;
   }
   .label { grid-column: 1; grid-row: auto; max-width: none; margin-top: 0.6rem; }
   .works { order: 1; }
@@ -239,5 +263,5 @@ button:focus-visible, input:focus-visible, .plaque a:focus-visible { outline: 2p
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .seg button, .ink-row button, .act, .label, .works, .plaque span, .looking .label, .looking .works, .looking .plaque span { transition: none; }
+  .seg button, .ink-row button, .act, .drawer-row img, .label, .works, .plaque span, .looking .label, .looking .works, .looking .plaque span { transition: none; }
 }

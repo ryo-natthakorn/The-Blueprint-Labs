@@ -153,7 +153,6 @@ const HC = 0.2;                           // centre pendulum: pivot to platform
 const HP = 0.4;                           // pen pendulum: pivot to arm hinge
 const PIVOT_C = new THREE.Vector3(0, TOP_Y + 0.035, 0);
 const PIVOT_P = new THREE.Vector3(0.47, TOP_Y + 0.035, -0.4);
-const UP = new THREE.Vector3(0, 1, 0);
 
 const machine = new THREE.Group();
 scene.add(machine);
@@ -180,19 +179,54 @@ for (const [x, z] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
 box(T - 0.16, 0.035, 0.035, walnut, 0, 0.22, -(T / 2 - 0.06));
 box(T - 0.16, 0.035, 0.035, walnut, 0, 0.22, T / 2 - 0.06);
 // brass gimbal rings where the pendulums pass through
+// a working gimbal: a fixed seat, an outer ring that rocks about x, an inner ring that rocks about z
 function gimbal(pos, r) {
-  const g = new THREE.Group();
-  g.position.copy(pos);
-  const outer = add(new THREE.TorusGeometry(r, 0.011, 12, 64), brass, 0, 0, 0, g);
-  outer.rotation.x = PI / 2;
-  const inner = add(new THREE.TorusGeometry(r * 0.55, 0.008, 10, 48), darkBrass, 0, 0, 0, g);
-  inner.rotation.x = PI / 2;
-  for (const s of [-1, 1]) add(new THREE.CylinderGeometry(0.008, 0.008, r * 0.5, 10), darkBrass, s * r * 0.77, 0, 0, g).rotation.z = PI / 2;
-  machine.add(g);
-  return inner;
+  const seat = new THREE.Group();
+  seat.position.copy(pos);
+  machine.add(seat);
+  add(new THREE.TorusGeometry(r, 0.012, 12, 64), brass, 0, 0, 0, seat).rotation.x = PI / 2;
+  for (const s of [-1, 1]) add(new THREE.BoxGeometry(0.022, 0.016, 0.03), darkBrass, 0, -0.008, s * r, seat);
+  const outer = new THREE.Group();
+  seat.add(outer);
+  add(new THREE.TorusGeometry(r * 0.72, 0.009, 10, 56), brass, 0, 0, 0, outer).rotation.x = PI / 2;
+  for (const s of [-1, 1]) add(new THREE.CylinderGeometry(0.006, 0.006, r * 0.3, 10), steel, s * r * 0.86, 0, 0, outer).rotation.z = PI / 2;
+  const inner = new THREE.Group();
+  outer.add(inner);
+  add(new THREE.TorusGeometry(r * 0.44, 0.008, 10, 48), darkBrass, 0, 0, 0, inner).rotation.x = PI / 2;
+  for (const s of [-1, 1]) add(new THREE.CylinderGeometry(0.006, 0.006, r * 0.3, 10), steel, 0, 0, s * r * 0.58, inner).rotation.x = PI / 2;
+  return { outer, inner };
 }
-gimbal(PIVOT_C, 0.12);
-gimbal(PIVOT_P, 0.06);
+const gimC = gimbal(PIVOT_C, 0.12);
+const gimP = gimbal(PIVOT_P, 0.065);
+// two walnut bridges carry the centre gimbal across the well; the pen pendulum drops through a bored hole
+const WELL = T - 2 * rail;
+for (const s of [-1, 1]) box(WELL + 0.02, 0.026, 0.034, walnut, 0, TOP_Y + TH / 2 - 0.013 + 0.004, s * 0.12);
+add(new THREE.CylinderGeometry(0.05, 0.05, 0.002, 32), new THREE.MeshBasicMaterial({ color: 0x1a120c }), PIVOT_P.x, TOP_Y + TH / 2 + 0.001, PIVOT_P.z).castShadow = false;
+// a brass maker's plaque on the near rail
+{
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 112;
+  const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 112);
+  gr.addColorStop(0, '#d9b76a'); gr.addColorStop(0.5, '#b8913f'); gr.addColorStop(1, '#8d6c2c');
+  g.fillStyle = gr;
+  g.fillRect(0, 0, 512, 112);
+  g.strokeStyle = 'rgba(60, 40, 15, 0.55)';
+  g.lineWidth = 3;
+  g.strokeRect(8, 8, 496, 96);
+  g.fillStyle = 'rgba(50, 32, 12, 0.85)';
+  g.font = '44px Marcellus, Georgia, serif';
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.fillText('PENDULA  ·  Nº 3', 256, 58);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  const plaque = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.044), new THREE.MeshStandardMaterial({ map: tex, metalness: 0.45, roughness: 0.4 }));
+  plaque.position.set(0.24, TOP_Y, T / 2 + 0.0015);
+  machine.add(plaque);
+  document.fonts?.ready.then(() => { g.fillStyle = gr; g.fillRect(12, 12, 488, 88); g.fillStyle = 'rgba(50, 32, 12, 0.85)'; g.fillText('PENDULA  ·  Nº 3', 256, 58); tex.needsUpdate = true; });
+}
 
 // centre pendulum: rod and bob swing below, the platform rides on top and stays level
 const centre = new THREE.Group();
@@ -250,27 +284,39 @@ add(new THREE.CylinderGeometry(0.035, 0.04, 0.05, 32), new THREE.MeshPhysicalMat
 add(new THREE.CylinderGeometry(0.018, 0.018, 0.012, 24), brass, -0.44, TOP_Y + 0.081, 0.42);
 
 /* ---------- state ---------- */
-const S = { t: 0, etude: 1, lifted: false, look: false, lookK: 0, ended: false };
+const S = { t: 0, etude: 1, lifted: false, look: false, lookK: 0, ended: false, down: 0, inked: 0 };
 const SPENT = 0.08;
 const END = () => Math.log(1 / SPENT) / decayOf(P.decayK);   // when the energy is spent
 
 /* ---------- the machine follows the same equations ---------- */
-const q = new THREE.Quaternion(), u = new THREE.Vector3(), hinge = new THREE.Vector3(), penTop = new THREE.Vector3();
-// tilt a pendulum so that the point h above its pivot is displaced by (dx, dz)
-function tilt(dx, dz, h) {
-  const r2 = dx * dx + dz * dz;
-  u.set(dx, Math.sqrt(Math.max(h * h - r2, 0)), dz).divideScalar(h);
-  return q.setFromUnitVectors(UP, u);
+const u = new THREE.Vector3(), hinge = new THREE.Vector3(), penTop = new THREE.Vector3();
+// tilt a pendulum (and its gimbal) so that the point h above its pivot is displaced by (dx, dz):
+// a rock of a about x then b about z takes "up" to (−sin b, cos b cos a, cos b sin a)
+function tilt(pend, gim, dx, dz, h) {
+  u.set(dx, Math.sqrt(Math.max(h * h - dx * dx - dz * dz, 0)), dz).divideScalar(h);
+  const a = Math.atan2(u.z, u.y), b = -Math.asin(u.x);
+  pend.rotation.set(a, 0, b, 'XZY');
+  gim.outer.rotation.x = a;
+  gim.inner.rotation.z = b;
 }
+// striking: a hand draws both pendulums back to their start, lets go, and lowers the pen
+const WIND = 0.9;
+const last = { penX: 0, penY: 0, papX: 0, papY: 0 }, from = { ...last }, start = { ...M };
 function poseMachine(t) {
-  motion(t);
+  let lift = S.lifted ? 0.03 : 0;
+  if (t < 0) {
+    const k = ease(clamp(1 + t / WIND, 0, 1));
+    motion(0, start);
+    for (const key of ['penX', 'penY', 'papX', 'papY']) M[key] = from[key] + (start[key] - from[key]) * k;
+    lift = Math.max(lift, 0.03 * Math.min(clamp((t + WIND) / 0.15, 0, 1), clamp(-t / 0.15, 0, 1)));
+  } else motion(t);
+  for (const key in last) last[key] = M[key];
   // sheet +x is the room's +x, sheet +y is the room's −z
-  centre.quaternion.copy(tilt(M.papX * SHEET, -M.papY * SHEET, HC));
+  tilt(centre, gimC, M.papX * SHEET, -M.papY * SHEET, HC);
   platform.position.copy(u).multiplyScalar(HC).add(PIVOT_C);
-  penPend.quaternion.copy(tilt(M.penX * SHEET, -M.penY * SHEET, HP));
+  tilt(penPend, gimP, M.penX * SHEET, -M.penY * SHEET, HP);
   hinge.copy(u).multiplyScalar(HP).add(PIVOT_P);
   // the arm carries the pen from the hinge to the sheet's centre at rest
-  const lift = S.lifted ? 0.03 : 0;
   pen.position.set(hinge.x - PIVOT_P.x, platform.position.y + 0.0015 + lift, hinge.z - PIVOT_P.z);
   penTop.copy(pen.position).setY(pen.position.y + 0.09);
   arm.position.copy(hinge);
@@ -324,9 +370,18 @@ const inkMat = new THREE.ShaderMaterial({
     attribute float side; attribute float alpha; varying float vSide; varying float vA;
     void main(){ vSide = side; vA = alpha; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: `
-    varying float vSide; varying float vA; uniform vec3 uInk;
-    void main(){ float edge = 1.0 - smoothstep(0.35, 1.0, abs(vSide)); gl_FragColor = vec4(uInk, vA * edge); }`,
+    varying float vSide; varying float vA; uniform vec3 uInk; uniform float uGrain;
+    float h(vec2 p){ vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
+    float n(vec2 x){ vec2 i = floor(x), f = fract(x); f = f*f*(3.0-2.0*f); return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+    void main(){
+      float s = abs(vSide);
+      float body = 1.0 - smoothstep(0.45, 1.0, s);
+      float rim = 1.0 + 0.18 * smoothstep(0.25, 0.7, s);        // ink gathers at the edge of the stroke
+      float tooth = 0.84 + 0.16 * n(gl_FragCoord.xy * uGrain);   // and skips a little on the paper's tooth
+      gl_FragColor = vec4(uInk, clamp(vA * body * rim * tooth, 0.0, 1.0));
+    }`,
 });
+inkMat.uniforms.uGrain = { value: 1024 / RT_SIZE * 0.9 };
 const ribbon = new THREE.Mesh(ribbonGeo, inkMat);
 ribbon.frustumCulled = false;
 inkScene.add(ribbon);
@@ -366,7 +421,8 @@ function inkSpan(t0, t1) {
     // ink pools where the pen slows; the line fines down as the energy runs out
     const speed = l / ((i1 - i0) * dt);
     const slow = 1 - clamp(speed / (0.55 * v * (0.3 + 0.7 * es[i])), 0, 1);
-    const w = (3.0 + 2.0 * slow * slow) * px * (0.55 + 0.45 * es[i]);
+    const blot = Math.exp(-Math.max(0, t0 + dt * i - S.down) * 9);   // the nib floods as it touches down
+    const w = (3.0 + 2.0 * slow * slow + 2.4 * blot) * px * (0.55 + 0.45 * es[i]);
     const al = (0.76 + 0.22 * slow) * (0.82 + 0.18 * es[i]);
     const j = i * 2;
     ribbonPos[j * 3] = xs[i] - ty * w; ribbonPos[j * 3 + 1] = ys[i] + tx * w;
@@ -377,6 +433,7 @@ function inkSpan(t0, t1) {
   ribbonGeo.setDrawRange(0, (n - 1) * 6);
   for (const k of ['position', 'side', 'alpha']) ribbonGeo.attributes[k].needsUpdate = true;
   intoSheet(inkScene);
+  S.inked += t1 - t0;
 }
 
 function fastDraw() {
@@ -448,15 +505,18 @@ let lastEnergy = -1;
 function updateReadout() {
   const [p, q] = RATIOS[P.ratio];
   ui.freq.textContent = `${p} : ${(q * (1 + P.detune)).toFixed(3)}`;
-  motion(S.t, D);
+  motion(Math.max(S.t, 0), D);
   const e = Math.round(D.energy * 100);
   if (e !== lastEnergy) { ui.energy.style.width = `${e}%`; lastEnergy = e; }
 }
 function newSheet(bump) {
-  if (bump) { S.etude++; ui.etude.textContent = S.etude; }
+  if (bump) { archive(); S.etude++; ui.etude.textContent = S.etude; }
   newAmplitudes();
   clearSheet();
-  S.t = 0;
+  Object.assign(from, last);
+  S.t = reduceMotion ? 0 : -WIND;
+  S.down = 0;
+  S.inked = 0;
   S.ended = false;
   if (reduceMotion) fastDraw();
   updateReadout();
@@ -495,6 +555,7 @@ ui.strike.addEventListener('click', () => {
 });
 ui.lift.addEventListener('click', () => {
   S.lifted = !S.lifted;
+  if (!S.lifted) S.down = S.t;
   ui.lift.setAttribute('aria-pressed', String(S.lifted));
   ui.lift.querySelector('span').textContent = S.lifted ? 'Lower the pen' : 'Lift the pen';
   note(S.lifted ? 'Pen lifted. The pendulums keep swinging.' : 'Pen down.');
@@ -505,7 +566,8 @@ ui.look.addEventListener('click', () => {
   ui.look.setAttribute('aria-pressed', String(S.look));
   ui.look.querySelector('span').textContent = S.look ? 'Back to the room' : 'Look at the drawing';
 });
-ui.keep.addEventListener('click', () => {
+// the sheet as it is now, signed in the corner like a print
+function snapshot() {
   const n = RT_SIZE;
   const buf = new Uint8Array(n * n * 4);
   renderer.readRenderTargetPixels(paperRT, 0, 0, n, n, buf);
@@ -520,17 +582,51 @@ ui.keep.addEventListener('click', () => {
   g.font = `${Math.round(n * 0.013)}px Marcellus, Georgia, serif`;
   g.textAlign = 'right';
   g.fillText(`Pendula · Harmonograph Nº 3 · Étude nº ${S.etude} · ${NAMES[P.ratio]} ${p} : ${q}`, n * 0.94, n * 0.965);
-  c.toBlob((blob) => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `pendula-etude-${String(S.etude).padStart(2, '0')}.png`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    note(`Étude nº ${S.etude} kept, as a picture.`);
-  }, 'image/png');
+  return { canvas: c, etude: S.etude, name: `${NAMES[P.ratio]} ${p} : ${q}` };
+}
+function download(blob, etude) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `pendula-etude-${String(etude).padStart(2, '0')}.png`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  note(`Étude nº ${etude} kept, as a picture.`);
+}
+ui.keep.addEventListener('click', () => {
+  const shot = snapshot();
+  shot.canvas.toBlob((blob) => download(blob, shot.etude), 'image/png');
 });
+const drawer = $('drawer');
+const kept = [];
+function archive() {
+  if (S.inked < 4) return;                // nothing worth keeping yet
+  const shot = snapshot();
+  const th = document.createElement('canvas');
+  th.width = th.height = 112;
+  th.getContext('2d').drawImage(shot.canvas, 0, 0, 112, 112);
+  const item = { etude: shot.etude, name: shot.name, blob: null };
+  shot.canvas.toBlob((blob) => { item.blob = blob; }, 'image/png');
+  const li = document.createElement('li');
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.setAttribute('aria-label', `Keep étude nº ${item.etude}, ${item.name}`);
+  b.title = `Étude nº ${item.etude} · ${item.name}`;
+  const im = document.createElement('img');
+  im.src = th.toDataURL('image/jpeg', 0.85);
+  im.alt = '';
+  b.append(im);
+  const cap = document.createElement('span');
+  cap.textContent = `nº ${item.etude}`;
+  b.append(cap);
+  b.addEventListener('click', () => { if (item.blob) download(item.blob, item.etude); });
+  li.append(b);
+  drawer.prepend(li);
+  kept.unshift(item);
+  while (kept.length > 4) { kept.pop(); drawer.lastElementChild.remove(); }
+  drawer.closest('.drawer').hidden = false;
+}
 
 /* ---------- loop ---------- */
 const clock = new THREE.Clock();
@@ -555,7 +651,7 @@ function render(dt = 1) {
 function frame() {
   const dt = Math.min(clock.getDelta(), 0.05);
   const t1 = S.t + dt;
-  if (!S.lifted && !S.ended) inkSpan(S.t, t1);
+  if (!S.lifted && !S.ended && t1 > 0) inkSpan(Math.max(S.t, 0), t1);
   S.t = t1;
   if (!S.ended && Math.exp(-decayOf(P.decayK) * S.t) < SPENT) {
     S.ended = true;
