@@ -31,8 +31,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T12 | Fix batch 3 | Claude | done |
 | T13 | Review batch 4 | Claude | done |
 | T14 | Build batch 5 (21–25) | Claude | done |
-| T15 | Confirm batch 3 | Codex | todo |
-| T16 | Fix batch 4 | Codex | todo |
+| T15 | Confirm batch 3 | Codex | done |
+| T16 | Fix batch 4 | Codex | in progress |
 | T17 | Review batch 5 | Codex | todo |
 | T18 | Audit site 26 (all 7 pages, no code changes) | Codex | todo |
 | T19 | Confirm batch 4 | Claude | todo |
@@ -60,16 +60,16 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 08-glacier-water | 2 | Codex | Claude | done | [note](notes/08-glacier-water.md) |
 | 09-noctua-observatory | 2 | Codex | Claude | done | [note](notes/09-noctua-observatory.md) |
 | 10-ember-bakery | 2 | Codex | Claude | done | [note](notes/10-ember-bakery.md) |
-| 11-vertex-architecture | 3 | Claude | Codex | awaiting confirm | [note](notes/11-vertex-architecture.md) |
-| 12-ligature-foundry | 3 | Claude | Codex | awaiting confirm | [note](notes/12-ligature-foundry.md) |
+| 11-vertex-architecture | 3 | Claude | Codex | done | [note](notes/11-vertex-architecture.md) |
+| 12-ligature-foundry | 3 | Claude | Codex | done | [note](notes/12-ligature-foundry.md) |
 | 13-bathyal-institute | 3 | Claude | Codex | done | [note](notes/13-bathyal-institute.md) |
-| 14-suminaga-teahouse | 3 | Claude | Codex | awaiting confirm | [note](notes/14-suminaga-teahouse.md) |
-| 15-vector-drift | 3 | Claude | Codex | awaiting confirm | [note](notes/15-vector-drift.md) |
-| 16-orrery-capital | 4 | Codex | Claude | changes requested | [note](notes/16-orrery-capital.md) |
-| 17-maison-vela | 4 | Codex | Claude | changes requested | [note](notes/17-maison-vela.md) |
-| 18-koppar-roastery | 4 | Codex | Claude | changes requested | [note](notes/18-koppar-roastery.md) |
-| 19-voltaic-moto | 4 | Codex | Claude | changes requested | [note](notes/19-voltaic-moto.md) |
-| 20-halftone-records | 4 | Codex | Claude | changes requested | [note](notes/20-halftone-records.md) |
+| 14-suminaga-teahouse | 3 | Claude | Codex | done | [note](notes/14-suminaga-teahouse.md) |
+| 15-vector-drift | 3 | Claude | Codex | done | [note](notes/15-vector-drift.md) |
+| 16-orrery-capital | 4 | Codex | Claude | fixing | [note](notes/16-orrery-capital.md) |
+| 17-maison-vela | 4 | Codex | Claude | fixing | [note](notes/17-maison-vela.md) |
+| 18-koppar-roastery | 4 | Codex | Claude | fixing | [note](notes/18-koppar-roastery.md) |
+| 19-voltaic-moto | 4 | Codex | Claude | fixing | [note](notes/19-voltaic-moto.md) |
+| 20-halftone-records | 4 | Codex | Claude | fixing | [note](notes/20-halftone-records.md) |
 | 21-petrichor-atmos | 5 | Claude | Codex | awaiting review | [note](notes/21-petrichor-atmos.md) |
 | 22-grammage-paper | 5 | Claude | Codex | awaiting review | [note](notes/22-grammage-paper.md) |
 | 23-umbra-cacao | 5 | Claude | Codex | awaiting review | [note](notes/23-umbra-cacao.md) |

@@ -67,3 +67,8 @@ One line per site as it reaches `done` (see revamp/PROTOCOL.md §8).
 - [09-noctua-observatory] Noctua Observatory — revamped by Codex, reviewed by Claude
 - [10-ember-bakery] Ember — revamped by Codex, reviewed by Claude
 - [13-bathyal-institute] BATHYAL — revamped by Claude, reviewed by Codex
+
+- [11-vertex-architecture] Vertex — revamped by Claude, reviewed by Codex
+- [12-ligature-foundry] LIGATURE — revamped by Claude, reviewed by Codex
+- [14-suminaga-teahouse] SUMINAGA — revamped by Claude, reviewed by Codex
+- [15-vector-drift] VECTOR DRIFT — revamped by Claude, reviewed by Codex

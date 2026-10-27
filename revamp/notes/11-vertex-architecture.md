@@ -2,8 +2,7 @@
 
 - **Vertical:** Architecture Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting confirm
-- **Next step:** Codex confirms R1 in T15.
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -159,3 +158,9 @@ Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 - verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
 - Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
 - Thumbnail: regenerated (`--wait 15000`, as before) so the toolbar shows the new icons; checked against the previous shot.
+
+### Confirm — 2026-10-27 · Codex (T15)
+
+R1 confirmed: Font Awesome free pen-nib and rotate-right glyphs render on both toolbars, with accessible names and focus styles retained.
+
+Verification: `check-rules` OK (99 files, 26 projects); `verify-sites --only 11,12,14,15 --cdn-mirror` reports zero console/page errors and failed requests. Visual checks DONE at 1440×900 and 390×844, motion on/off. CDN/font mirror used with system Chromium. No site code changed during confirmation.

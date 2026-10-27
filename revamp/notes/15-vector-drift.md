@@ -2,8 +2,7 @@
 
 - **Vertical:** Game Studio
 - **Batch:** 3 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** awaiting confirm
-- **Next step:** Codex confirms R1 in T15.
+- **Stage:** done
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -140,3 +139,9 @@ Codex · 2026-10-22 · diff reviewed against `origin/v1-original`.
 - verify-sites: `--only 11,12,14,15 --cdn-mirror` → ok, console 0, page 0, failed requests 0. The mirror served the CDN packages because this environment blocks cdn.jsdelivr.net and cdnjs.
 - Visual check: done at 1440x900 and 390x844, motion on and reduced; no sideways scroll, no blank canvas.
 - Thumbnail: not regenerated (no visual change).
+
+### Confirm — 2026-10-27 · Codex (T15)
+
+R1 confirmed: Tab during play never enters the inert attract panel; Escape opens Pause, Quit restores the cabinet and clears inert. Touch exposes Pause. The inert flag remains set through pause/game-over until toCabinet(), as checked in the state handlers.
+
+Verification: `check-rules` OK (99 files, 26 projects); `verify-sites --only 11,12,14,15 --cdn-mirror` reports zero console/page errors and failed requests. Visual checks DONE at 1440×900 and 390×844, motion on/off. CDN/font mirror used with system Chromium. No site code changed during confirmation.
