@@ -2,8 +2,8 @@
 
 - **Vertical:** Sleeper Rail Travel
 - **Batch:** 5 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Pass 2 (rain in the lamplight, steam, the yard, polish).
+- **Stage:** awaiting review
+- **Next step:** Codex reviews in T17.
 
 ## Original audit
 _Written before changing any code. Compare against branch `origin/v1-original`._
@@ -27,16 +27,16 @@ _Written before changing any code. Compare against branch `origin/v1-original`._
 
 ## Pass log
 - Pass 1: Rebuilt as a compartment in Three.js: lacquered wall, rounded window with brass trim, velvet curtains, a sill with a ticket and tea, and a reading lamp. The outside renders to a half-float target seen through a glass shader (refractive raindrops that streak with speed, a faint cabin reflection, exposure and ACES). The backdrop shader (sky.js) traces sky, stars, the moon, clouds, four parallax ridge planes, fields with farm and city lights, and water that reflects the ridges and the moon. Near scenery comes in 100 m procedural chunks (poles and sagging wires, woods, farmhouses, the city, reeds), smeared in world space by speed. The train runs in real time: scroll sets the chapter and clock, it brakes onto platforms spawned at braking distance (Veldt with its hall, clock and wet lamp pools; Larkspur with a signal that turns green 2.4 s after stopping; Iskar at dawn), and passes through tunnels (hill, portal, lamps, our own windows on the wall) where the country changes. There are sticky captions, a true km/h readout, NEXT and a route line. For checking on slow machines, `?warp=4` speeds the train's clock (it does nothing unless asked).
-- Pass 2:
-- Pass 3:
+- Pass 2: Rain falls through the lamplight at Veldt as GPU streaks that wrap around the window, lean back with speed, and only show where there's light to see them by. Tea steam rises from the cup. There's a post-and-wire fence close beside the line, moonlit field patchwork with more farm lights, and a warm fill light so the porcelain, curtains and brass read. Brass and wood reflections dim with the reading lamp, and the drops are fewer, refract, and glint. Fixes: a station that is the train's target survives the tunnel switch (Iskar vanished after the tunnel), a platform forces its own country however fast you scroll, the tunnel shows our windows faintly, and reeds are clumps of thin blades. If you jump two or more chapters, you 'doze': the view fades to black for 0.7 s and you wake where the chapter is (at cruise speed, or standing at the platform). Arriving on a later chapter skips the doze.
+- Pass 3: The name board sits right of centre, clear of the captions (centred on phones), with the clock between. NEXT names the platform you're running in to. On phones the crest shortens and the lamp is out of sight, and short screens get a compact manifest. Checked 1280x720, 1024x768, 768x1024 and 390x844; no text under 12px; the keyboard walk (lamp switch → hub link) shows visible rings.
 
 ## Verification
-- check-rules:
-- verify-sites:
-- Visual check, desktop 1440x900:
-- Visual check, mobile 390x844:
-- Reduced motion:
-- Thumbnail regenerated:
+- check-rules: OK (99 files, 26 projects).
+- verify-sites: `--only 25 --cdn-mirror` → console 0, page 0, failed requests 0 (CDN mirror used; jsdelivr/cdnjs are blocked here).
+- Visual check, desktop 1440x900: done in SwiftShader (2–6 fps, so motion was checked with `?warp=3–6`). I walked the whole line: Veldt in the rain, the departure, braking onto Larkspur with the signal turning green, the long dark at 130 km/h, the tunnel hill and wall, Mirensee with the moon path, the second tunnel, Iskar at dawn. Lamp on and off, plus a doze both ways.
+- Visual check, mobile 390x844: done. Tall window, captions pinned on the sill, the name board centred, no sideways scroll.
+- Reduced motion: done. Each chapter is a still place on the line (the platform at the stops, open country between), with no movement, sway, tunnels, twinkle or doze. Steam and rain are frozen, and it redraws only on scroll, resize or the lamp switch.
+- Thumbnail regenerated: yes (`--cdn-mirror --wait 7000`, Veldt Central in the rain).
 
 ## Review
 _Reviewer: add findings as `- [ ] R1 (must|nice) …`, then follow the checklist in PROTOCOL §5._

@@ -121,6 +121,7 @@ const M = {
   sodium: smearable(new THREE.MeshBasicMaterial({ color: new THREE.Color(5.0, 2.4, 0.7) }), 0.4),
   dark: smearable(new THREE.MeshLambertMaterial({ color: 0x0b0b0c }), 0.3),
   reed: smearable(new THREE.MeshLambertMaterial({ color: 0x0a0d09 }), 0),
+  post: smearable(new THREE.MeshLambertMaterial({ color: 0x14110d }), 0.09),
 };
 const glowTex = (() => {
   const c = document.createElement('canvas');
@@ -169,6 +170,7 @@ const geo = {
   box: new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0),
   roof: (() => { const s = new THREE.Shape(); s.moveTo(-0.5, 0); s.lineTo(0.5, 0); s.lineTo(0, 0.55); s.closePath(); return new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false }).translate(0, 0, -0.5); })(),
   pane: new THREE.PlaneGeometry(1, 1),
+  post: new THREE.BoxGeometry(0.09, 1.15, 0.09).translate(0, 0.575, 0),
 };
 function instanced(g, m, list, parent) {
   if (!list.length) return;
@@ -190,7 +192,7 @@ function buildChunk(k) {
   const x0 = k * CHUNK, b = biomeAt(x0 + CHUNK / 2);
   const g = new THREE.Group();
   const r = rng(k * 7919 + b.length * 131);
-  const L = { pole: [], arm: [], crown: [], cone: [], trunk: [], wall: [], roof: [], win: [], sodium: [], dark: [], reed: [] };
+  const L = { pole: [], arm: [], crown: [], cone: [], trunk: [], wall: [], roof: [], win: [], sodium: [], dark: [], reed: [], fence: [] };
   // telegraph poles and their sagging wires, on a global grid
   const wires = [];
   for (let j = Math.ceil(x0 / POLE_GAP); j * POLE_GAP < x0 + CHUNK; j++) {
@@ -227,6 +229,15 @@ function buildChunk(k) {
         const w = 2.2 + r() * 2.6;
         L.trunk.push([x, 0, z, 1, h * 0.45, 1]);
         L.crown.push([x, h * 0.62, z, w, h * 0.42, w]);
+      }
+    }
+    // a post-and-wire fence close beside the line, the fastest thing past the window
+    if (b === 'fields') {
+      const fenceOn = r() < 0.7;
+      for (let x = x0; fenceOn && x < x0 + CHUNK; x += 3.2) if (free(x) && !nearStation(x)) L.fence.push([x, 0, -6.6, 1, 1, 1]);
+      if (fenceOn) for (const y of [0.55, 1.0]) {
+        const pts = [new THREE.Vector3(x0, y, -6.6), new THREE.Vector3(x0 + CHUNK, y, -6.6)];
+        if (!inTunnel(x0) && !inTunnel(x0 + CHUNK) && !nearStation(x0) && !nearStation(x0 + CHUNK)) g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), M.wire));
       }
     }
     if (b === 'fields' && r() < 0.42) {
@@ -286,6 +297,7 @@ function buildChunk(k) {
   instanced(geo.box, M.dark, L.dark, g);
   instanced(geo.box, M.sodium, L.sodium, g);
   instanced(geo.blade, M.reed, L.reed, g);
+  instanced(geo.post, M.post, L.fence, g);
   world.add(g);
   return g;
 }
@@ -307,6 +319,47 @@ function rebuildChunks() {
   chunks.clear();
   updateChunks();
 }
+
+/* ---------- rain falling through the lamplight ---------- */
+// each streak is computed on the GPU from a seed: it falls at 9 m/s, wraps around the window,
+// and is drawn as the path it covers while the "shutter" is open, so at speed it leans back
+const RAIN_N = lowEnd ? 700 : 1600;
+const rainGeo = new THREE.BufferGeometry();
+{
+  const seed = new Float32Array(RAIN_N * 2 * 4), end = new Float32Array(RAIN_N * 2);
+  const r = rng(99);
+  for (let i = 0; i < RAIN_N; i++) {
+    const a = [r(), r(), r(), 0.7 + r() * 0.6];
+    for (let k = 0; k < 2; k++) { seed.set(a, (i * 2 + k) * 4); end[i * 2 + k] = k; }
+  }
+  rainGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(RAIN_N * 2 * 3), 3));
+  rainGeo.setAttribute('seed', new THREE.BufferAttribute(seed, 4));
+  rainGeo.setAttribute('endp', new THREE.BufferAttribute(end, 1));
+}
+const rainMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  uniforms: { uCamX: { value: 0 }, uTime: { value: 0 }, uV: { value: 0 }, uAmt: { value: 1 }, uLit: { value: 1 } },
+  vertexShader: `
+    attribute vec4 seed; attribute float endp;
+    uniform float uCamX, uTime, uV;
+    varying float vA;
+    void main() {
+      float z = -2.4 - seed.z * seed.z * 9.0;
+      float span = 4.0 + (-z) * 1.25;                     // wider bands further out, to fill the view
+      float x = uCamX - span * 0.5 + mod(seed.x * span - uCamX, span);
+      float y = mod(seed.y * 7.0 - uTime * 9.0 * seed.w, 7.0) - 0.2;
+      float sh = 1.0 / 40.0;
+      vec3 p = vec3(x, y, z) + endp * vec3(uV * sh, 9.0 * seed.w * sh + 0.06, 0.0);
+      vA = (1.0 - endp * 0.8) * smoothstep(-11.5, -4.0, z) * (0.35 + 0.65 * seed.w);
+      gl_Position = projectionMatrix * viewMatrix * vec4(p, 1.0);
+    }`,
+  fragmentShader: `
+    varying float vA; uniform float uAmt, uLit;
+    void main() { gl_FragColor = vec4(vec3(0.5, 0.4, 0.3) * uLit, vA * uAmt * 0.22); }`,
+});
+const rain = new THREE.LineSegments(rainGeo, rainMat);
+rain.frustumCulled = false;
+world.add(rain);
 
 /* ---------- tunnels: where the country changes ---------- */
 const tunnelMat = new THREE.ShaderMaterial({
@@ -490,7 +543,8 @@ function buildStation(kind, x) {
       lampsK.push(ref);
     }
   }
-  const signX = 0.12 * vw;
+  // the name board sits right of centre, clear of the captions (centred on a phone, where captions sit below)
+  const signX = outCam.aspect < 0.85 ? 0 : 0.45 * vw;
   const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 0.46), new THREE.MeshBasicMaterial({ map: nameBoard(STATIONS[kind]), color: new THREE.Color(0.9, 0.9, 0.9) }));
   const dark = (w, h, d, x, y, z, mat = lampMat) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y, z); g.add(m); return m; };
   if (kind === 'veldt' || kind === 'iskar') {
@@ -509,8 +563,9 @@ function buildStation(kind, x) {
   const st = { kind, x, half, group: g, lamps: lampsK, signal: null, green: false };
   if (kind === 'veldt') {
     const clock = new THREE.Mesh(new THREE.CircleGeometry(0.34, 40), new THREE.MeshBasicMaterial({ map: clockFace(22, 4), color: new THREE.Color(0.95, 0.92, 0.85) }));
-    clock.position.set(signX + 2.3, PLAT_Y + 2.15, -5.15);
-    dark(0.06, 1.6, 0.06, signX + 2.3, PLAT_Y + 0.8, -5.25);
+    const clockX = outCam.aspect < 0.85 ? signX + 1.0 : signX - 1.72;
+    clock.position.set(clockX, PLAT_Y + 2.15, -5.15);
+    dark(0.06, 1.6, 0.06, clockX, PLAT_Y + 0.8, -5.25);
     g.add(clock);
     // the station hall behind: arched windows, lit within
     const facade = new THREE.Mesh(new THREE.PlaneGeometry(64, 12), new THREE.MeshBasicMaterial({ map: hallTex(), color: new THREE.Color(0.16, 0.14, 0.12) }));
@@ -551,10 +606,14 @@ const cabin = new THREE.Scene();
 const cabCam = new THREE.PerspectiveCamera(50, 1, 0.02, 10);
 const WALL_Z = -0.6;
 let cab = null;                     // the current window build
-const lampLight = new THREE.PointLight(0xffb36b, 0.08, 2.2, 2);
+const lampLight = new THREE.PointLight(0xffb36b, 0.22, 2.2, 2);
 cabin.add(lampLight);
 const cabAmb = new THREE.HemisphereLight(0x2a3350, 0x120c08, 0.5);
 cabin.add(cabAmb);
+// the rest of the compartment, lit behind you, throws a little warm light forward
+const cabFill = new THREE.DirectionalLight(0xffc89a, 0.3);
+cabFill.position.set(0.2, 0.35, 1);
+cabin.add(cabFill);
 {
   const pm = new THREE.PMREMGenerator(renderer);
   const env = new THREE.Scene();
@@ -612,7 +671,7 @@ const glassMat = new THREE.ShaderMaterial({
       vec2 g = p / cell;
       vec2 id = floor(g), f = fract(g) - 0.5;
       float h = h21(id + seed * 17.0);
-      if (h < 0.55) return vec3(0.0);
+      if (h < 0.63) return vec3(0.0);
       vec2 o = (h22(id + seed) - 0.5) * 0.5;
       // stopped: some drops creep down; moving: they stretch out sideways
       float slide = fract(uTime * 0.05 * (0.4 + h) + h * 7.0);
@@ -702,7 +761,10 @@ function ticketTex() {
 }
 const ticketMap = ticketTex();
 document.fonts?.ready.then(() => { const t = ticketTex(); ticketMap.image = t.image; ticketMap.needsUpdate = true; });
+const steamMat = new THREE.SpriteMaterial({ map: glowTex, color: 0xd8cfc4, transparent: true, depthWrite: false, opacity: 0 });
+const steam = [];
 function buildCabin() {
+  steam.length = 0;
   if (cab) { cab.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); cab.removeFromParent(); }
   cab = new THREE.Group();
   const aspect = innerWidth / innerHeight;
@@ -759,7 +821,13 @@ function buildCabin() {
   handle.position.set(cupX + 0.024, sillTop + 0.022, WALL_Z + 0.07);
   handle.rotation.z = -Math.PI * 0.65;
   cab.add(saucer, cup, tea, handle);
-  cab.userData.steam = new THREE.Vector3(cupX, sillTop + 0.04, WALL_Z + 0.07);
+  for (let i = 0; i < 6; i++) {
+    const p = new THREE.Sprite(steamMat.clone());
+    p.userData = { base: new THREE.Vector3(cupX, sillTop + 0.036, WALL_Z + 0.07), phase: i / 6 };
+    p.scale.setScalar(0.02);
+    cab.add(p);
+    steam.push(p);
+  }
   const ticket = new THREE.Mesh(new THREE.PlaneGeometry(0.1, 0.05), new THREE.MeshStandardMaterial({ map: ticketMap, roughness: 0.8 }));
   ticket.rotation.set(-Math.PI / 2, 0, 0.12);
   ticket.position.set(portrait ? x0 + 0.07 : x0 + (x1 - x0) * 0.2, sillTop + 0.001, WALL_Z + 0.075);
@@ -826,6 +894,43 @@ function setBiome(b) {
   else if (prev === 'city') state.cityEnd = T.x + 260;
 }
 function wantsTunnel(a, b) { return a !== b && (a === 'lake' || b === 'lake' || a === 'coast' || b === 'coast'); }
+// which chapter the view out of the window is actually showing
+function sceneChapter() {
+  const st = stations.find((x) => Math.abs(x.x - T.x) < x.half + 60);
+  if (st) return { veldt: 0, larkspur: 2, iskar: 5 }[st.kind];
+  return { city: 1, fields: 3, lake: 4, coast: 5 }[biomeAt(T.x)];
+}
+// you nodded off: wake up where the chapter is
+function wakeAt(c) {
+  const plan = planFor(c);
+  T.x += 8000;
+  T.target = null;
+  if (tunnel) { disposeGroup(tunnel.group); tunnel = null; }
+  clearStations(null, true);
+  segments = [{ x: -Infinity, biome: plan.biome }];
+  setBiome(plan.biome);
+  state.cityEnd = plan.biome === 'city' ? 1e9 : -1e9;
+  state.cityGlow = plan.biome === 'city' ? 1 : 0;
+  if (plan.stop) { T.target = buildStation(plan.stop, T.x); T.v = 0; T.stoppedFor = 0; } else T.v = plan.run;
+  state.wet = 1 - smooth(0.7, 1.6, c);
+  state.cSmooth = c;
+  rebuildChunks();
+}
+const dozeEl = document.querySelector('.doze');
+let lagFor = 0, dozing = false;
+function checkDoze(dt) {
+  if (reduceMotion || dozing) return;
+  lagFor = Math.abs(state.c - sceneChapter()) >= 1.5 ? lagFor + dt / WARP : 0;
+  if (lagFor < 0.7) return;
+  dozing = true;
+  dozeEl.classList.add('on');
+  setTimeout(() => {
+    wakeAt(chapterNow());
+    lagFor = 0;
+    dozeEl.classList.remove('on');
+    setTimeout(() => { dozing = false; }, 900);
+  }, 700);
+}
 function driveTrain(dt, plan) {
   // the country: change it now, or behind a tunnel
   if (plan.biome !== T.biome && !tunnel) {
@@ -925,6 +1030,7 @@ function step(dt) {
     if (Math.abs(T.x - place) > 1 && !plan.stop) { T.x = place; T.target = null; clearStations(null, true); rebuildChunks(); }
     if (plan.stop && (!T.target || T.target.kind !== plan.stop)) { T.x = place; T.target = null; clearStations(null, true); }
   }
+  checkDoze(dt);
   driveTrain(dt, plan);
   updateChunks();
   // the clock, the sky, the weather
@@ -955,6 +1061,15 @@ function step(dt) {
   SU.uBlur.value = SMEAR.value;
   tunnelMat.uniforms.uCamX.value = T.x;
   tunnelMat.uniforms.uLamp.value = state.lampK;
+  const RU = rainMat.uniforms;
+  RU.uCamX.value = T.x;
+  RU.uTime.value = state.time;
+  RU.uV.value = T.v;
+  RU.uAmt.value = rainGoal;
+  // the rain shows where there is light to see it by: the platform lamps, the city
+  const nearLamps = stations.some((st) => st.kind === 'veldt' && Math.abs(st.x - T.x) < st.half);
+  RU.uLit.value = (nearLamps ? 1 : 0.25 + 0.35 * state.cityGlow) * (reduceMotion ? 0.6 : 1);
+  rain.visible = rainGoal > 0.01 && !(tunnel && T.x > tunnel.x0 && T.x < tunnel.x1);
   // light outside follows the hour
   moonLight.intensity = 0.45 * (1 - state.dawn) * (1 - SU.uRain.value * 0.7) + 0.6 * state.dawn;
   moonLight.color.setRGB(lerp(0.68, 1.0, state.dawn), lerp(0.75, 0.72, state.dawn), lerp(0.88, 0.62, state.dawn));
@@ -971,7 +1086,9 @@ function step(dt) {
   // the compartment
   const atStation = T.target && Math.abs(T.target.x - T.x) < 30 ? 1 - Math.abs(T.target.x - T.x) / 30 : 0;
   const inT = tunnel && T.x > tunnel.x0 && T.x < tunnel.x1 ? 1 : 0;
-  lampLight.intensity = 0.08 * state.lampK;
+  lampLight.intensity = 0.22 * state.lampK;
+  cabFill.intensity = 0.04 + 0.3 * state.lampK;
+  for (const m of Object.values(C)) m.envMapIntensity = 0.12 + 0.88 * state.lampK;
   C.shade.emissiveIntensity = 0.15 + 0.85 * state.lampK;
   cabAmb.intensity = 0.25 + 0.5 * state.dawn + 0.35 * atStation * (1 - state.dawn) - 0.15 * inT;
   cabAmb.color.setRGB(lerp(0.17, 0.75, state.dawn) + atStation * 0.3, lerp(0.2, 0.5, state.dawn) + atStation * 0.18, lerp(0.32, 0.5, state.dawn) + atStation * 0.05);
@@ -981,6 +1098,14 @@ function step(dt) {
   G.uWet.value = state.wet;
   G.uLamp.value = state.lampK;
   G.uExposure.value = lerp(2.6, 1.6, state.dawn) * (1 + (1 - state.lampK) * 0.35);
+  // tea steam: soft puffs that rise, drift and thin out (still in reduced motion)
+  for (const p of steam) {
+    const u = reduceMotion ? p.userData.phase * 0.7 + 0.1 : (p.userData.phase + state.time * 0.18) % 1;
+    const b = p.userData.base;
+    p.position.set(b.x + Math.sin(u * 5 + p.userData.phase * 9 + state.time * (reduceMotion ? 0 : 0.7)) * 0.006 * u, b.y + u * 0.07, b.z);
+    p.scale.setScalar(0.012 + u * 0.03);
+    p.material.opacity = Math.sin(u * Math.PI) * 0.2 * (0.35 + 0.65 * state.lampK);
+  }
   renderer.render(cabin, cabCam);
   hud();
 }
@@ -992,9 +1117,9 @@ function loop() {
 
 addEventListener('resize', () => { sizeAll(); if (reduceMotion) requestRender(); });
 sizeAll();
-// the 22:04 is standing at Veldt Central when you arrive
-T.target = buildStation('veldt', 0);
-rebuildChunks();
+// the 22:04 is standing at Veldt Central when you arrive (or, coming back to a later chapter, already on its way)
+measure();
+if (!reduceMotion && chapterNow() >= 1.5) { T.biome = 'city'; wakeAt(chapterNow()); } else { T.target = buildStation('veldt', 0); rebuildChunks(); }
 document.fonts?.ready.then(() => { measure(); if (reduceMotion) requestRender(); });
 if (reduceMotion) {
   addEventListener('scroll', requestRender, { passive: true });

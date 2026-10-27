@@ -187,7 +187,7 @@ export const SKY_FRAG = /* glsl */ `
     // farms: one lamp or window in some fields
     vec2 id = floor(q / 120.0);
     float h = h21(id + 3.7);
-    if (h > 0.8 && q.y < -40.0) {
+    if (h > 0.72 && q.y < -40.0) {
       vec2 at = (id + 0.15 + 0.7 * h22(id)) * 120.0;
       float k = length(q - at) / r;
       L += vec3(1.0, 0.62, 0.28) * exp(-k * k) * (0.6 + 0.8 * h22(id + 9.0).x) * 3.5;
@@ -247,7 +247,7 @@ export const SKY_FRAG = /* glsl */ `
         float f = 0.0;
         for (int k = 0; k < 5; k++) f += fields(p.xz + vec2(blur * float(k) * 0.25, 0.0));
         f *= 0.2;
-        vec3 alb = mix(vec3(0.010, 0.012, 0.010), vec3(0.016, 0.014, 0.011), uDawn);
+        vec3 alb = mix(vec3(0.018, 0.021, 0.017), vec3(0.03, 0.026, 0.02), uDawn);
         if (uCoast > 0.5) alb = mix(alb, vec3(0.06, 0.05, 0.04), smoothstep(8.0, 15.0, z));    // the beach
         if (uLake > 0.5) alb *= 1.0 - 0.6 * smoothstep(7.0, 12.0, z);                           // reeds at the shore
         vec3 light = vec3(0.35, 0.4, 0.55) * (1.0 - uRain * 0.7) * (1.0 - uDawn) + vec3(1.2, 0.8, 0.7) * uDawn;

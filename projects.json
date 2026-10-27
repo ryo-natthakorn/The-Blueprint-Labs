@@ -502,18 +502,20 @@
     "title": "SOMNE",
     "vertical": "Sleeper Rail Travel",
     "styleTags": [
-      "parallax journey",
-      "night ambience",
-      "narrative"
+      "night journey",
+      "scroll timetable",
+      "cabin interior"
     ],
     "accent": "#e8b45a",
-    "description": "A sleeper train window from the 22:04 departure to the coast at dawn: the scrollbar is the timetable, so the train genuinely brakes into every station on the line.",
+    "description": "Berth 14 on the 22:04 sleeper. Rain beads on the glass at Veldt Central, the train brakes onto lamplit platforms, the signal at Larkspur clears, and the moon rides the lake at Mirensee before dawn at the coast. The train runs in real time; your scroll keeps the timetable.",
     "thumbnail": "/sites/25-somne-railways/assets/thumb.jpg",
     "livePath": "/sites/25-somne-railways/",
     "tech": [
-      "Canvas 2D",
-      "piecewise-eased timetable",
-      "procedural parallax"
+      "Three.js",
+      "ray-traced backdrop shader",
+      "render-to-glass refraction",
+      "procedural line-side scenery",
+      "motion smear"
     ],
     "status": "complete"
   },
