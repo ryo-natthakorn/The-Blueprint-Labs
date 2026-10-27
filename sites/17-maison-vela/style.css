@@ -56,19 +56,19 @@ canvas:focus-visible {
 }
 .wordmark span {
   display: block;
-  font: 8px var(--sans);
+  font: 11px var(--sans);
   letter-spacing: 0.29em;
   color: var(--muted);
   margin-top: 7px;
 }
 .mast p,
 .back {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--muted);
 }
 .back {
-  font-size: 9px;
+  font-size: 11px;
 }
 .atelier-room {
   display: grid;
@@ -83,7 +83,7 @@ canvas:focus-visible {
   padding-top: 64px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold);
@@ -115,7 +115,7 @@ h1 em {
   transform-origin: 0 50%;
 }
 .edition {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--muted);
 }
@@ -148,7 +148,7 @@ h1 em {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--muted);
   pointer-events: none;
@@ -158,12 +158,12 @@ h1 em {
   top: 27px;
 }
 .stage-caption span:last-child {
-  font-size: 7px;
+  font-size: 11px;
   opacity: 0.6;
 }
 .stage-foot {
   bottom: 22px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.03em;
 }
 .material-ledger {
@@ -197,7 +197,7 @@ h2 {
 .dye small {
   display: block;
   color: var(--muted);
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   margin-top: 4px;
 }
@@ -226,7 +226,7 @@ h2 {
 }
 .dye b {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 300;
   color: var(--muted);
 }
@@ -237,12 +237,12 @@ h2 {
   margin-top: 27px;
 }
 .handling label {
-  font-size: 10px;
+  font-size: 11px;
 }
 .handling output {
   float: right;
   color: var(--gold);
-  font-size: 9px;
+  font-size: 11px;
 }
 .handling input {
   width: 100%;
@@ -256,7 +256,7 @@ h2 {
 }
 .actions button {
   border: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 11px;
   padding: 11px 14px;
   flex: 1;
 }
@@ -268,7 +268,7 @@ h2 {
   background: #ffffff08;
 }
 .handling p {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   line-height: 1.6;
   margin-top: 12px;
@@ -285,7 +285,7 @@ h2 {
 }
 .material-facts span {
   display: block;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--muted);
   margin-bottom: 7px;
@@ -301,7 +301,7 @@ h2 {
 footer {
   margin: 0 48px;
   padding: 18px 0 24px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--muted);
   display: flex;
@@ -386,10 +386,10 @@ footer {
     font-size: 21px;
   }
   .wordmark span {
-    font-size: 7px;
+    font-size: 11px;
   }
   .mast p {
-    font-size: 8px;
+    font-size: 11px;
     text-align: right;
     max-width: 95px;
     line-height: 1.8;
@@ -440,13 +440,13 @@ footer {
   .stage-foot {
     left: 0;
     right: 0;
-    font-size: 7px;
+    font-size: 11px;
   }
   .stage-caption {
     top: 18px;
   }
   .stage-caption span:last-child {
-    font-size: 6px;
+    font-size: 11px;
   }
   .stage-foot {
     bottom: 15px;
@@ -475,7 +475,7 @@ footer {
     display: none;
   }
   .dye small {
-    font-size: 6px;
+    font-size: 11px;
   }
   .handling {
     display: block;
@@ -516,7 +516,7 @@ footer {
   }
   footer {
     margin: 0 20px;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 1.7;
     flex-direction: column;
     gap: 10px;
@@ -525,5 +525,31 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto !important;
+  }
+}
+
+/* Legible labels and supporting copy at every viewport. */
+.manifesto,
+#dye-note,
+.handling label,
+.handling button,
+#motion-note,
+.stage-foot,
+footer {
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .mast {
+    gap: 12px;
+  }
+  .mast p {
+    max-width: 120px;
+  }
+  .swatch small {
+    letter-spacing: 0.03em;
+  }
+  footer {
+    flex-wrap: wrap;
   }
 }

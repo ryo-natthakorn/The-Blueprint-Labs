@@ -54,7 +54,7 @@ button:disabled {
 }
 .wordmark span {
   display: block;
-  font: 8px var(--sans);
+  font: 11px var(--sans);
   letter-spacing: 0.16em;
   margin-top: 2px;
 }
@@ -63,7 +63,7 @@ button:disabled {
   color: var(--dim);
 }
 .batch-stamp {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   border: 1px solid var(--line);
   padding: 11px 15px;
@@ -86,7 +86,7 @@ main {
   padding: 45px 0 30px;
 }
 .eyebrow {
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -117,13 +117,13 @@ h1 em {
   margin: 15px 0;
 }
 .protocol li > span {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--copper);
   border-top: 1px solid var(--copper);
   padding-top: 7px;
 }
 .protocol p {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.65;
   color: var(--dim);
   max-width: 24ch;
@@ -136,13 +136,13 @@ h1 em {
   margin-bottom: 2px;
 }
 .origin {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   line-height: 1.8;
 }
 .origin span {
   color: var(--dim);
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0;
 }
 .machine {
@@ -165,7 +165,7 @@ h1 em {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   z-index: 1;
 }
@@ -179,7 +179,7 @@ h1 em {
   background: none;
   border: 0;
   color: var(--dim);
-  font-size: 8px;
+  font-size: 11px;
   padding: 8px;
   letter-spacing: 0;
 }
@@ -194,7 +194,7 @@ h1 em {
 }
 .machine-foot b {
   font-weight: 400;
-  font-size: 8px;
+  font-size: 11px;
 }
 .machine-foot i {
   width: 6px;
@@ -241,7 +241,7 @@ h1 em {
   letter-spacing: -0.05em;
 }
 .temp small {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--dim);
 }
@@ -254,7 +254,7 @@ h1 em {
   margin: 20px 0 16px;
 }
 #cup-notes li {
-  font-size: 10px;
+  font-size: 11px;
   border: 1px solid #35271f30;
   padding: 5px 8px;
   border-radius: 20px;
@@ -275,7 +275,7 @@ h1 em {
   gap: 10px;
 }
 .phase-readout span {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   max-width: 15ch;
   line-height: 1.5;
@@ -307,7 +307,7 @@ h1 em {
   font: 20px var(--serif);
 }
 .profile-title span {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--dim);
 }
@@ -320,7 +320,7 @@ h1 em {
 .profile-key {
   display: flex;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 11px;
   color: var(--dim);
   padding-left: 28px;
 }
@@ -340,7 +340,7 @@ h1 em {
 }
 .heat-row button span {
   display: block;
-  font: 7px var(--sans);
+  font: 11px var(--sans);
   letter-spacing: 0.12em;
   margin-top: 6px;
 }
@@ -364,7 +364,7 @@ h1 em {
   align-items: center;
 }
 .secondary p {
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--dim);
 }
@@ -376,7 +376,7 @@ kbd {
   background: none;
   border: 0;
   border-bottom: 1px solid var(--copper);
-  font-size: 10px;
+  font-size: 11px;
   padding: 6px 0;
   color: var(--copper);
   white-space: nowrap;
@@ -388,7 +388,7 @@ footer {
   gap: 20px;
   border-top: 1px solid var(--line);
   padding: 18px 0 24px;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.7;
   color: var(--dim);
 }
@@ -458,7 +458,7 @@ footer {
     font-size: 14px;
   }
   .batch-stamp {
-    font-size: 8px;
+    font-size: 11px;
     padding: 10px;
   }
 }
@@ -471,14 +471,14 @@ footer {
     font-size: 33px;
   }
   .wordmark span {
-    font-size: 6px;
+    font-size: 11px;
   }
   .mast > p {
     display: none;
   }
   .batch-stamp {
     max-width: 100px;
-    font-size: 7px;
+    font-size: 11px;
     line-height: 1.8;
     padding: 7px 10px;
   }
@@ -495,7 +495,7 @@ footer {
     position: relative;
   }
   .story > .eyebrow {
-    font-size: 7px;
+    font-size: 11px;
   }
   h1 {
     font-size: 49px;
@@ -506,7 +506,7 @@ footer {
     right: 0;
     bottom: 16px;
     width: 42%;
-    font-size: 10px;
+    font-size: 11px;
   }
   .intro br {
     display: none;
@@ -523,11 +523,11 @@ footer {
   }
   .machine-caption {
     top: 12px;
-    font-size: 7px;
+    font-size: 11px;
   }
   .machine-foot {
     bottom: 15px;
-    font-size: 7px;
+    font-size: 11px;
   }
   .cupping {
     display: grid;
@@ -588,16 +588,16 @@ footer {
     padding: 20px 8px;
   }
   .heat-row button span {
-    font-size: 6px;
+    font-size: 11px;
   }
   .secondary p {
-    font-size: 8px;
+    font-size: 11px;
   }
   .profile-title h2 {
     font-size: 20px;
   }
   .profile-title span {
-    font-size: 6px;
+    font-size: 11px;
   }
   .profile {
     padding-top: 23px;
@@ -608,7 +608,7 @@ footer {
   }
   footer {
     margin: 0 20px;
-    font-size: 8px;
+    font-size: 11px;
     align-items: flex-start;
   }
   footer span {
@@ -616,5 +616,52 @@ footer {
   }
   footer a {
     white-space: nowrap;
+  }
+}
+
+/* Legible labels and supporting copy at every viewport. */
+.intro,
+.protocol p,
+.origin span,
+#cup-advice,
+#result,
+.secondary p,
+footer {
+  font-size: 13px;
+}
+.secondary p,
+.origin,
+.profile-key {
+  font-size: 13px;
+}
+.machine-caption,
+.machine-foot,
+.profile-title {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@media (max-width: 700px) {
+  .wordmark span {
+    letter-spacing: 0.08em;
+  }
+  .mast {
+    gap: 12px;
+  }
+  .batch-stamp {
+    max-width: 95px;
+    line-height: 1.5;
+    text-align: right;
+  }
+  .temp small {
+    line-height: 1.4;
+  }
+  .profile-title span {
+    max-width: 16ch;
+  }
+  .heat-row button {
+    padding: 16px 10px;
+  }
+  footer {
+    flex-wrap: wrap;
   }
 }

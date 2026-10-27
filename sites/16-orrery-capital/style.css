@@ -1,7 +1,7 @@
 :root {
   --night: #080d12;
   --paper: #e9e2d0;
-  --dim: #89928e;
+  --dim: #a6afa9;
   --gold: #d4a94e;
   --teal: #73b6ad;
   --line: #ffffff20;
@@ -56,14 +56,14 @@ a {
 }
 .wordmark span {
   display: block;
-  font: 8px var(--mono);
+  font: 11px var(--mono);
   letter-spacing: 0.65em;
   margin-top: 6px;
   color: var(--gold);
 }
 .mast p,
 .edition {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dim);
@@ -85,7 +85,7 @@ a {
   padding-top: 72px;
 }
 .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.19em;
   text-transform: uppercase;
   color: var(--gold);
@@ -109,7 +109,7 @@ a {
   max-width: 29ch;
   margin-top: 28px;
   color: var(--dim);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.9;
 }
 .small-rule {
@@ -150,7 +150,7 @@ a {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--dim);
   pointer-events: none;
@@ -164,7 +164,7 @@ a {
   border: 1px solid var(--line);
 }
 .view {
-  font-size: 9px;
+  font-size: 11px;
   padding: 7px 10px;
 }
 .view.active {
@@ -173,7 +173,7 @@ a {
 }
 .instrument-bottom {
   bottom: 16px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0;
 }
 .ledger {
@@ -185,7 +185,7 @@ a {
   margin: 12px 0 14px;
 }
 .ledger p:not(.eyebrow) {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--dim);
 }
@@ -204,7 +204,7 @@ a {
   gap: 8px;
 }
 .readouts span {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--dim);
 }
 .readouts strong {
@@ -215,7 +215,7 @@ a {
 .chart-head {
   display: flex;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   color: var(--dim);
 }
@@ -236,7 +236,7 @@ a {
   stroke-width: 1.4;
 }
 .chart-foot {
-  font-size: 8px !important;
+  font-size: 11px !important;
 }
 .selected {
   border-top: 1px solid var(--line);
@@ -262,14 +262,14 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 10px;
+  font-size: 11px;
   border-right: 1px solid var(--line);
 }
 .asset:last-child {
   border-right: 0;
 }
 .asset span {
-  font-size: 8px;
+  font-size: 11px;
   color: var(--dim);
 }
 .asset i {
@@ -295,12 +295,12 @@ a {
   display: block;
   width: 240px;
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 11px;
 }
 .controls output {
   float: right;
   color: var(--gold);
-  font-size: 9px;
+  font-size: 11px;
 }
 input[type="range"] {
   width: 100%;
@@ -315,7 +315,7 @@ input[type="range"] {
 }
 .scenarios button,
 #motion {
-  font-size: 9px;
+  font-size: 11px;
   padding: 10px;
   border: 1px solid var(--line);
   color: var(--dim);
@@ -335,7 +335,7 @@ footer {
   margin: 0 42px;
   padding: 18px 0 24px;
   border-top: 1px solid var(--line);
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.7;
   color: var(--dim);
 }
@@ -427,7 +427,7 @@ footer a {
     height: 88px;
   }
   .mast p {
-    font-size: 7px;
+    font-size: 11px;
     text-align: right;
     max-width: 140px;
     line-height: 1.8;
@@ -452,7 +452,7 @@ footer a {
   }
   .thesis > .eyebrow {
     grid-column: 1/-1;
-    font-size: 8px;
+    font-size: 11px;
   }
   .thesis h1 {
     font-size: 43px;
@@ -475,11 +475,11 @@ footer a {
   }
   .instrument-top {
     top: 20px;
-    font-size: 7px;
+    font-size: 11px;
   }
   .instrument-bottom {
     bottom: 10px;
-    font-size: 7px;
+    font-size: 11px;
   }
   .ledger {
     display: block;
@@ -521,7 +521,7 @@ footer a {
     grid-template-columns: repeat(3, 1fr);
   }
   .asset {
-    font-size: 9px;
+    font-size: 11px;
     padding: 16px 5px;
   }
   .asset:nth-child(3) {
@@ -549,7 +549,7 @@ footer a {
   }
   footer {
     margin: 0 20px;
-    font-size: 8px;
+    font-size: 11px;
   }
   footer span {
     max-width: 25ch;
@@ -561,5 +561,38 @@ footer a {
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto !important;
+  }
+}
+
+/* Legible labels and supporting copy at every viewport. */
+.chapter,
+.ledger p:not(.eyebrow),
+.chart-foot,
+.controls label,
+footer {
+  font-size: 13px;
+}
+.chart-foot {
+  font-size: 13px !important;
+}
+.instrument-bottom {
+  flex-wrap: wrap;
+}
+.asset {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+@media (max-width: 700px) {
+  .wordmark span {
+    letter-spacing: 0.42em;
+  }
+  .mast p {
+    max-width: 155px;
+  }
+  .instrument {
+    height: 390px;
+  }
+  footer {
+    flex-wrap: wrap;
   }
 }

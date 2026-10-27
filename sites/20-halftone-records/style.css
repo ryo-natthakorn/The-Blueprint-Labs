@@ -48,7 +48,7 @@ canvas:focus-visible {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--muted);
 }
@@ -78,7 +78,7 @@ h1 span {
   color: var(--orange);
 }
 .edition {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 2;
   color: var(--muted);
 }
@@ -95,7 +95,7 @@ h1 span {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--muted);
   padding: 16px 0;
@@ -135,7 +135,7 @@ h1 span {
   font-size: 14px;
 }
 .now-playing div > span {
-  font-size: 8px;
+  font-size: 11px;
   color: var(--muted);
   display: block;
   margin-top: 5px;
@@ -162,7 +162,7 @@ h1 span {
 }
 #play > span {
   display: block;
-  font: 7px var(--mono);
+  font: 11px var(--mono);
   letter-spacing: 0.1em;
   margin-top: 5px;
 }
@@ -182,7 +182,7 @@ h1 span {
 }
 .rpm span {
   display: block;
-  font-size: 7px;
+  font-size: 11px;
   color: var(--muted);
   margin-top: 4px;
 }
@@ -196,7 +196,7 @@ h1 span {
 }
 .pitch label,
 .mix label {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   display: block;
 }
@@ -212,7 +212,7 @@ input[type="range"] {
   margin: 17px 0 8px;
 }
 #pitch-reset {
-  font-size: 7px;
+  font-size: 11px;
   color: var(--muted);
   padding: 4px 0;
 }
@@ -225,7 +225,7 @@ input[type="range"] {
   align-items: center;
 }
 .mix p {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
 }
@@ -245,7 +245,7 @@ input[type="range"] {
   font-weight: 400;
 }
 .catalogue-head > span {
-  font-size: 8px;
+  font-size: 11px;
   color: var(--muted);
 }
 .crate {
@@ -273,7 +273,7 @@ input[type="range"] {
   position: absolute;
   bottom: 8px;
   left: 8px;
-  font-size: 6px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   background: var(--paper);
   color: var(--bg);
@@ -288,7 +288,7 @@ input[type="range"] {
   outline-offset: 4px;
 }
 .record-number {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   color: var(--muted);
 }
@@ -300,11 +300,11 @@ input[type="range"] {
   line-height: 1.5;
 }
 .artist {
-  font-size: 8px;
+  font-size: 11px;
   color: var(--muted);
 }
 .crate-note {
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.9;
   color: var(--muted);
   border-top: 1px solid var(--line);
@@ -325,13 +325,13 @@ input[type="range"] {
   max-width: 21ch;
 }
 .runout-note p {
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.9;
   color: var(--muted);
   max-width: 55ch;
 }
 .runout-note > span:last-child {
-  font-size: 8px;
+  font-size: 11px;
   white-space: nowrap;
   color: var(--orange);
 }
@@ -342,7 +342,7 @@ footer {
   display: flex;
   justify-content: space-between;
   gap: 25px;
-  font-size: 7px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
 }
@@ -399,7 +399,7 @@ footer {
     gap: 22px 15px;
   }
   .sleeve strong {
-    font-size: 10px;
+    font-size: 11px;
   }
   .runout-note {
     gap: 25px;
@@ -412,14 +412,14 @@ footer {
   .mast {
     margin: 0 20px;
     height: 47px;
-    font-size: 6px;
+    font-size: 11px;
     line-height: 1.7;
   }
   .mast > span {
     max-width: 28ch;
   }
   .mast > a {
-    font-size: 6px;
+    font-size: 11px;
     white-space: nowrap;
   }
   main {
@@ -456,11 +456,11 @@ footer {
     gap: 30px;
   }
   .deck-top {
-    font-size: 6px;
+    font-size: 11px;
     padding: 15px 0;
   }
   .deck-top span:last-child {
-    font-size: 5px;
+    font-size: 11px;
   }
   .deck-stage {
     height: 250px;
@@ -497,7 +497,7 @@ footer {
     margin-top: 8px;
   }
   .pitch label {
-    font-size: 7px;
+    font-size: 11px;
   }
   .pitch output {
     float: none;
@@ -505,16 +505,16 @@ footer {
     margin-top: 4px;
   }
   #pitch-reset {
-    font-size: 6px;
+    font-size: 11px;
   }
   .mix {
     gap: 20px;
   }
   .mix label {
-    font-size: 7px;
+    font-size: 11px;
   }
   .mix p {
-    font-size: 9px;
+    font-size: 11px;
   }
   .catalogue-head {
     padding: 20px 0;
@@ -529,17 +529,17 @@ footer {
     font-size: 11px;
   }
   .record-number {
-    font-size: 6px;
+    font-size: 11px;
   }
   .artist {
-    font-size: 8px;
+    font-size: 11px;
   }
   .selected {
-    font-size: 5px;
+    font-size: 11px;
     padding: 5px;
   }
   .crate-note {
-    font-size: 8px;
+    font-size: 11px;
   }
   .runout-note {
     display: block;
@@ -551,16 +551,16 @@ footer {
     max-width: 24ch;
   }
   .runout-note p {
-    font-size: 9px;
+    font-size: 11px;
     max-width: none;
     margin: 15px 0;
   }
   .runout-note > span:last-child {
-    font-size: 8px;
+    font-size: 11px;
   }
   footer {
     margin: 0 20px;
-    font-size: 7px;
+    font-size: 11px;
     gap: 18px;
   }
   footer span {
@@ -568,5 +568,55 @@ footer {
   }
   footer a {
     white-space: nowrap;
+  }
+}
+
+/* Legible labels and supporting copy at every viewport. */
+.mix p,
+.crate-note,
+.runout-note p,
+.artist,
+footer {
+  font-size: 13px;
+}
+.now-playing div > span,
+#pitch-reset {
+  font-size: 13px;
+}
+.transport,
+.now-playing {
+  flex-wrap: wrap;
+}
+@media (max-width: 700px) {
+  .mast {
+    height: auto;
+    min-height: 65px;
+    padding: 12px 0;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .deck-top {
+    flex-wrap: wrap;
+  }
+  .rpm {
+    gap: 6px;
+  }
+  .rpm button {
+    width: 50px;
+  }
+  .pitch {
+    min-width: 125px;
+  }
+  .mix {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mix p {
+    grid-column: 1/-1;
+  }
+  .artist {
+    display: block;
+  }
+  footer {
+    flex-wrap: wrap;
   }
 }

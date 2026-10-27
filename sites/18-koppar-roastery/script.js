@@ -251,6 +251,29 @@ function crack() {
     };
   }
 }
+// Peak bean temperature determines the irreversible roast development.
+// These accelerated landmarks agree with the crack markers on the curve.
+const DEVELOPMENT = [
+  [21, 0],
+  [120, 0.06],
+  [155, 0.2],
+  [185, 0.36],
+  [196, 0.45],
+  [205, 0.53],
+  [216, 0.66],
+  [224, 0.73],
+  [232, 0.79],
+  [242, 0.89],
+  [252, 1],
+];
+function developmentAt(temp) {
+  for (let i = 1; i < DEVELOPMENT.length; i++) {
+    const [hi, b] = DEVELOPMENT[i],
+      [lo, a] = DEVELOPMENT[i - 1];
+    if (temp <= hi) return a + (b - a) * Math.max(0, (temp - lo) / (hi - lo));
+  }
+  return 1;
+}
 function update(dt) {
   if (roast.state === "roasting") {
     roast.time += dt;
@@ -258,11 +281,7 @@ function update(dt) {
       ? Math.min(260, roast.airTemp + dt * 30)
       : Math.max(21, roast.airTemp - dt * 14);
     roast.beanTemp += (roast.airTemp - roast.beanTemp) * dt * 0.2;
-    if (roast.beanTemp > 130)
-      roast.level = Math.min(
-        1,
-        roast.level + dt * (roast.beanTemp - 130) * 0.00034,
-      );
+    roast.level = Math.max(roast.level, developmentAt(roast.beanTemp));
     sample += dt;
     if (sample > 0.3) {
       roast.curve.push([roast.time, roast.beanTemp]);
@@ -273,7 +292,7 @@ function update(dt) {
       ["firstCrack", 196, 0.4, "FIRST CRACK"],
       ["secondCrack", 224, 0.72, "SECOND CRACK"],
     ]) {
-      if (!roast[key] && roast.beanTemp >= temp && roast.level > level) {
+      if (!roast[key] && roast.beanTemp >= temp && roast.level >= level) {
         roast[key] = true;
         roast.events.push({ time: roast.time, temp: roast.beanTemp, label });
         crackFlash = 1;

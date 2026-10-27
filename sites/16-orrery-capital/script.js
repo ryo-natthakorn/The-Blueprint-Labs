@@ -188,6 +188,7 @@ const brass = new THREE.MeshStandardMaterial({
 });
 const core = new THREE.Group();
 scene.add(core);
+core.scale.setScalar(1.45);
 for (const [r, rx, ry] of [
   [3.3, 0, 0],
   [3.8, Math.PI / 2, 0],
@@ -317,6 +318,18 @@ const volInput = document.getElementById("vol");
 let volGoal = 0.16;
 volInput.addEventListener("input", () => {
   volGoal = volInput.value / 100;
+  regimeIndex = -1;
+  eccGoal = volGoal;
+  regimeEl.textContent = "Custom stress";
+  document.getElementById("regime-note").textContent =
+    volGoal < 0.3
+      ? "Low stress. Asset paths remain dispersed around the centre."
+      : volGoal < 0.65
+        ? "Rising stress. Outer paths widen and cross-asset coupling increases."
+        : "High stress. Paths converge as the orbital shells disperse.";
+  document
+    .querySelectorAll("[data-regime]")
+    .forEach((b) => b.setAttribute("aria-pressed", "false"));
 });
 
 const REGIMES = [

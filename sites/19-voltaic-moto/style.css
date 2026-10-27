@@ -53,7 +53,7 @@ canvas:focus-visible {
 }
 .mast > span,
 .mast > a:last-child {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   color: var(--muted);
 }
@@ -68,7 +68,7 @@ main {
   padding: 33px 0 13px;
 }
 .eyebrow {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--lime);
 }
@@ -137,13 +137,13 @@ h1 span {
 }
 .studio-top {
   top: 17px;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--muted);
 }
 .studio-top button {
   pointer-events: auto;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   padding: 8px;
   border: 1px solid var(--line);
@@ -152,7 +152,7 @@ h1 span {
   bottom: 18px;
 }
 .studio-bottom > span {
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.07em;
   color: var(--muted);
 }
@@ -162,7 +162,7 @@ h1 span {
   pointer-events: auto;
 }
 .views button {
-  font-size: 9px;
+  font-size: 11px;
   padding: 9px;
   border: 1px solid var(--line);
   color: var(--muted);
@@ -177,7 +177,7 @@ h1 span {
 .config-heading {
   display: flex;
   justify-content: space-between;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   color: var(--muted);
 }
@@ -209,7 +209,7 @@ h1 span {
   display: flex;
   gap: 12px;
   align-items: center;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
   text-align: left;
 }
@@ -235,7 +235,7 @@ h1 span {
   margin: 14px 0;
 }
 .modes button {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   border: 1px solid var(--line);
   padding: 11px 4px;
@@ -254,7 +254,7 @@ h1 span {
 .delivery-head {
   display: flex;
   justify-content: space-between;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.07em;
   color: var(--muted);
   margin-top: 22px;
@@ -275,7 +275,7 @@ h1 span {
   stroke-width: 1.4;
 }
 .config-foot {
-  font-size: 7px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
   letter-spacing: 0.08em;
@@ -293,7 +293,7 @@ h1 span {
   padding-left: 30px;
 }
 .specs span {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--muted);
 }
@@ -312,13 +312,13 @@ h1 span {
   align-self: center;
 }
 .spec-note b {
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.13em;
   font-weight: 400;
   color: var(--lime);
 }
 .spec-note p {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
   margin-top: 12px;
@@ -330,7 +330,7 @@ h1 span {
   padding: 27px 0;
 }
 .detail-note > span {
-  font-size: 8px;
+  font-size: 11px;
   color: var(--lime);
   letter-spacing: 0.1em;
   min-width: 190px;
@@ -354,7 +354,7 @@ footer {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.7;
   color: var(--muted);
 }
@@ -408,7 +408,7 @@ footer {
     font-size: 19px;
   }
   .mast > span {
-    font-size: 6px;
+    font-size: 11px;
     max-width: 85px;
     text-align: right;
     line-height: 1.8;
@@ -424,7 +424,7 @@ footer {
     display: block;
   }
   .eyebrow {
-    font-size: 7px;
+    font-size: 11px;
   }
   h1 {
     font-size: 59px;
@@ -432,7 +432,7 @@ footer {
     margin: 10px 0 20px;
   }
   h1 span {
-    font-size: 10px;
+    font-size: 11px;
     margin-left: 9px;
     margin-top: 12px;
   }
@@ -444,7 +444,7 @@ footer {
     font-size: 25px;
   }
   .model-copy p {
-    font-size: 10px;
+    font-size: 11px;
     max-width: 22ch;
   }
   .experience {
@@ -457,11 +457,11 @@ footer {
     width: 100%;
   }
   .studio-top {
-    font-size: 6px;
+    font-size: 11px;
     top: 14px;
   }
   .studio-top button {
-    font-size: 8px;
+    font-size: 11px;
   }
   .studio-bottom {
     bottom: 15px;
@@ -472,17 +472,17 @@ footer {
     gap: 8px;
   }
   .views button {
-    font-size: 8px;
+    font-size: 11px;
     padding: 10px;
   }
   .studio-bottom > span {
-    font-size: 6px;
+    font-size: 11px;
   }
   .configuration {
     padding: 0;
   }
   .config-heading {
-    font-size: 8px;
+    font-size: 11px;
   }
   .configuration h2 {
     margin: 12px 0 8px;
@@ -502,7 +502,7 @@ footer {
     flex-direction: column;
     gap: 9px;
     padding: 12px 4px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .paint i {
     width: 26px;
@@ -529,7 +529,7 @@ footer {
     height: 58px;
   }
   .config-foot {
-    font-size: 7px;
+    font-size: 11px;
     margin: 6px 0 22px;
   }
   .specs {
@@ -542,7 +542,7 @@ footer {
     padding-left: 14px;
   }
   .specs span {
-    font-size: 6px;
+    font-size: 11px;
     letter-spacing: 0.06em;
   }
   .specs strong {
@@ -563,10 +563,10 @@ footer {
   }
   .spec-note p {
     margin-top: 0;
-    font-size: 9px;
+    font-size: 11px;
   }
   .spec-note b {
-    font-size: 7px;
+    font-size: 11px;
     white-space: nowrap;
   }
   .detail-note {
@@ -574,7 +574,7 @@ footer {
     padding: 25px 0;
   }
   .detail-note > span {
-    font-size: 7px;
+    font-size: 11px;
   }
   .detail-note h2 {
     font-size: 23px;
@@ -586,12 +586,51 @@ footer {
   }
   footer {
     margin: 0 20px;
-    font-size: 7px;
+    font-size: 11px;
   }
   footer span {
     max-width: 28ch;
   }
   footer a {
     white-space: nowrap;
+  }
+}
+
+/* Legible labels and supporting copy at every viewport. */
+.model-copy p,
+.finish-note,
+#mode-note,
+.config-foot,
+.spec-note p,
+.detail-note p,
+footer {
+  font-size: 13px;
+}
+.delivery-head,
+.config-foot {
+  font-size: 13px;
+}
+@media (min-width: 1101px) and (min-height: 800px) {
+  .specs {
+    margin-top: 60px;
+  }
+}
+@media (max-width: 700px) {
+  .studio-top,
+  .studio-bottom {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .views {
+    flex-wrap: wrap;
+  }
+  .studio-spec {
+    line-height: 1.6;
+  }
+  .specs span {
+    letter-spacing: 0.02em;
+  }
+  footer {
+    flex-wrap: wrap;
   }
 }
