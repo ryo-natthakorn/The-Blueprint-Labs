@@ -103,6 +103,26 @@
   margin-top: 1.5rem;
 }
 
+.revamp-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  max-width: 68ch;
+}
+
+.revamp-list li {
+  color: var(--text-dim);
+  line-height: 1.65;
+  border-left: 2px solid var(--accent);
+  padding-left: 1.25rem;
+}
+
+.revamp-list strong {
+  color: var(--text);
+}
+
 .tree {
   background: var(--surface);
   border: 1px solid var(--border);

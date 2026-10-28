@@ -1,6 +1,6 @@
 # Revamp board
 
-**Next up / ถัดไป: Claude** ← the only line the user needs to read
+**Next up / ถัดไป: Codex** ← the only line the user needs to read
 
 Kickoff message (the same for both agents, every time):
 
@@ -38,7 +38,7 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T19 | Confirm batch 4 | Claude | done |
 | T20 | Fix batch 5 | Claude | done |
 | T21 | Build site 26 (5 passes, starting from the audit) | Claude | done |
-| T22 | Hub and guide | Claude | in progress |
+| T22 | Hub and guide | Claude | done |
 | T22a | Fix 18 (R3 from T19: mobile intro line) | Codex | todo |
 | T23 | Confirm batch 5 | Codex | todo |
 | T24 | Review site 26 + Hub + guide | Codex | todo |
@@ -96,3 +96,4 @@ One line per session: date · agent · tasks · last commit · handoff note.
 - 2026-10-27 · Claude · T11 done: 06–10 confirmed, all `done` (176cce8). T12 done: R1 fixed in 11 (d1d9a0a), 12 (b804ccc), 14 (1539b97) and 15 (c25c774), now `awaiting confirm`. T13 done: 16–20 reviewed, all `changes requested`, with R items in each note (d4c06b0). T14 done: 21–25 rebuilt in three passes, all `awaiting review` · 8921178 · Checks used `--cdn-mirror`. Headless Chromium here is SwiftShader at 2–6 fps, so simulated time runs slow in captures. Site 25 takes `?warp=2–8` to speed up its train clock for checking motion (off unless asked), and the thumbnail used `--wait 7000`. Codex: T15 confirm batch 3, T16 fix batch 4, T17 review batch 5, T18 audit site 26.
 
 - 2026-10-27 · Codex · T15 done: confirmed 11, 12, 14, 15; batch 3 is done. T16 done: 16–20 readability fixed in 61fd555, 16 slider/regime state and 18 roast development corrected; all awaiting confirm (17 optional cloth self-collision declined with reason). T17 done: 21, 23, 25 done; 22 mobile picker covers copy and 24 mobile Look hides the sheet, both must-fix R1 items for T20. T18 done: all seven Tideline pages audited, prioritized list and five-pass proposal in its note, no code changes · 63b47c3 (audit; 391b1c1 review) · check-rules OK; scoped verification 11/12/14/15, 16–20, 21–25 and 26 all zero console/page/request failures using the protocol CDN/font mirror. Desktop/mobile and motion on/off checks complete; 16–20 thumbnails regenerated. Claude Code: T19 confirm batch 4, T20 fix 22/24, T21 rebuild site 26 in five passes from the audit, T22 Hub and guide.
+- 2026-10-28 · Claude · T19 done: 16, 17, 19, 20 confirmed and `done`; 18 re-opened with must-fix R3 (mobile intro line 11px and reads "almostand"), Fix task T22a added for Codex and Confirm T24a for Claude (6865b5c). T20 done: 22 R1 (cards stick above the picker, 07c9bdc) and 24 R1 (Look docks the bench on phones, 0f4088b), both `awaiting confirm`. T21 done: The Tideline rebuilt in five passes from the T18 audit (shared system, shoreline shader + tide gauge, menu sheet / story day + map / private-dining floor plan, reservations focus + phone bar / gallery chapters / contact intents, all-page sweep); branded bar photos replaced by unbranded crops; `awaiting review` (d5667dd). T22 done: all thumbnails regenerated (09 and 14 kept their reviewed captures: both are generative and a retake only catches a random moment; their code is unchanged), Hub flagship and cards checked against `projects.json`, /guide gains a revamp section naming Claude Code (Claude Opus 5.5) and Codex (Astra / GPT 6) · see last commit · Checks used `--cdn-mirror` (this container can't reach jsdelivr, cdnjs, unpkg or any stock-photo host). Site 26 sweep: 7 pages × 4 viewports × motion on/off, zero errors. New dev tool: `node scripts/tideline-partials.js` owns site 26's shared head/header/drawer/footer. Codex: T22a fix 18, T23 confirm batch 5, T24 review site 26 + Hub + guide.

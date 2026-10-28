@@ -26,13 +26,14 @@
 
   <section class="guide-intro">
     <p class="kicker">Guide &middot; N&ordm; 01</p>
-    <h1>Twenty-five sites, one method.</h1>
+    <h1>Twenty-six sites, one method.</h1>
     <p class="lede">
       The Blueprint Labs is a capability showcase, not a client roster — twenty-five
       single-scene sites, each built to demonstrate a different code-driven visual
-      technique across a different business vertical. This page documents how the
-      collection was actually assembled: the stack, the repo shape, the batching
-      workflow, and who — or what — did the building.
+      technique across a different business vertical, plus one complete seven-page
+      restaurant website, The Tideline. This page documents how the collection was
+      actually assembled: the stack, the repo shape, the batching workflow, the
+      revamp, and who — or what — did the building.
     </p>
   </section>
 
@@ -89,6 +90,8 @@
     </p>
     <pre class="tree"><code>/sites/01-&lt;slug&gt;/index.html   (+ style.css, script.js, /assets)
 &hellip; through /sites/25-&lt;slug&gt;/
+/sites/26-the-tideline/         &larr; seven pages: menu, reservations, story,
+                                  private dining, gallery, contact
 /guide/index.html               &larr; you are here
 /index.html                     &larr; the Hub
 /projects.json                  &larr; single source of truth, drives the Hub
@@ -120,20 +123,57 @@
         <h3>Hub polish + this guide</h3>
         <p>Real thumbnails generated against the finished sites, a visual pass on the Hub to sit coherently in front of what it showcases, and this page.</p>
       </li>
+      <li>
+        <span class="phase-tag">Phases 4–5</span>
+        <h3>The flagship</h3>
+        <p>The Tideline: a full restaurant website with a reservation flow, inline dietary tags, private dining, gallery and contact, then its flagship treatment on the Hub.</p>
+      </li>
+      <li>
+        <span class="phase-tag">Phase 7</span>
+        <h3>The revamp</h3>
+        <p>Every site rebuilt in place by two coding agents taking turns. See below.</p>
+      </li>
     </ol>
   </section>
 
+  <section class="guide-section">
+    <h2><span class="num">04</span> The revamp</h2>
+    <p>
+      In 2026 all twenty-six sites were rebuilt in place, keeping each one's address,
+      fictional brand and core idea, and raising everything else: visual craft,
+      interaction depth, motion, the phone experience, load behaviour and accessibility.
+      The work was shared between two coding agents, <strong>Claude Code</strong>
+      (running Claude Opus 5.5) and <strong>Codex</strong> (running Astra / GPT&nbsp;6),
+      who never worked at the same time.
+    </p>
+    <ul class="revamp-list">
+      <li><strong>Build, review, fix.</strong> One agent rebuilt a batch of five sites in
+        three full passes; the other reviewed it against the original and a shared
+        checklist; the builder fixed every finding and the reviewer confirmed. The
+        flagship got an audit first and five passes.</li>
+      <li><strong>Everything in the repo.</strong> A protocol file, a board saying whose
+        turn it is, and one handoff note per site with its audit, plan, pass log,
+        verification, review and fix log. Nothing lived only in a chat.</li>
+      <li><strong>Mechanical rules.</strong> A small checker enforces the hard
+        constraints (self-hosted images, Google Fonts and Font Awesome only,
+        root-absolute paths, reduced-motion handling, no AI mentions outside this
+        page) before every handoff, alongside a browser run of every site.</li>
+    </ul>
+  </section>
+
   <section class="guide-section guide-authorship">
-    <h2><span class="num">04</span> Authorship</h2>
+    <h2><span class="num">05</span> Authorship</h2>
     <p>
       This is the only page in the project that mentions how the work was made.
-      The twenty-five standalone sites were designed and built by
-      <strong>Claude Fable 5</strong>, an Anthropic model, working through Phase 2
-      autonomously in creative batches with a full budget and no cost constraint —
-      the brief was simply to push visual and interactive ambition as far as each
-      concept called for. The Hub shell, this guide, and the final polish pass were
-      done by <strong>Claude Sonnet 5</strong>. The repo's build log records
-      which model built which site.
+      The twenty-five standalone sites and The Tideline were first designed and built by
+      <strong>Claude Fable 5</strong>, an Anthropic model, working autonomously in
+      creative batches with a full budget and no cost constraint — the brief was
+      simply to push visual and interactive ambition as far as each concept called
+      for. The Hub shell, this guide, and the original polish pass were done by
+      <strong>Claude Sonnet 5</strong>. The revamp was built and reviewed by
+      <strong>Claude Code</strong> (Claude Opus 5.5) and <strong>Codex</strong>
+      (Astra / GPT&nbsp;6). The repo's build log records who built and who reviewed
+      each site.
     </p>
   </section>
 
