@@ -530,15 +530,16 @@
       "shader shoreline"
     ],
     "accent": "#93bcae",
-    "description": "A complete seven-page restaurant website for a tide-to-table kitchen in a fictional harbor town — WebGL shoreline hero, a four-step reservation flow with realistically uneven availability, inline dietary tags, private dining, gallery and contact. Built to work like a real client site, not a demo.",
+    "description": "A complete seven-page restaurant website for a tide-to-table kitchen in a fictional harbor town: a live WebGL shoreline whose water follows the tide gauge, a keyboard-friendly four-step booking flow with realistically uneven availability, a printed daily menu with dietary filters, a private-dining floor plan that redraws to your party, and a dock-to-table story. Built to work like a real client site, not a demo.",
     "thumbnail": "/sites/26-the-tideline/assets/thumb.jpg",
     "livePath": "/sites/26-the-tideline/",
     "tech": [
-      "Raw WebGL shoreline shader",
+      "Raw WebGL swash-zone shader",
+      "procedural tide model",
       "custom reservation engine",
       "seeded availability model",
-      "shared multi-page design system",
-      "masonry lightbox"
+      "interactive SVG floor plan",
+      "shared multi-page design system"
     ],
     "status": "complete",
     "flagship": true

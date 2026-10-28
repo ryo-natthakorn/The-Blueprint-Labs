@@ -2,8 +2,8 @@
 
 - **Vertical:** Restaurant — Modern Coastal Kitchen
 - **Batch:** 26 · **Builder:** Claude · **Reviewer:** Codex
-- **Stage:** building
-- **Next step:** Claude continues T21 from the Pass log below.
+- **Stage:** awaiting review
+- **Next step:** Codex reviews the rebuilt site in T24 (with the Hub and guide).
 
 ## Original audit
 
@@ -300,8 +300,53 @@ No build passes performed by Codex in T18. Claude owns the five T21 passes.
   state is a recap (about, from, format, date, reference) with what happens
   next for that kind of enquiry, and takes focus. Backend TODO comments kept.
 
+### Pass 5 — hunt across all seven pages (Claude, T21)
+- Swept every page at 1440×900, 390×844, 1280×720 and 375×667, motion on and
+  reduced (56 configurations), scrolling each page through to load every
+  image and reveal. Fixed what it found: two decorative labels under 12px
+  (filter-chip abbreviations, dial hour labels), and the header button's
+  "Reserve a Table" had a doubled word gap from the flex gap.
+- Software rendering (this container's SwiftShader) showed that a slow GPU
+  could starve the page while the shoreline draws. The loop now watches its
+  real frame interval: a dozen slow frames in a row render smaller (up to
+  four steps), then settle at ~15 fps; it also stops drawing the moment the
+  visitor follows an internal link, and resumes on back/forward. Measured
+  in-page: click to next page's navigation start is 444 ms (the exit wash).
+- Checked every Font Awesome name used against the 6.5.1 free stylesheet;
+  all exist. Wash transitions land cleanly and never stay over a page
+  (also after Back). `projects.json` description and tech updated.
+
 ## Verification
 
+### Build verification — Claude · 2026-10-28 · T21
+- check-rules: **OK** (108 files, 26 projects).
+- verify-sites `--only 26 --cdn-mirror`: ok, console 0, page 0, failed
+  requests 0 (home only; the sweep below covers the nested pages).
+- All-page sweep, 56 configurations (7 pages × 1440×900, 390×844, 1280×720,
+  375×667 × motion on/reduced): **zero** console errors/warnings, page
+  errors, failed requests or 4xx/5xx; no sideways overflow; no visible text
+  under 12px; no broken images.
+- Visual check: **DONE** at 1440×900 and 390×844 (plus both short sizes),
+  motion on and reduced, all seven pages, by scroll-walk captures and
+  first-screen sheets. No-WebGL fallback checked on home.
+- Interaction journeys (scripted, keyboard and touch): drawer (Tab cycles
+  header+drawer, `inert` elsewhere, Escape returns to the button); home gauge
+  scrub 5 PM ↔ 10 PM moves the water (3.4 m → 0.9 m); menu vegan/GF filters
+  and the phone pill; story dial and map routes; private dining planner
+  room → tasting → buyout and the GET form into Contact (subject, format,
+  guests carried over); reservations party → keyboard calendar → slot →
+  empty submit (3 linked errors, focus on name) → confirmation → .ics
+  (DTSTART/SUMMARY checked) → book another, at 1440 and by touch at 390 with
+  the phone bar; gallery viewer (Enter opens, arrows, Tab trapped, Escape
+  returns focus to the last picture); contact prefill, errors, recap.
+- Environment: system Chromium/SwiftShader, protocol CDN/font mirror
+  (`--cdn-mirror`); this container cannot reach jsdelivr, cdnjs, unpkg or any
+  stock-photo host. Under SwiftShader the shader runs at a few fps, so
+  motion was judged from a sped-up frame sequence.
+- Thumbnail regenerated (`--force --cdn-mirror --wait 6000`) and inspected:
+  it shows the new shoreline, gauge and header.
+
+### Audit verification — Codex · 2026-10-27 · T18
 - check-rules: **OK** (99 files, 26 projects).
 - verify-sites: `--only 26 --cdn-mirror` → home OK, console 0, page 0,
   failed requests 0. This script alone does not cover the nested pages.

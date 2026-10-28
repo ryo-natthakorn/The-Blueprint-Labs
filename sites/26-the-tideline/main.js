@@ -115,6 +115,7 @@
     if (!a || !isInternal(a)) return;
     e.preventDefault();
     var dest = a.href;
+    document.dispatchEvent(new CustomEvent("tideline:leave"));
     try { sessionStorage.setItem("tl-wash", "1"); } catch (err) { /* fine */ }
     wash.classList.remove("in");
     wash.classList.add("out");

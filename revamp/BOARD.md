@@ -37,8 +37,8 @@ Take open tasks from the top, in order. Status: `todo` · `in progress` · `done
 | T18 | Audit site 26 (all 7 pages, no code changes) | Codex | done |
 | T19 | Confirm batch 4 | Claude | done |
 | T20 | Fix batch 5 | Claude | done |
-| T21 | Build site 26 (5 passes, starting from the audit) | Claude | in progress |
-| T22 | Hub and guide | Claude | todo |
+| T21 | Build site 26 (5 passes, starting from the audit) | Claude | done |
+| T22 | Hub and guide | Claude | in progress |
 | T22a | Fix 18 (R3 from T19: mobile intro line) | Codex | todo |
 | T23 | Confirm batch 5 | Codex | todo |
 | T24 | Review site 26 + Hub + guide | Codex | todo |
@@ -77,7 +77,7 @@ Stage: `not started` → `building` → `awaiting review` → `changes requested
 | 23-umbra-cacao | 5 | Claude | Codex | done | [note](notes/23-umbra-cacao.md) |
 | 24-pendula-works | 5 | Claude | Codex | awaiting confirm | [note](notes/24-pendula-works.md) |
 | 25-somne-railways | 5 | Claude | Codex | done | [note](notes/25-somne-railways.md) |
-| 26-the-tideline | 26 | Claude | Codex | not started | [note](notes/26-the-tideline.md) |
+| 26-the-tideline | 26 | Claude | Codex | awaiting review | [note](notes/26-the-tideline.md) |
 
 ## Questions for the user
 

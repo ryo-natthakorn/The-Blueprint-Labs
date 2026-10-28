@@ -310,22 +310,26 @@
   if (REDUCED) return;
 
   var running = !document.hidden, raf = 0, last = 0, start = performance.now() - STILL_T * 1000;
-  var slow = 0, frames = 0;
+  /* adaptive cost: watch the real frame interval; a dozen slow frames in a row
+     render smaller, and a very slow (software) renderer settles for ~15 fps,
+     so the page itself stays responsive */
+  var minGap = 30, slowRun = 0, steps = 0;
   function loop(now) {
     if (!running) return;
     raf = requestAnimationFrame(loop);
-    if (now - last < 30) return;           /* ~30 fps is plenty for a tide */
-    var dt = Math.min(0.1, (now - last) / 1000);
+    if (now - last < minGap) return;      /* ~30 fps is plenty for a tide */
+    var gap = last ? now - last : minGap;
+    var dt = Math.min(0.1, gap / 1000);
     last = now;
     ptr.x += (ptr.gx - ptr.x) * 0.05;
     level += (levelGoal - level) * (1 - Math.exp(-dt * 2.2));
-    var t0 = performance.now();
     draw((now - start) / 1000);
-    /* adaptive resolution: if frames keep costing more than ~40 ms, render smaller */
-    if (frames < 90) {
-      frames++;
-      if (performance.now() - t0 > 40 || dt > 0.06) slow++;
-      if (frames === 45 && slow > 30 && scale > 0.55) { scale *= 0.72; frames = 0; slow = 0; }
+    if (steps < 4) {
+      slowRun = gap > minGap * 2.2 ? slowRun + 1 : 0;
+      if (slowRun >= 12) {
+        slowRun = 0; steps++;
+        if (scale > 0.5) scale *= 0.7; else minGap = 66;
+      }
     }
   }
   function setRunning(on) {
@@ -334,8 +338,12 @@
     if (on) { last = 0; raf = requestAnimationFrame(loop); } else cancelAnimationFrame(raf);
   }
   if (running) raf = requestAnimationFrame(loop);
+  var onScreen = true;
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (en) { setRunning(en[0].isIntersecting && !document.hidden); }, { threshold: 0.02 }).observe(canvas);
+    new IntersectionObserver(function (en) { onScreen = en[0].isIntersecting; setRunning(onScreen && !document.hidden); }, { threshold: 0.02 }).observe(canvas);
   }
-  document.addEventListener("visibilitychange", function () { setRunning(!document.hidden); });
+  document.addEventListener("visibilitychange", function () { setRunning(onScreen && !document.hidden); });
+  /* leaving for another page: stop drawing so the exit is instant */
+  document.addEventListener("tideline:leave", function () { setRunning(false); });
+  window.addEventListener("pageshow", function () { setRunning(onScreen && !document.hidden); });
 })();

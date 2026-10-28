@@ -218,7 +218,8 @@ button { cursor: pointer; }
 .nav-links a:hover { color: var(--bone); }
 .nav-links a:hover::after, .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
 .nav-links a[aria-current="page"] { color: var(--glass-2); }
-.nav-cta { flex: none; }
+.nav-cta { flex: none; gap: 0; }
+.nav-cta .cta-long { margin-left: 0.36em; }   /* the flex gap would double the word space */
 .nav-cta[aria-current="page"] { background: transparent; color: var(--amber-2); }
 .nav-burger {
   display: none; flex: none;

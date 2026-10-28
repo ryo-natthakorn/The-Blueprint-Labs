@@ -23,7 +23,7 @@
 .dial .daylight { fill: none; stroke-width: 6; stroke-linecap: round; stroke: rgba(217, 160, 91, 0.55); }
 .dial .ticks line { stroke: var(--line-3); stroke-width: 1; }
 .dial .ticks line.major { stroke: var(--bone-3); stroke-width: 1.5; }
-.dial .ticks text { fill: var(--bone-3); font: 700 11px var(--sans); letter-spacing: .08em; }
+.dial .ticks text { fill: var(--bone-3); font: 700 12px var(--sans); letter-spacing: .06em; }
 .dial .hand { stroke: var(--amber); stroke-width: 2.5; stroke-linecap: round; transform-origin: 100px 100px; transition: transform .9s var(--ease-out); }
 .dial .hub { fill: var(--amber); }
 .clock-time { font-family: var(--serif); font-weight: 330; font-size: clamp(2.4rem, 4vw, 3.2rem); line-height: 1; font-variant-numeric: tabular-nums; }
